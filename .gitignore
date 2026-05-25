@@ -1,0 +1,18 @@
+# Strategy Studio
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+.env
+*.sqlite
+*.db
+.rig/
+dist/
+build/
+.mypy_cache/
+.pytest_cache/
+.hypothesis/
+coverage/
+htmlcov/
+.uv/

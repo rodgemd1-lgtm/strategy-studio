@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rig-strategy-studio"
+version = "0.1.0"
+description = "RIG Strategy Studio — deterministic strategy synthesis, wargame, forecasting, and decision room engine."
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.0",
+    "click",
+    "fastapi",
+    "uvicorn[standard]",
+    "pyyaml",
+    "rich",
+    "httpx",
+]
+
+[project.scripts]
+strategy-studio = "strategy_studio.cli:main"

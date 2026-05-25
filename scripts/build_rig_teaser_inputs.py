@@ -43,9 +43,11 @@ DEFAULT_EXTRA_PROSPECTS = (
     APOLLO / "apollo-contacts-rig-adjacent-50k.jsonl",
     PROSPECT_DB,
 )
+DEFAULT_COMPANY_ENRICHMENT = ROOT / "out/teasers_2000/company_enrichment_facts.jsonl"
 
 TODAY = date.today().isoformat()
 SITE_TIMEOUT_SECONDS = 4
+MIN_EMPLOYEES = 10
 
 
 @dataclass(frozen=True)
@@ -403,8 +405,44 @@ def segment_from_raw(raw_segment: str, label: str = "") -> str:
     return "rig-service-operators"
 
 
-def normalize_source_row(row: dict[str, Any], source_path: Path, index: int) -> dict[str, Any] | None:
+def load_company_enrichment(path: Path) -> dict[str, dict[str, Any]]:
+    enrichment: dict[str, dict[str, Any]] = {}
+    if not path.exists():
+        return enrichment
+    for row in read_jsonl(path):
+        domain = host_from_url(row.get("domain") or row.get("primary_domain") or row.get("website_url"))
+        if domain:
+            enrichment[domain] = row
+    return enrichment
+
+
+def apply_company_enrichment(row: dict[str, Any], enrichment_by_domain: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    domain = (
+        host_from_url(row.get("organization_domain"))
+        or host_from_url(row.get("organization_website"))
+        or host_from_url(row.get("website_url"))
+        or host_from_url(row.get("domain"))
+    )
+    fact = enrichment_by_domain.get(domain)
+    if not fact:
+        return row
+    patched = dict(row)
+    employee_count = fact.get("employee_count") or fact.get("estimated_num_employees")
+    if employee_count not in (None, "") and parse_int(employee_count, 0) >= MIN_EMPLOYEES:
+        patched["organization_employee_count"] = parse_int(employee_count, 0)
+    revenue = fact.get("revenue_usd_m") or fact.get("annual_revenue")
+    if revenue not in (None, "") and not patched.get("organization_revenue"):
+        patched["organization_revenue"] = revenue
+    patched["_company_enrichment_sources"] = fact.get("sources") or fact.get("evidence_sources") or []
+    patched["_company_enrichment_domain"] = domain
+    return patched
+
+
+def normalize_source_row(row: dict[str, Any], source_path: Path, index: int, enrichment_by_domain: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
     """Normalize Apollo/Phronema variants into the internal prospect row shape."""
+    row = apply_company_enrichment(row, enrichment_by_domain)
+    if not has_min_employee_count(row):
+        return None
     normalized = dict(row)
     source_name = source_path.name
     domain = (
@@ -488,14 +526,14 @@ def dedupe_key(row: dict[str, Any]) -> str:
     return f"company:{company}:{state}"
 
 
-def load_candidate_prospects(primary: Path, extra_paths: list[Path], limit: int = 0) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+def load_candidate_prospects(primary: Path, extra_paths: list[Path], enrichment_by_domain: dict[str, dict[str, Any]], limit: int = 0) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     source_counts: dict[str, int] = {}
     for path in [primary, *extra_paths]:
         rows = read_jsonl(path)
         source_counts[path.name] = len(rows)
         for idx, row in enumerate(rows, 1):
-            normalized = normalize_source_row(row, path, idx)
+            normalized = normalize_source_row(row, path, idx, enrichment_by_domain)
             if normalized:
                 candidates.append(normalized)
     best_by_key: dict[str, dict[str, Any]] = {}
@@ -519,6 +557,8 @@ def load_candidate_prospects(primary: Path, extra_paths: list[Path], limit: int 
         "candidate_rows": len(candidates),
         "deduped_rows": len(deduped),
         "duplicate_rows_removed": len(candidates) - len(best_by_key),
+        "min_employee_floor": MIN_EMPLOYEES,
+        "company_enrichment_domains": len(enrichment_by_domain),
     }
     return deduped, stats
 
@@ -555,6 +595,13 @@ def parse_int(value: Any, default: int) -> int:
         return max(1, int(float(str(value).replace(",", ""))))
     except (TypeError, ValueError):
         return default
+
+
+def has_min_employee_count(row: dict[str, Any]) -> bool:
+    raw = row.get("organization_employee_count")
+    if raw in (None, ""):
+        return False
+    return parse_int(raw, 0) >= MIN_EMPLOYEES
 
 
 def revenue_estimate_m(row: dict[str, Any], segment: str, employees: int) -> float:
@@ -729,6 +776,13 @@ def evidence_sources(row: dict[str, Any], market: dict[str, Any], plan: SegmentP
         f"Phronema RIG prospect export {TODAY} · SW 0.60",
         f"Phronema market-intel baseline {TODAY} · SW 0.50",
     ]
+    if row.get("organization_employee_count"):
+        sources.append(f"Apollo employee-count signal {TODAY} · SW 0.50")
+    if row.get("organization_revenue"):
+        sources.append(f"Apollo annual-revenue signal {TODAY} · SW 0.55")
+    for source in row.get("_company_enrichment_sources") or []:
+        if source and source not in sources:
+            sources.append(str(source))
     source_name = str(row.get("_source_name") or "")
     if "apollo-contacts" in source_name:
         sources.append(f"Apollo contact enrichment export {TODAY} · SW 0.45")
@@ -741,7 +795,7 @@ def evidence_sources(row: dict[str, Any], market: dict[str, Any], plan: SegmentP
     if row.get("linkedin_url"):
         sources.append(f"LinkedIn company/contact URL observed in Apollo {TODAY} · SW 0.35")
     sources.extend(plan.sources)
-    return sources[:6]
+    return sources[:8]
 
 
 def build_record(row: dict[str, Any], market: dict[str, Any], site: dict[str, Any], slug: str) -> dict[str, Any]:
@@ -830,13 +884,15 @@ def main() -> int:
     parser.add_argument("--prospect-csv", type=Path, default=ROOT / "inputs/prospect_list.csv")
     parser.add_argument("--site-cache", type=Path, default=ROOT / "out/teasers_2000/_site_cache.jsonl")
     parser.add_argument("--ledger", type=Path, default=ROOT / "out/teasers_2000/_a1_research_ledger.jsonl")
+    parser.add_argument("--company-enrichment", type=Path, default=DEFAULT_COMPANY_ENRICHMENT)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--workers", type=int, default=32)
     parser.add_argument("--skip-site-fetch", action="store_true")
     args = parser.parse_args()
 
     started = time.time()
-    prospects, prospect_stats = load_candidate_prospects(args.prospects, args.extra_prospects, args.limit)
+    enrichment_by_domain = load_company_enrichment(args.company_enrichment)
+    prospects, prospect_stats = load_candidate_prospects(args.prospects, args.extra_prospects, enrichment_by_domain, args.limit)
     market_rows = read_jsonl(args.market_intel)
     market_by_id = {str(row.get("prospect_id")): row for row in market_rows}
 

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ company_short }} — Strategy Teaser | RIG</title>
+<style>
+:root {
+  --primary: {{ primary_color }};
+  --secondary: {{ secondary_color }};
+  --bg: #0a0a0f;
+  --fg: #f5f5f7;
+  --muted: #8b8b94;
+  --accent: #ff6b35;
+  --line: #1a1a24;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, "Inter", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.55;
+  font-size: 17px;
+}
+.container { max-width: 880px; margin: 0 auto; padding: 80px 40px; }
+.section { margin-bottom: 64px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+.section:last-child { border-bottom: none; }
+
+h1 {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, var(--fg) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+h2 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+h3 { font-size: 28px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.01em; }
+p { margin-bottom: 16px; color: #d1d1d6; }
+.lede { font-size: 22px; line-height: 1.45; color: var(--fg); margin-bottom: 32px; }
+
+.hook {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+.hook .wound { color: var(--accent); }
+.kicker {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 24px;
+}
+
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px;
+}
+.card-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.card-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.card-body { font-size: 15px; color: #b8b8c0; line-height: 1.5; }
+.metric {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+th, td { text-align: left; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.badge-h { background: rgba(255,107,53,0.15); color: var(--accent); }
+.badge-m { background: rgba(255,193,7,0.15); color: #ffc107; }
+.badge-l { background: rgba(34,197,94,0.15); color: #22c55e; }
+
+.cta {
+  display: inline-block;
+  padding: 18px 32px;
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 8px;
+  margin-top: 16px;
+  letter-spacing: 0.02em;
+}
+.disqualifier { padding: 16px 0; border-bottom: 1px dashed var(--line); color: #a0a0a8; }
+.disqualifier:before { content: "✗  "; color: var(--accent); font-weight: 700; }
+
+.footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--muted);
+}
+.evidence { font-size: 13px; color: var(--muted); margin-top: 24px; font-family: ui-monospace, monospace; }
+.tier-1 { color: var(--accent); }
+.tier-2 { color: #ffc107; }
+.tier-3 { color: #22c55e; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ── 1. WOUND ────────────────────────────────────────────────────── -->
+<section class="section">
+  <span class="kicker">For {{ contact_name }} — {{ contact_role }}</span>
+  <h1>{{ company_short }}</h1>
+  <p class="lede">{{ industry }} · {{ employees }} employees · ${{ '%.0f'|format(revenue_usd_m) }}M · {{ years_in_business }} years · {{ headquarters }}</p>
+  <p class="hook">You are <span class="wound">{{ wound_months }} months</span> from being locked out of the <span class="wound">{{ wound_channel }}</span>.</p>
+  <p style="margin-top: 16px; color: var(--muted); font-size: 16px;">Trigger: {{ wound_trigger }}</p>
+</section>
+
+<!-- ── 2. MIRROR ───────────────────────────────────────────────────── -->
+<section class="section">
+  <h2>What we see</h2>
+  <h3>{{ capability_count }} capabilities. {{ capability_gap }}</h3>
+  <div class="grid-3">
+    {% for cap in capability_names %}
+    <div class="card">
+      <div class="card-eyebrow">Capability {{ loop.index }}</div>
+      <div class="card-title">{{ cap }}</div>
+      <div class="card-body">Defensible. Not yet productized as intelligence.</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ── 3. NAMED MECHANISM ──────────────────────────────────────────── -->
+<section class="section">
+  <h2>The mechanism we'd build</h2>
+  <h3>{{ mechanism_name }}</h3>
+  <p class="lede">{{ mechanism_description }}</p>
+</section>
+
+<!-- ── 4. STRUCTURAL ADVANTAGES ────────────────────────────────────── -->
+<section class="section">
+  <h2>What you don't see in yourself</h2>
+  <h3>Three structural advantages</h3>
+  <div class="grid-3">
+    {% for adv in advantages %}
+    <div class="card">
+      <div class="card-eyebrow">Advantage {{ loop.index }}</div>
+      <div class="card-body" style="font-size: 16px; color: var(--fg);">{{ adv }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ── 5. COMPARABLE ───────────────────────────────────────────────── -->
+<section class="section">
+  <h2>The analog that already happened</h2>
+  <h3>{{ comparable_company }}</h3>
+  <p class="lede">
+    {{ comparable_year_start }}: ${{ '%.0f'|format(comparable_revenue_start_m) }}M revenue, zero new segment.
+    {{ comparable_year_end }}: ${{ '%.0f'|format(comparable_revenue_end_m) }}M revenue,
+    new segment grew to <span class="metric">${{ '%.0f'|format(comparable_segment_growth_m) }}M</span>.
+  </p>
+  <p>The pivot they made is the pivot in front of {{ company_short }} today.</p>
+</section>
+
+<!-- ── 6. ENGINES ──────────────────────────────────────────────────── -->
+<section class="section">
+  <h2>Three category engines</h2>
+  <h3>Each product line as a data flywheel</h3>
+  <div class="grid-3">
+    {% for engine in engines %}
+    <div class="card">
+      <div class="card-eyebrow">{{ engine.sigma_label }} · {{ engine.flywheel_type }} flywheel</div>
+      <div class="card-title">{{ engine.name }}</div>
+      <div class="card-body">{{ engine.flywheel_loop }}</div>
+      <div style="margin-top: 16px; font-size: 22px;" class="metric">${{ '%.0f'|format(engine.target_revenue_m) }}M target</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ── 7. THREATS ──────────────────────────────────────────────────── -->
+<section class="section">
+  <h2>Who arrives first if you don't move</h2>
+  <table>
+    <thead><tr><th>Threat</th><th>Horizon</th><th>Key fact</th><th>SW</th></tr></thead>
+    <tbody>
+      {% for threat in threats %}
+      <tr>
+        <td class="{{ 'tier-1' if threat.tier == 'Tier 1' else ('tier-2' if threat.tier == 'Tier 2' else 'tier-3') }}">
+          <strong>{{ threat.name }}</strong><br>
+          <span style="color: var(--muted); font-size: 13px;">{{ threat.tier }}</span>
+        </td>
+        <td>{{ threat.horizon_months }}mo</td>
+        <td>{{ threat.key_fact }}</td>
+        <td><span class="metric">{{ '%.2f'|format(threat.source_weight) }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<!-- ── 8. THREE RIG OS TIERS ───────────────────────────────────────── -->
+<section class="section">
+  <h2>What's possible</h2>
+  <h3>Three engagement tiers, scoped to your wound</h3>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-eyebrow">Tier 1 · Diagnostic</div>
+      <div class="card-title">2 weeks · $14K fixed</div>
+      <div class="card-body">One-page memo + 3 disqualifier tests. Falsification gate. UNKNOWN policy applied. Decision: GO / NO-GO.</div>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">Tier 2 · Activation</div>
+      <div class="card-title">3 months · $95K + retainer</div>
+      <div class="card-body">Foundation + AI literacy + Solo deploy + first production workflow. Day-90 ROI report. Mike on-site 2 days/week.</div>
+    </div>
+    <div class="card">
+      <div class="card-eyebrow">Tier 3 · Transformation</div>
+      <div class="card-title">9–18 months · $185K–$485K + retainer</div>
+      <div class="card-body">Full Forge-pattern: Solo, Team, Vault, Edge, Sight, Blueprint. Production guarantee or prorated refund.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 9. DISQUALIFIERS ────────────────────────────────────────────── -->
+<section class="section">
+  <h2>When we say no</h2>
+  <h3>Three disqualifiers</h3>
+  <div>
+    {% for dq in disqualifiers %}<div class="disqualifier">{{ dq }}</div>{% endfor %}
+  </div>
+</section>
+
+<!-- ── 10. OPEN LOOP ───────────────────────────────────────────────── -->
+<section class="section">
+  <h2>What happens next</h2>
+  <h3>One conversation. No deck.</h3>
+  <p class="lede">If anything in this memo is wrong, we want to know first. Send the falsification. We update or we walk.</p>
+  <p style="color: var(--muted);">
+    No calendar link. No "happy to chat". {{ contact_name }} replies to <a href="mailto:strategy@rodgers-intelligence.com" style="color: var(--primary);">strategy@rodgers-intelligence.com</a> with the line in this memo that's wrong, or the wound number that's off.
+  </p>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+<div class="footer">
+  <strong>Confidence: <span class="badge badge-{{ confidence|lower }}">{{ confidence }}</span></strong>
+  <p class="evidence">
+    Sources: {% for src in evidence_sources %}{{ src }}{% if not loop.last %} · {% endif %}{% endfor %}
+  </p>
+  <p style="margin-top: 16px;">
+    Cloned site: <a href="{{ cloned_site_url }}" style="color: var(--primary);">{{ cloned_site_url }}</a>
+    · Generated by RIG Strategy Studio · A1 frozen pipeline · ProofPacket on file
+  </p>
+</div>
+
+</div>
+</body>
+</html>

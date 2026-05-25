@@ -1,0 +1,99 @@
+name: strategy-studio
+version: 1.0.0
+description: Strategy Studio — RIG Deviator strategy synthesis, wargame, forecasting, and decision room engine
+
+metadata:
+  owner: mike
+  created: 2026-05-25
+  board: rig-studios
+  a_phase: A3
+
+sources:
+  lakeos:
+    path: /Users/mikerodgers/rig-lab/phronema
+    cli: python3 scripts/lakeos_cli.py
+    rest: http://127.0.0.1:8788
+    packets:
+      strategy_synthesist: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B29-strategy_synthesist_packet.json
+      market_wargame: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B36-market_wargame_packet.json
+      competitor_intel: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B42-competitor_intelligence_packet.json
+      client_intel: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B41-client_intelligence_packet.json
+      prediction_crux: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B34-prediction_crux_packet.json
+      falsification: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B33-falsification_packet.json
+      consensus_delta: lake/a3-a4-workflow-engine/a3a4-engine-20260524T211522Z/B31-consensus_delta_packet.json
+
+  recall:
+    api_base: https://backend.getrecall.ai/api/v1
+    local_index: artifacts/recall/index.json
+    strategy_cards_dir: artifacts/recall/strategy_cards
+    pull_script: scripts/book/pull_recall.py
+    strategy_card_count: 118
+
+  local:
+    - startup-os/artifacts/
+    - startup-os/control-plane/
+    - docs/recruitment-studio/
+
+capabilities:
+  strategy_synthesis:
+    description: Combine evidence into ranked strategy options with IQRSQPI scoring
+    inputs: [lakeos_query, recall_search, competitor_intel]
+    outputs: [strategy_options_ranked, evidence_map]
+    packet: B29
+
+  market_wargame:
+    description: Model competitor moves, buyer pain, RIG responses
+    inputs: [competitor_intel, client_intel, market_data]
+    outputs: [wargame_scenarios, response_options]
+    packet: B36
+
+  competitor_intelligence:
+    description: Competitor changes → RIG response options
+    inputs: [web_research, lakeos_search, recall_cards]
+    outputs: [competitor_digest, response_playbook]
+    packet: B42
+
+  client_intelligence:
+    description: Prospect/client evidence → wedge offers
+    inputs: [crm_data, lakeos_search, recall_cards]
+    outputs: [client_wedge_offers, positioning_angles]
+    packet: B41
+
+  prediction_crux:
+    description: Strategic questions → forecast variables + cruxes
+    inputs: [strategic_question, lakeos_evidence]
+    outputs: [forecast_variables, crux_register]
+    packet: B34
+
+  falsification:
+    description: Require evidence that could disprove current belief
+    inputs: [current_belief, evidence_pool]
+    outputs: [falsification_tests, belief_update]
+    packet: B33
+
+  consensus_delta:
+    description: New research vs current beliefs → contradiction log
+    inputs: [new_research, belief_state]
+    outputs: [belief_updates, contradiction_log]
+    packet: B31
+
+quality_gates:
+  - name: evidence_required
+    check: min_2_sources
+    fail_action: return_UNKNOWN_and_request_indexing
+  - name: falsification_gate
+    check: falsification_packet_exists
+    fail_action: block_strategy_output
+  - name: proof_packet
+    check: strategy_proof_packet_created
+    fail_action: block_external_send
+
+wiring:
+  upstream:
+    - intake-gtm-studio
+    - mission-control
+  downstream:
+    - gtm-studio
+    - design-studio
+    - proposal-studio
+  validation: startup-os/runtime/studios/mission-control/cross_studio_validation_pipeline.py

@@ -1,0 +1,68 @@
+{
+  "studio_id": "strategy-studio",
+  "goals": [
+    {
+      "id": "G001",
+      "title": "Strategy Synthesis Engine",
+      "description": "Combine retrieved evidence from LakeOS + recall.it into ranked strategy options with IQRSQPI scoring",
+      "status": "active",
+      "priority": "P0",
+      "source_packets": ["B29"],
+      "outputs": ["strategy_options_ranked.json", "evidence_map.json"]
+    },
+    {
+      "id": "G002",
+      "title": "Market Wargame Simulator",
+      "description": "Model competitor moves, buyer pain scenarios, and RIG response options with falsification gates",
+      "status": "active",
+      "priority": "P0",
+      "source_packets": ["B36", "B33"],
+      "outputs": ["wargame_scenarios.json", "response_options.json"]
+    },
+    {
+      "id": "G003",
+      "title": "Competitor Intelligence Pipeline",
+      "description": "Turn competitor changes into RIG response options with source-backed evidence",
+      "status": "active",
+      "priority": "P1",
+      "source_packets": ["B42"],
+      "outputs": ["competitor_digest.json", "response_playbook.json"]
+    },
+    {
+      "id": "G004",
+      "title": "Client Intelligence Synthesizer",
+      "description": "Turn prospect/client evidence into wedge offers and positioning angles",
+      "status": "active",
+      "priority": "P1",
+      "source_packets": ["B41"],
+      "outputs": ["client_wedge_offers.json", "positioning_angles.json"]
+    },
+    {
+      "id": "G005",
+      "title": "Prediction Crux Engine",
+      "description": "Turn strategic questions into forecast variables, cruxes, and Brier score tracking",
+      "status": "active",
+      "priority": "P1",
+      "source_packets": ["B34"],
+      "outputs": ["forecast_variables.json", "crux_register.json"]
+    },
+    {
+      "id": "G006",
+      "title": "Consensus Delta Tracker",
+      "description": "Compare new research against current beliefs, surface contradictions, update confidence",
+      "status": "active",
+      "priority": "P2",
+      "source_packets": ["B31"],
+      "outputs": ["belief_updates.json", "contradiction_log.json"]
+    },
+    {
+      "id": "G007",
+      "title": "GTM Planning Surface",
+      "description": "Generate go-to-market plans from strategy synthesis + recall.it GTM cards",
+      "status": "backlog",
+      "priority": "P2",
+      "source_packets": ["B29", "B36"],
+      "outputs": ["gtm_plan.json", "channel_playbook.json"]
+    }
+  ]
+}

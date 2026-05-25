@@ -1,0 +1,77 @@
+{
+  "studio_id": "strategy-studio",
+  "display_name": "Strategy Studio",
+  "description": "Run strategy, forecasting, decision rooms, and founder-level tradeoff analysis through the RIG Deviator (40 engines × ±25σ). Wires QNAP LakeOS evidence, recall.it strategy cards, and the A3-A4 workflow engine B-packets into a single operator surface.",
+  "version": "1.0.0",
+  "status": "active",
+  "owner": "mike",
+  "created_at": "2026-05-25T17:35:00Z",
+  "updated_at": "2026-05-25T17:35:00Z",
+  "entrypoint": {
+    "python_module": "services.rig_commands.rig_strategy_studio",
+    "cli_command": "python3 -m services.rig_commands.rig_strategy_studio",
+    "hermes_skill": "rig-strategy-studio",
+    "hardcoded_skill": "rig-hardcoded/rig-strategy-studio"
+  },
+  "sources": {
+    "lakeos": {
+      "description": "QNAP LakeOS RAG — 200K chunks, 3.5M graph edges, strategy B-packets",
+      "path": "/Users/mikerodgers/rig-lab/phronema",
+      "cli": "python3 scripts/lakeos_cli.py",
+      "key_packets": [
+        "B29-strategy_synthesist_packet.json",
+        "B36-market_wargame_packet.json",
+        "B42-competitor_intelligence_packet.json",
+        "B41-client_intelligence_packet.json",
+        "B34-prediction_crux_packet.json",
+        "B33-falsification_packet.json",
+        "B31-consensus_delta_packet.json"
+      ]
+    },
+    "recall": {
+      "description": "recall.it strategy cards — 118 strategy-relevant cards",
+      "api_base": "https://backend.getrecall.ai/api/v1",
+      "local_index": "artifacts/recall/index.json",
+      "strategy_cards_dir": "artifacts/recall/strategy_cards",
+      "pull_script": "scripts/book/pull_recall.py",
+      "total_cards": 4000,
+      "strategy_cards": 118
+    },
+    "local_artifacts": {
+      "description": "Local strategy artifacts and build cards",
+      "paths": [
+        "startup-os/artifacts/",
+        "startup-os/control-plane/",
+        "docs/recruitment-studio/"
+      ]
+    }
+  },
+  "capabilities": [
+    "strategy_synthesis",
+    "market_wargame",
+    "competitor_intelligence",
+    "client_intelligence",
+    "prediction_crux",
+    "falsification",
+    "consensus_delta",
+    "forecasting",
+    "decision_room",
+    "gtm_planning",
+    "positioning_thesis"
+  ],
+  "wiring": {
+    "upstream": ["intake-gtm-studio", "mission-control"],
+    "downstream": ["gtm-studio", "design-studio", "proposal-studio"],
+    "validation": "startup-os/runtime/studios/mission-control/cross_studio_validation_pipeline.py"
+  },
+  "kanban": {
+    "board_id": "rig-studios",
+    "studio_column": "strategy-studio"
+  },
+  "proof_policy": {
+    "required": true,
+    "packet_type": "strategy_proof_packet",
+    "min_evidence_sources": 2,
+    "falsification_required": true
+  }
+}

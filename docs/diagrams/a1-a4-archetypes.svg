@@ -1,0 +1,346 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="858" viewBox="0 0 1520 858">
+<rect width="1520" height="858" fill="#ffffff"/>
+
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#1e3a5f"/>
+      </marker>
+    </defs>
+    
+<text x="750.0" y="77.5" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="750.0" dy="0">RIG Systems Engineering — A1 A2 A3 A4 Archetypes</tspan>
+</text>
+<text x="750.0" y="105.0" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#64748b" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="750.0" dy="0">28 reusable archetypes = 4 BMS modes × 7 IQRSQPI steps | 3,087-cell lattice | 40 deviation engines</tspan>
+</text>
+<text x="290.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="290.0" dy="0">I1 Intent</tspan>
+</text>
+<text x="470.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="470.0" dy="0">Q1 Question</tspan>
+</text>
+<text x="650.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="650.0" dy="0">R Research</tspan>
+</text>
+<text x="830.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="830.0" dy="0">S Solution</tspan>
+</text>
+<text x="1010.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1010.0" dy="0">Q2 Quality</tspan>
+</text>
+<text x="1190.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1190.0" dy="0">P Proof</tspan>
+</text>
+<text x="1370.0" y="142.5" font-family="Arial,Helvetica,sans-serif" font-size="14" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1370.0" dy="0">I2 Integrate</tspan>
+</text>
+<text x="60" y="210.0" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#1e3a5f" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">A1: Python Only</tspan>
+</text>
+<text x="60" y="222" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">Deterministic. Regex, YAML, Pydantic. No model in decision path.</tspan>
+</text>
+<rect x="210" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="215" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="215" dy="0">classify_intent()</tspan>
+<tspan x="215" dy="11.25">Regex + YAML lookup</tspan>
+<tspan x="215" dy="22.5">Pydantic validation</tspan>
+<tspan x="215" dy="33.75">UNKNOWN on no match</tspan>
+</text>
+<rect x="390" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="395" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="395" dy="0">generate_questions()</tspan>
+<tspan x="395" dy="11.25">Template-driven</tspan>
+<tspan x="395" dy="22.5">Schema-bound output</tspan>
+<tspan x="395" dy="33.75">No LLM reasoning</tspan>
+</text>
+<rect x="570" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="575" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="575" dy="0">execute_research()</tspan>
+<tspan x="575" dy="11.25">Deterministic scrape</tspan>
+<tspan x="575" dy="22.5">Structured extraction</tspan>
+<tspan x="575" dy="33.75">Claim-source binding</tspan>
+</text>
+<rect x="750" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="755" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="755" dy="0">build_solution()</tspan>
+<tspan x="755" dy="11.25">Jinja2 templates</tspan>
+<tspan x="755" dy="22.5">Schema validation</tspan>
+<tspan x="755" dy="33.75">Retry on fail</tspan>
+</text>
+<rect x="930" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="935" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="935" dy="0">run_quality_gates()</tspan>
+<tspan x="935" dy="11.25">Physics + cognitive</tspan>
+<tspan x="935" dy="22.5">Anti-slop checks</tspan>
+<tspan x="935" dy="33.75">Pass/fail scoring</tspan>
+</text>
+<rect x="1110" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="1115" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1115" dy="0">create_proof_packet()</tspan>
+<tspan x="1115" dy="11.25">Content-addressed</tspan>
+<tspan x="1115" dy="22.5">Signed hash</tspan>
+<tspan x="1115" dy="33.75">Append-only audit</tspan>
+</text>
+<rect x="1290" y="170" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="1295" y="175" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1295" dy="0">integrate_output()</tspan>
+<tspan x="1295" dy="11.25">DAG-acyclic check</tspan>
+<tspan x="1295" dy="22.5">Approval policy</tspan>
+<tspan x="1295" dy="33.75">Dispatch or escalate</tspan>
+</text>
+<text x="60" y="390.0" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#1e3a5f" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">A2: Hybrid</tspan>
+</text>
+<text x="60" y="402" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">Deterministic first, schema-constrained LLM assist. Python validates all output.</tspan>
+</text>
+<rect x="210" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="215" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="215" dy="0">classify_intemt()</tspan>
+<tspan x="215" dy="11.25">Deterministic pre-check</tspan>
+<tspan x="215" dy="22.5">LLM assist if needed</tspan>
+<tspan x="215" dy="33.75">Python validates output</tspan>
+</text>
+<rect x="390" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="395" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="395" dy="0">generate_questions()</tspan>
+<tspan x="395" dy="11.25">5+ distinct framings</tspan>
+<tspan x="395" dy="22.5">Contrarian sources</tspan>
+<tspan x="395" dy="33.75">Deviation &gt;= +3σ</tspan>
+</text>
+<rect x="570" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="575" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="575" dy="0">execute_research()</tspan>
+<tspan x="575" dy="11.25">Wide-aperture</tspan>
+<tspan x="575" dy="22.5">3+ epistemic tiers</tspan>
+<tspan x="575" dy="33.75">Contradiction pairs</tspan>
+</text>
+<rect x="750" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="755" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="755" dy="0">build_solution()</tspan>
+<tspan x="755" dy="11.25">5-10 shapes</tspan>
+<tspan x="755" dy="22.5">Falsifiable sketches</tspan>
+<tspan x="755" dy="33.75">No mechanism lock</tspan>
+</text>
+<rect x="930" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="935" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="935" dy="0">run_quality_gates()</tspan>
+<tspan x="935" dy="11.25">Coverage check</tspan>
+<tspan x="935" dy="22.5">Adversarial sweep</tspan>
+<tspan x="935" dy="33.75">Anti-slop probing</tspan>
+</text>
+<rect x="1110" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="1115" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1115" dy="0">create_proof_packet()</tspan>
+<tspan x="1115" dy="11.25">Exploration receipt</tspan>
+<tspan x="1115" dy="22.5">Dead ends logged</tspan>
+<tspan x="1115" dy="33.75">Phronema-compatible</tspan>
+</text>
+<rect x="1290" y="350" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="1295" y="355" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1295" dy="0">integrate_output()</tspan>
+<tspan x="1295" dy="11.25">Frame selection</tspan>
+<tspan x="1295" dy="22.5">Human-in-loop L5+</tspan>
+<tspan x="1295" dy="33.75">Deterministic shortlist</tspan>
+</text>
+<text x="60" y="570.0" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#1e3a5f" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">A3: Agent Bounded</tspan>
+</text>
+<text x="60" y="582" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">LangGraph intent node. Bounded reasoning. Tool allowlist enforced.</tspan>
+</text>
+<rect x="210" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="215" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="215" dy="0">classify_intent()</tspan>
+<tspan x="215" dy="11.25">LangGraph node</tspan>
+<tspan x="215" dy="22.5">Bounded reasoning</tspan>
+<tspan x="215" dy="33.75">Tool allowlist</tspan>
+</text>
+<rect x="390" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="395" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="395" dy="0">generate_questions()</tspan>
+<tspan x="395" dy="11.25">Ambiguous/UNKNOWN</tspan>
+<tspan x="395" dy="22.5">Frame collision</tspan>
+<tspan x="395" dy="33.75">Orthodoxy rupture</tspan>
+</text>
+<rect x="570" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="575" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="575" dy="0">execute_research()</tspan>
+<tspan x="575" dy="11.25">Agent-driven</tspan>
+<tspan x="575" dy="22.5">MCP tool ring</tspan>
+<tspan x="575" dy="33.75">Mem0 memory</tspan>
+</text>
+<rect x="750" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="755" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="755" dy="0">build_solution()</tspan>
+<tspan x="755" dy="11.25">Sonnet/Opus nodes</tspan>
+<tspan x="755" dy="22.5">Promptfoo eval</tspan>
+<tspan x="755" dy="33.75">AionUI 72h signoff</tspan>
+</text>
+<rect x="930" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="935" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="935" dy="0">run_quality_gates()</tspan>
+<tspan x="935" dy="11.25">Physics 31+35</tspan>
+<tspan x="935" dy="22.5">Cognitive rupture</tspan>
+<tspan x="935" dy="33.75">RIG-L composite</tspan>
+</text>
+<rect x="1110" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="1115" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1115" dy="0">create_proof_packet()</tspan>
+<tspan x="1115" dy="11.25">Mandatory 72h</tspan>
+<tspan x="1115" dy="22.5">Budget cap check</tspan>
+<tspan x="1115" dy="33.75">Quality gate</tspan>
+</text>
+<rect x="1290" y="530" width="160" height="80" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="1295" y="535" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#ffffff" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1295" dy="0">integrate_output()</tspan>
+<tspan x="1295" dy="11.25">Escalate to A4.1</tspan>
+<tspan x="1295" dy="22.5">if budget/quality fail</tspan>
+<tspan x="1295" dy="33.75">Post-mortem required</tspan>
+</text>
+<text x="60" y="750.0" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#6d28d9" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">A4: LLM Agent Free</tspan>
+</text>
+<text x="60" y="762" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">Open-ended framing. Multiple competing interpretations. Downstream narrowing.</tspan>
+</text>
+<rect x="210" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="215" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="215" dy="0">classify_intent()</tspan>
+<tspan x="215" dy="11.25">Open-ended framing</tspan>
+<tspan x="215" dy="22.5">Multiple interpretations</tspan>
+<tspan x="215" dy="33.75">Premature certainty banned</tspan>
+</text>
+<rect x="390" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="395" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="395" dy="0">generate_questions()</tspan>
+<tspan x="395" dy="11.25">Novel/ambiguous</tspan>
+<tspan x="395" dy="22.5">Competing frames</tspan>
+<tspan x="395" dy="33.75">No narrowing yet</tspan>
+</text>
+<rect x="570" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="575" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="575" dy="0">execute_research()</tspan>
+<tspan x="575" dy="11.25">CrewAI hierarchical</tspan>
+<tspan x="575" dy="22.5">OR-Tools/PuLP</tspan>
+<tspan x="575" dy="33.75">Brier prediction loop</tspan>
+</text>
+<rect x="750" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="755" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="755" dy="0">build_solution()</tspan>
+<tspan x="755" dy="11.25">Opus reasoning</tspan>
+<tspan x="755" dy="22.5">Multi-agent debate</tspan>
+<tspan x="755" dy="33.75">AionUI no timeout</tspan>
+</text>
+<rect x="930" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="935" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="935" dy="0">run_quality_gates()</tspan>
+<tspan x="935" dy="11.25">Full physics stack</tspan>
+<tspan x="935" dy="22.5">Bell inequality</tspan>
+<tspan x="935" dy="33.75">Nature 22</tspan>
+</text>
+<rect x="1110" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="1115" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1115" dy="0">create_proof_packet()</tspan>
+<tspan x="1115" dy="11.25">No timeout</tspan>
+<tspan x="1115" dy="22.5">Mandatory post-mortem</tspan>
+<tspan x="1115" dy="33.75">Top of lattice</tspan>
+</text>
+<rect x="1290" y="710" width="160" height="80" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="1295" y="715" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#374151" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1295" dy="0">integrate_output()</tspan>
+<tspan x="1295" dy="11.25">Cannot escalate</tspan>
+<tspan x="1295" dy="22.5">Block and resolve</tspan>
+<tspan x="1295" dy="33.75">Identity-level decision</tspan>
+</text>
+<path d="M 372,210 L 388,210" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 552,210 L 568,210" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 732,210 L 748,210" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 912,210 L 928,210" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1092,210 L 1108,210" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1272,210 L 1288,210" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 372,390 L 388,390" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 552,390 L 568,390" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 732,390 L 748,390" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 912,390 L 928,390" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1092,390 L 1108,390" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1272,390 L 1288,390" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 372,570 L 388,570" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 552,570 L 568,570" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 732,570 L 748,570" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 912,570 L 928,570" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1092,570 L 1108,570" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1272,570 L 1288,570" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 372,750 L 388,750" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 552,750 L 568,750" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 732,750 L 748,750" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 912,750 L 928,750" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1092,750 L 1108,750" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1272,750 L 1288,750" stroke="#1e3a5f" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<path d="M 1370,252 L 1370,348" stroke="#dc2626" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<text x="1380" y="300.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#dc2626" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1380" dy="0">escalate →</tspan>
+</text>
+<path d="M 1370,432 L 1370,528" stroke="#dc2626" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<text x="1380" y="480.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#dc2626" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1380" dy="0">escalate →</tspan>
+</text>
+<path d="M 1370,612 L 1370,708" stroke="#dc2626" fill="none" stroke-width="2" opacity="1.0" marker-end="url(#arrowhead)"/>
+<text x="1380" y="660.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#dc2626" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1380" dy="0">escalate →</tspan>
+</text>
+<rect x="210" y="115" width="700" height="14" rx="8" stroke="#b45309" fill="#fef3c7" stroke-width="2" opacity="0.6"/>
+<text x="560.0" y="116.375" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#b45309" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="560.0" dy="0">D1</tspan>
+<tspan x="560.0" dy="11.25">Discovery</tspan>
+</text>
+<rect x="912" y="115" width="358" height="14" rx="8" stroke="#047857" fill="#a7f3d0" stroke-width="2" opacity="0.6"/>
+<text x="1091.0" y="116.375" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#047857" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1091.0" dy="0">D2</tspan>
+<tspan x="1091.0" dy="11.25">Development</tspan>
+</text>
+<rect x="1272" y="115" width="178" height="14" rx="8" stroke="#1e40af" fill="#dbeafe" stroke-width="2" opacity="0.6"/>
+<text x="1361.0" y="116.375" font-family="Arial,Helvetica,sans-serif" font-size="9" fill="#1e40af" text-anchor="middle" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1361.0" dy="0">D3</tspan>
+<tspan x="1361.0" dy="11.25">Delivery</tspan>
+</text>
+<text x="60" y="770.0" font-family="Arial,Helvetica,sans-serif" font-size="12" fill="#1e40af" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="60" dy="0">LEGEND</tspan>
+</text>
+<rect x="60" y="782" width="12" height="12" rx="8" stroke="#1e3a5f" fill="#3b82f6" stroke-width="2" opacity="1.0"/>
+<text x="76" y="788.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="76" dy="0">A1: Python Only</tspan>
+</text>
+<rect x="200" y="782" width="12" height="12" rx="8" stroke="#1e3a5f" fill="#60a5fa" stroke-width="2" opacity="1.0"/>
+<text x="216" y="788.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="216" dy="0">A2: Hybrid</tspan>
+</text>
+<rect x="330" y="782" width="12" height="12" rx="8" stroke="#1e3a5f" fill="#93c5fd" stroke-width="2" opacity="1.0"/>
+<text x="346" y="788.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="346" dy="0">A3: Agent Bounded</tspan>
+</text>
+<rect x="480" y="782" width="12" height="12" rx="8" stroke="#6d28d9" fill="#ddd6fe" stroke-width="2" opacity="1.0"/>
+<text x="496" y="788.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="496" dy="0">A4: LLM Agent Free</tspan>
+</text>
+<path d="M 630,788 L 650,788" stroke="#dc2626" fill="none" stroke-width="2" opacity="1.0" stroke-dasharray="8,4"/>
+<text x="654" y="788.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#dc2626" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="654" dy="0">Escalation</tspan>
+</text>
+<text x="800" y="770.0" font-family="Arial,Helvetica,sans-serif" font-size="11" fill="#1e40af" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="800" dy="0">Cost Bands:</tspan>
+</text>
+<text x="800" y="790.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="800" dy="0">A1: $0-$0.001</tspan>
+</text>
+<text x="920" y="790.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="920" dy="0">A2: $0.01-$0.30</tspan>
+</text>
+<text x="1040" y="790.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1040" dy="0">A3: $0.30-$1.00</tspan>
+</text>
+<text x="1160" y="790.0" font-family="Arial,Helvetica,sans-serif" font-size="10" fill="#64748b" text-anchor="start" dominant-baseline="hanging" opacity="1.0">
+<tspan x="1160" dy="0">A4: $1-$50+4h</tspan>
+</text>
+</svg>

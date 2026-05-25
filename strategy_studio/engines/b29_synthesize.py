@@ -4,64 +4,34 @@ from __future__ import annotations
 from strategy_studio.core.types import Evidence, Synthesis, Option
 
 
-def _option_template(label: str, score: float, rationale: str) -> Option:
-    return Option(label=label, score=round(score, 4), rationale=rationale)
+def _confidence_val(c: str) -> float:
+    return {"H": 0.8, "M": 0.5, "L": 0.2}.get(c, 0.3)
 
 
-def synthesize_evidence(evidence: list[Evidence]) -> Synthesis:
+def synthesize_evidence(evidence: list[Evidence], title: str = "Synthesized Strategy") -> Synthesis:
     """Takes list of Evidence, produces ranked options with scoring."""
-    total_ec = sum(e.evidence_count for e in evidence)
-    total_conf = sum(e.confidence_score * e.evidence_count for e in evidence)
+    n = len(evidence)
+    avg_conf = sum(_confidence_val(e.confidence) for e in evidence) / n if n else 0.6
 
-    if total_ec == 0:
-        score = 0.5
-    else:
-        score = total_conf / total_ec
+    def opt(id_: str, label: str, score: float, rationale: str) -> Option:
+        return Option(id=id_, title=label, description=rationale, score=round(score, 4), risks=[])
 
-    options: list[Option] = []
-    options.append(
-        _option_template(
-            "Primary Recommendation",
-            score,
-            f"Evidence-weighted score from {len(evidence)} sources."
-        )
-    )
-    options.append(
-        _option_template(
-            "Conservative Alternative",
-            max(0.0, score - 0.15),
-            "Down-weighted scenario with lower confidence.",
-        )
-    )
-    options.append(
-        _option_template(
-            "Aggressive Alternative",
-            min(1.0, score + 0.15),
-            "Up-weighted scenario accepting higher variance.",
-        )
-    )
-    if len(evidence) >= 3:
-        options.append(
-            _option_template(
-                "Outlier Scenario",
-                score * 0.6 if score > 0.5 else score * 1.4,
-                "Constructed from weakest evidence sources.",
-            )
-        )
-    if len(evidence) >= 4:
-        options.append(
-            _option_template(
-                "Consensus Blend",
-                total_conf / (total_ec + 1),
-                "Averaged across all inputs with dampening.",
-            )
-        )
+    options: list[Option] = [
+        opt("primary", "Primary Recommendation", round(min(1.0, avg_conf), 4),
+            f"Evidence-weighted score from {n} sources."),
+        opt("conservative", "Conservative Alternative", round(max(0.0, avg_conf - 0.15), 4),
+            "Down-weighted scenario with lower confidence."),
+        opt("aggressive", "Aggressive Alternative", round(min(1.0, avg_conf + 0.15), 4),
+            "Up-weighted scenario accepting higher variance."),
+    ]
+    if n >= 3:
+        outlier = avg_conf * 0.6 if avg_conf > 0.5 else avg_conf * 1.4
+        opt("outlier", "Outlier Scenario", round(min(1.0, outlier), 4),
+            "Constructed from weakest evidence sources.")
 
-    # Re-sort descending by score
-    options = sorted(options, key=lambda o: o.score, reverse=True)
-    winner_index = 0
+    options.sort(key=lambda o: o.score, reverse=True)
     return Synthesis(
-        question="synthesized",
         options=options,
-        winner_index=winner_index,
+        recommendation=options[0],
+        rationale=f"Synthesized from {n} evidence sources with avg confidence {round(avg_conf, 2)}",
     )

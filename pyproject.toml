@@ -18,6 +18,14 @@ dependencies = [
     "jinja2>=3.0",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "black",
+    "flake8",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["strategy_studio"]
 

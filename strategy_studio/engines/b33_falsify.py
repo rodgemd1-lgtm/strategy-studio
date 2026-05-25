@@ -1,6 +1,8 @@
 """B33 — Falsification engine."""
 from __future__ import annotations
 
+from typing import Literal
+
 from strategy_studio.core.types import Evidence, FalsificationPacket, IntentKey
 
 _DISPROOF_PATTERNS = {
@@ -27,15 +29,15 @@ def falsify_claim(claim: str, evidence: list[Evidence]) -> FalsificationPacket:
     disproof_test = _DISPROOF_PATTERNS.get(
         intent, "Find direct counter-evidence or logical contradiction"
     )
-    verdict = "untested"
+    status: Literal["open", "passed", "failed"] = "open"
     if not evidence:
-        verdict = "insufficient_evidence"
-    elif any(e.confidence_score < 0.3 for e in evidence):
-        verdict = "risky"
+        status = "open"
+    elif any(e.confidence == "L" for e in evidence):
+        status = "failed"
 
     return FalsificationPacket(
-        claim=claim,
-        intent=intent,
+        belief=claim,
         disproof_test=disproof_test,
-        verdict=verdict,
+        pass_criteria=f"Must find 2+ credible sources contradicting: {claim}",
+        status=status,
     )

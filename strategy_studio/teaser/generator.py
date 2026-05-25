@@ -15,7 +15,9 @@ Each generated teaser produces:
 from __future__ import annotations
 
 import json
-from datetime import datetime
+import hashlib
+import re
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Optional
 
@@ -45,6 +47,20 @@ _env = Environment(
 )
 
 
+def _stable_content_hash(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _source_weight(source: str) -> float:
+    match = re.search(r"\bSW\s+([01](?:\.\d+)?)\b", source)
+    if not match:
+        return 0.5
+    try:
+        return max(0.0, min(1.0, float(match.group(1))))
+    except ValueError:
+        return 0.5
+
+
 def _build_proof_packet(t: TeaserInput) -> dict:
     """Build the auditable proof packet for this teaser.
 
@@ -54,7 +70,7 @@ def _build_proof_packet(t: TeaserInput) -> dict:
     evidence = [
         Evidence(
             source_uri=src,
-            content_hash=f"sha256:{hash(src) & 0xFFFFFFFF:08x}",
+            content_hash=f"sha256:{_stable_content_hash(src)}",
             confidence=t.confidence,
             citations=[src],
         )
@@ -100,7 +116,7 @@ def _build_proof_packet(t: TeaserInput) -> dict:
         claim=f"{t.company_short} is {t.wound_months} months from {t.wound_channel} lockout. "
               f"{t.mechanism_name} resolves it.",
         evidence=evidence,
-        source_weights={src: 0.65 for src in t.evidence_sources},
+        source_weights={src: _source_weight(src) for src in t.evidence_sources},
         confidence=t.confidence,
     )
 
@@ -108,7 +124,7 @@ def _build_proof_packet(t: TeaserInput) -> dict:
         "proof_packet": packet.model_dump(mode="json"),
         "quality_result": qr.model_dump(mode="json") if hasattr(qr, "model_dump") else str(qr),
         "falsification": [f.model_dump(mode="json") for f in falsification],
-        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
     }
 
 

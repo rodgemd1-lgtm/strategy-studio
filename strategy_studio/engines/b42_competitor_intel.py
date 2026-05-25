@@ -22,12 +22,16 @@ def analyze_competitor(competitor_name: str, changes: list[str]) -> list[Action]
     actions: list[Action] = []
     for change in changes:
         category, description = _classify_change(change)
-        actions.append(
-            Action(
-                label=f"Respond to {competitor_name} {category} move",
-                description=description,
-                priority="high" if category in ("pricing", "feature") else "medium",
-                estimated_impact=f"Mitigate {competitor_name} advantage in {category}.",
-            )
-        )
+        priority = "high" if category in ("pricing", "feature") else "medium"
+        actions.append(Action(
+            action_type=f"competitor_response_{category}",
+            payload={
+                "competitor": competitor_name,
+                "change": change,
+                "category": category,
+                "description": description,
+                "priority": priority,
+            },
+            requires_approval=(category == "pricing"),
+        ))
     return actions

@@ -26,13 +26,5 @@ def generate_wedge(prospect_data: dict) -> Segment:
         else:
             sizing = "Sizing undefined"
 
-    sources = prospect_data.get("sources", [])
-    if isinstance(sources, str):
-        sources = [sources]
-
-    return Segment(
-        icp=icp,
-        entry_wedge=entry,
-        sizing=sizing,
-        sources=sources,
-    )
+    name = prospect_data.get("name") or prospect_data.get("segment_name", "Default Segment")
+    return Segment(name=name, icp=icp, sizing=sizing, entry_wedge=entry)

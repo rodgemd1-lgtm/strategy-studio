@@ -1,0 +1,6 @@
+prospect_id,company_name,website,industry_hint,linkedin_url,cloned_site_url
+hed-inc,"Hydro Electronic Devices, Inc.",https://www.hedonline.com,industrial vehicle controls,https://linkedin.com/company/hed-online,https://hed-forge.vercel.app
+anduril-industries,"Anduril Industries, Inc.",https://www.anduril.com,defense autonomy,https://linkedin.com/company/anduril-industries,https://anduril-forge.vercel.app
+stripe-inc,"Stripe, Inc.",https://stripe.com,payments infrastructure,https://linkedin.com/company/stripe,https://stripe-forge.vercel.app
+snorkel-ai,"Snorkel AI, Inc.",https://snorkel.ai,enterprise data labeling,https://linkedin.com/company/snorkel-ai,https://snorkel-forge.vercel.app
+shopify-inc,"Shopify, Inc.",https://www.shopify.com,commerce platform,https://linkedin.com/company/shopify,https://shopify-forge.vercel.app

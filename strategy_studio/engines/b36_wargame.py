@@ -50,7 +50,7 @@ def run_wargame(scenario: str, actors: list[str]) -> list[WargameScenario]:
             WargameScenario(
                 actor=actor,
                 move=tmpl["move"],
-                response=tmpl["response"],
+                rig_response=tmpl["response"],
                 impact=tmpl["impact"],
                 probability=round(prob, 4),
             )

@@ -17,7 +17,14 @@ Structure (10 sections, all required):
 
 Output: HTML page + markdown + PDF-ready package.
 """
-from strategy_studio.teaser.generator import generate_teaser, TeaserInput
-from strategy_studio.teaser.batch import run_batch
+from strategy_studio.teaser.generator import generate_teaser
+from strategy_studio.teaser.schema import TeaserInput
+
+
+def run_batch(*args, **kwargs):
+    """Lazy import so `python -m strategy_studio.teaser.batch` runs without module preloading warnings."""
+    from strategy_studio.teaser.batch import run_batch as _run_batch
+
+    return _run_batch(*args, **kwargs)
 
 __all__ = ["generate_teaser", "TeaserInput", "run_batch"]

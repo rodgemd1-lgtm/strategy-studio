@@ -224,3 +224,37 @@ class StrategyReport(BaseModel):
     meta_analysis: MetaAnalysis | None = None
     proof_packets: list[ProofPacket] = Field(default_factory=list)
     audit_trail: list[AuditRow] = Field(default_factory=list)
+
+
+# ── Calibration Engine ───────────────────────────────────────────────────────
+
+class CalibrationRecord(BaseModel):
+    """Single forecast-vs-actual tracking record."""
+    forecast_id: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    predicted: dict[str, Any] = Field(default_factory=dict)
+    actual: dict[str, Any] = Field(default_factory=dict)
+    brier_score: float = 0.0
+    absolute_error: float = 0.0
+    squared_error: float = 0.0
+    predicted_probability: float = 0.0
+    actual_outcome: float = 0.0
+    correct: bool = False
+    notes: str = ""
+
+
+class CalibrationReport(BaseModel):
+    """Full calibration report from forecast history."""
+    sample_size: int = 0
+    brier_score: float = 0.0
+    brier_skill_score: float | None = None
+    sharpness: float = 0.0
+    calibration_curve: list[tuple[float, float, int]] = Field(default_factory=list)
+    reliability_diagram: list[dict[str, Any]] = Field(default_factory=list)
+    records: list[CalibrationRecord] = Field(default_factory=list)
+    reference_brier: float | None = None
+    mean_absolute_error: float = 0.0
+    mean_squared_error: float = 0.0
+    resolution: float = 0.0
+    reliability: float = 0.0
+    generated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))

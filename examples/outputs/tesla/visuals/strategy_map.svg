@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="665" viewBox="0 0 1080 665">
+<rect width="1080" height="665" fill="#ffffff"/>
+<text x="400" y="104" fill="#1a1a2e" font-size="24" font-family="system-ui, sans-serif" opacity="1.0">Strategy Map: Tesla</text>
+<text x="100" y="152" fill="#7f8c8d" font-size="12" font-family="system-ui, sans-serif" opacity="1.0">ARCHETYPES</text>
+<rect x="80" y="160" width="120" height="30" fill="#2ecc71" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="140.0" y="178.33333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">A1 Deterministic</text>
+<rect x="220" y="160" width="120" height="30" fill="#0f3460" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="280.0" y="178.33333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">A2 Hybrid</text>
+<rect x="360" y="160" width="120" height="30" fill="#1a1a2e" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="420.0" y="178.33333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">A3 Agent-Bounded</text>
+<rect x="500" y="160" width="120" height="30" fill="#e94560" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="560.0" y="178.33333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">A4 LLM-Free</text>
+<polygon points="340,300.0 400.0,275 460,300.0 400.0,325" fill="#e94560" stroke="#e67e22" stroke-width="2" opacity="1.0"/>
+<text x="400.0" y="304.3333333333333" text-anchor="middle" fill="#e67e22" font-size="13" font-family="system-ui, sans-serif">Strategy?</text>
+<rect x="330.0" y="95.0" width="140" height="50" fill="#2ecc71" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="400.0" y="123.66666666666667" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui, sans-serif">Organic Growth</text>
+<text x="400.0" y="163.0" fill="#7f8c8d" font-size="10" font-family="system-ui, sans-serif" opacity="1.0">Score: 0.76</text>
+<defs><marker id="arrowhead_4484921344" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/></marker></defs>
+<path d="M 0 30 L 0.0 -150.0" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arrowhead_4484921344)" opacity="1.0"/>
+<rect x="510.0" y="275.0" width="140" height="50" fill="#0f3460" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="580.0" y="303.6666666666667" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui, sans-serif">Product Innovation</text>
+<text x="580.0" y="343.0" fill="#7f8c8d" font-size="10" font-family="system-ui, sans-serif" opacity="1.0">Score: 0.63</text>
+<defs><marker id="arrowhead_4484921728" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/></marker></defs>
+<path d="M 0 30 L 180.0 30.0" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arrowhead_4484921728)" opacity="1.0"/>
+<rect x="330.0" y="455.0" width="140" height="50" fill="#0f3460" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="400.0" y="483.6666666666667" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui, sans-serif">Strategic Partnershi</text>
+<text x="400.0" y="523.0" fill="#7f8c8d" font-size="10" font-family="system-ui, sans-serif" opacity="1.0">Score: 0.62</text>
+<defs><marker id="arrowhead_4484916800" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/></marker></defs>
+<path d="M 0 30 L 0.0 210.0" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arrowhead_4484916800)" opacity="1.0"/>
+<rect x="150.0" y="275.0" width="140" height="50" fill="#0f3460" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="220.0" y="303.6666666666667" text-anchor="middle" fill="#ffffff" font-size="11" font-family="system-ui, sans-serif">Strategic Acquisitio</text>
+<text x="220.0" y="343.0" fill="#7f8c8d" font-size="10" font-family="system-ui, sans-serif" opacity="1.0">Score: 0.59</text>
+<defs><marker id="arrowhead_4484917376" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#e94560"/></marker></defs>
+<path d="M 0 30 L -180.0 30.0" fill="none" stroke="#e94560" stroke-width="2" marker-end="url(#arrowhead_4484917376)" opacity="1.0"/>
+<text x="100" y="512" fill="#7f8c8d" font-size="12" font-family="system-ui, sans-serif" opacity="1.0">DECISION MATRIX</text>
+<rect x="80" y="525" width="120" height="60" fill="#2ecc71" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="140.0" y="558.3333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">Organic Growth
+0.7579</text>
+<rect x="210" y="525" width="120" height="60" fill="#0f3460" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="270.0" y="558.3333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">Product Innovat
+0.6281</text>
+<rect x="340" y="525" width="120" height="60" fill="#0f3460" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="400.0" y="558.3333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">Strategic Partn
+0.6191</text>
+<rect x="470" y="525" width="120" height="60" fill="#f39c12" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="530.0" y="558.3333333333334" text-anchor="middle" fill="#ffffff" font-size="10" font-family="system-ui, sans-serif">Strategic Acqui
+0.5945</text>
+</svg>

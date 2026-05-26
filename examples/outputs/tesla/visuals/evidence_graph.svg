@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="753" viewBox="0 0 960 753">
+<rect width="960" height="753" fill="#ffffff"/>
+<text x="380" y="102" fill="#1a1a2e" font-size="22" font-family="system-ui, sans-serif" opacity="1.0">Evidence Graph</text>
+<rect x="480.0" y="310.0" width="100" height="40" fill="#e74c3c" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="530.0" y="333.0" text-anchor="middle" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif">source://0</text>
+<text x="530.0" y="366.0" fill="#7f8c8d" font-size="8" font-family="system-ui, sans-serif" opacity="1.0">R:0.3 M:0.0</text>
+<rect x="330.0" y="460.0" width="100" height="40" fill="#e74c3c" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="380.0" y="483.0" text-anchor="middle" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif">source://1</text>
+<text x="380.0" y="516.0" fill="#7f8c8d" font-size="8" font-family="system-ui, sans-serif" opacity="1.0">R:0.3 M:0.0</text>
+<rect x="180.0" y="310.0" width="100" height="40" fill="#e74c3c" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="230.0" y="333.0" text-anchor="middle" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif">source://2</text>
+<text x="230.0" y="366.0" fill="#7f8c8d" font-size="8" font-family="system-ui, sans-serif" opacity="1.0">R:0.3 M:0.0</text>
+<rect x="330.0" y="160.0" width="100" height="40" fill="#e74c3c" stroke="#ffffff" stroke-width="2" opacity="1.0" rx="4"/>
+<text x="380.0" y="183.0" text-anchor="middle" fill="#ffffff" font-size="9" font-family="system-ui, sans-serif">source://3</text>
+<text x="380.0" y="216.0" fill="#7f8c8d" font-size="8" font-family="system-ui, sans-serif" opacity="1.0">R:0.3 M:0.0</text>
+<ellipse cx="380.0" cy="325.0" rx="30.0" ry="15.0" fill="#e74c3c" stroke="#e94560" stroke-width="2" opacity="1.0"/>
+<text x="380.0" y="329.0" text-anchor="middle" fill="#e94560" font-size="12" font-family="system-ui, sans-serif">L</text>
+<text x="80" y="621" fill="#7f8c8d" font-size="11" font-family="system-ui, sans-serif" opacity="1.0">GAPS</text>
+<text x="100" y="637" fill="#7f8c8d" font-size="9" font-family="system-ui, sans-serif" opacity="1.0">? automotive</text>
+<text x="100" y="653" fill="#7f8c8d" font-size="9" font-family="system-ui, sans-serif" opacity="1.0">? strategy</text>
+<text x="100" y="669" fill="#7f8c8d" font-size="9" font-family="system-ui, sans-serif" opacity="1.0">? tesla</text>
+</svg>

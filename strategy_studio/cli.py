@@ -151,3 +151,55 @@ def audit(limit: int, output_format: str):
 
 if __name__ == "__main__":
     cli()
+
+
+def main():
+    """Entry point for the strategy-studio CLI."""
+    cli()
+
+
+def wizard_cmd():
+    """Run the interactive strategy session wizard."""
+    from strategy_studio.cli_wizard import wizard
+    wizard()
+
+
+def analyze_cmd(
+    company: str,
+    ticker: str = "",
+    industry: str = "",
+    competitors: str = "",
+    output: str = "",
+    formats: str = "md,json",
+    no_visual: bool = False,
+):
+    """Run a complete strategy analysis on a company."""
+    from strategy_studio.cli_wizard import analyze
+    session = analyze(
+        company_name=company,
+        industry=industry,
+        competitors=competitors,
+        output_dir=output,
+        formats=formats,
+        visual=not no_visual,
+    )
+    if session.report:
+        print(f"\n✓ Strategy analysis complete: {session.report.title}")
+        print(f"  Recommendation: {session.report.executive_summary.recommendation}")
+        print(f"  Confidence: {session.report.executive_summary.confidence}")
+        for path in session.exported_paths.values():
+            print(f"  Output: {path}")
+    else:
+        print("✗ Analysis failed to generate report")
+
+
+# Register additional commands
+cli.add_command(click.Command("wizard", callback=wizard_cmd, help="Interactive strategy session"))
+cli.add_command(click.Command("analyze", callback=lambda **kw: analyze_cmd(**kw), params=[
+    click.Argument(["company"]),
+    click.Option(["--industry"], default="", help="Industry"),
+    click.Option(["--competitors"], default="", help="Comma-separated competitors"),
+    click.Option(["--output"], default="", help="Output directory"),
+    click.Option(["--formats"], default="md,json", help="Output formats"),
+    click.Option(["--no-visual"], is_flag=True, help="Skip visual generation"),
+], help="Analyze a company"))

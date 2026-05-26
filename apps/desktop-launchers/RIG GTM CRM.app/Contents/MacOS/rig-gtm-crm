@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+nohup /Users/mikerodgers/strategy-studio/scripts/launch_rig_gtm_crm.sh >/tmp/rig-gtm-crm-desktop-app.log 2>&1 &

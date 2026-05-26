@@ -36,14 +36,11 @@ from strategy_studio.core.types_extended import (
     WargameResult,
 )
 from strategy_studio.archetypes import run_a1, run_a2, run_a3, run_a4
-from strategy_studio.studios.prediction_studio import (
-    build_scenarios,
-    cross_impact_analysis,
-    predict_variable,
-    run_monte_carlo,
-    run_wargame,
-    sensitivity_analysis,
-)
+# NOTE: Old prediction_studio functions replaced by new v2 module
+# from strategy_studio.studios.prediction_studio import (
+#     build_scenarios, cross_impact_analysis, predict_variable,
+#     run_monte_carlo, run_wargame, sensitivity_analysis,
+# )
 from strategy_studio.studios.decision_room import (
     build_decision_matrix,
     generate_recommendation,

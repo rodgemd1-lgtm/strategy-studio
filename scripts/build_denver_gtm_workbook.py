@@ -34,6 +34,40 @@ PROMPT_FILES = {
 
 EXCLUDED_CITIES = ("breckenridge", "grand junction", "vail", "monte vista")
 
+STRATEGY_REQUIRED_SECTIONS = [
+    "# THE FIRM",
+    "# THE SITUATION",
+    "# THE EXAMINATION",
+    "## Account Thesis",
+    "# THE SYSTEM:",
+    "## Wedge Offer",
+    "## Named Mechanism",
+    "## Buyer Persona",
+    "## Channel Strategy",
+    "## Outbound Sequence",
+    "## Delivery Plan",
+    "## Proposal Outline",
+    "## Discovery Questions",
+    "## Intelligence To Collect",
+    "# THE PREDICTION",
+    "## Conversion Prediction",
+    "# THE ENGAGEMENT TERMS",
+    "## Proof Assets",
+    "## Competitor Watchlist",
+    "## Success Metrics",
+]
+
+GTM_REQUIRED_SECTIONS = [
+    "## One Big Bet",
+    "## 20x Upgrades",
+    "## Expert Board Lenses",
+    "## AI GTM Workflows",
+    "## RIG Deviate Engine: -30/+30",
+    "## Top 20 Questions Applied",
+    "## Next 72 Hours",
+    "## No-Go Tests",
+]
+
 PALETTE = {
     "navy": "0F172A",
     "blue": "1D4ED8",
@@ -456,10 +490,115 @@ def validate_inputs(rows: list[dict]) -> dict:
     return {"prompt_files": prompt_files, "excluded_city_hits": len(excluded_hits)}
 
 
+def verify_strategy_artifacts(rows: list[dict]) -> dict:
+    details = []
+    counts = Counter()
+    failures = []
+    for row in rows:
+        prospect_id = row["prospect_id"]
+        strategy_path = Path(row["strategy_path"])
+        gtm_path = Path(row["gtm20x_path"])
+        prompt_root = PROMPTS_DIR / prospect_id
+        strategy_text = strategy_path.read_text(encoding="utf-8", errors="replace") if strategy_path.exists() else ""
+        gtm_text = gtm_path.read_text(encoding="utf-8", errors="replace") if gtm_path.exists() else ""
+        prompt_paths = [prompt_root / filename for filename in PROMPT_FILES.values()]
+        missing_strategy_sections = [section for section in STRATEGY_REQUIRED_SECTIONS if section not in strategy_text]
+        missing_gtm_sections = [section for section in GTM_REQUIRED_SECTIONS if section not in gtm_text]
+        missing_prompts = [str(path) for path in prompt_paths if not path.exists()]
+        proposal_prompt = prompt_root / PROMPT_FILES["proposal"]
+        proposal_text = proposal_prompt.read_text(encoding="utf-8", errors="replace") if proposal_prompt.exists() else ""
+        proposal_references_sources = str(strategy_path) in proposal_text and str(gtm_path) in proposal_text
+        row_status = (
+            strategy_path.exists()
+            and gtm_path.exists()
+            and not missing_strategy_sections
+            and not missing_gtm_sections
+            and not missing_prompts
+            and proposal_references_sources
+        )
+        counts["prospects"] += 1
+        counts["strategy_files"] += int(strategy_path.exists())
+        counts["gtm20x_files"] += int(gtm_path.exists())
+        counts["prompt_files"] += len(prompt_paths) - len(missing_prompts)
+        counts["strategy_section_pass"] += int(not missing_strategy_sections)
+        counts["gtm_section_pass"] += int(not missing_gtm_sections)
+        counts["prompt_reference_pass"] += int(proposal_references_sources)
+        if not row_status:
+            failures.append(prospect_id)
+        details.append(
+            {
+                "prospect_id": prospect_id,
+                "company_name": row["company_name"],
+                "strategy_path": str(strategy_path),
+                "gtm20x_path": str(gtm_path),
+                "strategy_chars": len(strategy_text),
+                "gtm_chars": len(gtm_text),
+                "missing_strategy_sections": ", ".join(missing_strategy_sections),
+                "missing_gtm_sections": ", ".join(missing_gtm_sections),
+                "missing_prompts": ", ".join(missing_prompts),
+                "proposal_references_sources": proposal_references_sources,
+                "status": "PASS" if row_status else "FAIL",
+            }
+        )
+    return {"counts": dict(counts), "failures": failures, "details": details}
+
+
+def make_strategy_verification_sheet(wb: Workbook, rows: list[dict], verification: dict) -> None:
+    ws = wb.create_sheet("Strategy Verification")
+    headers = [
+        "Prospect ID",
+        "Company",
+        "Strategy Path",
+        "20x GTM Path",
+        "Strategy Chars",
+        "20x Chars",
+        "Missing Strategy Sections",
+        "Missing 20x Sections",
+        "Missing Prompts",
+        "Proposal References Sources",
+        "Status",
+    ]
+    ws.append(headers)
+    style_header(ws[1])
+    for item in verification["details"]:
+        ws.append(
+            [
+                item["prospect_id"],
+                item["company_name"],
+                item["strategy_path"],
+                item["gtm20x_path"],
+                item["strategy_chars"],
+                item["gtm_chars"],
+                item["missing_strategy_sections"],
+                item["missing_gtm_sections"],
+                item["missing_prompts"],
+                item["proposal_references_sources"],
+                item["status"],
+            ]
+        )
+    add_table(ws, "StrategyVerification", 1, 1, ws.max_row, len(headers))
+    set_sheet_basics(ws)
+    for col, width in {
+        "A": 28,
+        "B": 34,
+        "C": 70,
+        "D": 70,
+        "E": 15,
+        "F": 12,
+        "G": 40,
+        "H": 40,
+        "I": 40,
+        "J": 24,
+        "K": 12,
+    }.items():
+        ws.column_dimensions[col].width = width
+
+
 def build() -> None:
     rows = read_jsonl(JSONL_PATH)
     summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
     validation = validate_inputs(rows)
+    strategy_verification = verify_strategy_artifacts(rows)
 
     wb = Workbook()
     make_dashboard(wb, rows, summary)
@@ -469,6 +608,7 @@ def build() -> None:
     make_prompt_sheet(wb, rows, "website", "Website Prompts")
     make_prompt_sheet(wb, rows, "proposal", "Proposal Prompts")
     make_strategy_sheet(wb)
+    make_strategy_verification_sheet(wb, rows, strategy_verification)
     make_proof_sheet(wb, rows, summary, validation)
 
     # Make the workbook feel like a product artifact, not a raw export.
@@ -496,6 +636,7 @@ def build() -> None:
         "Website Prompts",
         "Proposal Prompts",
         "Strategy Text",
+        "Strategy Verification",
         "Proof + QC",
     }
     missing_sheets = required_sheets - set(loaded.sheetnames)
@@ -514,6 +655,8 @@ def build() -> None:
         "source_summary": str(SUMMARY_PATH),
         "accounts": len(rows),
         "prompt_files": validation["prompt_files"],
+        "strategy_verification": strategy_verification["counts"],
+        "strategy_failures": strategy_verification["failures"],
         "excluded_city_hits": validation["excluded_city_hits"],
         "sheets": loaded.sheetnames,
     }

@@ -114,53 +114,50 @@ def generate_html_presentation(report: StrategyReport, enriched_data: dict | Non
 
     # ── Slide 3: Decision Matrix ──────────────────────────────────────────
     if report.decision_room and report.decision_room.decision_matrix and report.decision_room.decision_matrix.options:
+        # SVG bar chart for option scores
+        chart_data = [(opt.option_title[:25], opt.total_score) for opt in report.decision_room.decision_matrix.options[:6]]
+        score_chart = svg_bar_chart(chart_data, title="Option Scores", color="#3498db", height=180)
+
         rows = ""
         for opt in report.decision_room.decision_matrix.options:
-            bar = _bar(opt.total_score)
             color = _tier_color(opt.tier)
             rows += f"""
             <tr>
                 <td><span class="rank">#{opt.rank}</span></td>
                 <td><strong>{html.escape(opt.option_title)}</strong></td>
                 <td><span class="score-pill" style="background:{color}">{opt.total_score:.2f}</span></td>
-                <td><div class="bar-cell"><span class="bar" style="background:{color}">{bar}</span></div></td>
                 <td><span class="tier-pill" style="background:{color}">{opt.tier}</span></td>
                 <td><span class="confidence">{opt.confidence}</span></td>
             </tr>"""
 
-        criteria_weights = ""
+        weight_chart = ""
         if report.decision_room.decision_matrix.weights:
-            for crit, weight in report.decision_room.decision_matrix.weights.items():
-                w_bar = _bar(weight, max(report.decision_room.decision_matrix.weights.values()) if report.decision_room.decision_matrix.weights else 1.0)
-                criteria_weights += f'<div class="weight-row"><span>{html.escape(crit)}</span><span class="weight-bar">{w_bar}</span><span>{_pct(weight)}</span></div>'
+            weight_data = [(crit[:20], weight) for crit, weight in report.decision_room.decision_matrix.weights.items()]
+            weight_chart = svg_bar_chart(weight_data, title="Criteria Weights", color="#2ecc71", height=120)
 
         sensitivity_html = ""
         if report.decision_room and report.decision_room.decision_matrix.sensitivity:
             top_sens = sorted(report.decision_room.decision_matrix.sensitivity, key=lambda s: abs(s.impact_on_score), reverse=True)[:5]
-            sens_rows = ""
-            for s in top_sens:
-                impact_bar = _bar(abs(s.impact_on_score), max(abs(s.impact_on_score) for s in top_sens) if top_sens else 1.0)
-                critical = "critical" if s.is_critical else ""
-                sens_rows += f'<tr class="{critical}"><td>{html.escape(s.parameter)}</td><td>{impact_bar}</td><td>{s.elasticity:.2f}</td></tr>'
+            tornado_data = [(s.parameter[:18], abs(s.impact_on_score)) for s in top_sens]
+            tornado_chart = svg_tornado_chart(tornado_data, height=160)
             sensitivity_html = f"""
             <div class="sensitivity-section">
-                <h3>Sensitivity Analysis (Tornado)</h3>
-                <table><thead><tr><th>Parameter</th><th>Impact</th><th>Elasticity</th></tr></thead>
-                <tbody>{sens_rows}</tbody></table>
+                <h3>Tornado Analysis</h3>
+                {tornado_chart}
             </div>"""
 
         parts.append(_slide("decision-matrix", f"""
             <h2>Decision Matrix</h2>
             <div class="two-col">
                 <div class="col">
-                    <table class="data-table">
-                        <thead><tr><th>Rank</th><th>Option</th><th>Score</th><th></th><th>Tier</th><th>Conf.</th></tr></thead>
+                    {score_chart}
+                    <table class="data-table compact">
+                        <thead><tr><th>Rank</th><th>Option</th><th>Score</th><th>Tier</th><th>Conf.</th></tr></thead>
                         <tbody>{rows}</tbody>
                     </table>
                 </div>
                 <div class="col">
-                    <h3>Criteria Weights</h3>
-                    {criteria_weights}
+                    {weight_chart}
                     {sensitivity_html}
                 </div>
             </div>
@@ -587,3 +584,55 @@ def export_presentation(
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(html_content, encoding="utf-8")
     return output_path
+
+
+# ── SVG Chart Generators ──────────────────────────────────────────────────
+
+def svg_bar_chart(
+    data: list[tuple[str, float]],
+    title: str = "",
+    color: str = "#3498db",
+    height: int = 200,
+    width: int = 500,
+    max_val: float | None = None,
+) -> str:
+    """Generate an inline SVG horizontal bar chart."""
+    if not data:
+        return ""
+    max_v = max_val or max(v for _, v in data) or 1.0
+    bar_height = max(16, min(32, (height - 40) // len(data) - 4))
+    label_width = 120
+    chart_width = width - label_width - 60
+    total_height = len(data) * (bar_height + 4) + 30
+    bars = ""
+    for i, (label, value) in enumerate(data):
+        y = 25 + i * (bar_height + 4)
+        bar_w = max(2, int(value / max_v * chart_width))
+        pct = f"{value * 100:.0f}%" if value <= 1 else f"{value:.1f}"
+        bars += f'\n        <text x="{label_width - 8}" y="{y + bar_height // 2 + 4}" text-anchor="end" font-size="11" fill="#666">{html.escape(str(label)[:20])}</text>\n        <rect x="{label_width}" y="{y}" width="{bar_w}" height="{bar_height}" fill="{color}" rx="2" opacity="0.85"/>\n        <text x="{label_width + bar_w + 6}" y="{y + bar_height // 2 + 4}" font-size="11" fill="#333">{pct}</text>'
+    title_html = f'<text x="{width // 2}" y="16" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">{html.escape(title)}</text>' if title else ""
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{total_height}" class="chart">\n        {title_html}\n        {bars}\n    </svg>'
+
+
+def svg_tornado_chart(
+    data: list[tuple[str, float]],
+    title: str = "Sensitivity Analysis",
+    height: int = 200,
+    width: int = 500,
+) -> str:
+    """Generate a tornado (butterfly) chart for sensitivity analysis."""
+    if not data:
+        return ""
+    bar_height = max(14, min(28, (height - 40) // len(data) - 2))
+    label_width = 100
+    chart_width = width - label_width - 80
+    total_height = len(data) * (bar_height + 2) + 35
+    center_x = label_width + chart_width // 2
+    bars = ""
+    for i, (label, impact) in enumerate(data):
+        y = 25 + i * (bar_height + 2)
+        bar_w = max(2, int(abs(impact) * chart_width / 2))
+        x_pos = center_x if impact >= 0 else center_x - bar_w
+        color = "#27ae60" if abs(impact) > 0.5 else "#f39c12" if abs(impact) > 0.2 else "#95a5a6"
+        bars += f'\n        <text x="{label_width - 5}" y="{y + bar_height // 2 + 4}" text-anchor="end" font-size="10" fill="#666">{html.escape(str(label)[:18])}</text>\n        <rect x="{x_pos}" y="{y}" width="{bar_w}" height="{bar_height}" fill="{color}" rx="2" opacity="0.8"/>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{total_height}" class="chart">\n        <text x="{width // 2}" y="16" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">{html.escape(title)}</text>\n        <line x1="{center_x}" y1="22" x2="{center_x}" y2="{total_height - 5}" stroke="#ccc" stroke-width="1"/>\n        {bars}\n    </svg>'

@@ -190,8 +190,23 @@ def analyze_cmd(
         print(f"  Confidence: {session.report.executive_summary.confidence}")
         if session.enriched_data.get("data_sources"):
             print(f"  Data sources: {', '.join(session.enriched_data['data_sources'])}")
-        for path in session.exported_paths.values():
-            print(f"  Output: {path}")
+        # Show presentation first (primary deliverable)
+        pres_path = session.exported_paths.get("presentation")
+        if pres_path:
+            print(f"\n  📊 Presentation: {pres_path}")
+            print(f"     Open in browser: file://{pres_path}")
+        # Show other outputs
+        for fmt, path in session.exported_paths.items():
+            if fmt != "presentation":
+                print(f"  {fmt.upper()}: {path}")
+        # Auto-open presentation
+        if pres_path:
+            try:
+                import webbrowser
+                webbrowser.open(f"file://{pres_path}")
+                print(f"\n  → Opened presentation in browser")
+            except Exception:
+                pass
     else:
         print("✗ Analysis failed to generate report")
 

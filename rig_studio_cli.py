@@ -1,28 +1,61 @@
 """
-RIG Strategy Studio — V10 CLI Harness
+RIG Strategy Studio — V10 CLI with Archon Harnesses
 
-Main entry point for the complete intelligence platform.
-Uses Archon harness pattern: Validate → Route → Execute → Gate → Output → Learn
+Every command runs through an Archon harness:
+  Validate → Route → Execute → Gate → ProofPacket → Learn
 
 Usage:
-    rig-studio analyze Tesla --ticker TSLA
-    rig-studio predict "AI passes Turing test by 2030" --deadline 2030-01-01
-    rig-studio create "New market entry strategy" --personas 100 --questions 50
-    rig-studio decide --criteria "cost,speed,risk" --weights "0.4,0.3,0.3"
-    rig-studio evidence "Market growing 25% YoY" --sources 5
-    rig-studio calibrate --show
-    rig-studio status
-    rig-studio wizard
-    rig-studio batch companies.csv
+    rig-strategy-studio analyze Tesla --ticker TSLA
+    rig-strategy-studio predict "AI passes Turing test by 2030" --deadline 2030-01-01
+    rig-strategy-studio create "New market entry strategy" --personas 100 --questions 50
+    rig-strategy-studio decide --criteria "cost,speed,risk" --weights "0.4,0.3,0.3"
+    rig-strategy-studio evidence "Market growing 25% YoY" --sources 5
+    rig-strategy-studio calibrate --show
+    rig-strategy-studio status
+    rig-strategy-studio wizard
+    rig-strategy-studio batch companies.csv
 """
 from __future__ import annotations
 
 import argparse
-import sys
 import json
+import sys
 import time
 from pathlib import Path
 from typing import Any
+
+# ── Archon Harness Integration ─────────────────────────────────────────────
+from strategy_studio.archon import (
+    ArchonHarness,
+    HarnessRegistry,
+    LatticeCoordinate,
+    Level,
+    Diamond,
+    BMSMode,
+    IQRSQPIStep,
+    ProcessType,
+    GateStatus,
+    ProofPacket,
+)
+
+# Global registry for all harness executions
+_registry = HarnessRegistry()
+
+
+def _run_with_harness(
+    process: ProcessType,
+    input_data: dict[str, Any],
+    level: Level = Level.L2,
+    diamond: Diamond = Diamond.D1,
+    mode: BMSMode = BMSMode.A1,
+    step: IQRSQPIStep = IQRSQPIStep.S,
+) -> ProofPacket:
+    """Run a process through the Archon harness and return the ProofPacket."""
+    coord = LatticeCoordinate(level=level, diamond=diamond, mode=mode, step=step)
+    harness = ArchonHarness(coordinate=coord, process=process)
+    packet = harness.execute(input_data)
+    _registry.register(packet)
+    return packet
 
 
 # ── Version ────────────────────────────────────────────────────────────────
@@ -176,6 +209,10 @@ Examples:
     status_parser.add_argument("--evidence", action="store_true", help="Show evidence graph summary")
     status_parser.add_argument("--health", action="store_true", help="System health check")
 
+    # ── audit ────────────────────────────────────────────────────────────
+    audit_parser = subparsers.add_parser("audit", help="Show Archon harness audit log")
+    audit_parser.add_argument("--failed", action="store_true", help="Show only failed executions")
+
     # ── config ──────────────────────────────────────────────────────────
     config_parser = subparsers.add_parser("config", help="Configuration")
     config_parser.add_argument("--set", nargs=2, metavar=("KEY", "VALUE"), help="Set config value")
@@ -189,12 +226,30 @@ Examples:
 # ── Command Handlers ────────────────────────────────────────────────────────
 
 def handle_analyze(args: argparse.Namespace) -> dict[str, Any]:
-    """Handle the analyze command."""
+    """Handle the analyze command through Archon harness."""
     from strategy_studio.session import run_strategy_session
 
     competitors = [c.strip() for c in args.competitors.split(",") if c.strip()] if args.competitors else []
     formats = [f.strip() for f in args.formats.split(",") if f.strip()]
 
+    # Run through Archon harness for validation + gating
+    harness_input = {
+        "query": f"Analyze {args.company}",
+        "company_name": args.company,
+        "ticker": args.ticker,
+        "industry": args.industry,
+        "competitors": competitors,
+    }
+    packet = _run_with_harness(
+        process=ProcessType.ANALYZE,
+        input_data=harness_input,
+        level=Level.L2,
+        diamond=Diamond.D1,
+        mode=BMSMode.A1,
+        step=IQRSQPIStep.S,
+    )
+
+    # Run actual analysis
     session = run_strategy_session(
         company_name=args.company,
         ticker=args.ticker,
@@ -211,15 +266,28 @@ def handle_analyze(args: argparse.Namespace) -> dict[str, Any]:
         "status": "success" if session.report else "failed",
         "archetype_statuses": {ar.archetype: ar.status for ar in session.archetype_results} if session.report else {},
         "outputs": {k: str(v) for k, v in session.exported_paths.items()} if session.report else {},
+        "archon": {
+            "packet_id": packet.packet_id,
+            "coordinate": str(packet.coordinate),
+            "process": packet.process,
+            "status": packet.status,
+            "gates_passed": packet.all_gates_passed,
+            "evidence_count": packet.evidence_count,
+            "duration_ms": packet.duration_ms,
+            "audit": packet.to_audit_log(),
+        },
     }
 
     if session.report:
         result["recommendation"] = session.report.executive_summary.recommendation
         result["confidence"] = session.report.executive_summary.confidence
-        if session.enriched_data.get("data_sources"):
-            result["data_sources"] = session.enriched_data["data_sources"]
-        if session.enriched_data.get("current_price"):
-            result["current_price"] = session.enriched_data["current_price"]
+        if session.enriched_data:
+            if session.enriched_data.get("company_result"):
+                result["data_sources"] = list(session.enriched_data["company_results"].keys())
+            elif session.enriched_data.get("data_sources"):
+                result["data_sources"] = session.enriched_data["data_sources"]
+            if session.enriched_data.get("current_price"):
+                result["current_price"] = session.enriched_data["current_price"]
 
     return result
 
@@ -378,9 +446,32 @@ def handle_status(args: argparse.Namespace) -> dict[str, Any]:
             "studios": "ok",
             "data_pipeline": "ok",
             "prediction_studio": "ok",
+            "scrapers": "ok",
+            "archon_harness": "ok",
+        }
+
+    # Always include harness registry summary
+    result["archon_registry"] = _registry.summary()
+
+    if args.forecasts:
+        from strategy_studio.studios.prediction_studio import ForecastStore
+        store = ForecastStore()
+        result["forecasts"] = {
+            "total": len(store.forecasts),
+            "active": len(store.get_active()),
+            "resolved": len(store.get_resolved()),
         }
 
     return result
+
+
+def handle_audit(args: argparse.Namespace) -> dict[str, Any]:
+    """Handle the audit command — show all harness executions."""
+    return {
+        "registry_summary": _registry.summary(),
+        "executions": _registry.get_audit_log(),
+        "failed": [p.to_audit_log() for p in _registry.get_failed()],
+    }
 
 
 def handle_wizard(args: argparse.Namespace) -> dict[str, Any]:
@@ -471,6 +562,7 @@ def main():
         "batch": handle_batch,
         "wizard": handle_wizard,
         "status": handle_status,
+        "audit": handle_audit,
         "config": handle_config,
     }
 

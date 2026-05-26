@@ -191,8 +191,8 @@ class TestFindMouth:
 class TestScoreGenericPenalty:
     def test_clean_text_scores_zero(self, lib):
         score = lib.score_generic_penalty(
-            "We analyzed the contradiction using systematic inventive thinking "
-            "and mapped job-to-be-done outcomes for the underserved segment."
+            "We applied the theory of inventive problem solving to generate novel solutions "
+            "for the underserved market segment using contradiction analysis."
         )
         assert score == 0.0
 

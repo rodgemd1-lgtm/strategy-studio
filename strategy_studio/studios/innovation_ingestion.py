@@ -454,7 +454,8 @@ class MethodologyLibrary:
 
     def get_all(self) -> list[dict[str, Any]]:
         """Return a list of every methodology."""
-        return list(self._data.values())
+        import copy
+        return [copy.deepcopy(d) for d in self._data.values()]
 
     def get_by_category(self, category: str) -> list[dict[str, Any]]:
         """Return methodologies filtered by category (case-insensitive)."""

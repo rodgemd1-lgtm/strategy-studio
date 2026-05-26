@@ -149,31 +149,55 @@ class StrategySession:
         return self.report  # type: ignore[return-value]
 
     def _enrich_from_data_sources(self) -> None:
-        """Auto-enrich company data from public sources (Yahoo Finance, Wikipedia, SEC)."""
+        """Auto-enrich company data from multiple scrapers (Wikipedia, SEC, web, news, academic)."""
         try:
+            from strategy_studio.scrapers import ScraperOrchestrator
             from strategy_studio.data_pipeline import (
-                enrich_company_data,
-                build_evidence_from_data,
                 get_historical_financials,
             )
-            self.enriched_data = enrich_company_data(
+
+            orch = ScraperOrchestrator()
+            competitors = [c.strip() for c in self.competitors if c.strip()] if self.competitors else []
+
+            # Gather company data from all sources
+            company_results = orch.gather_company_data(
                 company_name=self.company_name,
                 ticker=self.ticker,
-                industry=self.industry,
             )
-            # Merge enriched evidence
-            enriched_evidence = build_evidence_from_data(self.enriched_data)
-            if enriched_evidence:
-                self.evidence_sources.extend([e.citations[0] for e in enriched_evidence if e.citations])
-            # Merge enriched historical data
+
+            # Store enriched data
+            self.enriched_data = {
+                "company_results": {src: [e.model_dump() for e in ev] for src, ev in company_results.items()},
+                "competitor_results": {},
+            }
+
+            # Gather competitor data
+            if competitors:
+                comp_results = orch.gather_competitor_data(competitors)
+                self.enriched_data["competitor_results"] = {
+                    src: [e.model_dump() for e in ev] for src, ev in comp_results.items()
+                }
+
+            # Gather industry data
+            if self.industry:
+                ind_results = orch.gather_industry_data(self.industry)
+                self.enriched_data["industry_results"] = {
+                    src: [e.model_dump() for e in ev] for src, ev in ind_results.items()
+                }
+
+            # Extract evidence for archetype consumption
+            for source, evidence_list in company_results.items():
+                for ev in evidence_list:
+                    if ev.citations:
+                        self.evidence_sources.append(ev.citations[0])
+
+            # Merge historical financial data
             if self.ticker:
                 hist = get_historical_financials(self.ticker)
                 for k, v in hist.items():
                     if k not in self.historical_data:
                         self.historical_data[k] = v
-            # Update industry if enriched
-            if self.enriched_data.get("industry") and not self.industry:
-                self.industry = self.enriched_data["industry"]
+
         except Exception:
             pass  # Enrichment is best-effort
 

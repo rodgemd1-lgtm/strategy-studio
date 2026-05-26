@@ -34,3 +34,4 @@ packages = ["strategy_studio"]
 
 [project.scripts]
 strategy-studio = "strategy_studio.cli:main"
+strategy-studio-wizard = "strategy_studio.cli_wizard:main"

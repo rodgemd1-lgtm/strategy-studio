@@ -228,21 +228,6 @@ _PLAYBOOKS: dict[str, dict] = {
 }
 
 
-def _normalize_industry(industry: str) -> str:
-    """Normalize industry string to a known playbook key."""
-    lower = industry.lower().strip()
-    mapping = {
-        "saas": "saas", "software": "saas", "cloud": "saas", "b2b software": "saas",
-        "fintech": "fintech", "financial technology": "fintech", "banking": "fintech", "insurance": "fintech",
-        "healthcare": "healthcare", "health": "healthcare", "biotech": "healthcare", "pharma": "healthcare", "medical": "healthcare",
-        "manufacturing": "manufacturing", "industrial": "manufacturing", "factory": "manufacturing",
-        "retail": "manufacturing", "ecommerce": "manufacturing", "e-commerce": "manufacturing",
-        "energy": "manufacturing", "oil": "manufacturing", "gas": "manufacturing", "utilities": "manufacturing",
-        "cybersecurity": "saas", "security": "saas",
-    }
-    return mapping.get(lower, "saas")  # default to SaaS
-
-
 def get_playbook(industry: str) -> dict:
     """Get industry-specific playbook."""
     key = _normalize_industry(industry)
@@ -312,3 +297,295 @@ def compare_to_benchmark(company_metrics: dict, industry: str) -> list[dict]:
             })
 
     return results
+
+
+# ── Additional Industries (added in v2) ────────────────────────────────────
+
+_PLAYBOOKS.update({
+    "retail": {
+        "key_metrics": [
+            {"name": "Same-Store Sales Growth", "unit": "%", "description": "Year-over-year comparable store sales"},
+            {"name": "GMV", "unit": "USD", "description": "Gross Merchandise Value"},
+            {"name": "Conversion Rate", "unit": "%", "description": "Visitors who make a purchase"},
+            {"name": "AOV", "unit": "USD", "description": "Average Order Value"},
+            {"name": "CAC", "unit": "USD", "description": "Customer Acquisition Cost"},
+            {"name": "Inventory Turns", "unit": "ratio", "description": "COGS / average inventory"},
+            {"name": "NPS", "unit": "score", "description": "Net Promoter Score"},
+        ],
+        "competitive_frameworks": [
+            {"name": "Porter's Five Forces", "dimensions": ["supplier_power", "buyer_power", "competitive_rivalry", "threat_of_substitution", "threat_of_new_entry"]},
+            {"name": "Omnichannel Assessment", "dimensions": ["online_experience", "store_experience", "fulfillment", "returns", "loyalty"]},
+        ],
+        "benchmarks": {
+            "Same-Store Sales Growth": {"p25": -2, "p50": 3, "p75": 7, "mean": 3, "std": 5},
+            "Conversion Rate": {"p25": 1.5, "p50": 3.0, "p75": 5.0, "mean": 3.2, "std": 2.0},
+            "AOV": {"p25": 45, "p50": 75, "p75": 120, "mean": 85, "std": 40},
+            "NPS": {"p25": 20, "p50": 40, "p75": 60, "mean": 40, "std": 20},
+        },
+        "strategic_options": {
+            "startup": [
+                {"name": "DTC First", "description": "Direct-to-consumer, own the relationship", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Marketplace Arbitrage", "description": "Sell through established platforms first", "investment": "low", "timeline": "1-3 months"},
+            ],
+            "growth": [
+                {"name": "Omnichannel Expansion", "description": "Add physical stores, pickup, delivery", "investment": "very_high", "timeline": "12-24 months"},
+                {"name": "Private Label", "description": "Launch owned brands for higher margins", "investment": "high", "timeline": "12-18 months"},
+                {"name": "Geographic Expansion", "description": "Enter new markets or regions", "investment": "high", "timeline": "12-24 months"},
+            ],
+            "mature": [
+                {"name": "Digital Transformation", "description": "Modernize tech stack, AI personalization", "investment": "very_high", "timeline": "18-36 months"},
+                {"name": "M&A Consolidation", "description": "Acquire smaller retailers", "investment": "very_high", "timeline": "6-18 months"},
+            ],
+            "decline": [
+                {"name": "Store Rationalization", "description": "Close underperforming locations", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "E-commerce Pivot", "description": "Shift focus to online channels", "investment": "high", "timeline": "12-18 months"},
+            ],
+        },
+        "risk_factors": [
+            {"name": "Consumer Spending Decline", "probability": "medium", "impact": "high", "mitigation": "Diversify price points, value offerings"},
+            {"name": "Supply Chain Disruption", "probability": "high", "impact": "high", "mitigation": "Multi-source suppliers, safety stock"},
+            {"name": "Amazon Competition", "probability": "high", "impact": "critical", "mitigation": "Differentiate on experience, curation, service"},
+        ],
+        "evidence_sources": ["Census Bureau Retail Sales", "NRF State of Retail", "eMarketer Digital Commerce"],
+    },
+    "energy": {
+        "key_metrics": [
+            {"name": "Production Volume", "unit": "BOE/day", "description": "Barrels of oil equivalent per day"},
+            {"name": "Reserve Replacement Ratio", "unit": "%", "description": "New reserves / production"},
+            {"name": "Finding & Development Cost", "unit": "$/BOE", "description": "Cost to find and develop new reserves"},
+            {"name": "Operating Cost per BOE", "unit": "$/BOE", "description": "Production cost per barrel"},
+            {"name": "Carbon Intensity", "unit": "kgCO2/BOE", "description": "Emissions per unit of production"},
+            {"name": "ROACE", "unit": "%", "description": "Return on average capital employed"},
+        ],
+        "competitive_frameworks": [
+            {"name": "Porter's Five Forces", "dimensions": ["supplier_power", "buyer_power", "competitive_rivalry", "threat_of_substitution", "threat_of_new_entry"]},
+            {"name": "Energy Transition Readiness", "dimensions": ["renewable_portfolio", "carbon_exposure", "technology_readiness", "regulatory_position"]},
+        ],
+        "benchmarks": {
+            "Reserve Replacement": {"p25": 80, "p50": 100, "p75": 130, "mean": 105, "std": 30},
+            "OpCost per BOE": {"p25": 15, "p50": 10, "p75": 7, "mean": 11, "std": 5},
+            "ROACE": {"p25": 5, "p50": 10, "p75": 15, "mean": 10, "std": 6},
+        },
+        "strategic_options": {
+            "startup": [
+                {"name": "Niche Technology", "description": "Own one breakthrough technology", "investment": "high", "timeline": "12-24 months"},
+                {"name": "Service Model", "description": "Provide services to incumbents", "investment": "low", "timeline": "3-6 months"},
+            ],
+            "growth": [
+                {"name": "Renewable Portfolio Build", "description": "Invest in solar, wind, storage", "investment": "very_high", "timeline": "24-48 months"},
+                {"name": "Strategic Acquisition", "description": "Acquire reserves or technology", "investment": "very_high", "timeline": "6-18 months"},
+            ],
+            "mature": [
+                {"name": "Energy Transition Pivot", "description": "Shift from fossil to renewable", "investment": "very_high", "timeline": "36-60 months"},
+                {"name": "Portfolio Optimization", "description": "Divest non-core assets", "investment": "medium", "timeline": "12-24 months"},
+            ],
+            "decline": [
+                {"name": "Harvest Strategy", "description": "Maximize cash flow from existing assets", "investment": "low", "timeline": "6-12 months"},
+                {"name": "Merger or Sale", "description": "Combine with larger player", "investment": "medium", "timeline": "6-18 months"},
+            ],
+        },
+        "risk_factors": [
+            {"name": "Commodity Price Volatility", "probability": "high", "impact": "critical", "mitigation": "Hedging, diversified portfolio"},
+            {"name": "Regulatory Change", "probability": "high", "impact": "high", "mitigation": "Proactive compliance, government relations"},
+            {"name": "Energy Transition Risk", "probability": "high", "impact": "critical", "mitigation": "Diversify into renewables early"},
+        ],
+        "evidence_sources": ["IEA World Energy Outlook", "EIA Annual Energy Review", "OPEC Monthly Report"],
+    },
+    "biotech": {
+        "key_metrics": [
+            {"name": "Pipeline Value", "unit": "USD", "description": "NPV of all pipeline assets"},
+            {"name": "R&D Spend as % of Revenue", "unit": "%", "description": "Research spend relative to revenue"},
+            {"name": "Time to Market", "unit": "years", "description": "Average drug development timeline"},
+            {"name": "Clinical Trial Success Rate", "unit": "%", "description": "Phase 1 to approval rate"},
+            {"name": "Patent Life Remaining", "unit": "years", "description": "Years of patent protection left"},
+            {"name": "Gross Margin", "unit": "%", "description": "Gross profit / revenue"},
+        ],
+        "competitive_frameworks": [
+            {"name": "Pipeline Strength Assessment", "dimensions": ["phase_diversity", "therapeutic_areas", "first_in_class", "market_size"]},
+            {"name": "Patent Cliff Analysis", "dimensions": ["patent_expiry_timeline", "generic_threat", "biosimilar_risk"]},
+        ],
+        "benchmarks": {
+            "R&D as % Revenue": {"p25": 15, "p50": 25, "p75": 40, "mean": 28, "std": 15},
+            "Clinical Success Rate": {"p25": 5, "p50": 10, "p75": 20, "mean": 12, "std": 10},
+            "Gross Margin": {"p25": 60, "p50": 75, "p75": 85, "mean": 73, "std": 12},
+        },
+        "strategic_options": {
+            "startup": [
+                {"name": "Platform Technology", "description": "Build a platform, not just a product", "investment": "high", "timeline": "12-24 months"},
+                {"name": "Licensing In", "description": "License promising compounds from academia", "investment": "medium", "timeline": "6-12 months"},
+            ],
+            "growth": [
+                {"name": "M&A for Pipeline", "description": "Acquire companies with complementary pipeline", "investment": "very_high", "timeline": "6-18 months"},
+                {"name": "Partnership Deals", "description": "Co-develop with big pharma", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Geographic Expansion", "description": "Enter new regulatory markets", "investment": "high", "timeline": "12-24 months"},
+            ],
+            "mature": [
+                {"name": "Biosimilar Defense", "description": "Prepare for patent cliff with next-gen products", "investment": "high", "timeline": "24-48 months"},
+                {"name": "Diversification", "description": "Enter adjacent therapeutic areas", "investment": "very_high", "timeline": "24-36 months"},
+            ],
+            "decline": [
+                {"name": "Pipeline Pruning", "description": "Focus on highest-probability assets", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Licensing Out", "description": "Monetize non-core IP", "investment": "low", "timeline": "3-6 months"},
+            ],
+        },
+        "risk_factors": [
+            {"name": "Clinical Trial Failure", "probability": "high", "impact": "critical", "mitigation": "Diversified pipeline, adaptive trial design"},
+            {"name": "Regulatory Rejection", "probability": "medium", "impact": "critical", "mitigation": "Early FDA engagement, robust data"},
+            {"name": "Patent Cliff", "probability": "high", "impact": "high", "mitigation": "Next-gen product pipeline, lifecycle management"},
+        ],
+        "evidence_sources": ["FDA Orange Book", "ClinicalTrials.gov", "EvaluatePharma", "BIO Industry Analysis"],
+    },
+    "cybersecurity": {
+        "key_metrics": [
+            {"name": "ARR", "unit": "USD", "description": "Annual Recurring Revenue"},
+            {"name": "NRR", "unit": "%", "description": "Net Revenue Retention"},
+            {"name": "MTTR", "unit": "hours", "description": "Mean Time to Respond/Remediate"},
+            {"name": "Detection Rate", "unit": "%", "description": "Threats detected / total threats"},
+            {"name": "False Positive Rate", "unit": "%", "description": "False alerts / total alerts"},
+            {"name": "CAC Payback", "unit": "months", "description": "Customer acquisition cost payback period"},
+        ],
+        "competitive_frameworks": [
+            {"name": "MITRE ATT&CK Coverage", "dimensions": ["technique_coverage", "detection_depth", "response_speed"]},
+            {"name": "Zero Trust Maturity", "dimensions": ["identity", "devices", "networks", "applications", "data"]},
+        ],
+        "benchmarks": {
+            "NRR": {"p25": 105, "p50": 115, "p75": 130, "mean": 116, "std": 15},
+            "MTTR": {"p25": 48, "p50": 24, "p75": 8, "mean": 25, "std": 20},
+            "Detection Rate": {"p25": 85, "p50": 92, "p75": 97, "mean": 91, "std": 8},
+            "CAC Payback": {"p25": 18, "p50": 12, "p75": 8, "mean": 13, "std": 6},
+        },
+        "strategic_options": {
+            "startup": [
+                {"name": "Point Solution", "description": "Own one security problem completely", "investment": "low", "timeline": "3-6 months"},
+                {"name": "Open Source Core", "description": "Build community around open-source tool", "investment": "low", "timeline": "6-12 months"},
+            ],
+            "growth": [
+                {"name": "Platform Consolidation", "description": "Become the single pane of glass", "investment": "high", "timeline": "12-24 months"},
+                {"name": "MDR Services", "description": "Add managed detection and response", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Vertical Specialization", "description": "Focus on one industry vertical", "investment": "medium", "timeline": "6-12 months"},
+            ],
+            "mature": [
+                {"name": "XDR Platform", "description": "Extended detection and response across all vectors", "investment": "very_high", "timeline": "18-36 months"},
+                {"name": "M&A Rollup", "description": "Acquire point solution companies", "investment": "very_high", "timeline": "6-18 months"},
+            ],
+            "decline": [
+                {"name": "Niche Focus", "description": "Own one underserved segment", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Platform Integration", "description": "Become a feature of larger platform", "investment": "medium", "timeline": "12-18 months"},
+            ],
+        },
+        "risk_factors": [
+            {"name": "Zero-Day Exploits", "probability": "high", "impact": "critical", "mitigation": "Threat intelligence, rapid patching"},
+            {"name": "Platform Consolidation", "probability": "high", "impact": "high", "mitigation": "Differentiate on depth, vertical expertise"},
+            {"name": "Talent Shortage", "probability": "high", "impact": "high", "mitigation": "Automation, managed services, training"},
+        ],
+        "evidence_sources": ["Gartner Magic Quadrant", "MITRE ATT&CK", "NIST Cybersecurity Framework", "CrowdStrike Global Threat Report"],
+    },
+    "marketplace": {
+        "key_metrics": [
+            {"name": "GMV", "unit": "USD", "description": "Gross Merchandise Value"},
+            {"name": "Take Rate", "unit": "%", "description": "Revenue / GMV"},
+            {"name": "Liquidity", "unit": "%", "description": "Supply-demand match rate"},
+            {"name": "NPS (Supply)", "unit": "score", "description": "Supplier Net Promoter Score"},
+            {"name": "NPS (Demand)", "unit": "score", "description": "Buyer Net Promoter Score"},
+            {"name": "CAC (Blended)", "unit": "USD", "description": "Blended customer acquisition cost"},
+        ],
+        "competitive_frameworks": [
+            {"name": "Network Effects Map", "dimensions": ["direct_effects", "indirect_effects", "data_effects", "platform_effects"]},
+            {"name": "Liquidity Analysis", "dimensions": ["time_to_fill", "match_rate", "depth_of_supply", "demand_concentration"]},
+        ],
+        "benchmarks": {
+            "Take Rate": {"p25": 10, "p50": 15, "p75": 25, "mean": 17, "std": 8},
+            "Liquidity": {"p25": 60, "p50": 75, "p75": 85, "mean": 73, "std": 12},
+            "NPS (Demand)": {"p25": 20, "p50": 40, "p75": 60, "mean": 40, "std": 20},
+        },
+        "strategic_options": {
+            "startup": [
+                {"name": "Chicken-Egg Solution", "description": "Seed supply or demand side first", "investment": "medium", "timeline": "3-6 months"},
+                {"name": "Single-Sided First", "description": "Build value for one side before opening to other", "investment": "low", "timeline": "1-3 months"},
+            ],
+            "growth": [
+                {"name": "Geographic Expansion", "description": "Launch in new cities or markets", "investment": "high", "timeline": "6-12 months"},
+                {"name": "Vertical Expansion", "description": "Add adjacent categories", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Supply Investment", "description": "Invest in supply-side quality and depth", "investment": "high", "timeline": "12-18 months"},
+            ],
+            "mature": [
+                {"name": "Platform Ecosystem", "description": "Open platform to third-party developers", "investment": "high", "timeline": "12-24 months"},
+                {"name": "Vertical Integration", "description": "Own more of the value chain", "investment": "very_high", "timeline": "18-36 months"},
+            ],
+            "decline": [
+                {"name": "Niche Focus", "description": "Own one high-liquidity vertical", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Marketplace-as-a-Service", "description": "License technology to others", "investment": "medium", "timeline": "12-18 months"},
+            ],
+        },
+        "risk_factors": [
+            {"name": "Multi-Tenancy", "probability": "high", "impact": "high", "mitigation": "Lock-in through data, workflow integration"},
+            {"name": "Disintermediation", "probability": "medium", "impact": "critical", "mitigation": "Add value beyond matching, escrow, insurance"},
+            {"name": "Regulatory Risk", "probability": "medium", "impact": "high", "mitigation": "Proactive compliance, legal framework"},
+        ],
+        "evidence_sources": ["a16z Marketplace Index", "Bessemer Marketplace Benchmarks", "Platform Hunt Data"],
+    },
+    "logistics": {
+        "key_metrics": [
+            {"name": "Cost per Shipment", "unit": "USD", "description": "Total cost / number of shipments"},
+            {"name": "On-Time Delivery Rate", "unit": "%", "description": "Shipments delivered on time"},
+            {"name": "Capacity Utilization", "unit": "%", "description": "Actual volume / max capacity"},
+            {"name": "Damage/Loss Rate", "unit": "%", "description": "Damaged or lost shipments"},
+            {"name": "Revenue per Route", "unit": "USD", "description": "Average revenue per delivery route"},
+            {"name": "Fleet Utilization", "unit": "%", "description": "Vehicles in use / total fleet"},
+        ],
+        "competitive_frameworks": [
+            {"name": "Network Density Analysis", "dimensions": ["route_coverage", "hub_efficiency", "last_mile_density", "cross_dock_speed"]},
+            {"name": "Last-Mile Optimization", "dimensions": ["delivery_speed", "cost_per_drop", "customer_experience", "flexibility"]},
+        ],
+        "benchmarks": {
+            "On-Time Delivery": {"p25": 88, "p50": 94, "p75": 98, "mean": 93, "std": 5},
+            "Capacity Utilization": {"p25": 70, "p50": 80, "p75": 90, "mean": 80, "std": 10},
+            "Damage Rate": {"p25": 2.0, "p50": 0.8, "p75": 0.3, "mean": 1.0, "std": 1.2},
+            "Fleet Utilization": {"p25": 65, "p50": 75, "p75": 85, "mean": 75, "std": 10},
+        },
+        "strategic_options": {
+            "startup": [
+                {"name": "Niche Route Focus", "description": "Own one high-value route or lane", "investment": "low", "timeline": "1-3 months"},
+                {"name": "Asset-Light Model", "description": "Broker capacity, don't own assets", "investment": "low", "timeline": "1-3 months"},
+            ],
+            "growth": [
+                {"name": "Network Expansion", "description": "Add routes, hubs, and geographies", "investment": "high", "timeline": "12-24 months"},
+                {"name": "Technology Platform", "description": "Build proprietary routing and tracking tech", "investment": "high", "timeline": "12-18 months"},
+                {"name": "Vertical Specialization", "description": "Focus on one industry vertical", "investment": "medium", "timeline": "6-12 months"},
+            ],
+            "mature": [
+                {"name": "Autonomous Fleet", "description": "Invest in autonomous vehicles and drones", "investment": "very_high", "timeline": "24-48 months"},
+                {"name": "Global Expansion", "description": "Enter international markets", "investment": "very_high", "timeline": "24-36 months"},
+            ],
+            "decline": [
+                {"name": "Route Optimization", "description": "Focus on highest-margin routes", "investment": "medium", "timeline": "6-12 months"},
+                {"name": "Asset Sale", "description": "Sell fleet and transition to broker model", "investment": "medium", "timeline": "6-12 months"},
+            ],
+        },
+        "risk_factors": [
+            {"name": "Fuel Price Volatility", "probability": "high", "impact": "high", "mitigation": "Fuel surcharges, electric fleet transition"},
+            {"name": "Driver Shortage", "probability": "high", "impact": "high", "mitigation": "Competitive pay, automation, gig model"},
+            {"name": "E-commerce Volume Shifts", "probability": "medium", "impact": "high", "mitigation": "Diversify customer base, flexible capacity"},
+        ],
+        "evidence_sources": ["ATA Freight Transportation Report", "CBRE Logistics Report", "DHL Global Connectedness Index"],
+    },
+})
+
+# Update normalization mapping
+_NORMALIZE_MAP = {
+    "saas": "saas", "software": "saas", "cloud": "saas", "b2b software": "saas",
+    "fintech": "fintech", "financial technology": "fintech", "banking": "fintech", "insurance": "fintech",
+    "healthcare": "healthcare", "health": "healthcare", "biotech": "biotech", "pharma": "healthcare", "medical": "healthcare",
+    "manufacturing": "manufacturing", "industrial": "manufacturing", "factory": "manufacturing",
+    "retail": "retail", "ecommerce": "retail", "e-commerce": "retail", "consumer": "retail",
+    "energy": "energy", "oil": "energy", "gas": "energy", "utilities": "energy", "renewable": "energy",
+    "cybersecurity": "cybersecurity", "security": "cybersecurity", "infosec": "cybersecurity",
+    "marketplace": "marketplace", "platform": "marketplace", "two-sided": "marketplace",
+    "logistics": "logistics", "shipping": "logistics", "freight": "logistics", "supply chain": "logistics", "delivery": "logistics",
+}
+
+
+def _normalize_industry(industry: str) -> str:
+    """Normalize industry string to a known playbook key."""
+    lower = industry.lower().strip()
+    return _NORMALIZE_MAP.get(lower, "saas")  # default to SaaS

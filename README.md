@@ -36,6 +36,30 @@ You give it a company name + ticker. In 30 seconds it produces:
 7. **Evidence Quality** — Every claim cited, sources scored, contradictions detected
 8. **HTML Presentation** — Board-ready slide deck with SVG charts that auto-opens in your browser
 
+## RIG GTM CRM Update — 2026-05-26
+
+Strategy Studio now supports the full RIG GTM prospect workflow into the local Twenty CRM app.
+
+Latest verified import:
+
+- **1,783 potential client companies**
+- **1,783 people / contact records**
+- **1,783 opportunities**
+- **1,783 full strategy notes**
+- **8,915 GTM follow-up tasks**
+
+Each imported account includes the strategy brief, 20x AI GTM strategy, teaser copy, CSS/design prompt, website setup prompt, proposal build prompt, proof summary, and local artifact links served from `http://localhost:8096`.
+
+The import is deterministic and local-only. It does not send emails, sync calendars, upload ad audiences, call Apollo/Clay, write back to external systems, or expose private data publicly.
+
+Run the local import:
+
+```bash
+python3 scripts/import_all_prospects_to_twenty_db.py
+```
+
+Full operations notes, verification counts, proof locations, and approval gates are documented in [`docs/rig-gtm-crm-all-prospects-import.md`](docs/rig-gtm-crm-all-prospects-import.md).
+
 ## Architecture
 
 ```

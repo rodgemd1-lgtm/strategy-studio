@@ -177,6 +177,7 @@ def analyze_cmd(
     from strategy_studio.cli_wizard import analyze
     session = analyze(
         company_name=company,
+        ticker=ticker,
         industry=industry,
         competitors=competitors,
         output_dir=output,
@@ -187,6 +188,8 @@ def analyze_cmd(
         print(f"\n✓ Strategy analysis complete: {session.report.title}")
         print(f"  Recommendation: {session.report.executive_summary.recommendation}")
         print(f"  Confidence: {session.report.executive_summary.confidence}")
+        if session.enriched_data.get("data_sources"):
+            print(f"  Data sources: {', '.join(session.enriched_data['data_sources'])}")
         for path in session.exported_paths.values():
             print(f"  Output: {path}")
     else:
@@ -197,6 +200,7 @@ def analyze_cmd(
 cli.add_command(click.Command("wizard", callback=wizard_cmd, help="Interactive strategy session"))
 cli.add_command(click.Command("analyze", callback=lambda **kw: analyze_cmd(**kw), params=[
     click.Argument(["company"]),
+    click.Option(["--ticker"], default="", help="Stock ticker symbol (enables real data)"),
     click.Option(["--industry"], default="", help="Industry"),
     click.Option(["--competitors"], default="", help="Comma-separated competitors"),
     click.Option(["--output"], default="", help="Output directory"),

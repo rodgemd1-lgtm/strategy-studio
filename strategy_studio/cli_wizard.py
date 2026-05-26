@@ -182,6 +182,7 @@ def wizard() -> StrategySession:
 
 def analyze(
     company_name: str,
+    ticker: str = "",
     industry: str = "",
     competitors: str = "",
     historical: str = "",
@@ -209,6 +210,7 @@ def analyze(
 
     session = run_strategy_session(
         company_name=company_name,
+        ticker=ticker,
         industry=industry,
         competitors=comp_list,
         historical_data=hist_data,

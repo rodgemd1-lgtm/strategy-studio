@@ -28,6 +28,7 @@ from typing import Any
 # ── Version ────────────────────────────────────────────────────────────────
 
 __version__ = "10.0.0"
+__package_name__ = "rig-strategy-studio"
 
 
 # ── ASCII Art Banner ───────────────────────────────────────────────────────
@@ -54,7 +55,7 @@ BANNER = r"""
 def build_parser() -> argparse.ArgumentParser:
     """Build the complete CLI argument parser."""
     parser = argparse.ArgumentParser(
-        prog="rig-studio",
+        prog="rig-strategy-studio",
         description="RIG Strategy Studio — Deterministic strategy synthesis platform",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
@@ -71,7 +72,7 @@ Examples:
         """,
     )
 
-    parser.add_argument("--version", action="version", version=f"rig-studio {__version__}")
+    parser.add_argument("--version", action="version", version=f"rig-strategy-studio {__version__}")
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
     parser.add_argument("--quiet", "-q", action="store_true", help="Minimal output")
 

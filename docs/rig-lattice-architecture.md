@@ -184,10 +184,10 @@ BMS-based routing produces the following cell counts per mode:
 
 | Mode | Cell Count | Altitudes |
 |------|-----------|-----------|
-| A1 | 42 | L1 (21) + L1-D*D* (21) |
-| A2 | 42 | L2 (21) + L3 (21) |
+| A1 | 42 | L1 (21) + L2 (21) |
+| A2 | 42 | L3 (21) + L4 (21) |
 | A3 | 42 | L4 (21) + L5 (21) |
-| A4 | 21 | L6 (21) |
+| A4 | 21 | L6 (21) + L7 (21) |
 
 ## Running a Full Pipeline
 

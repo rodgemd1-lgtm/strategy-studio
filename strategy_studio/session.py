@@ -81,6 +81,8 @@ class StrategySession:
         historical_data: dict[str, float] | None = None,
         evidence_sources: list[str] | None = None,
         output_dir: Path | None = None,
+        ticker: str = "",
+        auto_enrich: bool = True,
     ):
         self.company_name = company_name
         self.industry = industry
@@ -89,6 +91,9 @@ class StrategySession:
         self.historical_data = historical_data or {}
         self.evidence_sources = evidence_sources or []
         self.output_dir = Path(output_dir) if output_dir else Path(f"out/sessions/{company_name.lower().replace(' ', '_')}")
+        self.ticker = ticker.upper()
+        self.auto_enrich = auto_enrich
+        self.enriched_data: dict = {}
         self.session_id = hashlib.md5(f"{company_name}{time.time()}".encode()).hexdigest()[:12]
         self.timestamp = datetime.now(timezone.utc)
 
@@ -109,6 +114,10 @@ class StrategySession:
         """Run the complete strategy session pipeline."""
         export_formats = export_formats or ["md", "html", "json"]
         self.output_dir.mkdir(parents=True, exist_ok=True)
+
+        # Step 0: Auto-enrich with real data
+        if self.auto_enrich:
+            self._enrich_from_data_sources()
 
         # Step 1: Build evidence from sources
         evidence = self._build_evidence()
@@ -141,6 +150,35 @@ class StrategySession:
         self._generate_report(export_formats)
 
         return self.report  # type: ignore[return-value]
+
+    def _enrich_from_data_sources(self) -> None:
+        """Auto-enrich company data from public sources (Yahoo Finance, Wikipedia, SEC)."""
+        try:
+            from strategy_studio.data_pipeline import (
+                enrich_company_data,
+                build_evidence_from_data,
+                get_historical_financials,
+            )
+            self.enriched_data = enrich_company_data(
+                company_name=self.company_name,
+                ticker=self.ticker,
+                industry=self.industry,
+            )
+            # Merge enriched evidence
+            enriched_evidence = build_evidence_from_data(self.enriched_data)
+            if enriched_evidence:
+                self.evidence_sources.extend([e.citations[0] for e in enriched_evidence if e.citations])
+            # Merge enriched historical data
+            if self.ticker:
+                hist = get_historical_financials(self.ticker)
+                for k, v in hist.items():
+                    if k not in self.historical_data:
+                        self.historical_data[k] = v
+            # Update industry if enriched
+            if self.enriched_data.get("industry") and not self.industry:
+                self.industry = self.enriched_data["industry"]
+        except Exception:
+            pass  # Enrichment is best-effort
 
     def _build_evidence(self) -> list[Evidence]:
         """Build evidence list from provided sources."""
@@ -454,6 +492,8 @@ def run_strategy_session(
     evidence_sources: list[str] | None = None,
     output_dir: Path | None = None,
     export_formats: list[str] | None = None,
+    ticker: str = "",
+    auto_enrich: bool = True,
 ) -> StrategySession:
     """Convenience function to run a complete strategy session."""
     session = StrategySession(
@@ -464,6 +504,8 @@ def run_strategy_session(
         historical_data=historical_data,
         evidence_sources=evidence_sources,
         output_dir=output_dir,
+        ticker=ticker,
+        auto_enrich=auto_enrich,
     )
     session.run(export_formats=export_formats)
     return session

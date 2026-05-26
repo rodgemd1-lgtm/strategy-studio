@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategy Analysis: Microsoft</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: #0a0a1a;
+    color: #e0e0e0;
+    overflow: hidden;
+}
+.slides-container { height: 100vh; }
+.slide {
+    display: none;
+    height: 100vh;
+    padding: 60px 80px;
+    flex-direction: column;
+    justify-content: center;
+    page-break-after: always;
+}
+.slide.active { display: flex; }
+.slide h1 { font-size: 3em; margin-bottom: 20px; color: #fff; }
+.slide h2 { font-size: 2em; margin-bottom: 30px; color: #e94560; border-bottom: 2px solid #e94560; padding-bottom: 10px; }
+.slide h3 { font-size: 1.3em; margin: 20px 0 15px; color: #3498db; }
+.slide h4 { font-size: 1.1em; margin: 15px 0 10px; color: #fff; }
+.slide p { font-size: 1.1em; line-height: 1.6; margin: 10px 0; }
+.slide ul { list-style: none; padding: 0; }
+.slide ul li { padding: 8px 0; padding-left: 20px; position: relative; }
+.slide ul li::before { content: "→"; position: absolute; left: 0; color: #e94560; }
+
+.title-slide { text-align: center; }
+.title-slide h1 { font-size: 4em; }
+.title-slide .subtitle { font-size: 1.5em; color: #95a5a6; margin-top: 20px; }
+.title-slide .date { color: #7f8c8d; margin-top: 10px; }
+.confidence-badge { display: inline-block; padding: 8px 20px; border-radius: 20px; font-weight: bold; font-size: 1.1em; margin-top: 20px; color: #fff; }
+.confidence-badge.large { font-size: 1.5em; padding: 12px 30px; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: inherit; }
+.col { background: inherit; }
+
+.recommendation-box { background: rgba(233,69,96,0.1); border: 1px solid #e94560; border-radius: 12px; padding: 20px; margin: 20px 0; }
+.recommendation-box .recommendation { font-size: 1.4em; font-weight: bold; color: #e94560; }
+
+.data-table { width: 100%; border-collapse: collapse; margin: 15px 0; background: inherit; }
+.data-table th { text-align: left; padding: 10px; border-bottom: 2px solid #333; color: #3498db; font-size: 0.9em; }
+.data-table td { padding: 10px; border-bottom: 1px solid #222; vertical-align: middle; }
+.data-table tr:hover { background: rgba(255,255,255,0.03); }
+
+.rank { background: #3498db; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 0.85em; }
+.score-pill { padding: 4px 12px; border-radius: 12px; font-weight: bold; color: #fff; font-size: 0.9em; }
+.tier-pill { padding: 4px 12px; border-radius: 12px; font-weight: bold; color: #fff; font-size: 0.9em; }
+.bar-cell { width: 120px; }
+.bar { font-size: 0.8em; letter-spacing: 1px; background: inherit; display: inline-block; }
+.confidence { color: #95a5a6; }
+
+.risks-section { background: rgba(231,76,60,0.1); border: 1px solid #e74c3c; border-radius: 12px; padding: 20px; margin-top: 20px; }
+.risk-item { color: #e74c3c; }
+
+.scenario-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.risk-badge { padding: 6px 16px; border-radius: 12px; font-weight: bold; font-size: 0.9em; color: #fff; }
+
+.moves-section { background: rgba(52,152,219,0.05); border-radius: 12px; padding: 20px; }
+.move-row { display: flex; align-items: center; gap: 15px; padding: 10px 0; border-bottom: 1px solid #222; }
+.move-row .actor { font-weight: bold; color: #3498db; min-width: 100px; }
+.move-row .move-text { flex: 1; font-size: 0.9em; }
+.move-row .prob-bar { font-size: 0.7em; color: #27ae60; }
+.move-row .prob-pct { color: #95a5a6; min-width: 50px; text-align: right; }
+
+.response-section { background: rgba(46,204,113,0.1); border-left: 4px solid #2ecc71; padding: 15px 20px; margin-top: 20px; border-radius: 0 8px 8px 0; }
+.equilibrium { background: rgba(243,156,18,0.1); border-left: 4px solid #f39c12; padding: 15px 20px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+
+.scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.scenario-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 12px; padding: 20px; }
+.scenario-card h4 { color: #3498db; margin-bottom: 10px; }
+.prob-display { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+.prob-bar { font-size: 0.8em; color: #2ecc71; }
+.proc-value { font-weight: bold; color: #2ecc71; }
+.scenario-details { font-size: 0.85em; color: #95a5a6; margin-top: 10px; }
+.scenario-details li { padding: 3px 0; }
+
+.prediction-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.prediction-card { background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 12px; padding: 20px; }
+.prediction-card h4 { color: #3498db; }
+.prediction-main { display: flex; align-items: baseline; gap: 15px; margin: 10px 0; }
+.point-estimate { font-size: 2em; font-weight: bold; color: #fff; }
+.ci-range { color: #95a5a6; font-size: 0.9em; }
+.prediction-bar-wrap { height: 8px; background: #222; border-radius: 4px; margin: 10px 0; }
+.prediction-bar { height: 100%; background: linear-gradient(90deg, #3498db, #2ecc71); border-radius: 4px; }
+.method { color: #7f8c8d; font-size: 0.8em; }
+.calibration { color: #f39c12; font-size: 0.8em; margin-left: 10px; }
+
+.evidence-summary { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+.source-node { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #222; }
+.source-uri { flex: 1; font-size: 0.85em; color: #95a5a6; }
+.source-bar { font-size: 0.7em; color: #27ae60; }
+.source-score { font-weight: bold; color: #27ae60; min-width: 40px; text-align: right; }
+.contradictions { background: rgba(231,76,60,0.1); border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+.contradictions h3 { color: #e74c3c; }
+.contradiction { color: #e74c3c; }
+.gaps { background: rgba(243,156,18,0.1); border-radius: 8px; padding: 15px; }
+.gaps h3 { color: #f39c12; }
+.gap { color: #f39c12; }
+
+.agreement-display { display: flex; gap: 30px; margin-bottom: 20px; font-size: 1.2em; }
+.dissent { color: #e74c3c; margin-top: 15px; }
+
+.price-display { text-align: center; margin: 20px 0; }
+.price { font-size: 3em; font-weight: bold; color: #2ecc71; display: block; }
+.range { color: #95a5a6; display: block; margin-top: 5px; }
+.cagr { color: #3498db; display: block; margin-top: 5px; }
+.description { color: #95a5a6; font-size: 0.9em; margin-top: 15px; line-height: 1.6; }
+
+.steps-list { display: flex; flex-direction: column; gap: 15px; }
+.step { display: flex; align-items: center; gap: 20px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px; }
+.step-num { background: #e94560; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em; flex-shrink: 0; }
+.step-text { font-size: 1.1em; }
+
+.footer-note { margin-top: 40px; text-align: center; color: #555; font-size: 0.85em; }
+
+.weight-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+.weight-row span:first-child { min-width: 150px; }
+.weight-bar { font-size: 0.7em; color: #3498db; }
+
+.sensitivity-section { margin-top: 20px; }
+.sensitivity-section table { font-size: 0.85em; }
+.sensitivity-section .critical { background: rgba(231,76,60,0.1); }
+
+/* Print styles */
+@media print {
+    .slide { display: block; page-break-after: always; height: auto; padding: 40px; }
+    body { background: #fff; color: #000; }
+    .nav-bar { display: none; }
+}
+
+/* Nav bar */
+.nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: rgba(10, 10, 26, 0.95);
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 1000;
+    font-size: 0.85em;
+    color: #666;
+}
+.nav-left {
+    color: #e94560;
+    font-weight: bold;
+}
+.nav-right {
+    color: #666;
+}
+.slide {
+    padding-top: 40px;
+}
+</style>
+</head>
+<body>
+<div class="nav-bar">
+    <div class="nav-left">Strategy Studio</div>
+    <div class="nav-right"><span id="slide-num">1</span> / <span id="slide-total">8</span></div>
+</div>
+<div class="slides-container">
+<div class="slide active" id="title" data-slide="0">
+        <div class="title-slide">
+            <h1>Strategy Analysis: Microsoft</h1>
+            <p class="subtitle">Strategy Analysis & Recommendations</p>
+            <p class="date">May 26, 2026</p>
+            <div class="confidence-badge" style="background: #f39c12">
+                Confidence: M
+            </div>
+        </div>
+    </div>
+<div class="slide" id="executive-summary" data-slide="1">
+        <h2>Executive Summary</h2>
+        <div class="two-col">
+            <div class="col">
+                <h3>Key Findings</h3>
+                <ul><li>Primary recommendation: Organic Growth (score: 0.71)</li><li>Evaluated 4 strategic options</li><li>  #1: Organic Growth (score: 0.71)</li><li>  #2: Strategic Acquisition (score: 0.66)</li><li>  #3: Product Innovation (score: 0.6)</li><li>Analysis rationale: Organic Growth</li><li>Quality gate: PASSED</li></ul>
+            </div>
+            <div class="col">
+                <div class="recommendation-box">
+                    <h3>Recommendation</h3>
+                    <p class="recommendation">Organic Growth</p>
+                </div>
+                <div class="risks-section"><h3>Key Risks</h3><ul><li class="risk-item">Close decision: Organic Growth leads Strategic Acquisition by only 0.049</li></ul></div>
+            </div>
+        </div>
+    </div>
+<div class="slide" id="decision-matrix" data-slide="2">
+            <h2>Decision Matrix</h2>
+            <div class="two-col">
+                <div class="col">
+                    <table class="data-table">
+                        <thead><tr><th>Rank</th><th>Option</th><th>Score</th><th></th><th>Tier</th><th>Conf.</th></tr></thead>
+                        <tbody>
+            <tr>
+                <td><span class="rank">#1</span></td>
+                <td><strong>Organic Growth</strong></td>
+                <td><span class="score-pill" style="background:#27ae60">0.71</span></td>
+                <td><div class="bar-cell"><span class="bar" style="background:#27ae60">██████████████░░░░░░</span></div></td>
+                <td><span class="tier-pill" style="background:#27ae60">A</span></td>
+                <td><span class="confidence">H</span></td>
+            </tr>
+            <tr>
+                <td><span class="rank">#2</span></td>
+                <td><strong>Strategic Acquisition</strong></td>
+                <td><span class="score-pill" style="background:#3498db">0.66</span></td>
+                <td><div class="bar-cell"><span class="bar" style="background:#3498db">█████████████░░░░░░░</span></div></td>
+                <td><span class="tier-pill" style="background:#3498db">B</span></td>
+                <td><span class="confidence">M</span></td>
+            </tr>
+            <tr>
+                <td><span class="rank">#3</span></td>
+                <td><strong>Product Innovation</strong></td>
+                <td><span class="score-pill" style="background:#3498db">0.60</span></td>
+                <td><div class="bar-cell"><span class="bar" style="background:#3498db">████████████░░░░░░░░</span></div></td>
+                <td><span class="tier-pill" style="background:#3498db">B</span></td>
+                <td><span class="confidence">M</span></td>
+            </tr>
+            <tr>
+                <td><span class="rank">#4</span></td>
+                <td><strong>Strategic Partnership</strong></td>
+                <td><span class="score-pill" style="background:#f39c12">0.59</span></td>
+                <td><div class="bar-cell"><span class="bar" style="background:#f39c12">███████████░░░░░░░░░</span></div></td>
+                <td><span class="tier-pill" style="background:#f39c12">C</span></td>
+                <td><span class="confidence">M</span></td>
+            </tr></tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <h3>Criteria Weights</h3>
+                    <div class="weight-row"><span>market_opportunity</span><span class="weight-bar">████████████████████</span><span>30.0%</span></div><div class="weight-row"><span>competitive_advantage</span><span class="weight-bar">████████████████░░░░</span><span>25.0%</span></div><div class="weight-row"><span>execution_feasibility</span><span class="weight-bar">█████████████░░░░░░░</span><span>20.0%</span></div><div class="weight-row"><span>financial_return</span><span class="weight-bar">████████████████░░░░</span><span>25.0%</span></div>
+                    
+                </div>
+            </div>
+        </div>
+<div class="slide" id="competitive" data-slide="3">
+            <h2>Competitive Analysis</h2>
+            <div class="scenario-header">
+                <h3>Competitive dynamics in technology</h3>
+                <span class="risk-badge" style="background:#e74c3c">CRITICAL</span>
+            </div>
+            <div class="moves-section">
+                <h3>Competitive Moves</h3>
+                
+            <div class="move-row">
+                <span class="actor">Apple</span>
+                <span class="move-text">React to: &#x27;Increase market pressure through pricing or featu</span>
+                <span class="prob-bar">██████████████░░░░░░</span>
+                <span class="prob-pct">73.6%</span>
+            </div>
+            <div class="move-row">
+                <span class="actor">Google</span>
+                <span class="move-text">React to: &#x27;Increase market pressure through pricing or featu</span>
+                <span class="prob-bar">██████████████░░░░░░</span>
+                <span class="prob-pct">74.9%</span>
+            </div>
+            <div class="move-row">
+                <span class="actor">Amazon</span>
+                <span class="move-text">React to: &#x27;Increase market pressure through pricing or featu</span>
+                <span class="prob-bar">█████████████░░░░░░░</span>
+                <span class="prob-pct">69.4%</span>
+            </div>
+            </div>
+            <div class="response-section">
+                <h3>Recommended Response</h3>
+                <p>Increase market pressure through pricing or feature acceleration.</p>
+            </div>
+            <div class="equilibrium"><h3>Equilibrium</h3><p>No equilibrium after 2 rounds — max shift 0.1113. Increase depth or revisit assumptions.</p></div>
+        </div>
+<div class="slide" id="predictions" data-slide="4">
+            <h2>Predictions</h2>
+            <div class="prediction-grid">
+            <div class="prediction-card">
+                <h4>price</h4>
+                <div class="prediction-main">
+                    <span class="point-estimate">402.52</span>
+                    <span="ci-range">[342.14 — 462.90]</span>
+                </div>
+                <div class="prediction-bar-wrap">
+                    <div class="prediction-bar" style="width:40%"></div>
+                </div>
+                <span class="method">Method: ensemble</span>
+                <span class="calibration">Calibration: 0.21</span>
+            </div></div>
+        </div>
+<div class="slide" id="evidence" data-slide="5">
+            <h2>Evidence Quality</h2>
+            <div class="evidence-summary">
+                <span class="confidence-badge large" style="background:#e74c3c">
+                    Overall: L
+                </span>
+                <span>4 sources scored</span>
+            </div>
+            <div class="two-col">
+                <div class="col"><h3>Sources</h3>
+            <div class="source-node">
+                <span class="source-uri">source://0</span>
+                <span class="source-bar">█████░░░░░░░░░░</span>
+                <span class="source-score">0.30</span>
+            </div>
+            <div class="source-node">
+                <span class="source-uri">source://1</span>
+                <span class="source-bar">█████░░░░░░░░░░</span>
+                <span class="source-score">0.30</span>
+            </div>
+            <div class="source-node">
+                <span class="source-uri">source://2</span>
+                <span class="source-bar">█████░░░░░░░░░░</span>
+                <span class="source-score">0.30</span>
+            </div>
+            <div class="source-node">
+                <span class="source-uri">source://3</span>
+                <span class="source-bar">█████░░░░░░░░░░</span>
+                <span class="source-score">0.30</span>
+            </div></div>
+                <div class="col"><div class="gaps"><h3>Evidence Gaps</h3><ul><li class="gap">microsoft</li><li class="gap">strategy</li><li class="gap">technology</li></ul></div></div>
+            </div>
+        </div>
+<div class="slide" id="data" data-slide="6">
+            <h2>Market Data</h2>
+            
+            <div class="price-display">
+                <span class="price">$418.57</span>
+                <span class="range">52w: $356.28 — $555.45</span>
+                <span class="cagr">5y CAGR: 0.1%</span>
+            </div>
+            <table class="data-table">
+                <thead><tr><th>Source</th><th>Status</th></tr></thead>
+                <tbody><tr><td>yahoo_finance</td><td>✓</td></tr><tr><td>wikipedia</td><td>✓</td></tr><tr><td>sec_edgar</td><td>✓</td></tr></tbody>
+            </table>
+            <p class="description">Microsoft Corporation is an American multinational technology company headquartered in Redmond, Washington. The company became influential in the rise of personal computers through software like Windows and has since expanded into areas such as Internet services, cloud computing, artificial intellig</p>
+        </div>
+<div class="slide" id="next-steps" data-slide="7">
+        <h2>Next Steps</h2>
+        <div class="steps-list"><div class="step"><span class="step-num">1</span><span class="step-text">Proceed with: Organic Growth</span></div></div>
+        <div class="footer-note">
+            <p>Generated by Strategy Studio — Deterministic strategy synthesis</p>
+            <p>Every claim is evidence-cited. Every option is scored. Fully reproducible.</p>
+        </div>
+    </div>
+
+    </div><!-- .slides -->
+    <script>
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        const slides = document.querySelectorAll('.slide');
+        let current = parseInt(document.querySelector('.slide.active')?.dataset?.slide || 0);
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            e.preventDefault();
+            slides[current]?.classList.remove('active');
+            current = Math.min(current + 1, slides.length - 1);
+            slides[current]?.classList.add('active');
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            slides[current]?.classList.remove('active');
+            current = Math.max(current - 1, 0);
+            slides[current]?.classList.add('active');
+        }
+    });
+    </script>
+    </body></html>

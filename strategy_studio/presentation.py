@@ -67,6 +67,9 @@ def generate_html_presentation(report: StrategyReport, enriched_data: dict | Non
     """Generate a complete HTML presentation from a StrategyReport."""
     parts: list[str] = []
 
+    global _slide_counter
+    _slide_counter = 0
+
     # ── Header / CSS ─────────────────────────────────────────────────────
     parts.append(_html_header(report.title))
 
@@ -384,8 +387,18 @@ def _get_predictions(report: StrategyReport) -> list:
     return predictions
 
 
+_slide_counter = 0
+
 def _slide(slide_id: str, content: str) -> str:
-    return f'<div class="slide" id="{slide_id}">{content}</div>'
+    global _slide_counter
+    active = " active" if _slide_counter == 0 else ""
+    _slide_counter += 1
+    return f'<div class="slide{active}" id="{slide_id}" data-slide="{_slide_counter - 1}">{content}</div>'
+
+
+def _next_slide() -> str:
+    """Advance to the next slide marker (for internal use)."""
+    return ""
 
 
 def _html_header(title: str) -> str:
@@ -523,10 +536,43 @@ body {{
 @media print {{
     .slide {{ display: block; page-break-after: always; height: auto; padding: 40px; }}
     body {{ background: #fff; color: #000; }}
+    .nav-bar {{ display: none; }}
+}}
+
+/* Nav bar */
+.nav-bar {{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: rgba(10, 10, 26, 0.95);
+    border-bottom: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    z-index: 1000;
+    font-size: 0.85em;
+    color: #666;
+}}
+.nav-left {{
+    color: #e94560;
+    font-weight: bold;
+}}
+.nav-right {{
+    color: #666;
+}}
+.slide {{
+    padding-top: 40px;
 }}
 </style>
 </head>
 <body>
+<div class="nav-bar">
+    <div class="nav-left">Strategy Studio</div>
+    <div class="nav-right"><span id="slide-num">1</span> / <span id="slide-total">8</span></div>
+</div>
 <div class="slides-container">"""
 
 

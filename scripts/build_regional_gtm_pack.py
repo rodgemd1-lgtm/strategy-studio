@@ -55,7 +55,6 @@ FRONT_RANGE_CITIES = {
     "parker",
     "johnstown",
     "fountain",
-    "breckenridge",
 }
 
 

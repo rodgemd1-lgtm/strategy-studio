@@ -1,8 +1,11 @@
 # RIG Strategy Studio — Complete Handoff Document
 
-**Created:** May 25-26, 2026  
-**Author:** OWL (Hermes Agent) for Mike Rodgers  
-**Repo:** `github.com/rodgemd1-lgtm/strategy-studio` (private)
+**Package Name:** `rig-strategy-studio`  
+**CLI Command:** `rig-strategy-studio`  
+**Version:** 10.0.0  
+**Date:** May 26, 2026  
+**Repository:** github.com/rodgemd1-lgtm/strategy-studio (private)  
+**Test Coverage:** 145+ tests passing
 
 ---
 

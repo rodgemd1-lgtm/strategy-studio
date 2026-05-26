@@ -1,0 +1,42 @@
+{
+  "capabilities": [
+    "Installable repo CLI entrypoint",
+    "Source-of-truth clone routing",
+    "README and capability discovery",
+    "rig-core capability surface"
+  ],
+  "command": "strategy-studio",
+  "description": "RIG Strategy Studio - A1-A4 archetype workflows, Excalidraw diagrams, HED docs, terminal visualization",
+  "github": {
+    "clone": "https://github.com/rodgemd1-lgtm/strategy-studio.git",
+    "mirror": "https://github.com/rodgemd1-lgtm/strategy-studio"
+  },
+  "install": {
+    "clone_optional": true,
+    "default_install_dir": "~/.local/bin",
+    "script": "install.sh"
+  },
+  "lane": "rig-core",
+  "lane_label": "RIG/Jake/Hermes/Deviator operating system",
+  "name": "strategy-studio",
+  "primary_language": "Python",
+  "proof": {
+    "generated_at": "2026-05-26T18:49:25Z",
+    "generated_by": "scripts/repositories/apply_repo_cli_contract.py",
+    "standard": "https://github.com/rodgemd1-lgtm/Startup-Intelligence-OS/blob/claude/rig-sovereign-audit-mesh/docs/repositories/repo-cli-standard.md"
+  },
+  "schema": "rig.repo-cli.v1",
+  "service_commands": [
+    {
+      "command": "python3 -m pip install -e .",
+      "name": "python"
+    }
+  ],
+  "slug": "strategy-studio",
+  "source_of_truth": {
+    "clone": "ssh://git@nas94f2ae.tail4d96b3.ts.net:2222/rig/strategy-studio.git",
+    "type": "qnap-gitea"
+  },
+  "status": "active-public",
+  "visibility": "public"
+}

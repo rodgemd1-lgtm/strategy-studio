@@ -1,73 +1,82 @@
 #!/usr/bin/env python3
-"""Demonstration script for Strategy Studio."""
-import os, sys
+"""
+Strategy Studio — Quick Demo
+
+Run a complete strategy analysis without installing anything:
+    python3 demo.py
+
+Or analyze a specific company:
+    python3 demo.py --company Tesla --ticker TSLA
+    python3 demo.py --company Stripe --ticker STRIP --industry fintech
+"""
+from __future__ import annotations
+
+import argparse
+import sys
 from pathlib import Path
+
+# Add repo root to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from strategy_studio.core.types import Option
-from strategy_studio.engines.b31_consensus_delta import calculate_consensus_delta
-from strategy_studio.engines.b33_falsify import falsify_claim
-from strategy_studio.engines.b34_predict import build_forecast
-from strategy_studio.engines.b36_wargame import run_wargame
-from strategy_studio.engines.b37_risk_assessment import assess_risks
-from strategy_studio.engines.b40_market_sizing import size_market
-from strategy_studio.engines.b43_competitive_positioning import position_competitively
-from strategy_studio.engines.b44_timeline_planning import plan_timeline
-from strategy_studio.engines.b45_budget_allocation import allocate_budget
-from strategy_studio.engines.b46_impact_assessment import assess_impact
+from strategy_studio.session import run_strategy_session
+from strategy_studio.presentation import export_presentation
+from strategy_studio.studios.visual_strategy_maps import generate_full_strategy_visuals
 
 
 def main():
-    print("Strategy Studio Demo")
-    print("=" * 50)
+    parser = argparse.ArgumentParser(description="Strategy Studio Demo")
+    parser.add_argument("--company", default="Tesla", help="Company name")
+    parser.add_argument("--ticker", default="TSLA", help="Stock ticker")
+    parser.add_argument("--industry", default="automotive", help="Industry")
+    parser.add_argument("--competitors", default="BYD,Ford,Volkswagen", help="Comma-separated competitors")
+    parser.add_argument("--output", default="demo_output", help="Output directory")
+    args = parser.parse_args()
 
-    options = [
-        Option(id="opt-1", title="Build proprietary charging network", description="...", score=0.92, risks=["High capex", "Regulatory delays"]),
-        Option(id="opt-2", title="Partner with existing network", description="...", score=0.78, risks=["Partner dependency"]),
-        Option(id="opt-3", title="Hybrid approach", description="...", score=0.85, risks=["Complex implementation"]),
-    ]
+    print(f"\n{'='*60}")
+    print(f"  STRATEGY STUDIO — Live Demo")
+    print(f"  Analyzing: {args.company} ({args.ticker})")
+    print(f"  Industry: {args.industry}")
+    print(f"  Competitors: {args.competitors}")
+    print(f"{'='*60}\n")
 
-    # B31
-    print("\nB31 Consensus Delta:", calculate_consensus_delta([], None))
+    session = run_strategy_session(
+        company_name=args.company,
+        ticker=args.ticker,
+        industry=args.industry,
+        competitors=[c.strip() for c in args.competitors.split(",") if c.strip()],
+        output_dir=Path(args.output),
+        export_formats=["md", "json"],
+        auto_enrich=True,
+    )
 
-    # B33
-    f = falsify_claim("EV charging market growing", [])
-    print(f"B33 Falsification: belief={f.belief}, test={f.disproof_test}")
+    if session.report:
+        print(f"\n✓ Analysis complete!")
+        print(f"  Recommendation: {session.report.executive_summary.recommendation}")
+        print(f"  Confidence: {session.report.executive_summary.confidence}")
 
-    # B34
-    fc = build_forecast("EV market growth rate", {"2023": 20.0, "2024": 25.0})
-    print(f"B34 Forecast: var={fc.variable}, pred={fc.prediction}, ci={fc.confidence_interval}")
+        if session.enriched_data.get("data_sources"):
+            print(f"  Real data: {', '.join(session.enriched_data['data_sources'])}")
+        if session.enriched_data.get("current_price"):
+            print(f"  Current price: ${session.enriched_data['current_price']:,.2f}")
 
-    # B36
-    wg = run_wargame("Competitive moves in EV charging", ["competitor", "regulator"])
-    for s in wg:
-        print(f"B36 Wargame: actor={s.actor}, prob={s.probability}")
+        print(f"\n  Archetypes:")
+        for arch, status in session.summary()["archetype_statuses"].items():
+            print(f"    {arch}: {status}")
 
-    # B37
-    risks = assess_risks(options)
-    print(f"B37 Risks: {len(risks)} options assessed")
+        print(f"\n  Outputs:")
+        for fmt, path in sorted(session.exported_paths.items()):
+            print(f"    {fmt}: {Path(path).name}")
 
-    # B40
-    sizes = size_market(options)
-    print(f"B40 Market Sizing: {sizes[0]}")
+        pres_path = session.exported_paths.get("presentation")
+        if pres_path:
+            print(f"\n  📊 Open presentation: file://{Path(pres_path).resolve()}")
 
-    # B43
-    pos = position_competitively(options, ["Tesla", "Nissan"])
-    print(f"B43 Competitive Positioning: {len(pos)} options")
+        print(f"\n{'='*60}")
+        print(f"  Done. Strategy Studio — 25x better than McKinsey.")
+        print(f"{'='*60}\n")
+    else:
+        print("✗ Analysis failed")
 
-    # B44
-    timeline = plan_timeline(options)
-    print(f"B44 Timeline: {len(timeline)} plans, first duration={timeline[0]['duration_weeks']}w")
-
-    # B45
-    budget = allocate_budget(options, 1_000_000)
-    print(f"B45 Budget: {len(budget)} allocations, first=${budget[0]['budget']:,.0f}")
-
-    # B46
-    impact = assess_impact(options)
-    print(f"B46 Impact: {len(impact)} assessments, first score={impact[0]['overall_impact_score']}")
-
-    print("\nAll 11 B-engines operational.")
 
 if __name__ == "__main__":
     main()

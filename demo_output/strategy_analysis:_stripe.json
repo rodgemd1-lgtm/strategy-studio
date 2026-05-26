@@ -1,0 +1,329 @@
+{
+  "title": "Strategy Analysis: Stripe",
+  "executive_summary": {
+    "title": "Strategy Analysis: Stripe",
+    "date": "2026-05-26T01:45:36.648274Z",
+    "key_findings": [
+      "Primary recommendation: Organic Growth (score: 0.75)",
+      "Evaluated 4 strategic options",
+      "  #1: Organic Growth (score: 0.75)",
+      "  #2: Product Innovation (score: 0.65)",
+      "  #3: Strategic Acquisition (score: 0.61)",
+      "Analysis rationale: Organic Growth",
+      "Quality gate: PASSED"
+    ],
+    "recommendation": "Organic Growth",
+    "confidence": "M",
+    "risks": [],
+    "next_steps": [
+      "Proceed with: Organic Growth"
+    ],
+    "appendices": []
+  },
+  "board_deck": {
+    "title": "Strategy Analysis: Stripe",
+    "date": "2026-05-26T01:45:36.648315Z",
+    "slides": [
+      {
+        "slide_number": 1,
+        "title": "Strategy Analysis: Stripe",
+        "content": "**Confidence:** M\n\n**Date:** 2026-05-26",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 2,
+        "title": "Key Findings",
+        "content": "- Primary recommendation: Organic Growth (score: 0.75)\n- Evaluated 4 strategic options\n-   #1: Organic Growth (score: 0.75)\n-   #2: Product Innovation (score: 0.65)\n-   #3: Strategic Acquisition (score: 0.61)\n- Analysis rationale: Organic Growth\n- Quality gate: PASSED",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 3,
+        "title": "Decision Matrix",
+        "content": "| Rank | Option | Score | Tier |\n|------|--------|-------|------|\n| 1 | Organic Growth | 0.7459 | A |\n| 2 | Product Innovation | 0.6471 | B |\n| 3 | Strategic Acquisition | 0.6131 | B |\n| 4 | Strategic Partnership | 0.5931 | C |",
+        "chart_type": "table",
+        "chart_data": {
+          "headers": [
+            "Rank",
+            "Option",
+            "Score",
+            "Tier"
+          ],
+          "rows": [
+            [
+              1,
+              "Organic Growth",
+              0.7459,
+              "A"
+            ],
+            [
+              2,
+              "Product Innovation",
+              0.6471,
+              "B"
+            ],
+            [
+              3,
+              "Strategic Acquisition",
+              0.6131,
+              "B"
+            ],
+            [
+              4,
+              "Strategic Partnership",
+              0.5931,
+              "C"
+            ]
+          ]
+        },
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 4,
+        "title": "Wargame Analysis",
+        "content": "**Scenario:** Competitive dynamics in fintech\n\n**Risk Level:** CRITICAL\n\n**Equilibrium:** No equilibrium after 2 rounds \u2014 max shift 0.0519. Increase depth or revisit assumptions.\n\n**Recommended Response:** Increase market pressure through pricing or feature acceleration.\n\n- **Adyen:** React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals. (prob: 0.7515)\n- **PayPal:** React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals. (prob: 0.742)\n- **Square:** React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals. (prob: 0.7053)\n",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 5,
+        "title": "Recommended Next Steps",
+        "content": "1. Proceed with: Organic Growth",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      }
+    ],
+    "appendix": []
+  },
+  "decision_room": {
+    "title": "Recommendation: Organic Growth",
+    "decision_matrix": {
+      "options": [
+        {
+          "option_id": "organic_growth",
+          "option_title": "Organic Growth",
+          "total_score": 0.7459,
+          "criteria_scores": {
+            "market_opportunity": 0.677,
+            "competitive_advantage": 0.7792,
+            "execution_feasibility": 0.7502,
+            "financial_return": 0.792
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.2031,
+            "competitive_advantage": 0.1948,
+            "execution_feasibility": 0.15,
+            "financial_return": 0.198
+          },
+          "rank": 1,
+          "tier": "A",
+          "confidence": "H"
+        },
+        {
+          "option_id": "innovation",
+          "option_title": "Product Innovation",
+          "total_score": 0.6471,
+          "criteria_scores": {
+            "market_opportunity": 0.6902,
+            "competitive_advantage": 0.6692,
+            "execution_feasibility": 0.5634,
+            "financial_return": 0.6402
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.2071,
+            "competitive_advantage": 0.1673,
+            "execution_feasibility": 0.1127,
+            "financial_return": 0.16
+          },
+          "rank": 2,
+          "tier": "B",
+          "confidence": "M"
+        },
+        {
+          "option_id": "acquisition",
+          "option_title": "Strategic Acquisition",
+          "total_score": 0.6131,
+          "criteria_scores": {
+            "market_opportunity": 0.6946,
+            "competitive_advantage": 0.5968,
+            "execution_feasibility": 0.5678,
+            "financial_return": 0.5678
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.2084,
+            "competitive_advantage": 0.1492,
+            "execution_feasibility": 0.1136,
+            "financial_return": 0.1419
+          },
+          "rank": 3,
+          "tier": "B",
+          "confidence": "M"
+        },
+        {
+          "option_id": "partnership",
+          "option_title": "Strategic Partnership",
+          "total_score": 0.5931,
+          "criteria_scores": {
+            "market_opportunity": 0.5522,
+            "competitive_advantage": 0.6638,
+            "execution_feasibility": 0.558,
+            "financial_return": 0.5998
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.1657,
+            "competitive_advantage": 0.1659,
+            "execution_feasibility": 0.1116,
+            "financial_return": 0.1499
+          },
+          "rank": 4,
+          "tier": "C",
+          "confidence": "M"
+        }
+      ],
+      "criteria": [
+        "market_opportunity",
+        "competitive_advantage",
+        "execution_feasibility",
+        "financial_return"
+      ],
+      "weights": {
+        "market_opportunity": 0.3,
+        "competitive_advantage": 0.25,
+        "execution_feasibility": 0.2,
+        "financial_return": 0.25
+      },
+      "sensitivity": [],
+      "recommendation": null,
+      "rationale": ""
+    },
+    "scenarios_considered": [],
+    "risks": [],
+    "next_steps": [
+      "Proceed with Organic Growth (score: 0.7459)",
+      "Consider Product Innovation as backup (score: 0.6471)"
+    ],
+    "confidence": "M"
+  },
+  "prediction_result": null,
+  "wargame_result": {
+    "scenario_name": "Competitive dynamics in fintech",
+    "actors": [
+      "Adyen",
+      "PayPal",
+      "Square"
+    ],
+    "moves": [
+      {
+        "actor": "Adyen",
+        "move": "React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals.",
+        "impact": "Moderate revenue compression; talent retention risk.",
+        "rig_response": "Increase market pressure through pricing or feature acceleration.",
+        "probability": 0.7515
+      },
+      {
+        "actor": "PayPal",
+        "move": "React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals.",
+        "impact": "Moderate revenue compression; talent retention risk.",
+        "rig_response": "Increase market pressure through pricing or feature acceleration.",
+        "probability": 0.742
+      },
+      {
+        "actor": "Square",
+        "move": "React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals.",
+        "impact": "Moderate revenue compression; talent retention risk.",
+        "rig_response": "Increase market pressure through pricing or feature acceleration.",
+        "probability": 0.7053
+      }
+    ],
+    "equilibrium": "No equilibrium after 2 rounds \u2014 max shift 0.0519. Increase depth or revisit assumptions.",
+    "recommended_response": "Increase market pressure through pricing or feature acceleration.",
+    "risk_level": "critical"
+  },
+  "evidence_graph": null,
+  "cross_archetype": {
+    "archetype_results": [
+      {
+        "archetype": "a1",
+        "status": "PASS",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 0
+      },
+      {
+        "archetype": "a2",
+        "status": "PASS",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 0
+      },
+      {
+        "archetype": "A3",
+        "status": "completed",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 1
+      },
+      {
+        "archetype": "A4",
+        "status": "QUALITY_FAILED",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 0
+      }
+    ],
+    "consensus_options": [],
+    "agreement_score": 0.0,
+    "dissenting_options": [],
+    "recommended_synthesis": null,
+    "confidence": "L"
+  },
+  "meta_analysis": null,
+  "proof_packets": [],
+  "audit_trail": [
+    {
+      "timestamp": "2026-05-26T01:45:36.646168Z",
+      "archetype": "a1",
+      "mode": "PYTHON_ONLY",
+      "input_hash": "01239399cd1edc38",
+      "output_hash": "c3ba9855caec9421",
+      "duration_ms": 0,
+      "status": "PASS"
+    },
+    {
+      "timestamp": "2026-05-26T01:45:36.646404Z",
+      "archetype": "a2",
+      "mode": "HYBRID",
+      "input_hash": "01239399cd1edc38",
+      "output_hash": "c3ba9855caec9421",
+      "duration_ms": 0,
+      "status": "PASS"
+    },
+    {
+      "timestamp": "2026-05-26T01:45:36.647785Z",
+      "archetype": "A3",
+      "mode": "AGENT_BOUNDED",
+      "input_hash": "8852deb57815372d",
+      "output_hash": "99ff9aa62654dd06",
+      "duration_ms": 1,
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-05-26T01:45:36.648034Z",
+      "archetype": "A4",
+      "mode": "LLM_FREE",
+      "input_hash": "7079085872848935",
+      "output_hash": "quality_failed",
+      "duration_ms": 0,
+      "status": "QUALITY_FAILED"
+    }
+  ]
+}

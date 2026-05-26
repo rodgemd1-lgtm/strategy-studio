@@ -1,0 +1,744 @@
+{
+  "title": "Strategy Analysis: Tesla",
+  "executive_summary": {
+    "title": "Strategy Analysis: Tesla",
+    "date": "2026-05-26T01:20:45.326818Z",
+    "key_findings": [
+      "Primary recommendation: Product Innovation (score: 0.69)",
+      "Evaluated 4 strategic options",
+      "  #1: Product Innovation (score: 0.69)",
+      "  #2: Organic Growth (score: 0.68)",
+      "  #3: Strategic Acquisition (score: 0.6)",
+      "Analysis rationale: Product Innovation",
+      "Quality gate: PASSED"
+    ],
+    "recommendation": "Product Innovation",
+    "confidence": "M",
+    "risks": [
+      "Close decision: Product Innovation leads Organic Growth by only 0.015"
+    ],
+    "next_steps": [
+      "Proceed with: Product Innovation"
+    ],
+    "appendices": []
+  },
+  "board_deck": {
+    "title": "Strategy Analysis: Tesla",
+    "date": "2026-05-26T01:20:45.326910Z",
+    "slides": [
+      {
+        "slide_number": 1,
+        "title": "Strategy Analysis: Tesla",
+        "content": "**Confidence:** M\n\n**Date:** 2026-05-26",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 2,
+        "title": "Key Findings",
+        "content": "- Primary recommendation: Product Innovation (score: 0.69)\n- Evaluated 4 strategic options\n-   #1: Product Innovation (score: 0.69)\n-   #2: Organic Growth (score: 0.68)\n-   #3: Strategic Acquisition (score: 0.6)\n- Analysis rationale: Product Innovation\n- Quality gate: PASSED",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 3,
+        "title": "Decision Matrix",
+        "content": "| Rank | Option | Score | Tier |\n|------|--------|-------|------|\n| 1 | Product Innovation | 0.6909 | A |\n| 2 | Organic Growth | 0.6754 | B |\n| 3 | Strategic Acquisition | 0.5969 | B |\n| 4 | Strategic Partnership | 0.5653 | C |",
+        "chart_type": "table",
+        "chart_data": {
+          "headers": [
+            "Rank",
+            "Option",
+            "Score",
+            "Tier"
+          ],
+          "rows": [
+            [
+              1,
+              "Product Innovation",
+              0.6909,
+              "A"
+            ],
+            [
+              2,
+              "Organic Growth",
+              0.6754,
+              "B"
+            ],
+            [
+              3,
+              "Strategic Acquisition",
+              0.5969,
+              "B"
+            ],
+            [
+              4,
+              "Strategic Partnership",
+              0.5653,
+              "C"
+            ]
+          ]
+        },
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 4,
+        "title": "Prediction",
+        "content": "**Variable:** price\n\n**Point Estimate:** 354.511786\n\n**95% CI:** [301.335018, 407.688554]\n\n**Method:** ensemble\n\n**Monte Carlo (5000 iter):** mean=355.49, std=35.24",
+        "chart_type": "bar",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 5,
+        "title": "Wargame Analysis",
+        "content": "**Scenario:** Competitive dynamics in automotive\n\n**Risk Level:** CRITICAL\n\n**Equilibrium:** No equilibrium after 2 rounds \u2014 max shift 0.0354. Increase depth or revisit assumptions.\n\n**Recommended Response:** Increase market pressure through pricing or feature acceleration.\n\n- **BYD:** React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals. (prob: 0.8117)\n- **Ford:** React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals. (prob: 0.7185)\n- **Volkswagen:** React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals. (prob: 0.7675)\n",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 6,
+        "title": "Key Risks",
+        "content": "- Close decision: Product Innovation leads Organic Growth by only 0.015",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      },
+      {
+        "slide_number": 7,
+        "title": "Recommended Next Steps",
+        "content": "1. Proceed with: Product Innovation",
+        "chart_type": "none",
+        "chart_data": {},
+        "speaker_notes": ""
+      }
+    ],
+    "appendix": []
+  },
+  "decision_room": {
+    "title": "Recommendation: Product Innovation",
+    "decision_matrix": {
+      "options": [
+        {
+          "option_id": "innovation",
+          "option_title": "Product Innovation",
+          "total_score": 0.6909,
+          "criteria_scores": {
+            "market_opportunity": 0.7564,
+            "competitive_advantage": 0.7052,
+            "execution_feasibility": 0.6196,
+            "financial_return": 0.6554
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.2269,
+            "competitive_advantage": 0.1763,
+            "execution_feasibility": 0.1239,
+            "financial_return": 0.1638
+          },
+          "rank": 1,
+          "tier": "A",
+          "confidence": "M"
+        },
+        {
+          "option_id": "organic_growth",
+          "option_title": "Organic Growth",
+          "total_score": 0.6754,
+          "criteria_scores": {
+            "market_opportunity": 0.6114,
+            "competitive_advantage": 0.7602,
+            "execution_feasibility": 0.6746,
+            "financial_return": 0.6686
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.1834,
+            "competitive_advantage": 0.19,
+            "execution_feasibility": 0.1349,
+            "financial_return": 0.1671
+          },
+          "rank": 2,
+          "tier": "B",
+          "confidence": "M"
+        },
+        {
+          "option_id": "acquisition",
+          "option_title": "Strategic Acquisition",
+          "total_score": 0.5969,
+          "criteria_scores": {
+            "market_opportunity": 0.6072,
+            "competitive_advantage": 0.521,
+            "execution_feasibility": 0.6354,
+            "financial_return": 0.6294
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.1822,
+            "competitive_advantage": 0.1303,
+            "execution_feasibility": 0.1271,
+            "financial_return": 0.1573
+          },
+          "rank": 3,
+          "tier": "B",
+          "confidence": "M"
+        },
+        {
+          "option_id": "partnership",
+          "option_title": "Strategic Partnership",
+          "total_score": 0.5653,
+          "criteria_scores": {
+            "market_opportunity": 0.6244,
+            "competitive_advantage": 0.5988,
+            "execution_feasibility": 0.4876,
+            "financial_return": 0.5234
+          },
+          "weighted_scores": {
+            "market_opportunity": 0.1873,
+            "competitive_advantage": 0.1497,
+            "execution_feasibility": 0.0975,
+            "financial_return": 0.1308
+          },
+          "rank": 4,
+          "tier": "C",
+          "confidence": "M"
+        }
+      ],
+      "criteria": [
+        "market_opportunity",
+        "competitive_advantage",
+        "execution_feasibility",
+        "financial_return"
+      ],
+      "weights": {
+        "market_opportunity": 0.3,
+        "competitive_advantage": 0.25,
+        "execution_feasibility": 0.2,
+        "financial_return": 0.25
+      },
+      "sensitivity": [],
+      "recommendation": null,
+      "rationale": ""
+    },
+    "scenarios_considered": [],
+    "risks": [
+      "Close decision: Product Innovation leads Organic Growth by only 0.015"
+    ],
+    "next_steps": [
+      "Proceed with Product Innovation (score: 0.6909)",
+      "Consider Organic Growth as backup (score: 0.6754)"
+    ],
+    "confidence": "M"
+  },
+  "prediction_result": {
+    "variable": "price",
+    "point_estimate": 354.511786,
+    "confidence_interval": [
+      301.335018,
+      407.688554
+    ],
+    "method": "ensemble",
+    "monte_carlo": {
+      "variable": "price",
+      "iterations": 5000,
+      "mean": 355.491168,
+      "median": 355.139684,
+      "std_dev": 35.242527,
+      "percentile_5": 296.397546,
+      "percentile_25": 332.163934,
+      "percentile_75": 378.892286,
+      "percentile_95": 413.879656,
+      "histogram": [
+        [
+          240.575291,
+          4.0
+        ],
+        [
+          253.464181,
+          11.0
+        ],
+        [
+          266.353071,
+          29.0
+        ],
+        [
+          279.241962,
+          70.0
+        ],
+        [
+          292.130852,
+          158.0
+        ],
+        [
+          305.019743,
+          259.0
+        ],
+        [
+          317.908633,
+          392.0
+        ],
+        [
+          330.797523,
+          579.0
+        ],
+        [
+          343.686414,
+          708.0
+        ],
+        [
+          356.575304,
+          725.0
+        ],
+        [
+          369.464194,
+          673.0
+        ],
+        [
+          382.353085,
+          545.0
+        ],
+        [
+          395.241975,
+          372.0
+        ],
+        [
+          408.130866,
+          234.0
+        ],
+        [
+          421.019756,
+          132.0
+        ],
+        [
+          433.908646,
+          64.0
+        ],
+        [
+          446.797537,
+          29.0
+        ],
+        [
+          459.686427,
+          11.0
+        ],
+        [
+          472.575317,
+          4.0
+        ],
+        [
+          485.464208,
+          1.0
+        ]
+      ],
+      "scenarios": [
+        {
+          "id": "mc_0",
+          "name": "Scenario 0 (normal)",
+          "description": "Monte Carlo percentile 5.0 \u2014 price \u2248 296.3975",
+          "probability": 0.05,
+          "assumptions": [],
+          "variables": {
+            "price": 296.397546
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_1",
+          "name": "Scenario 1 (normal)",
+          "description": "Monte Carlo percentile 15.0 \u2014 price \u2248 319.7577",
+          "probability": 0.15,
+          "assumptions": [],
+          "variables": {
+            "price": 319.757654
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_2",
+          "name": "Scenario 2 (normal)",
+          "description": "Monte Carlo percentile 25.0 \u2014 price \u2248 332.1639",
+          "probability": 0.25,
+          "assumptions": [],
+          "variables": {
+            "price": 332.163934
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_3",
+          "name": "Scenario 3 (normal)",
+          "description": "Monte Carlo percentile 35.0 \u2014 price \u2248 342.0502",
+          "probability": 0.35,
+          "assumptions": [],
+          "variables": {
+            "price": 342.050238
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_4",
+          "name": "Scenario 4 (normal)",
+          "description": "Monte Carlo percentile 45.0 \u2014 price \u2248 350.8678",
+          "probability": 0.45,
+          "assumptions": [],
+          "variables": {
+            "price": 350.867789
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_5",
+          "name": "Scenario 5 (normal)",
+          "description": "Monte Carlo percentile 55.0 \u2014 price \u2248 359.8706",
+          "probability": 0.55,
+          "assumptions": [],
+          "variables": {
+            "price": 359.870551
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_6",
+          "name": "Scenario 6 (normal)",
+          "description": "Monte Carlo percentile 65.0 \u2014 price \u2248 368.4738",
+          "probability": 0.65,
+          "assumptions": [],
+          "variables": {
+            "price": 368.47383
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_7",
+          "name": "Scenario 7 (normal)",
+          "description": "Monte Carlo percentile 75.0 \u2014 price \u2248 378.8923",
+          "probability": 0.75,
+          "assumptions": [],
+          "variables": {
+            "price": 378.892286
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_8",
+          "name": "Scenario 8 (normal)",
+          "description": "Monte Carlo percentile 85.0 \u2014 price \u2248 391.6018",
+          "probability": 0.85,
+          "assumptions": [],
+          "variables": {
+            "price": 391.601804
+          },
+          "outcomes": {}
+        },
+        {
+          "id": "mc_9",
+          "name": "Scenario 9 (normal)",
+          "description": "Monte Carlo percentile 95.0 \u2014 price \u2248 413.8797",
+          "probability": 0.95,
+          "assumptions": [],
+          "variables": {
+            "price": 413.879656
+          },
+          "outcomes": {}
+        }
+      ]
+    },
+    "scenarios": [
+      {
+        "id": "mc_0",
+        "name": "Scenario 0 (normal)",
+        "description": "Monte Carlo percentile 5.0 \u2014 price \u2248 296.3975",
+        "probability": 0.05,
+        "assumptions": [],
+        "variables": {
+          "price": 296.397546
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_1",
+        "name": "Scenario 1 (normal)",
+        "description": "Monte Carlo percentile 15.0 \u2014 price \u2248 319.7577",
+        "probability": 0.15,
+        "assumptions": [],
+        "variables": {
+          "price": 319.757654
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_2",
+        "name": "Scenario 2 (normal)",
+        "description": "Monte Carlo percentile 25.0 \u2014 price \u2248 332.1639",
+        "probability": 0.25,
+        "assumptions": [],
+        "variables": {
+          "price": 332.163934
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_3",
+        "name": "Scenario 3 (normal)",
+        "description": "Monte Carlo percentile 35.0 \u2014 price \u2248 342.0502",
+        "probability": 0.35,
+        "assumptions": [],
+        "variables": {
+          "price": 342.050238
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_4",
+        "name": "Scenario 4 (normal)",
+        "description": "Monte Carlo percentile 45.0 \u2014 price \u2248 350.8678",
+        "probability": 0.45,
+        "assumptions": [],
+        "variables": {
+          "price": 350.867789
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_5",
+        "name": "Scenario 5 (normal)",
+        "description": "Monte Carlo percentile 55.0 \u2014 price \u2248 359.8706",
+        "probability": 0.55,
+        "assumptions": [],
+        "variables": {
+          "price": 359.870551
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_6",
+        "name": "Scenario 6 (normal)",
+        "description": "Monte Carlo percentile 65.0 \u2014 price \u2248 368.4738",
+        "probability": 0.65,
+        "assumptions": [],
+        "variables": {
+          "price": 368.47383
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_7",
+        "name": "Scenario 7 (normal)",
+        "description": "Monte Carlo percentile 75.0 \u2014 price \u2248 378.8923",
+        "probability": 0.75,
+        "assumptions": [],
+        "variables": {
+          "price": 378.892286
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_8",
+        "name": "Scenario 8 (normal)",
+        "description": "Monte Carlo percentile 85.0 \u2014 price \u2248 391.6018",
+        "probability": 0.85,
+        "assumptions": [],
+        "variables": {
+          "price": 391.601804
+        },
+        "outcomes": {}
+      },
+      {
+        "id": "mc_9",
+        "name": "Scenario 9 (normal)",
+        "description": "Monte Carlo percentile 95.0 \u2014 price \u2248 413.8797",
+        "probability": 0.95,
+        "assumptions": [],
+        "variables": {
+          "price": 413.879656
+        },
+        "outcomes": {}
+      }
+    ],
+    "base_rate": 296.766667,
+    "calibration_score": 0.1075
+  },
+  "wargame_result": {
+    "scenario_name": "Competitive dynamics in automotive",
+    "actors": [
+      "BYD",
+      "Ford",
+      "Volkswagen"
+    ],
+    "moves": [
+      {
+        "actor": "BYD",
+        "move": "React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals.",
+        "impact": "Moderate revenue compression; talent retention risk.",
+        "rig_response": "Increase market pressure through pricing or feature acceleration.",
+        "probability": 0.8117
+      },
+      {
+        "actor": "Ford",
+        "move": "React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals.",
+        "impact": "Moderate revenue compression; talent retention risk.",
+        "rig_response": "Increase market pressure through pricing or feature acceleration.",
+        "probability": 0.7185
+      },
+      {
+        "actor": "Volkswagen",
+        "move": "React to: 'Increase market pressure through pricing or feature acceleration.' \u2192 Stabilize core offering and monitor early warning signals.",
+        "impact": "Moderate revenue compression; talent retention risk.",
+        "rig_response": "Increase market pressure through pricing or feature acceleration.",
+        "probability": 0.7675
+      }
+    ],
+    "equilibrium": "No equilibrium after 2 rounds \u2014 max shift 0.0354. Increase depth or revisit assumptions.",
+    "recommended_response": "Increase market pressure through pricing or feature acceleration.",
+    "risk_level": "critical"
+  },
+  "evidence_graph": {
+    "nodes": [
+      {
+        "source_uri": "source://0",
+        "reliability": 0.35,
+        "relevance": 0.0,
+        "recency": 0.5,
+        "corroboration": 0.5,
+        "overall": 0.2975,
+        "flags": [
+          "low_reliability"
+        ]
+      },
+      {
+        "source_uri": "source://1",
+        "reliability": 0.35,
+        "relevance": 0.0,
+        "recency": 0.5,
+        "corroboration": 0.5,
+        "overall": 0.2975,
+        "flags": [
+          "low_reliability"
+        ]
+      },
+      {
+        "source_uri": "source://2",
+        "reliability": 0.35,
+        "relevance": 0.0,
+        "recency": 0.5,
+        "corroboration": 0.5,
+        "overall": 0.2975,
+        "flags": [
+          "low_reliability"
+        ]
+      },
+      {
+        "source_uri": "source://3",
+        "reliability": 0.35,
+        "relevance": 0.0,
+        "recency": 0.5,
+        "corroboration": 0.5,
+        "overall": 0.2975,
+        "flags": [
+          "low_reliability"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "clusters": [
+      [
+        "source://0"
+      ],
+      [
+        "source://1"
+      ],
+      [
+        "source://2"
+      ],
+      [
+        "source://3"
+      ]
+    ],
+    "overall_confidence": "L",
+    "gaps": [
+      "automotive",
+      "tesla",
+      "strategy"
+    ]
+  },
+  "cross_archetype": {
+    "archetype_results": [
+      {
+        "archetype": "a1",
+        "status": "PASS",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 0
+      },
+      {
+        "archetype": "a2",
+        "status": "PASS",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 0
+      },
+      {
+        "archetype": "A3",
+        "status": "completed",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 2
+      },
+      {
+        "archetype": "A4",
+        "status": "QUALITY_FAILED",
+        "synthesis": null,
+        "quality": null,
+        "proof": null,
+        "duration_ms": 0
+      }
+    ],
+    "consensus_options": [],
+    "agreement_score": 0.0,
+    "dissenting_options": [],
+    "recommended_synthesis": null,
+    "confidence": "L"
+  },
+  "meta_analysis": null,
+  "proof_packets": [],
+  "audit_trail": [
+    {
+      "timestamp": "2026-05-26T01:20:45.315896Z",
+      "archetype": "a1",
+      "mode": "PYTHON_ONLY",
+      "input_hash": "01239399cd1edc38",
+      "output_hash": "c3ba9855caec9421",
+      "duration_ms": 0,
+      "status": "PASS"
+    },
+    {
+      "timestamp": "2026-05-26T01:20:45.316300Z",
+      "archetype": "a2",
+      "mode": "HYBRID",
+      "input_hash": "01239399cd1edc38",
+      "output_hash": "c3ba9855caec9421",
+      "duration_ms": 0,
+      "status": "PASS"
+    },
+    {
+      "timestamp": "2026-05-26T01:20:45.318749Z",
+      "archetype": "A3",
+      "mode": "AGENT_BOUNDED",
+      "input_hash": "8852deb57815372d",
+      "output_hash": "b0daab8eb426c743",
+      "duration_ms": 2,
+      "status": "completed"
+    },
+    {
+      "timestamp": "2026-05-26T01:20:45.319224Z",
+      "archetype": "A4",
+      "mode": "LLM_FREE",
+      "input_hash": "1711494143558104",
+      "output_hash": "quality_failed",
+      "duration_ms": 0,
+      "status": "QUALITY_FAILED"
+    }
+  ]
+}

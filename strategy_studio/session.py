@@ -459,6 +459,15 @@ class StrategySession:
 
             # Export
             self.exported_paths = export_report(self.report, self.output_dir, export_formats)
+
+            # Generate HTML presentation
+            try:
+                from strategy_studio.presentation import export_presentation
+                pres_path = self.output_dir / "presentation.html"
+                export_presentation(self.report, pres_path, self.enriched_data)
+                self.exported_paths["presentation"] = pres_path
+            except Exception:
+                pass  # Presentation is best-effort
         except Exception:
             pass
 

@@ -315,7 +315,7 @@ def build_strategy_brief(record: dict) -> StrategyBrief:
     channel_strategy = [
         ChannelMove(
             channel="personal email",
-            objective="Earn a reply from the named buyer without calendar-link softness.",
+            objective="Earn a reply from the named buyer without soft-close language.",
             message=f"Lead with the {t.wound_months}-month {t.wound_channel} wound and one falsifiable line from the teaser.",
             asset=f"{t.cloned_site_url} plus {play['asset']}",
             success_signal="Reply challenges the wound, asks for the password, or forwards internally.",

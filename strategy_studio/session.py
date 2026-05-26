@@ -88,7 +88,7 @@ class StrategySession:
         self.competitors = competitors or []
         self.historical_data = historical_data or {}
         self.evidence_sources = evidence_sources or []
-        self.output_dir = output_dir or Path(f"out/sessions/{company_name.lower().replace(' ', '_')}")
+        self.output_dir = Path(output_dir) if output_dir else Path(f"out/sessions/{company_name.lower().replace(' ', '_')}")
         self.session_id = hashlib.md5(f"{company_name}{time.time()}".encode()).hexdigest()[:12]
         self.timestamp = datetime.now(timezone.utc)
 

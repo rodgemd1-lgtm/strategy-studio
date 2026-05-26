@@ -633,4 +633,16 @@ def generate_full_strategy_visuals(
         )
         paths["evidence_graph"] = p
 
+    # Auto-render all .excalidraw files to SVG + PNG
+    try:
+        from strategy_studio.renderer import render_excalidraw_file
+        for excalidraw_file in output_dir.glob("*.excalidraw"):
+            svg_path = render_excalidraw_file(excalidraw_file, format="svg")
+            png_path = render_excalidraw_file(excalidraw_file, format="png")
+            paths[f"{excalidraw_file.stem}_svg"] = svg_path
+            if png_path.suffix == ".png":
+                paths[f"{excalidraw_file.stem}_png"] = png_path
+    except Exception:
+        pass  # Renderer is optional
+
     return paths

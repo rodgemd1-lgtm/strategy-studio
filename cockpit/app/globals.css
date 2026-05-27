@@ -1,0 +1,28 @@
+/* RUSR Cockpit — minimal global styles */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg:        #0a0a0f;
+  --surface:   #13131a;
+  --border:    #22222e;
+  --accent:    #00e5ff;
+  --pass:      #00c853;
+  --fail:      #ff1744;
+  --warn:      #ffc400;
+  --locked:    #42425a;
+  --text:      #e0e0f0;
+  --muted:     #6b6b88;
+  --font:      'SF Mono', 'Fira Code', monospace;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }

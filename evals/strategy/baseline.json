@@ -1,0 +1,526 @@
+{
+  "version": "1.0",
+  "total_cases": 20,
+  "cases": [
+    {
+      "case_id": "strategy-001",
+      "case_name": "PE thesis decision",
+      "description": "Early-stage investor evaluating Series A SaaS with declining NRR",
+      "input": {
+        "decision_context": "Should we lead a $5M Series A at a $20M pre-money for a SaaS company with NRR declining from 115% to 94%?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-002",
+      "case_name": "product strategy pivot",
+      "description": "B2C marketplace pivoting from commission to subscription",
+      "input": {
+        "decision_context": "Should we pivot from 20% take-rate marketplace to $99/month subscription model?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-003",
+      "case_name": "go/no-go market entry",
+      "description": "Enterprise software entering Southeast Asian market",
+      "input": {
+        "decision_context": "Should we enter Vietnam and Thailand with direct sales or partner-first approach?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-004",
+      "case_name": "org redesign",
+      "description": "100-person startup replacing VP Sales and restructuring",
+      "input": {
+        "decision_context": "Should we replace VP Sales and move to pod model, or promote from within?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-005",
+      "case_name": "pricing reset",
+      "description": "DevTools company resetting pricing from per-seat to consumption",
+      "input": {
+        "decision_context": "Should we migrate 2,000 existing customers from $50/seat to consumption-based pricing?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-006",
+      "case_name": "category creation",
+      "description": "Founder building a new market category around AI-native dev tools",
+      "input": {
+        "decision_context": "Should we invest $3M to create the 'AI-native code review' category?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-007",
+      "case_name": "competitive response",
+      "description": "Mid-market SaaS responding to AWS entering adjacent market",
+      "input": {
+        "decision_context": "How do we respond to AWS launching a direct competitor to our product?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-008",
+      "case_name": "M&A evaluation",
+      "description": "PE firm evaluating bolt-on acquisition for portfolio company",
+      "input": {
+        "decision_context": "Should we acquire Competitor X for $12M to accelerate portfolio company's market share from 8% to 22%?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-009",
+      "case_name": "client strategy engagement",
+      "description": "Consulting firm engaged by Fortune 500 to design distribution strategy",
+      "input": {
+        "decision_context": "How should Fortune 500 RetailCo restructure its direct and indirect sales channels?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-010",
+      "case_name": "founder advisory case",
+      "description": "Founder at $1M ARR deciding between two co-founder structures",
+      "input": {
+        "decision_context": "Founder with $1M ARR needs to decide between bringing in a CRO equity partner vs keeping current team structure"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-011",
+      "case_name": "GTM strategy - PLG motion",
+      "description": "B2B SaaS evaluating product-led growth adoption",
+      "input": {
+        "decision_context": "Should we add a free tier and self-serve onboarding to complement our current sales-led motion?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-012",
+      "case_name": "capital allocation",
+      "description": "Startup with $8M runway deciding between two allocation strategies",
+      "input": {
+        "decision_context": "With 18 months runway, should we hire 10 engineers or 5 engineers plus launch paid channels?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-013",
+      "case_name": "unit economics turnaround",
+      "description": "VC-backed marketplace with negative contribution margin",
+      "input": {
+        "decision_context": "Unit economics are negative. Should we cut marketplace fees, improve unit economics, or find a hybrid model?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-014",
+      "case_name": "geographic expansion",
+      "description": "US-based fintech expanding to UK and EU",
+      "input": {
+        "decision_context": "Should we open a London office or use a B2B partner to enter the UK/EU market?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-015",
+      "case_name": "channel partnership",
+      "description": "Mid-market SaaS evaluating alliance with Salesforce AppExchange",
+      "input": {
+        "decision_context": "Should we invest in Salesforce integration and AppExchange listing vs building direct sales?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-016",
+      "case_name": "pricing packaging",
+      "description": "Enterprise software repackaging from perpetual to SaaS",
+      "input": {
+        "decision_context": "Should we convert perpetual license customers to annual SaaS? 60% of ARR is perpetual."
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-017",
+      "case_name": "acquisition vs build",
+      "description": "Series B company deciding to acquire capability vs build in-house",
+      "input": {
+        "decision_context": "Should we acquire a startup for $2M to get AI features, or build them over 12 months?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-018",
+      "case_name": "revenue diversification",
+      "description": "Services company with 80% revenue from one client",
+      "input": {
+        "decision_context": "Client concentration at 80%. Should we expand services, launch product, or both?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-019",
+      "case_name": "market timing",
+      "description": "Founder evaluating market window for new AI product category",
+      "input": {
+        "decision_context": "Timing a new AI category creation play: move now vs wait for market to prove itself?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    },
+    {
+      "case_id": "strategy-020",
+      "case_name": "board governance",
+      "description": "Startup with board conflict about growth vs profitability",
+      "input": {
+        "decision_context": "Board divided: half want growth at any cost, half want profitability. What is the right path for this stage?"
+      },
+      "asserts": {
+        "rig_l_score_min": 32,
+        "fifty_criteria_avg_min": 8.0,
+        "thirty_sigma": "PASS",
+        "evidence_count_min": 10,
+        "strategic_options_min": 3,
+        "mechanism_chain_links_min": 7,
+        "forecasts_min": 5,
+        "deck_outline_contains": [
+          "Wound",
+          "Mirror",
+          "Evidence",
+          "Mechanism",
+          "Options",
+          "OpenLoop"
+        ],
+        "banned_phrases_absent": true
+      }
+    }
+  ]
+}

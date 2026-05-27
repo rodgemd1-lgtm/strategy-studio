@@ -1,0 +1,12 @@
+# Skill Registry — audited skill definitions
+# Each skill must be sha256-verified and audited for security
+
+skills: []
+# Schema for each skill:
+# - skill_id: string (unique identifier)
+# - source_url: string (git URL or path)
+# - version: string (semver)
+# - sha256: string (content hash)
+# - declared_capabilities: list[str]
+# - last_audited_by: string (operator name)
+# - last_audited_at: string (ISO 8601 timestamp)

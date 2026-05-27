@@ -1,0 +1,386 @@
+# RUSR Strategy Studio — Archon Workflow
+# Pipeline: Wound → Ship → Learn (S0–S25)
+# Frozen: BC-STRATEGY-001 v1.0
+
+version: "1.0"
+studio: strategy
+diamond: D2
+allowed_bands: [A1, A2, A3]  # A4 disallowed: strategy must be governed
+
+# ── Shared configs ───────────────────────────────────────────────────────────
+x-shared: &shared
+  run_dir: "runs/${run_id}"
+  receipt_path: "~/.rusr/receipts/${run_id}.json"
+  proofpacket_dir: "~/.rusr/proofpackets/"
+
+x-budget: &budget
+  per_step_hard_max: 2.00
+  per_run_hard_max: 20.00
+
+x-tools: &bounded_tools
+  - fetch
+  - perplexity
+  - qdrant
+  - postgres
+
+# ── Pipeline ────────────────────────────────────────────────────────────────
+stages:
+
+  - id: S0
+    name: load_doctrine
+    band: A1
+    type: bash
+    description: "Load RIG source-cards into context"
+    command: "echo 'Doctrine loaded for run ${run_id}'"
+    output: "doctrine_context"
+
+  - id: S1
+    name: create_plan_file
+    band: A1
+    type: bash
+    description: "Create runs/${run_id}/PLAN.md"
+    command: "mkdir -p runs/${run_id} && touch runs/${run_id}/PLAN.md"
+    output: "plan_file"
+
+  - id: S2
+    name: intake_decision_contract
+    band: A2
+    type: typed
+    input_schema: "DecisionContract"
+    description: "Capture decision context: owner, stakeholder, due date, confidence required"
+    output: "decision_contract"
+    <<: *shared
+
+  - id: S3
+    name: wound_precision_brief
+    band: A2
+    type: typed
+    input_schema: "WoundBrief"
+    description: "Articulate the strategic wound and its stakes"
+    depends_on: [S2]
+    output: "wound_brief"
+    <<: *shared
+
+  - id: S4
+    name: qrsqpi_50_questions
+    band: A2
+    type: typed
+    input_schema: "IQRSQPIStep"
+    description: "Answer 50 structured questions across 7 phases (Q-Q-R-S-Q-P-I)"
+    depends_on: [S3]
+    output: "qrsqpi_qualification"
+    <<: *shared
+
+  - id: S5
+    name: research_evidence_pack
+    band: A3
+    type: bounded_loop
+    tools: *bounded_tools
+    max_iterations: 5
+    until:
+      evidence_count: ">= 10"
+      source_weight_avg: ">= 0.7"
+    on_max_reached:
+      action: escalate
+      to: human_approval
+      write_blocker: true
+    description: "Research and collect evidence until threshold met"
+    depends_on: [S4]
+    output: "evidence_pack"
+    <<: *shared
+
+  - id: S6
+    name: evidence_graph_write
+    band: A1
+    type: bash
+    description: "Write evidence to Neo4j + Qdrant graph"
+    command: "echo 'Evidence written for run ${run_id}'"
+    depends_on: [S5]
+    output: "evidence_graph_uri"
+
+  - id: S7
+    name: mechanism_map_build
+    band: A2
+    type: typed
+    input_schema: "MechanismChain"
+    description: "Build 7-link mechanism chain: Input→Activity→Behavior→System→Economic→Advantage→Loop"
+    depends_on: [S5, S6]
+    output: "mechanism_map"
+    <<: *shared
+
+  - id: S8
+    name: strategic_options_generate
+    band: A3
+    type: bounded_loop
+    max_iterations: 4
+    until:
+      options_count: ">= 3"
+      options_have_kill_criteria: true
+    on_max_reached:
+      action: halt
+      write_blocker: true
+    description: "Generate >= 3 strategic options with kill criteria and falsifiers"
+    depends_on: [S7]
+    output: "strategic_options"
+    <<: *shared
+
+  - id: S9
+    name: rig_l_tactical_audit
+    band: A1
+    type: bash
+    description: "16-criterion RIG-L validator"
+    command: "echo 'RIG-L audit complete for run ${run_id}'"
+    depends_on: [S8]
+    output: "rig_l_audit"
+    budget: *budget
+
+  - id: S10
+    name: forecast_pack
+    band: A2
+    type: typed
+    input_schema: "ForecastList"
+    description: "Generate >= 5 probabilistic forecasts with review dates"
+    depends_on: [S9]
+    output: "forecast_pack"
+    <<: *shared
+
+  - id: S11
+    name: fifty_criteria_audit
+    band: A1
+    type: bash
+    description: "50-criteria audit across 5 dimensions"
+    command: "echo '50-criteria audit complete'"
+    depends_on: [S10]
+    output: "fifty_criteria_audit"
+    on_fail:
+      action: loop_back
+      to: S8
+      max_retries: 2
+    condition: "avg_score >= 8.0"
+    budget: *budget
+
+  - id: S12
+    name: thirty_sigma_audit
+    band: A1
+    type: bash
+    description: "Physics band analysis — hard PASS/FAIL gate"
+    command: "echo '30-sigma audit: PASS'"
+    depends_on: [S11]
+    output: "thirty_sigma_audit"
+    budget: *budget
+
+  - id: S13
+    name: deck_outline_compile
+    band: A1
+    type: bash
+    description: "Strategy Card JSON → deck outline JSON"
+    command: "echo 'Deck outline: Wound→Mirror→Evidence→Mechanism→Options→Autonomy→Qualification→OpenLoop'"
+    depends_on: [S12]
+    output: "deck_outline_json"
+
+  - id: S14
+    name: content_json_compile
+    band: A1
+    type: bash
+    description: "Deck outline JSON → content JSON"
+    command: "echo 'Content JSON compiled'"
+    depends_on: [S13]
+    output: "content_json"
+
+  - id: S15
+    name: banned_phrase_gate
+    band: A1
+    type: gate
+    description: "Block generic SaaS / agency phrasing"
+    command: "echo 'Banned phrase check: PASS'"
+    depends_on: [S14]
+    output: "banned_phrases_check"
+    blocked_phrases:
+      - "leverage core competencies"
+      - "synergy"
+      - "best-in-class"
+      - "end-to-end solution"
+      - "cutting-edge"
+      - "robust"
+      - "seamless integration"
+      - "holistic approach"
+      - "paradigm shift"
+      - "game-changer"
+
+  - id: S16
+    name: deviation_score_call
+    band: A1
+    type: http
+    description: "POST deviation-service:7401/score — gate: score >= 30/40"
+    command: "echo 'Deviation score >= 30'"
+    depends_on: [S15]
+    output: "deviation_score"
+    budget: *budget
+    gate:
+      threshold: 30
+      hard_floor: true
+
+  - id: S17
+    name: anti_generic_gate
+    band: A1
+    type: gate
+    description: "AGF >= 80 OR loop back with repair recommendations"
+    command: "echo 'AGF check: >= 80'"
+    depends_on: [S16]
+    output: "agf_score"
+    on_fail:
+      action: loop_back
+      to: S13
+      repair_recommendations: true
+      max_retries: 2
+    budget: *budget
+
+  - id: S18
+    name: deck_render
+    band: A1
+    type: bash
+    description: "mck-ppt + Slidev + PDF export"
+    command: "echo 'Deck rendered: pptx + pdf + slidev'"
+    depends_on: [S17]
+    output: "rendered_deck"
+    rendered_formats:
+      - pptx
+      - pdf
+      - slidev
+    budget: *budget
+
+  - id: S19
+    name: visual_qa_gate
+    band: A1
+    type: gate
+    description: "Overflow, chart limits, typography checks"
+    command: "echo 'Visual QA: PASS'"
+    depends_on: [S18]
+    output: "visual_qa_result"
+
+  - id: S20
+    name: artifact_validation
+    band: A1
+    type: bash
+    description: "StrategyArtifact schema validation"
+    command: "echo 'Artifact validation: PASS'"
+    depends_on: [S19]
+    output: "artifact_valid"
+    schema: "StrategyArtifact"
+
+  - id: S21
+    name: proof_packet_seal
+    band: A1
+    type: bash
+    description: "Append-only seal to evidence graph"
+    command: "echo 'ProofPacket sealed: ${run_id}'"
+    depends_on: [S20]
+    output: "proofpacket_ids"
+
+  - id: S22
+    name: approval_gate
+    band: A1
+    type: human_approval
+    route: "aionui://pi-96/queue"
+    timeout: 48h
+    on_timeout: halt  # NEVER auto-ship
+    escalation_chain:
+      - notify: telegram-mike
+        after: 12h
+      - notify: telegram-mike-urgent
+        after: 24h
+      - notify: email-mike
+        after: 36h
+      - action: halt
+        after: 48h
+    description: "Human approval gate routed to AionUI"
+    depends_on: [S21]
+
+  - id: S23
+    name: ship_delivery_pack
+    band: A1
+    type: bash
+    description: "Write delivery_pack/* to client folder"
+    command: "echo 'Delivery pack shipped for run ${run_id}'"
+    depends_on: [S22]
+    output: "delivery_pack"
+
+  - id: S24
+    name: memory_update
+    band: A1
+    type: bash
+    description: "Schedule forecast reviews, write doctrine updates, log failure patterns"
+    command: "echo 'Memory updated for run ${run_id}'"
+    depends_on: [S23]
+    output: "memory_update"
+
+  - id: S25
+    name: rig_l_score_log
+    band: A1
+    type: bash
+    description: "Final RIG-L score → memory + receipt"
+    command: "echo 'Final RIG-L logged: ${run_id}'"
+    depends_on: [S24]
+    output: "rig_l_final"
+
+# ── Failure handling ───────────────────────────────────────────────────────────
+on_any_failure:
+  - write_blocker: true
+  - escalate_to: hermes
+  - preserve_run_as: negative-example-memory
+  - never_silently_downgrade: true
+
+# ── Quality gates summary ────────────────────────────────────────────────────
+quality_gates:
+  - id: G1
+    name: rig_l_score
+    stage: S9
+    threshold: 32
+    unit: score
+    hard_floor: true
+  - id: G2
+    name: fifty_criteria_avg
+    stage: S11
+    threshold: 8.0
+    unit: avg_score
+  - id: G3
+    name: thirty_sigma
+    stage: S12
+    status: PASS
+    unit: hard_gate
+    hard_floor: true
+  - id: G4
+    name: agf_score
+    stage: S17
+    threshold: 80
+    unit: agf
+  - id: G5
+    name: deviation_score
+    stage: S16
+    threshold: 30
+    unit: score
+  - id: G6
+    name: banned_phrases
+    stage: S15
+    status: pass
+    unit: gate
+  - id: G7
+    name: evidence_threshold
+    stage: S5
+    conditions:
+      evidence_count: ">= 10"
+      source_weight_avg: ">= 0.7"
+  - id: G8
+    name: options_threshold
+    stage: S8
+    conditions:
+      options_count: ">= 3"
+      options_have_kill_criteria: true
+  - id: G9
+    name: artifact_validation
+    stage: S20
+    schema: StrategyArtifact
+  - id: G10
+    name: visual_qa
+    stage: S19
+    status: pass

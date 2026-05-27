@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone
 
 from pydantic import BaseModel, Field
 
@@ -127,11 +127,12 @@ def get_health() -> dict[str, str]:
 def get_audit() -> list[AuditRow]:
     return [
         AuditRow(
-            id=f"audit-{i}",
-            timestamp=datetime.utcnow(),
-            intent=IntentKey.SYNTHESIZE,
-            payload_summary=f"payload-{i}",
-            result_summary="ok",
+            timestamp=datetime.now(timezone.utc),
+            archetype="A1",
+            mode="PYTHON_ONLY",
+            input_hash="audit-in",
+            output_hash="audit-out",
+            status="ok",
         )
         for i in range(5)
     ]

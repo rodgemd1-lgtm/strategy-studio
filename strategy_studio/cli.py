@@ -453,20 +453,22 @@ def lattice_group():
 
 @lattice_group.command("summary")
 def lattice_cmd_summary():
-    """Show lattice summary: 147 cells, BMS distribution."""
+    """Show lattice summary: 147 cells (588 with BMS), BMS distribution."""
     s = lattice_summary()
-    table = Table(title="RIG Lattice Summary (147 cells)")
+    table = Table(title="RIG Lattice Summary (147 cells / 588 with BMS modes)")
     table.add_column("Dimension", style="cyan")
     table.add_column("Breakdown", style="green")
     table.add_column("Count", justify="right")
 
+    table.add_row("147-cell (L×D×Step)", "", str(s["total_cells_147"]))
+    table.add_row("588-cell (L×D×A×Step)", "", str(s["total_cells_588"]))
+    table.add_row("Reusable archetypes (A×Step)", "", str(s["archetypes"]))
     for mode, count in s["by_mode"].items():
         table.add_row("Build Mode", mode, str(count))
     for alt, count in s["by_altitude"].items():
         table.add_row("Altitude", alt, str(count))
     for dia, count in s["by_diamond"].items():
         table.add_row("Diamond", dia, str(count))
-    table.add_row("Total", "", str(s["total_cells"]))
     console.print(table)
 
 
@@ -488,6 +490,7 @@ def lattice_cmd_cell(cell_id: str, output_format: str):
     if output_format == "json":
         console.print(json.dumps({
             "cell_id": cell.cell_id,
+            "full_cell_id": cell.full_cell_id,
             "altitude": cell.altitude.value,
             "altitude_desc": cell.altitude.description,
             "diamond": cell.diamond.value,
@@ -503,7 +506,8 @@ def lattice_cmd_cell(cell_id: str, output_format: str):
         }, indent=2))
     else:
         console.print(Panel(
-            f"**Cell:** {cell.cell_id}\n\n"
+            f"**Cell:** {cell.cell_id}\n"
+            f"**Full (588):** {cell.full_cell_id}\n\n"
             f"**Altitude:** L{cell.altitude.value} — {cell.altitude.description}\n"
             f"**Diamond:** {cell.diamond.value}\n"
             f"**Step:** {cell.step.value} ({cell.step.step_name}) — {cell.step.description}\n\n"
@@ -514,7 +518,7 @@ def lattice_cmd_cell(cell_id: str, output_format: str):
             f"**Tools:** {', '.join(card.tools)}\n"
             f"**Validation:** {', '.join(card.validation_criteria)}\n"
             f"**Escalation:** {card.escalation_target or 'None (top level)'}",
-            title=f"Lattice Cell: {cell_id}",
+            title=f"Lattice Cell: {cell.full_cell_id}",
         ))
 
 

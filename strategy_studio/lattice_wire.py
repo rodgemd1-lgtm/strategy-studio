@@ -1,15 +1,16 @@
 """
-LatticeWire — The complete RIG Lattice execution system for Strategy Studio.
+LatticeWire — Complete RIG Lattice Execution System for Strategy Studio.
 
-Connects the 147-cell lattice (7 Altitudes × 3 Diamonds × 7 IQRSQPI steps)
-to the B-engine execution layer (B29-B46) with BMS scoring, escalation,
-Build Card generation, and ProofPacket audit trails.
+Full 588-cell lattice: 7 Altitudes × 3 Diamonds × 4 BMS Modes × 7 IQRSQPI steps
+28 reusable archetypes: 4 Build Modes × 7 IQRSQPI steps
+147 Build Cards: one per altitude/diamond/step (BMS mode derived from altitude)
 
 Architecture:
   InboundPayload → LatticeOrchestrator → BMS scoring → cell routing
   → B-engine execution → ArchetypeResult → ProofPacket → audit trail
 
 Coordinate system: L{1-7}-D{1-3}-{I1,Q1,R,S,Q2,P,I2} → A{1-4}.{1-7}
+Full 588-cell: L{1-7}-D{1-3}-A{1-4}-{I1,Q1,R,S,Q2,P,I2}
 """
 from __future__ import annotations
 
@@ -30,23 +31,19 @@ from pydantic import BaseModel, Field
 # ═══════════════════════════════════════════════════════════════════════════
 
 class Altitude(int, Enum):
-    L1 = 1  # Direct, deterministic, repeatable
-    L2 = 2  # Structured but parameterized
-    L3 = 3  # Workflow with branches
-    L4 = 4  # Bounded agentic with checkpoints
-    L5 = 5  # Mechanism + tradeoff reasoning
-    L6 = 6  # Strategic synthesis required
-    L7 = 7  # Doctrine, exploration, novel frame
+    L1 = 1
+    L2 = 2
+    L3 = 3
+    L4 = 4
+    L5 = 5
+    L6 = 6
+    L7 = 7
 
     @property
     def altitude_bonus(self) -> float:
         return {
-            Altitude.L1: 0.35,
-            Altitude.L2: 0.28,
-            Altitude.L3: 0.12,
-            Altitude.L4: 0.0,
-            Altitude.L5: -0.08,
-            Altitude.L6: -0.20,
+            Altitude.L1: 0.35, Altitude.L2: 0.28, Altitude.L3: 0.12,
+            Altitude.L4: 0.0, Altitude.L5: -0.08, Altitude.L6: -0.20,
             Altitude.L7: -0.35,
         }[self]
 
@@ -68,9 +65,9 @@ class Altitude(int, Enum):
 # ═══════════════════════════════════════════════════════════════════════════
 
 class Diamond(str, Enum):
-    D1_STRATEGY = "D1"      # Strategy synthesis
-    D2_INTELLIGENCE = "D2"  # Intelligence & research
-    D3_OPERATIONS = "D3"    # Operations & execution
+    D1_STRATEGY = "D1"
+    D2_INTELLIGENCE = "D2"
+    D3_OPERATIONS = "D3"
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -111,10 +108,10 @@ class IQRSQPIStep(str, Enum):
 # ═══════════════════════════════════════════════════════════════════════════
 
 class BuildMode(str, Enum):
-    A1_PYTHON_ONLY = "A1"       # BMS >= 0.75
-    A2_HYBRID = "A2"            # BMS 0.45-0.74
-    A3_AGENT_BOUNDED = "A3"     # BMS 0.25-0.44
-    A4_LLM_AGENT_FREE = "A4"    # BMS < 0.25
+    A1_PYTHON_ONLY = "A1"
+    A2_HYBRID = "A2"
+    A3_AGENT_BOUNDED = "A3"
+    A4_LLM_AGENT_FREE = "A4"
 
     @property
     def cost_band(self) -> str:
@@ -131,15 +128,14 @@ class BuildMode(str, Enum):
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# BMS SCORING — Build Mode Selection
+# BMS SCORING
 # ═══════════════════════════════════════════════════════════════════════════
 
 @dataclass
 class BMSCriteria:
-    """The three-rule rubric that drives RAW score."""
-    failure_cost: float = 0.5       # C1: Cost of being wrong (0-1)
-    reversibility: float = 0.5      # C2: Can we undo this? (0-1, 1=fully reversible)
-    mechanism_clarity: float = 0.5  # C10: How clear is the mechanism? (0-1)
+    failure_cost: float = 0.5
+    reversibility: float = 0.5
+    mechanism_clarity: float = 0.5
 
     @property
     def raw_score(self) -> float:
@@ -148,7 +144,6 @@ class BMSCriteria:
 
 @dataclass
 class BMSScore:
-    """Full BMS scoring with adjustments."""
     raw: float = 0.5
     adj_failure: float = 0.0
     adj_volume: float = 0.0
@@ -160,25 +155,17 @@ class BMSScore:
 
     def select_mode(self) -> BuildMode:
         bms = self.final
-        if bms >= 0.75:
-            return BuildMode.A1_PYTHON_ONLY
-        elif bms >= 0.45:
-            return BuildMode.A2_HYBRID
-        elif bms >= 0.25:
-            return BuildMode.A3_AGENT_BOUNDED
-        else:
-            return BuildMode.A4_LLM_AGENT_FREE
+        if bms >= 0.75: return BuildMode.A1_PYTHON_ONLY
+        elif bms >= 0.45: return BuildMode.A2_HYBRID
+        elif bms >= 0.25: return BuildMode.A3_AGENT_BOUNDED
+        else: return BuildMode.A4_LLM_AGENT_FREE
 
 
 def compute_bms(
-    failure_cost: float = 0.5,
-    reversibility: float = 0.5,
-    mechanism_clarity: float = 0.5,
-    past_failure_rate: float = 0.0,
-    data_volume: float = 0.5,
-    altitude: Altitude = Altitude.L2,
+    failure_cost: float = 0.5, reversibility: float = 0.5,
+    mechanism_clarity: float = 0.5, past_failure_rate: float = 0.0,
+    data_volume: float = 0.5, altitude: Altitude = Altitude.L2,
 ) -> BMSScore:
-    """Compute BMS score from criteria."""
     criteria = BMSCriteria(failure_cost, reversibility, mechanism_clarity)
     return BMSScore(
         raw=criteria.raw_score,
@@ -189,12 +176,12 @@ def compute_bms(
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# LATTICE COORDINATE — Full cell address
+# LATTICE CELL — Full coordinate (147 cells: 7×3×7)
+# For 588-cell: add mode axis → L{1-7}-D{1-3}-A{1-4}-{step}
 # ═══════════════════════════════════════════════════════════════════════════
 
 @dataclass(frozen=True)
 class LatticeCell:
-    """Full RIG Lattice coordinate."""
     altitude: Altitude
     diamond: Diamond
     step: IQRSQPIStep
@@ -202,32 +189,47 @@ class LatticeCell:
 
     @property
     def cell_id(self) -> str:
+        """147-cell format: L2-D1-S"""
         return f"L{self.altitude.value}-{self.diamond.value}-{self.step.value}"
+
+    @property
+    def full_cell_id(self) -> str:
+        """588-cell format: L2-D1-A1-S"""
+        return f"L{self.altitude.value}-{self.diamond.value}-{self.mode.value}-{self.step.value}"
 
     @property
     def archetype_id(self) -> str:
         return f"{self.mode.value}.{list(IQRSQPIStep).index(self.step) + 1}"
 
     def __str__(self) -> str:
-        return f"{self.cell_id} -> {self.archetype_id}"
+        return f"{self.full_cell_id} -> {self.archetype_id}"
 
     @classmethod
     def parse(cls, cell_id: str) -> "LatticeCell":
-        """Parse cell ID like 'L2-D1-I1' -> LatticeCell."""
+        """Parse cell ID. Supports both 147-cell (L2-D1-S) and 588-cell (L2-D1-A1-S)."""
         import re
-        pattern = r"^L(\d+)-(D[123])-(I[12]|Q[12]|[RSP])$"
-        m = re.match(pattern, cell_id)
-        if not m:
-            raise ValueError(f"Invalid cell ID: {cell_id}. Expected: L<1-7>-D<1-3>-<IQRSQPI>")
-        return cls(
-            altitude=Altitude(int(m.group(1))),
-            diamond=Diamond(f"D{m.group(2)[1]}"),
-            step=IQRSQPIStep(m.group(3)),
-        )
+        # Try 588-cell format first
+        m = re.match(r"^L(\d+)-(D[123])-(A\d+)-(I[12]|Q[12]|[RSP])$", cell_id)
+        if m:
+            return cls(
+                altitude=Altitude(int(m.group(1))),
+                diamond=Diamond(f"D{m.group(2)[1]}"),
+                mode=BuildMode(f"A{m.group(3)[1]}"),
+                step=IQRSQPIStep(m.group(4)),
+            )
+        # Try 147-cell format
+        m = re.match(r"^L(\d+)-(D[123])-(I[12]|Q[12]|[RSP])$", cell_id)
+        if m:
+            return cls(
+                altitude=Altitude(int(m.group(1))),
+                diamond=Diamond(f"D{m.group(2)[1]}"),
+                step=IQRSQPIStep(m.group(3)),
+            )
+        raise ValueError(f"Invalid cell ID: {cell_id}")
 
 
 def get_all_cells() -> list[LatticeCell]:
-    """Return all 147 cells: 7 altitudes x 3 diamonds x 7 steps."""
+    """Return all 147 cells: 7 altitudes × 3 diamonds × 7 steps."""
     cells = []
     for alt in Altitude:
         for dia in Diamond:
@@ -236,13 +238,24 @@ def get_all_cells() -> list[LatticeCell]:
     return cells
 
 
+def get_all_588_cells() -> list[LatticeCell]:
+    """Return all 588 cells: 7 × 3 × 4 × 7."""
+    cells = []
+    for alt in Altitude:
+        for dia in Diamond:
+            for mode in BuildMode:
+                for step in IQRSQPIStep:
+                    cells.append(LatticeCell(altitude=alt, diamond=dia, step=step, mode=mode))
+    return cells
+
+
 # ═══════════════════════════════════════════════════════════════════════════
-# BUILD CARD — The contract per cell
+# BUILD CARD
 # ═══════════════════════════════════════════════════════════════════════════
 
 class BuildCard(BaseModel):
-    """Build Card — the contract per cell."""
     cell_id: str
+    full_cell_id: str = ""
     altitude: int
     diamond: str
     step: str
@@ -259,10 +272,8 @@ class BuildCard(BaseModel):
 
 
 def generate_build_card(cell: LatticeCell, bms: BMSScore) -> BuildCard:
-    """Generate a Build Card for a lattice cell."""
     mode = bms.select_mode()
     step_idx = list(IQRSQPIStep).index(cell.step) + 1
-
     tools_map = {
         BuildMode.A1_PYTHON_ONLY: ["regex", "jinja2", "pydantic", "httpx"],
         BuildMode.A2_HYBRID: ["regex", "haiku_classifier", "sonnet_drafter", "pydantic"],
@@ -276,18 +287,12 @@ def generate_build_card(cell: LatticeCell, bms: BMSScore) -> BuildCard:
         BuildMode.A4_LLM_AGENT_FREE: ["10_rubrics", "20_adversarial", "brier_score", "falsification_charter"],
     }
     escalation_map = {"A1": "A2.1", "A2": "A3.1", "A3": "A4.1", "A4": "A4.1"}
-
     return BuildCard(
-        cell_id=cell.cell_id,
-        altitude=cell.altitude.value,
-        diamond=cell.diamond.value,
-        step=cell.step.value,
-        step_name=cell.step.step_name,
-        mode=mode.value,
-        archetype_id=f"{mode.value}.{step_idx}",
-        cost_band=mode.cost_band,
-        doctrine=mode.description,
-        tools=tools_map.get(mode, []),
+        cell_id=cell.cell_id, full_cell_id=cell.full_cell_id,
+        altitude=cell.altitude.value, diamond=cell.diamond.value,
+        step=cell.step.value, step_name=cell.step.step_name, mode=mode.value,
+        archetype_id=f"{mode.value}.{step_idx}", cost_band=mode.cost_band,
+        doctrine=mode.description, tools=tools_map.get(mode, []),
         validation_criteria=validation_map.get(mode, []),
         escalation_target=escalation_map.get(mode.value, ""),
         bms_score=round(bms.final, 4),
@@ -295,26 +300,21 @@ def generate_build_card(cell: LatticeCell, bms: BMSScore) -> BuildCard:
 
 
 def generate_all_build_cards() -> list[BuildCard]:
-    """Generate all 147 Build Cards."""
-    cards = []
-    for cell in get_all_cells():
-        bms = compute_bms(altitude=cell.altitude)
-        cards.append(generate_build_card(cell, bms))
-    return cards
+    return [generate_build_card(cell, compute_bms(altitude=cell.altitude)) for cell in get_all_cells()]
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# PROOF PACKET — Auditable result per cell execution
+# PROOF PACKET
 # ═══════════════════════════════════════════════════════════════════════════
 
 class ProofPacket(BaseModel):
-    """Auditable proof packet for every lattice cell execution."""
     packet_id: str = Field(
         default_factory=lambda: hashlib.md5(
             str(datetime.now(timezone.utc).timestamp()).encode()
         ).hexdigest()[:12]
     )
     cell_id: str
+    full_cell_id: str = ""
     archetype_id: str
     mode: str
     step: str
@@ -332,21 +332,9 @@ class ProofPacket(BaseModel):
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# LATTICE WIRE — Connects lattice cells to B-engine execution
+# LATTICE WIRE — Connects cells to B-engines
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Step -> B-engine function mapping
-STEP_ENGINE_MAP: dict[str, str] = {
-    "intent": "b29_synthesize",      # I1: Intent classification -> synthesis
-    "question": "b29_synthesize",    # Q1: Question generation -> synthesis
-    "research": "b29_synthesize",    # R: Research -> synthesis
-    "solution": "b29_synthesize",    # S: Solution synthesis
-    "quality": "b33_falsify",        # Q2: Quality -> falsification
-    "proof": "b33_falsify",          # P: Proof -> falsification
-    "integrate": "b29_synthesize",   # I2: Integration -> synthesis
-}
-
-# Step -> B-engine function name for import
 STEP_FUNCTION_MAP: dict[str, str] = {
     "intent": "synthesize_evidence",
     "question": "synthesize_evidence",
@@ -359,25 +347,17 @@ STEP_FUNCTION_MAP: dict[str, str] = {
 
 
 def wire_cell_to_engine(cell: LatticeCell, input_data: dict[str, Any]) -> dict[str, Any]:
-    """Wire a lattice cell to its corresponding B-engine function.
-
-    Returns the raw output from the B-engine.
-    """
+    """Wire a lattice cell to its corresponding B-engine function."""
     step_name = cell.step.step_name
     func_name = STEP_FUNCTION_MAP.get(step_name, "synthesize_evidence")
 
     try:
         from strategy_studio.engines import synthesize_evidence, falsify_claim
-        func_map = {
-            "synthesize_evidence": synthesize_evidence,
-            "falsify_claim": falsify_claim,
-        }
+        func_map = {"synthesize_evidence": synthesize_evidence, "falsify_claim": falsify_claim}
         func = func_map.get(func_name)
-
         if func is None:
             return {"status": "ERROR", "error": f"Engine function {func_name} not found"}
 
-        # Prepare arguments based on step
         if func_name == "synthesize_evidence":
             from strategy_studio.core.types import Evidence
             evidence = [
@@ -390,29 +370,102 @@ def wire_cell_to_engine(cell: LatticeCell, input_data: dict[str, Any]) -> dict[s
             ]
             result = func(evidence, title=input_data.get("query", cell.cell_id)[:60])
             return {
-                "status": "PASS",
-                "rationale": result.rationale,
+                "status": "PASS", "rationale": result.rationale,
                 "recommendation": result.recommendation.title if result.recommendation else "",
                 "options_count": len(result.options),
-                "options": [
-                    {"id": o.id, "title": o.title, "score": o.score}
-                    for o in result.options
-                ],
+                "options": [{"id": o.id, "title": o.title, "score": o.score} for o in result.options],
             }
         elif func_name == "falsify_claim":
             claim = input_data.get("query", input_data.get("claim", ""))
             result = func(claim, [])
             return {
-                "status": "PASS",
-                "belief": result.belief,
-                "disproof_test": result.disproof_test,
-                "falsification_status": result.status,
+                "status": "PASS", "belief": result.belief,
+                "disproof_test": result.disproof_test, "falsification_status": result.status,
             }
-        else:
-            return {"status": "PASS", "note": f"Executed {func_name}"}
-
+        return {"status": "PASS", "note": f"Executed {func_name}"}
     except Exception as e:
         return {"status": "ERROR", "error": str(e)}
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ARCHON HARNESS — Per-cell quality gates
+# ═══════════════════════════════════════════════════════════════════════════
+
+class GateStatus(str, Enum):
+    PASS = "PASS"
+    FAIL = "FAIL"
+    WARN = "WARN"
+    UNKNOWN = "UNKNOWN"
+    SKIPPED = "SKIPPED"
+
+
+class QualityGate(BaseModel):
+    name: str
+    status: GateStatus
+    message: str = ""
+    details: dict[str, Any] = Field(default_factory=dict)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+class GateResult(BaseModel):
+    cell_id: str
+    step: str
+    mode: str
+    gates: list[QualityGate] = Field(default_factory=list)
+    overall: GateStatus = GateStatus.UNKNOWN
+    duration_ms: int = 0
+
+    @property
+    def passed(self) -> bool:
+        return self.overall in (GateStatus.PASS, GateStatus.SKIPPED)
+
+
+def run_quality_gates(cell: LatticeCell, output: dict[str, Any]) -> GateResult:
+    """Run quality gates on cell execution output."""
+    gates: list[QualityGate] = []
+    status = output.get("status", "UNKNOWN")
+
+    # Gate: Execution completed
+    gates.append(QualityGate(
+        name="execution_complete",
+        status=GateStatus.PASS if status == "PASS" else GateStatus.FAIL,
+        message=f"Execution status: {status}",
+    ))
+
+    # Gate: No errors
+    has_error = "error" in output
+    gates.append(QualityGate(
+        name="no_errors",
+        status=GateStatus.FAIL if has_error else GateStatus.PASS,
+        message=output.get("error", "No errors"),
+    ))
+
+    # Gate: Output has content
+    has_content = bool(output.get("rationale") or output.get("recommendation") or output.get("options"))
+    gates.append(QualityGate(
+        name="output_has_content",
+        status=GateStatus.PASS if has_content else GateStatus.WARN,
+        message="Output contains substantive content" if has_content else "Output may be thin",
+    ))
+
+    # Gate: A1 never guesses — if UNKNOWN, must escalate
+    if cell.mode == BuildMode.A1_PYTHON_ONLY and status == "UNKNOWN":
+        gates.append(QualityGate(
+            name="a1_no_guess",
+            status=GateStatus.FAIL,
+            message="A1 returned UNKNOWN — must escalate, not guess",
+        ))
+
+    overall = GateStatus.PASS
+    if any(g.status == GateStatus.FAIL for g in gates):
+        overall = GateStatus.FAIL
+    elif any(g.status == GateStatus.WARN for g in gates):
+        overall = GateStatus.WARN
+
+    return GateResult(
+        cell_id=cell.cell_id, step=cell.step.step_name,
+        mode=cell.mode.value, gates=gates, overall=overall,
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -420,62 +473,51 @@ def wire_cell_to_engine(cell: LatticeCell, input_data: dict[str, Any]) -> dict[s
 # ═══════════════════════════════════════════════════════════════════════════
 
 class LatticeOrchestrator:
-    """
-    Traverses the RIG Lattice given an input.
-    Resolves (altitude, diamond, step) -> BMS mode -> B-engine -> ProofPacket.
-    """
+    """Traverses the RIG Lattice. Resolves cells → BMS mode → B-engine → ProofPacket."""
 
     def __init__(self):
         self._execution_log: list[ProofPacket] = []
 
     def execute_cell(
-        self,
-        cell: LatticeCell,
-        input_data: dict[str, Any],
+        self, cell: LatticeCell, input_data: dict[str, Any],
         escalate_on_failure: bool = True,
     ) -> ProofPacket:
-        """Execute a single lattice cell, with optional escalation."""
+        """Execute a single lattice cell with quality gates and optional escalation."""
         bms = compute_bms(altitude=cell.altitude)
-        mode = bms.select_mode()
+        # 147-cell (mode==A1 default) → BMS-select. 588-cell (explicit mode) → use it.
+        mode = bms.select_mode() if cell.mode == BuildMode.A1_PYTHON_ONLY else cell.mode
         t0 = time.time()
 
         # Wire to B-engine
         output = wire_cell_to_engine(cell, input_data)
 
+        # Run quality gates
+        gate_result = run_quality_gates(cell, output)
+
         # Build ProofPacket
         input_hash = hashlib.md5(json.dumps(input_data, sort_keys=True, default=str).encode()).hexdigest()[:16]
         output_hash = hashlib.md5(json.dumps(output, sort_keys=True, default=str).encode()).hexdigest()[:16]
-
         status = output.get("status", "UNKNOWN")
         duration_ms = int((time.time() - t0) * 1000)
 
         packet = ProofPacket(
-            cell_id=cell.cell_id,
-            archetype_id=cell.archetype_id,
-            mode=mode.value,
-            step=cell.step.step_name,
-            input_hash=input_hash,
-            output_hash=output_hash,
-            output=output,
-            confidence=bms.final,
-            duration_ms=duration_ms,
-            status=status,
+            cell_id=cell.cell_id, full_cell_id=cell.full_cell_id,
+            archetype_id=cell.archetype_id, mode=mode.value,
+            step=cell.step.step_name, input_hash=input_hash,
+            output_hash=output_hash, output=output,
+            confidence=bms.final, duration_ms=duration_ms, status=status,
         )
 
-        # Escalation
+        # Escalation: A1 UNKNOWN → A3.1 per doctrine
         if status in ("ERROR", "UNKNOWN") and escalate_on_failure:
             escalation_mode = self._get_escalation(mode)
             if escalation_mode and escalation_mode != mode:
                 packet.escalation_required = True
                 packet.escalation_reason = f"{mode.value} returned {status}, escalating to {escalation_mode.value}"
                 packet.escalation_from = mode.value
-
-                # Re-esecute at higher mode
                 escalated_cell = LatticeCell(
-                    altitude=cell.altitude,
-                    diamond=cell.diamond,
-                    step=cell.step,
-                    mode=escalation_mode,
+                    altitude=cell.altitude, diamond=cell.diamond,
+                    step=cell.step, mode=escalation_mode,
                 )
                 return self.execute_cell(escalated_cell, input_data, escalate_on_failure=False)
 
@@ -483,61 +525,35 @@ class LatticeOrchestrator:
         return packet
 
     def execute_iqrsqpi(
-        self,
-        altitude: Altitude,
-        diamond: Diamond,
-        input_data: dict[str, Any],
+        self, altitude: Altitude, diamond: Diamond, input_data: dict[str, Any],
     ) -> list[ProofPacket]:
-        """Execute all 7 IQRSQPI steps in sequence (I1->Q1->R->S->Q2->P->I2)."""
+        """Execute all 7 IQRSQPI steps in sequence."""
         packets: list[ProofPacket] = []
         data = dict(input_data)
-
         for step in IQRSQPIStep:
             cell = LatticeCell(altitude=altitude, diamond=diamond, step=step)
             packet = self.execute_cell(cell, data)
             packets.append(packet)
-
-            # Pass output to next step
             if packet.status not in ("ERROR", "UNKNOWN"):
                 data[f"step_{step.step_name}"] = packet.output
-
         return packets
 
-    def execute_diamond(
-        self,
-        altitude: Altitude,
-        diamond: Diamond,
-        input_data: dict[str, Any],
-    ) -> dict[str, list[ProofPacket]]:
-        """Execute all 7 steps for a diamond, keyed by step."""
-        packets = self.execute_iqrsqpi(altitude, diamond, input_data)
-        return {p.step: [p] for p in packets}
-
     def execute_full_pipeline(
-        self,
-        input_data: dict[str, Any],
-        altitude: Altitude = Altitude.L2,
-        diamond: Diamond = Diamond.D1_STRATEGY,
+        self, input_data: dict[str, Any],
+        altitude: Altitude = Altitude.L2, diamond: Diamond = Diamond.D1_STRATEGY,
     ) -> dict[str, Any]:
-        """Run the full 7-step IQRSQPI pipeline and return consolidated results."""
+        """Run full 7-step IQRSQPI pipeline."""
         packets = self.execute_iqrsqpi(altitude, diamond, input_data)
-
-        steps_output: dict[str, Any] = {}
-        for p in packets:
-            steps_output[p.step] = p.output
-
         passed = sum(1 for p in packets if p.status == "PASS")
         escalations = [p for p in packets if p.escalation_required]
-
+        steps_output = {p.step: p.output for p in packets}
         return {
             "cell_id": f"L{altitude.value}-{diamond.value}",
             "steps": {p.step: p.model_dump() for p in packets},
             "steps_output": steps_output,
             "summary": {
-                "total_steps": len(packets),
-                "passed": passed,
-                "failed": len(packets) - passed,
-                "escalations": len(escalations),
+                "total_steps": len(packets), "passed": passed,
+                "failed": len(packets) - passed, "escalations": len(escalations),
                 "total_duration_ms": sum(p.duration_ms for p in packets),
                 "overall_status": "PASS" if passed == len(packets) else "PARTIAL" if passed > 0 else "FAIL",
             },
@@ -545,7 +561,6 @@ class LatticeOrchestrator:
         }
 
     def _get_escalation(self, mode: BuildMode) -> BuildMode | None:
-        """Get escalation target for a mode."""
         return {
             BuildMode.A1_PYTHON_ONLY: BuildMode.A2_HYBRID,
             BuildMode.A2_HYBRID: BuildMode.A3_AGENT_BOUNDED,
@@ -559,115 +574,65 @@ class LatticeOrchestrator:
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# LATTICE VISUALIZATION — Excalidraw lattice map
+# LATTICE VISUALIZATION
 # ═══════════════════════════════════════════════════════════════════════════
 
 def generate_lattice_map(output_path: Path | None = None) -> dict:
-    """Generate an Excalidraw visualization of the full 147-cell lattice."""
-    import json as _json
-
+    """Generate Excalidraw visualization of the 147-cell lattice."""
     elements: list[dict] = []
-    cell_width = 160
-    cell_height = 40
-    col_gap = 20
-    row_gap = 15
+    cell_width, cell_height, col_gap, row_gap = 160, 40, 20, 15
+    mode_colors = {"A1": "#2ecc71", "A2": "#3498db", "A3": "#f39c12", "A4": "#e74c3c"}
 
-    # Color by mode
-    mode_colors = {
-        "A1": "#2ecc71",  # green
-        "A2": "#3498db",  # blue
-        "A3": "#f39c12",  # orange
-        "A4": "#e74c3c",  # red
-    }
-
-    cells = get_all_cells()
-    bms_default = compute_bms()
-
-    # Group by altitude (rows) and diamond (columns within row)
     for alt in Altitude:
-        alt_cells = [c for c in cells if c.altitude == alt]
         y = (alt.value - 1) * (cell_height + row_gap) + 60
-
-        # Altitude label
-        elements.append({
-            "type": "text", "x": 10, "y": y + 10,
-            "text": f"L{alt.value}", "fontSize": 14, "fontFamily": 3,
-            "strokeColor": "#1a1a2e", "backgroundColor": "",
-        })
-
+        elements.append({"type": "text", "x": 10, "y": y + 10, "text": f"L{alt.value}",
+            "fontSize": 14, "fontFamily": 3, "strokeColor": "#1a1a2e", "backgroundColor": ""})
         for dia in Diamond:
-            dia_cells = [c for c in alt_cells if c.diamond == dia]
-            x_offset = 60 + (list(Diamond).index(dia)) * 7 * (cell_width + col_gap)
-
+            x_offset = 60 + list(Diamond).index(dia) * 7 * (cell_width + col_gap)
             for step in IQRSQPIStep:
-                step_idx = list(IQRSQPIStep).index(step)
-                x = x_offset + step_idx * (cell_width + col_gap)
-                cell = LatticeCell(altitude=alt, diamond=dia, step=step)
+                x = x_offset + list(IQRSQPIStep).index(step) * (cell_width + col_gap)
                 bms = compute_bms(altitude=alt)
-                mode = bms.select_mode()
-                color = mode_colors.get(mode.value, "#95a5a6")
-
-                elements.append({
-                    "type": "rectangle",
-                    "x": x, "y": y, "width": cell_width, "height": cell_height,
+                color = mode_colors.get(bms.select_mode().value, "#95a5a6")
+                elements.append({"type": "rectangle", "x": x, "y": y,
+                    "width": cell_width, "height": cell_height,
                     "strokeColor": color, "backgroundColor": color + "33",
                     "fillStyle": "solid", "strokeWidth": 2, "roughness": 0,
-                    "text": f"{step.value}", "fontSize": 10, "fontFamily": 3,
-                    "textAlign": "center", "verticalAlign": "middle",
-                })
+                    "text": step.value, "fontSize": 10, "fontFamily": 3,
+                    "textAlign": "center", "verticalAlign": "middle"})
 
-    # Legend
     legend_y = len(Altitude) * (cell_height + row_gap) + 100
     for i, (mode, color) in enumerate(mode_colors.items()):
-        elements.append({
-            "type": "rectangle",
-            "x": 60 + i * 120, "y": legend_y, "width": 20, "height": 15,
-            "strokeColor": color, "backgroundColor": color,
-        })
-        elements.append({
-            "type": "text", "x": 85 + i * 120, "y": legend_y + 2,
-            "text": mode, "fontSize": 11, "fontFamily": 3, "strokeColor": "#1a1a2e",
-        })
+        elements.append({"type": "rectangle", "x": 60 + i * 120, "y": legend_y,
+            "width": 20, "height": 15, "strokeColor": color, "backgroundColor": color})
+        elements.append({"type": "text", "x": 85 + i * 120, "y": legend_y + 2,
+            "text": mode, "fontSize": 11, "fontFamily": 3, "strokeColor": "#1a1a2e"})
 
-    diagram = {
-        "type": "excalidraw", "version": 2,
-        "source": "rig-strategy-studio",
-        "elements": elements,
-        "appState": {"viewBackgroundColor": "#ffffff", "gridSize": 20},
-        "files": {},
-    }
+    diagram = {"type": "excalidraw", "version": 2, "source": "rig-strategy-studio",
+        "elements": elements, "appState": {"viewBackgroundColor": "#ffffff", "gridSize": 20},
+        "files": {}}
 
     if output_path:
-        output_path = Path(output_path)
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(_json.dumps(diagram, indent=2), encoding="utf-8")
-
+        Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+        Path(output_path).write_text(json.dumps(diagram, indent=2), encoding="utf-8")
     return diagram
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# CONVENIENCE FUNCTIONS
+# CONVENIENCE
 # ═══════════════════════════════════════════════════════════════════════════
 
 def get_cell(cell_id: str) -> LatticeCell:
-    """Get a lattice cell by ID."""
     return LatticeCell.parse(cell_id)
 
-
 def get_build_card(cell_id: str) -> BuildCard:
-    """Get a Build Card for a cell ID."""
     cell = LatticeCell.parse(cell_id)
     bms = compute_bms(altitude=cell.altitude)
     return generate_build_card(cell, bms)
 
-
 def get_all_build_cards() -> list[BuildCard]:
-    """Get all 147 Build Cards."""
     return generate_all_build_cards()
 
-
 def lattice_summary() -> dict[str, Any]:
-    """Summary of the full lattice."""
     cards = generate_all_build_cards()
     by_mode: dict[str, int] = {}
     by_altitude: dict[str, int] = {}
@@ -677,9 +642,8 @@ def lattice_summary() -> dict[str, Any]:
         by_altitude[f"L{card.altitude}"] = by_altitude.get(f"L{card.altitude}", 0) + 1
         by_diamond[card.diamond] = by_diamond.get(card.diamond, 0) + 1
     return {
-        "total_cells": len(cards),
-        "by_mode": by_mode,
-        "by_altitude": by_altitude,
-        "by_diamond": by_diamond,
+        "total_cells_147": len(cards), "total_cells_588": 588,
+        "by_mode": by_mode, "by_altitude": by_altitude, "by_diamond": by_diamond,
         "by_step": {s.value: 21 for s in IQRSQPIStep},
+        "archetypes": 28, "doctrine": "7×3×4×7=588 cells, 4×7=28 archetypes",
     }

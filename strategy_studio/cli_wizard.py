@@ -124,6 +124,18 @@ def wizard() -> StrategySession:
     _print_step(8, total_steps, "Running Strategy Analysis...")
     print()
 
+    # Show lattice classification
+    from strategy_studio.lattice_wire import compute_bms, Altitude
+    bms = compute_bms(
+        failure_cost=0.7 if historical_data else 0.5,
+        reversibility=0.4,
+        mechanism_clarity=0.6 if industry else 0.3,
+        data_volume=min(1.0, len(evidence_sources) / 10.0),
+        altitude=Altitude(2),
+    )
+    mode = bms.select_mode()
+    _print_info(f"Lattice BMS: {mode.value} (score: {bms.final:.2f}, cost band: {mode.cost_band})")
+
     start_time = time.time()
 
     session = run_strategy_session(
@@ -152,6 +164,15 @@ def wizard() -> StrategySession:
     print(f"\n  Company: {summary['company']}")
     print(f"  Session: {summary['session_id']}")
     print(f"  Time: {elapsed:.1f} seconds")
+
+    # Lattice info
+    if summary.get("lattice_mode"):
+        ls = summary.get("lattice_summary", {})
+        print(f"\n  ═══ RIG Lattice ═══")
+        print(f"  BMS Mode: {ls.get('bms_mode', '?')} (score: {ls.get('bms_score', 0):.2f})")
+        print(f"  Cell: {ls.get('cell_id', '?')}")
+        print(f"  Lattice Packets: {summary.get('lattice_packets', 0)}")
+
     print(f"\n  Archetypes:")
     for arch, status in summary['archetype_statuses'].items():
         _print_success(f"{arch}: {status}")

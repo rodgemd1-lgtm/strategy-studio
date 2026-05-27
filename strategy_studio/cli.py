@@ -3,17 +3,46 @@ from __future__ import annotations
 
 import json
 import sys
+from datetime import datetime, timezone
+from pathlib import Path
 
 import click
 from rich.console import Console
 from rich.table import Table
 from rich.json import JSON as RichJSON
+from rich.panel import Panel
 
-from strategy_studio.core.types import Evidence, Option, WargameScenario, Forecast, FalsificationPacket
-from strategy_studio.engines.b29_synthesize import synthesize_evidence
-from strategy_studio.engines.b36_wargame import run_wargame
-from strategy_studio.engines.b34_predict import build_forecast
-from strategy_studio.engines.b33_falsify import falsify_claim
+from strategy_studio.core.types import Evidence, Option
+from strategy_studio.engines import (
+    synthesize_evidence,
+    falsify_claim,
+    build_forecast,
+    run_wargame,
+    calculate_consensus_delta,
+    assess_risks,
+    size_market,
+    position_competitively,
+    plan_timeline,
+    allocate_budget,
+    assess_impact,
+    generate_wedge,
+    score_prospect,
+    analyze_competitor,
+    assess_threat_level,
+)
+from strategy_studio.lattice_wire import (
+    LatticeOrchestrator,
+    LatticeCell,
+    Altitude,
+    Diamond,
+    IQRSQPIStep,
+    BuildMode,
+    compute_bms,
+    get_build_card,
+    get_all_build_cards,
+    lattice_summary,
+    generate_lattice_map,
+)
 
 console = Console()
 
@@ -34,6 +63,23 @@ def _fmt(data: dict, fmt: str) -> str:
     return "\n".join(lines)
 
 
+def _make_sample_evidence(raw: str) -> list[Evidence]:
+    """Create sample evidence list from raw text."""
+    return [
+        Evidence(source_uri="cli:input", content_hash=f"cli-{hash(raw) % 10000}", confidence="H", citations=[]),
+        Evidence(source_uri="cli:context", content_hash=f"cli-ctx-{hash(raw) % 10000}", confidence="M", citations=[]),
+    ]
+
+
+def _make_sample_options() -> list[Option]:
+    """Create sample options for demo/testing."""
+    return [
+        Option(id="opt-1", title="Primary Strategy", description="Build proprietary platform with network effects", score=0.85, risks=["High capital requirement", "Execution complexity"]),
+        Option(id="opt-2", title="Partnership Play", description="Partner with existing platform to accelerate distribution", score=0.72, risks=["Partner dependency", "Margin compression"]),
+        Option(id="opt-3", title="Niche Focus", description="Dominate a specific segment before expanding", score=0.68, risks=["Limited TAM", "Slow growth"]),
+    ]
+
+
 @click.group()
 @click.option("--verbose", is_flag=True, default=False)
 def cli(verbose: bool):
@@ -41,72 +87,43 @@ def cli(verbose: bool):
     pass
 
 
+# ── B29: Synthesize ─────────────────────────────────────────────────────────
+
 @cli.command()
 @click.option("--input", "raw_input", required=True, help="Raw evidence text (pipe-friendly).")
-@click.option("--format", "output_format", default="md", type=click.Choice(["json","yaml","md"]), help="Output format.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
 def synthesize(raw_input: str, output_format: str):
     """Synthesize evidence into ranked options."""
-    evidence = [
-        Evidence(claim=raw_input, source="cli", confidence_score=0.8, evidence_count=1)
-    ]
-    result = synthesize_evidence(evidence)
+    evidence = _make_sample_evidence(raw_input)
+    result = synthesize_evidence(evidence, title=raw_input[:60])
     data = {
-        "question": result.question,
-        "winner_index": result.winner_index,
+        "rationale": result.rationale,
+        "recommendation": result.recommendation.title if result.recommendation else None,
         "options": [
-            {"label": o.label, "score": o.score, "rationale": o.rationale}
+            {"id": o.id, "title": o.title, "score": o.score, "risks": o.risks}
             for o in result.options
         ],
     }
     console.print(_fmt(data, output_format))
 
 
-@cli.command()
-@click.option("--scenario", required=True, help="Wargame scenario description.")
-@click.option("--actors", required=True, help="Comma-separated list of actors.")
-@click.option("--format", "output_format", default="md", type=click.Choice(["json","yaml","md"]), help="Output format.")
-def wargame(scenario: str, actors: str, output_format: str):
-    """Run wargame for a scenario against a set of actors."""
-    actor_list = [a.strip() for a in actors.split(",") if a.strip()]
-    results = run_wargame(scenario, actor_list)
-    table = Table(title=f"Wargame: {scenario}")
-    table.add_column("Actor", style="cyan")
-    table.add_column("Move", style="magenta")
-    table.add_column("RIG Response", style="green")
-    table.add_column("Impact", style="yellow")
-    table.add_column("Probability", justify="right")
-    for r in results:
-        table.add_row(r.actor, r.move, r.response, r.impact, f"{r.probability:.2%}")
-    console.print(table)
-
+# ── B31: Consensus Delta ────────────────────────────────────────────────────
 
 @cli.command()
-@click.option("--question", required=True, help="Forecast question.")
-@click.option("--data", default="{}", help="Historical data as JSON dict mapping period names to values.")
-@click.option("--format", "output_format", default="md", type=click.Choice(["json","yaml","md"]), help="Output format.")
-def forecast(question: str, data: str, output_format: str):
-    """Build a forecast from historical data."""
-    try:
-        hist = json.loads(data)
-    except Exception:
-        hist = {}
-    result = build_forecast(question, hist)
-    data_out = {
-        "question": result.question,
-        "prediction": result.prediction,
-        "confidence_low": result.confidence_low,
-        "confidence_high": result.confidence_high,
-        "confidence": result.confidence,
-        "method": result.method,
-        "evidence_count": result.evidence_count,
-    }
-    console.print(_fmt(data_out, output_format))
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def consensus(output_format: str):
+    """Calculate consensus delta between new research and existing synthesis."""
+    evidence = _make_sample_evidence("sample consensus check")
+    result = calculate_consensus_delta(evidence)
+    console.print(_fmt(result, output_format))
 
+
+# ── B33: Falsify ────────────────────────────────────────────────────────────
 
 @cli.command()
 @click.option("--claim", required=True, help="Claim to falsify.")
 @click.option("--evidence-file", default=None, help="Path to JSON evidence array.")
-@click.option("--format", "output_format", default="md", type=click.Choice(["json","yaml","md"]), help="Output format.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
 def falsify(claim: str, evidence_file: str | None, output_format: str):
     """Falsify a claim using disproof patterns."""
     evidence = []
@@ -119,17 +136,303 @@ def falsify(claim: str, evidence_file: str | None, output_format: str):
             pass
     result = falsify_claim(claim, evidence)
     data = {
-        "claim": result.claim,
-        "intent": result.intent.value,
+        "belief": result.belief,
         "disproof_test": result.disproof_test,
-        "verdict": result.verdict,
+        "pass_criteria": result.pass_criteria,
+        "status": result.status,
     }
     console.print(_fmt(data, output_format))
 
 
+# ── B34: Forecast ───────────────────────────────────────────────────────────
+
+@cli.command()
+@click.option("--question", required=True, help="Forecast question.")
+@click.option("--data", default="{}", help="Historical data as JSON dict mapping period names to values.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def forecast(question: str, data: str, output_format: str):
+    """Build a forecast from historical data."""
+    try:
+        hist = json.loads(data)
+    except Exception:
+        hist = {}
+    result = build_forecast(question, hist)
+    data_out = {
+        "variable": result.variable,
+        "prediction": result.prediction,
+        "confidence_interval": list(result.confidence_interval),
+        "method": result.method,
+    }
+    console.print(_fmt(data_out, output_format))
+
+
+# ── B36: Wargame ────────────────────────────────────────────────────────────
+
+@cli.command()
+@click.option("--scenario", required=True, help="Wargame scenario description.")
+@click.option("--actors", required=True, help="Comma-separated list of actors.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def wargame(scenario: str, actors: str, output_format: str):
+    """Run wargame for a scenario against a set of actors."""
+    actor_list = [a.strip() for a in actors.split(",") if a.strip()]
+    results = run_wargame(scenario, actor_list)
+    table = Table(title=f"Wargame: {scenario}")
+    table.add_column("Actor", style="cyan")
+    table.add_column("Move", style="magenta")
+    table.add_column("RIG Response", style="green")
+    table.add_column("Impact", style="yellow")
+    table.add_column("Probability", justify="right")
+    for r in results:
+        table.add_row(r.actor, r.move, r.rig_response, r.impact, f"{r.probability:.2%}")
+    console.print(table)
+
+
+# ── B37: Risk Assessment ────────────────────────────────────────────────────
+
+@cli.command("risk")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def risk_assessment(output_format: str):
+    """Assess risks for sample strategic options."""
+    options = _make_sample_options()
+    results = assess_risks(options)
+    if output_format == "json":
+        console.print(json.dumps(results, indent=2, default=str))
+    elif output_format == "yaml":
+        try:
+            import yaml
+            console.print(yaml.safe_dump(results, sort_keys=False))
+        except Exception:
+            console.print(json.dumps(results, indent=2, default=str))
+    else:
+        for r in results:
+            table = Table(title=f"Risk: {r['option_id']} ({r['overall_risk_level'].upper()})")
+            table.add_column("Category", style="cyan")
+            table.add_column("Severity", style="red")
+            table.add_column("Likelihood", justify="right")
+            table.add_column("Score", justify="right")
+            for risk in r["risks"]:
+                table.add_row(risk["category"], risk["severity"], f"{risk['likelihood']:.0%}", str(risk["risk_score"]))
+            console.print(table)
+
+
+# ── B40: Market Sizing ──────────────────────────────────────────────────────
+
+@cli.command("market")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def market_sizing(output_format: str):
+    """Size markets for sample strategic options."""
+    options = _make_sample_options()
+    results = size_market(options)
+    if output_format == "json":
+        console.print(json.dumps(results, indent=2, default=str))
+    elif output_format == "yaml":
+        try:
+            import yaml
+            console.print(yaml.safe_dump(results, sort_keys=False))
+        except Exception:
+            console.print(json.dumps(results, indent=2, default=str))
+    else:
+        table = Table(title="Market Sizing")
+        table.add_column("Option", style="cyan")
+        table.add_column("Segment", style="magenta")
+        table.add_column("TAM", justify="right")
+        table.add_column("SAM", justify="right")
+        table.add_column("SOM", justify="right")
+        table.add_column("CAGR", justify="right")
+        table.add_column("Conf", justify="center")
+        for r in results:
+            table.add_row(
+                r["option_id"], r["segment"],
+                f"${r['tam']:,.0f}", f"${r['sam']:,.0f}", f"${r['som']:,.0f}",
+                f"{r['cagr']}%", r["confidence"],
+            )
+        console.print(table)
+
+
+# ── B43: Competitive Positioning ────────────────────────────────────────────
+
+@cli.command("position")
+@click.option("--competitors", default="Competitor A,Competitor B,Competitor C", help="Comma-separated competitors.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def competitive_position(competitors: str, output_format: str):
+    """Position options competitively against competitors."""
+    options = _make_sample_options()
+    comp_list = [c.strip() for c in competitors.split(",") if c.strip()]
+    results = position_competitively(options, comp_list)
+    if output_format == "json":
+        console.print(json.dumps(results, indent=2, default=str))
+    else:
+        for r in results:
+            console.print(Panel(
+                f"**{r['positioning_statement']}**\n\n"
+                f"Moat Score: {r['moat_score']} | "
+                f"Differentiation: {r['differentiation_score']} | "
+                f"Intensity: {r['competitive_intensity']}\n\n"
+                f"**Recommendation:** {r['recommended_positioning']}",
+                title=f"Position: {r['option_id']}",
+            ))
+
+
+# ── B44: Timeline Planning ──────────────────────────────────────────────────
+
+@cli.command("timeline")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def timeline_planning(output_format: str):
+    """Plan implementation timelines for sample options."""
+    options = _make_sample_options()
+    results = plan_timeline(options)
+    if output_format == "json":
+        console.print(json.dumps(results, indent=2, default=str))
+    else:
+        for t in results:
+            table = Table(title=f"Timeline: {t['option_id']} ({t['duration_weeks']}w, {t['complexity_level']})")
+            table.add_column("Phase", style="cyan")
+            table.add_column("Week", justify="right")
+            table.add_column("Deliverable", style="green")
+            for m in t["milestones"]:
+                table.add_row(m["phase"], str(m["week"]), m["deliverable"])
+            console.print(table)
+
+
+# ── B45: Budget Allocation ──────────────────────────────────────────────────
+
+@cli.command("budget")
+@click.option("--total", default=1000000.0, help="Total budget in USD.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def budget_allocation(total: float, output_format: str):
+    """Allocate budget across sample strategic options."""
+    options = _make_sample_options()
+    results = allocate_budget(options, total)
+    if output_format == "json":
+        console.print(json.dumps(results, indent=2, default=str))
+    else:
+        table = Table(title=f"Budget Allocation (${total:,.0f})")
+        table.add_column("Rank", justify="right")
+        table.add_column("Option", style="cyan")
+        table.add_column("Budget", justify="right")
+        table.add_column("%", justify="right")
+        table.add_column("Est. Cost", justify="right")
+        table.add_column("Gap", justify="right")
+        table.add_column("ROI", justify="right")
+        for r in results:
+            gap_style = "red" if r["funding_gap"] < 0 else "green"
+            table.add_row(
+                str(r["priority_rank"]), r["option_id"],
+                f"${r['budget']:,.0f}", f"{r['allocation_percentage']:.1f}%",
+                f"${r['estimated_cost']:,.0f}",
+                f"${r['funding_gap']:,.0f}",
+                f"{r['roi_estimate']:.2f}",
+            )
+        console.print(table)
+
+
+# ── B46: Impact Assessment ──────────────────────────────────────────────────
+
+@cli.command("impact")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def impact_assessment(output_format: str):
+    """Assess impact for sample strategic options."""
+    options = _make_sample_options()
+    results = assess_impact(options)
+    if output_format == "json":
+        console.print(json.dumps(results, indent=2, default=str))
+    else:
+        table = Table(title="Impact Assessment")
+        table.add_column("Option", style="cyan")
+        table.add_column("Financial", justify="right")
+        table.add_column("Strategic", justify="right")
+        table.add_column("Operational", justify="right")
+        table.add_column("Overall", justify="right")
+        table.add_column("Category", style="magenta")
+        for r in results:
+            table.add_row(
+                r["option_id"],
+                f"{r['financial_impact']:.2f}",
+                f"{r['strategic_impact']:.2f}",
+                f"{r['operational_impact']:.2f}",
+                f"{r['overall_impact_score']:.2f}",
+                r["impact_category"],
+            )
+        console.print(table)
+
+
+# ── B41: Client Intelligence ────────────────────────────────────────────────
+
+@cli.command("client")
+@click.option("--name", default="Prospect Co", help="Prospect company name.")
+@click.option("--title", default="", help="Contact title.")
+@click.option("--department", default="", help="Department.")
+@click.option("--company-size", default="", help="Company size.")
+@click.option("--industry", default="", help="Industry.")
+@click.option("--employees", default=None, type=int, help="Number of employees.")
+@click.option("--pain-point", default="", help="Known pain point.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def client_intel(name: str, title: str, department: str, company_size: str,
+                 industry: str, employees: int | None, pain_point: str, output_format: str):
+    """Generate client intelligence / wedge (B41)."""
+    prospect = {
+        "name": name, "title": title, "department": department,
+        "company_size": company_size, "industry": industry,
+        "employees": employees, "pain_point": pain_point,
+    }
+    segment = generate_wedge(prospect)
+    score = score_prospect(prospect)
+    data = {
+        "segment": segment.model_dump(),
+        "score": score,
+    }
+    if output_format == "json":
+        console.print(json.dumps(data, indent=2, default=str))
+    else:
+        console.print(Panel(
+            f"**{segment.name}**\n\n"
+            f"**ICP:** {segment.icp}\n"
+            f"**Entry Wedge:** {segment.entry_wedge}\n"
+            f"**Sizing:** {segment.sizing}\n\n"
+            f"**Score:** {score['score']:.2f} ({score['priority']} priority)\n"
+            f"**Wedge Type:** {score['wedge_type']}\n"
+            f"**Size Class:** {score.get('size_class', 'unknown')}",
+            title="B41 Client Intel",
+        ))
+
+
+# ── B42: Competitor Intelligence ────────────────────────────────────────────
+
+@cli.command("competitor")
+@click.option("--name", required=True, help="Competitor name.")
+@click.option("--changes", required=True, help="Comma-separated list of changes.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def competitor_intel(name: str, changes: str, output_format: str):
+    """Analyze competitor changes and generate response actions (B42)."""
+    change_list = [c.strip() for c in changes.split(",") if c.strip()]
+    actions = analyze_competitor(name, change_list)
+    threat = assess_threat_level(name, change_list)
+    data = {
+        "competitor": name,
+        "threat": threat,
+        "actions": [a.model_dump() for a in actions],
+    }
+    if output_format == "json":
+        console.print(json.dumps(data, indent=2, default=str))
+    else:
+        console.print(Panel(
+            f"**{name}**\n\n"
+            f"**Threat Level:** {threat['level'].upper()} (score: {threat['score']})\n"
+            f"**Changes Analyzed:** {threat['changes_analyzed']}\n"
+            f"**High Urgency:** {threat['high_urgency']}\n\n"
+            + "\n".join(
+                f"- **{a.payload['category']}:** {a.payload['description']} ({a.payload['priority']})"
+                for a in actions[:5]
+            ),
+            title="B42 Competitor Intel",
+        ))
+
+
+# ── Audit ───────────────────────────────────────────────────────────────────
+
 @cli.command()
 @click.option("--limit", default=10, type=int, help="Max rows to show.")
-@click.option("--format", "output_format", default="md", type=click.Choice(["json","yaml","md"]), help="Output format.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
 def audit(limit: int, output_format: str):
     """Show recent audit rows."""
     rows = [
@@ -147,6 +450,316 @@ def audit(limit: int, output_format: str):
         for r in rows:
             table.add_row(r["id"], r["intent"], r["payload"], r["result"])
         console.print(table)
+
+
+# ── Full Pipeline ───────────────────────────────────────────────────────────
+
+@cli.command("full")
+@click.option("--company", required=True, help="Company name.")
+@click.option("--competitors", default="", help="Comma-separated competitors.")
+@click.option("--budget", default=1000000.0, help="Total budget for allocation.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
+def full_pipeline(company: str, competitors: str, budget: float, output_format: str):
+    """Run full strategy pipeline through the RIG Lattice."""
+    comp_list = [c.strip() for c in competitors.split(",") if c.strip()] if competitors else ["Competitor A", "Competitor B"]
+
+    console.print(f"\n[bold]═══ Strategy Studio: {company} ═══[/bold]\n")
+
+    from strategy_studio.session import run_strategy_session
+    session = run_strategy_session(
+        company_name=company,
+        industry="",
+        competitors=comp_list,
+        lattice_mode=True,
+        export_formats=["md"],
+    )
+
+    # Show lattice classification
+    ls = session.lattice_summary
+    console.print(f"[bold]Lattice:[/bold] BMS {ls.get('bms_mode', '?')} (score: {ls.get('bms_score', 0):.2f}) | Cell: {ls.get('cell_id', '?')}")
+
+    # Show lattice step results
+    if session.lattice_packets:
+        console.print(f"\n[bold]IQRSQPI Pipeline:[/bold]")
+        for pkt in session.lattice_packets:
+            status = pkt.get("status", "?") if isinstance(pkt, dict) else pkt.status
+            mode = pkt.get("mode", "?") if isinstance(pkt, dict) else pkt.mode
+            step = pkt.get("step", "?") if isinstance(pkt, dict) else pkt.step
+            esc = " →" if (pkt.get("escalation_required") if isinstance(pkt, dict) else pkt.escalation_required) else ""
+            status_color = "green" if status == "PASS" else "red" if status == "ERROR" else "yellow"
+            console.print(f"  {step}: [{status_color}]{status}[/{status_color}] ({mode}){esc}")
+
+    # Show B-engine results from session
+    if session.report:
+        # Risk assessment
+        if session.archetype_results:
+            console.print(f"\n[bold]B37 Risk:[/bold]")
+            for ar in session.archetype_results:
+                if ar.archetype in ("A1", "A2", "A3", "A4"):
+                    status_color = "green" if ar.status == "PASS" else "red"
+                    console.print(f"  {ar.archetype}: [{status_color}]{ar.status}[/{status_color}] ({ar.duration_ms}ms)")
+
+        # Decision matrix
+        if session.decision_room and session.decision_room.decision_matrix:
+            dm = session.decision_room.decision_matrix
+            console.print(f"\n[bold]Decision Matrix:[/bold]")
+            for os in dm.options[:4]:
+                tier_color = "green" if os.tier == "A" else "blue" if os.tier == "B" else "yellow"
+                console.print(f"  #{os.rank} {os.option_title}: {os.total_score:.2f} [{tier_color}]{os.tier}[/{tier_color}]")
+
+        # Wargame summary
+        if session.wargame:
+            console.print(f"\n[bold]B36 Wargame:[/bold] {session.wargame.scenario_name} ({session.wargame.risk_level})")
+
+        # Evidence graph
+        if session.evidence_graph:
+            eg = session.evidence_graph
+            console.print(f"\n[bold]Evidence Graph:[/bold] {len(eg.nodes)} sources, {len(eg.contradictions)} contradictions, conf={eg.overall_confidence}")
+
+    # Show report summary
+    if session.report and session.report.executive_summary:
+        es = session.report.executive_summary
+        console.print(f"\n[bold]Recommendation:[/bold] {es.recommendation}")
+        console.print(f"[bold]Confidence:[/bold] {es.confidence}")
+        if es.key_findings:
+            console.print(f"\n[bold]Key Findings:[/bold]")
+            for f in es.key_findings[:5]:
+                console.print(f"  • {f}")
+        if es.next_steps:
+            console.print(f"\n[bold]Next Steps:[/bold]")
+            for step in es.next_steps[:3]:
+                console.print(f"  • {step}")
+
+    if session.exported_paths:
+        console.print(f"\n[bold]Exported:[/bold]")
+        for fmt, path in session.exported_paths.items():
+            console.print(f"  {fmt}: {path}")
+
+    console.print(f"\n[bold green]═══ Pipeline complete ═══[/bold green]")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LATTICE COMMANDS — RIG Lattice traversal
+# ═══════════════════════════════════════════════════════════════════════════
+
+@cli.group("lattice")
+def lattice_group():
+    """RIG Lattice — 147-cell orchestration system."""
+    pass
+
+
+@lattice_group.command("summary")
+def lattice_cmd_summary():
+    """Show lattice summary: 147 cells (588 with BMS), BMS distribution."""
+    s = lattice_summary()
+    table = Table(title="RIG Lattice Summary (147 cells / 588 with BMS modes)")
+    table.add_column("Dimension", style="cyan")
+    table.add_column("Breakdown", style="green")
+    table.add_column("Count", justify="right")
+
+    table.add_row("147-cell (L×D×Step)", "", str(s["total_cells_147"]))
+    table.add_row("588-cell (L×D×A×Step)", "", str(s["total_cells_588"]))
+    table.add_row("Reusable archetypes (A×Step)", "", str(s["archetypes"]))
+    for mode, count in s["by_mode"].items():
+        table.add_row("Build Mode", mode, str(count))
+    for alt, count in s["by_altitude"].items():
+        table.add_row("Altitude", alt, str(count))
+    for dia, count in s["by_diamond"].items():
+        table.add_row("Diamond", dia, str(count))
+    console.print(table)
+
+
+@lattice_group.command("cell")
+@click.argument("cell_id")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def lattice_cmd_cell(cell_id: str, output_format: str):
+    """Show details for a lattice cell (e.g., L2-D1-I1)."""
+    try:
+        cell = LatticeCell.parse(cell_id)
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        return
+
+    bms = compute_bms(altitude=cell.altitude)
+    mode = bms.select_mode()
+    card = get_build_card(cell_id)
+
+    if output_format == "json":
+        console.print(json.dumps({
+            "cell_id": cell.cell_id,
+            "full_cell_id": cell.full_cell_id,
+            "altitude": cell.altitude.value,
+            "altitude_desc": cell.altitude.description,
+            "diamond": cell.diamond.value,
+            "step": cell.step.value,
+            "step_name": cell.step.step_name,
+            "bms_score": round(bms.final, 4),
+            "build_mode": mode.value,
+            "cost_band": mode.cost_band,
+            "archetype_id": card.archetype_id,
+            "tools": card.tools,
+            "validation": card.validation_criteria,
+            "escalation_target": card.escalation_target,
+        }, indent=2))
+    else:
+        console.print(Panel(
+            f"**Cell:** {cell.cell_id}\n"
+            f"**Full (588):** {cell.full_cell_id}\n\n"
+            f"**Altitude:** L{cell.altitude.value} — {cell.altitude.description}\n"
+            f"**Diamond:** {cell.diamond.value}\n"
+            f"**Step:** {cell.step.value} ({cell.step.step_name}) — {cell.step.description}\n\n"
+            f"**BMS Score:** {round(bms.final, 4)}\n"
+            f"**Build Mode:** {mode.value} — {mode.description}\n"
+            f"**Cost Band:** {mode.cost_band}\n"
+            f"**Archetype:** {card.archetype_id}\n"
+            f"**Tools:** {', '.join(card.tools)}\n"
+            f"**Validation:** {', '.join(card.validation_criteria)}\n"
+            f"**Escalation:** {card.escalation_target or 'None (top level)'}",
+            title=f"Lattice Cell: {cell.full_cell_id}",
+        ))
+
+
+@lattice_group.command("bms")
+@click.option("--failure-cost", default=0.5, help="C1: Cost of being wrong (0-1)")
+@click.option("--reversibility", default=0.5, help="C2: Can we undo this? (0-1)")
+@click.option("--mechanism-clarity", default=0.5, help="C10: Mechanism clarity (0-1)")
+@click.option("--altitude", default=2, type=int, help="Altitude level (1-7)")
+@click.option("--past-failure-rate", default=0.0, help="Past failure rate (0-1)")
+@click.option("--data-volume", default=0.5, help="Data volume (0-1)")
+def lattice_cmd_bms(failure_cost: float, reversibility: float, mechanism_clarity: float,
+                    altitude: int, past_failure_rate: float, data_volume: float):
+    """Compute BMS score and select build mode."""
+    alt = Altitude(altitude)
+    bms = compute_bms(failure_cost, reversibility, mechanism_clarity,
+                      past_failure_rate, data_volume, alt)
+    mode = bms.select_mode()
+
+    table = Table(title=f"BMS Score — {mode.value} ({mode.cost_band})")
+    table.add_column("Component", style="cyan")
+    table.add_column("Value", justify="right")
+    table.add_row("Raw Score (C1/C2/C10)", f"{bms.raw:.4f}")
+    table.add_row("Failure Rate Adj", f"{bms.adj_failure:+.4f}")
+    table.add_row("Data Volume Adj", f"{bms.adj_volume:+.4f}")
+    table.add_row("Altitude Adj (L{altitude})", f"{bms.adj_altitude:+.4f}")
+    table.add_row("**Final BMS**", f"**{bms.final:.4f}**")
+    table.add_row("**Build Mode**", f"**{mode.value}**")
+    table.add_row("Mode Description", mode.description)
+    console.print(table)
+
+
+@lattice_group.command("traverse")
+@click.argument("cell_id")
+@click.option("--query", default="Strategy analysis", help="Input query")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def lattice_cmd_traverse(cell_id: str, query: str, output_format: str):
+    """Traverse a single lattice cell (execute B-engine)."""
+    try:
+        cell = LatticeCell.parse(cell_id)
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        return
+
+    orch = LatticeOrchestrator()
+    packet = orch.execute_cell(cell, {"query": query})
+
+    if output_format == "json":
+        console.print(json.dumps(packet.model_dump(), indent=2, default=str))
+    else:
+        status_color = "green" if packet.status == "PASS" else "red"
+        console.print(Panel(
+            f"**Cell:** {packet.cell_id}\n"
+            f"**Archetype:** {packet.archetype_id}\n"
+            f"**Mode:** {packet.mode}\n"
+            f"**Step:** {packet.step}\n"
+            f"**Status:** [{status_color}]{packet.status}[/{status_color}]\n"
+            f"**Confidence:** {packet.confidence:.4f}\n"
+            f"**Duration:** {packet.duration_ms}ms\n"
+            f"**Escalation:** {packet.escalation_reason or 'None'}\n\n"
+            f"**Output:**\n{json.dumps(packet.output, indent=2, default=str)[:500]}",
+            title=f"Lattice Traverse: {cell_id}",
+        ))
+
+
+@lattice_group.command("pipeline")
+@click.option("--altitude", default=2, type=int, help="Altitude level (1-7)")
+@click.option("--diamond", default="D1", type=click.Choice(["D1", "D2", "D3"]))
+@click.option("--query", default="Strategy analysis", help="Input query")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def lattice_cmd_pipeline(altitude: int, diamond: str, query: str, output_format: str):
+    """Run full 7-step IQRSQPI pipeline through the lattice."""
+    alt = Altitude(altitude)
+    dia = Diamond(diamond)
+
+    orch = LatticeOrchestrator()
+    result = orch.execute_full_pipeline(
+        input_data={"query": query},
+        altitude=alt,
+        diamond=dia,
+    )
+
+    if output_format == "json":
+        console.print(json.dumps(result, indent=2, default=str))
+    else:
+        summary = result["summary"]
+        status_color = "green" if summary["overall_status"] == "PASS" else "yellow" if summary["overall_status"] == "PARTIAL" else "red"
+
+        console.print(f"\n[bold]═══ Lattice Pipeline: L{altitude}-{diamond} ═══[/bold]\n")
+        console.print(f"Status: [{status_color}]{summary['overall_status']}[/{status_color}]")
+        console.print(f"Steps: {summary['passed']}/{summary['total_steps']} passed")
+        console.print(f"Escalations: {summary['escalations']}")
+        console.print(f"Duration: {summary['total_duration_ms']}ms")
+
+        table = Table(title="Step Results")
+        table.add_column("Step", style="cyan")
+        table.add_column("Status", style="green")
+        table.add_column("Mode", style="magenta")
+        table.add_column("Duration", justify="right")
+        for step_name, step_data in result["steps"].items():
+            s = step_data if isinstance(step_data, dict) else {}
+            st = s.get("status", "?")
+            table.add_row(
+                step_name,
+                f"{'green' if st == 'PASS' else 'red'}",
+                s.get("mode", "?"),
+                f"{s.get('duration_ms', 0)}ms",
+            )
+        console.print(table)
+
+
+@lattice_group.command("map")
+@click.option("--output", default="out/lattice_map.excalidraw", help="Output path for .excalidraw file")
+def lattice_cmd_map(output: str):
+    """Generate Excalidraw visualization of the 147-cell lattice."""
+    diagram = generate_lattice_map(Path(output))
+    console.print(f"[green]✓ Lattice map generated: {output}[/green]")
+    console.print(f"  Cells: {len(diagram['elements'])} elements")
+    console.print(f"  Open in Excalidraw: https://excalidraw.com")
+
+
+@lattice_group.command("cards")
+@click.option("--output-dir", default="out/build_cards", help="Output directory for Build Card YAMLs")
+@click.option("--format", "output_format", default="summary", type=click.Choice(["summary", "json"]))
+def lattice_cmd_cards(output_dir: str, output_format: str):
+    """Generate all 147 Build Cards."""
+    cards = get_all_build_cards()
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    for card in cards:
+        filepath = out / f"{card.cell_id}.yaml"
+        import yaml
+        filepath.write_text(yaml.safe_dump(card.model_dump(mode="json"), sort_keys=False))
+
+    if output_format == "json":
+        console.print(json.dumps([c.model_dump() for c in cards], indent=2, default=str))
+    else:
+        console.print(f"[green]✓ {len(cards)} Build Cards generated in {output_dir}[/green]")
+        # Summary by mode
+        by_mode: dict[str, int] = {}
+        for c in cards:
+            by_mode[c.mode] = by_mode.get(c.mode, 0) + 1
+        for mode, count in sorted(by_mode.items()):
+            console.print(f"  {mode}: {count} cards")
 
 
 if __name__ == "__main__":
@@ -188,37 +801,12 @@ def analyze_cmd(
         print(f"\n✓ Strategy analysis complete: {session.report.title}")
         print(f"  Recommendation: {session.report.executive_summary.recommendation}")
         print(f"  Confidence: {session.report.executive_summary.confidence}")
-        if session.enriched_data.get("data_sources"):
-            print(f"  Data sources: {', '.join(session.enriched_data['data_sources'])}")
-        # Show presentation first (primary deliverable)
-        pres_path = session.exported_paths.get("presentation")
-        if pres_path:
-            print(f"\n  📊 Presentation: {pres_path}")
-            print(f"     Open in browser: file://{pres_path}")
-        # Show other outputs
-        for fmt, path in session.exported_paths.items():
-            if fmt != "presentation":
+        if session.exported_paths:
+            for fmt, path in session.exported_paths.items():
                 print(f"  {fmt.upper()}: {path}")
-        # Auto-open presentation
-        if pres_path:
-            try:
-                import webbrowser
-                webbrowser.open(f"file://{pres_path}")
-                print(f"\n  → Opened presentation in browser")
-            except Exception:
-                pass
     else:
         print("✗ Analysis failed to generate report")
 
 
 # Register additional commands
 cli.add_command(click.Command("wizard", callback=wizard_cmd, help="Interactive strategy session"))
-cli.add_command(click.Command("analyze", callback=lambda **kw: analyze_cmd(**kw), params=[
-    click.Argument(["company"]),
-    click.Option(["--ticker"], default="", help="Stock ticker symbol (enables real data)"),
-    click.Option(["--industry"], default="", help="Industry"),
-    click.Option(["--competitors"], default="", help="Comma-separated competitors"),
-    click.Option(["--output"], default="", help="Output directory"),
-    click.Option(["--formats"], default="md,json", help="Output formats"),
-    click.Option(["--no-visual"], is_flag=True, help="Skip visual generation"),
-], help="Analyze a company"))

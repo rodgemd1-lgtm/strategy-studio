@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""
+rig-strategy-studio — CLI entrypoint for RIG Strategy Studio.
+
+Usage:
+    rig-strategy-studio --help
+    rig-strategy-studio lattice list-cells
+    rig-strategy-studio cells card L2-D1-I1
+    rig-strategy-studio orchestrator traverse --cell L2-D1 --query "..."
+    rig-strategy-studio test --quick
+"""
+import sys
+import os
+
+# Ensure the strategy_studio package is importable
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from cli.main import main
+
+if __name__ == "__main__":
+    main()

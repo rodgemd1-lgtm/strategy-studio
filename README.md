@@ -6,6 +6,42 @@
 
 RIG Strategy Studio - A1-A4 archetype workflows, Excalidraw diagrams, HED docs, terminal visualization Evidence from the tracked tree: Documentation corpus, FastAPI service, Scripted automation.
 
+## RIG Lattice — Core Architecture
+
+The RIG Lattice is a **147-cell decision matrix** routing every strategy question to the right execution mode.
+
+```
+147 cells = 7 Altitudes × 3 Diamonds × 7 IQRSQPI steps
+L{A}-{D[123]}-{I1|Q1|R|S|Q2|P|I2}
+```
+
+| Axis | Values | Doctrine |
+|------|--------|----------|
+| Altitude | L1–L7 | Deterministic → Novel frame. Sets cost band + BMS threshold. |
+| Diamond | D1 (Strategy), D2 (Intelligence), D3 (Operations) | Domain classification |
+| IQRSQPI | I1→Q1→R→S→Q2→P→I2 | Sequential process: Intent → Question → Research → Solution → Quality → Proof → Integrate |
+
+Four build modes — not recommendations, **binding cost constraints**:
+
+| Mode | Cap | Executor | Cells |
+|------|-----|----------|-------|
+| A1 PYTHON_ONLY | ≤$0.001 | Pyd+Jinja2+regex, no model in path | 42 |
+| A2 HYBRID | ≤$0.05 | A1 + Haiku/Sonnet shims | 42 |
+| A3 AGENT_BOUNDED | ≤$1 | LangGraph + CrewAI + guardrails | 42 |
+| A4 LLM_AGENT_FREE | ≤$50+4h | Opus crews + falsification | 21 |
+
+BMS auto-selects mode per cell. Escalation: A1→A2→A3→A4 on failure.
+
+Full reference: [`docs/rig-lattice-architecture.md→`](docs/rig-lattice-architecture.md)
+
+**CLI:**
+```bash
+rig-strategy-studio lattice modes          # A1-A4 cost bands
+rig-strategy-studio lattice list-cells     # List cell IDs
+rig-strategy-studio cells all-cards        # All 147 Build Cards
+rig-strategy-studio orchestrator pipeline   # Full IQRSQPI run
+```
+
 ## Live State
 
 | Field | Value |
@@ -46,7 +82,7 @@ Detected runtime/build signals:
 
 ## File Map
 
-199 tracked files across 44 directories. Code files: 121. Test files: 17. 37 data/config/knowledge-like files; 22 docs/notes; 24 media/design assets; 0 sensitive-path-name matches.
+199 tracked files across 44 directories. Code files: 121. Test files: 16. 37 data/config/knowledge-like files; 23 docs/notes; 24 media/design assets; 0 sensitive-path-name matches.
 
 Aggregate GitHub tree size: `9.4 MB` across `203` blobs.
 GitHub recursive tree truncated: `false`.

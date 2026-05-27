@@ -48,11 +48,22 @@ def test_risk_assessment():
             risks=[]
         )
     ]
-    
+
     result = assess_risks(options)
     assert isinstance(result, list)
     assert len(result) >= 1
-    assert "High upfront capital requirement" in str(result[0])
+    # New format: structured risk dict with categories and mitigations
+    assert "option_id" in result[0]
+    assert "risks" in result[0]
+    assert "overall_risk_level" in result[0]
+    assert "overall_risk_score" in result[0]
+    # Should detect financial risk from "capital intensive"
+    risk_categories = [r["category"] for r in result[0]["risks"]]
+    assert "financial" in risk_categories
+    # Should have mitigations
+    for r in result[0]["risks"]:
+        assert "mitigations" in r
+        assert "risk_score" in r
 
 
 def test_market_sizing():
@@ -84,11 +95,16 @@ def test_competitive_positioning():
             risks=[]
         )
     ]
-    
+
     result = position_competitively(options, ["Competitor A", "Competitor B"])
     assert isinstance(result, list)
     assert len(result) >= 1
+    # New format: structured positioning dict
+    assert "option_id" in result[0]
     assert "advantages" in result[0]
+    assert "moat_score" in result[0]
+    assert "competitive_intensity" in result[0]
+    assert "recommended_positioning" in result[0]
 
 
 def test_timeline_planning():
@@ -102,11 +118,15 @@ def test_timeline_planning():
             risks=[]
         )
     ]
-    
+
     result = plan_timeline(options)
     assert isinstance(result, list)
     assert len(result) >= 1
     assert "start_date" in result[0]
+    assert "end_date" in result[0]
+    assert "duration_weeks" in result[0]
+    assert "milestones" in result[0]
+    assert "complexity_level" in result[0]
 
 
 def test_budget_allocation():
@@ -120,11 +140,15 @@ def test_budget_allocation():
             risks=[]
         )
     ]
-    
+
     result = allocate_budget(options, 1000000.0)
     assert isinstance(result, list)
     assert len(result) >= 1
     assert "budget" in result[0]
+    assert "allocation_percentage" in result[0]
+    assert "estimated_cost" in result[0]
+    assert "roi_estimate" in result[0]
+    assert "priority_rank" in result[0]
 
 
 def test_impact_assessment():
@@ -138,8 +162,13 @@ def test_impact_assessment():
             risks=[]
         )
     ]
-    
+
     result = assess_impact(options)
     assert isinstance(result, list)
     assert len(result) >= 1
     assert "financial_impact" in result[0]
+    assert "strategic_impact" in result[0]
+    assert "operational_impact" in result[0]
+    assert "overall_impact_score" in result[0]
+    assert "impact_category" in result[0]
+    assert "primary_dimension" in result[0]

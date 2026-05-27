@@ -328,7 +328,27 @@ class ProofPacket(BaseModel):
     escalation_required: bool = False
     escalation_reason: str = ""
     escalation_from: str = ""
+    process: str = ""
+    gate_results: list = Field(default_factory=list)
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    def to_audit_log(self) -> dict[str, Any]:
+        return {
+            "packet_id": self.packet_id,
+            "cell_id": self.cell_id,
+            "full_cell_id": self.full_cell_id,
+            "archetype_id": self.archetype_id,
+            "mode": self.mode,
+            "step": self.step,
+            "status": self.status,
+            "process": self.process,
+            "confidence": self.confidence,
+            "duration_ms": self.duration_ms,
+            "escalation_required": self.escalation_required,
+            "escalation_reason": self.escalation_reason,
+            "evidence_count": len(self.evidence_sources),
+            "timestamp": self.timestamp.isoformat(),
+        }
 
 
 # ═══════════════════════════════════════════════════════════════════════════

@@ -489,6 +489,15 @@ def full_pipeline(company: str, competitors: str, budget: float, output_format: 
             status_color = "green" if status == "PASS" else "red" if status == "ERROR" else "yellow"
             console.print(f"  {step}: [{status_color}]{status}[/{status_color}] ({mode}){esc}")
 
+    # Show B-engine results from session
+    if session.report:
+        if session.decision_room and session.decision_room.decision_matrix:
+            dm = session.decision_room.decision_matrix
+            console.print(f"\n[bold]Decision Matrix:[/bold]")
+            for os in dm.options[:4]:
+                tier_color = "green" if os.tier == "A" else "blue" if os.tier == "B" else "yellow"
+                console.print(f"  #{os.rank} {os.option_title}: {os.total_score:.2f} [{tier_color}]{os.tier}[/{tier_color}]")
+
     # Show report summary
     if session.report and session.report.executive_summary:
         es = session.report.executive_summary

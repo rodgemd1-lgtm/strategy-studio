@@ -804,3 +804,141 @@ def lattice_summary() -> dict[str, Any]:
         "by_step": {s.value: 21 for s in IQRSQPIStep},
         "archetypes": 28, "doctrine": "7×3×4×7=588 cells, 4×7=28 archetypes",
     }
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# ROUTE COMPANY — Deterministic company → lattice cell routing
+# ═══════════════════════════════════════════════════════════════════════════
+
+class RouteResult(BaseModel):
+    """Result of routing a company to a lattice cell."""
+    company_name: str
+    industry: str
+    size_class: str
+    altitude: int
+    diamond: str
+    cell_ids: list[str]  # All 7 IQRSQPI cells
+    bms_score: float
+    bms_mode: str
+    rationale: str
+    evidence_keywords: list[str]
+
+def _keyword_score(text: str, keywords: list[str]) -> int:
+    """Count keyword matches in text. Case-insensitive."""
+    lower = text.lower()
+    return sum(1 for kw in keywords if kw.lower() in lower)
+
+def route_company(
+    name: str,
+    industry: str = "",
+    size: str = "",
+    context: str = "",
+) -> RouteResult:
+    """Deterministic routing from company characteristics to lattice cell(s).
+    
+    Algorithm:
+    - Diamond: industry keywords → D1 (strategy) / D2 (intelligence/research) / D3 (ops)
+    - Altitude: size class + context complexity → L1-L7
+    - BMS: Altitude → BuildMode via compute_bms()
+    - Cell IDs: 7 IQRSQPI steps × (altitude, diamond)
+    
+    No LLM calls. Pure keyword matching and rules.
+    """
+    # ── Diamond: industry → domain ────────────────────────────────────────
+    strategy_kws = [
+        "market entry", "go-to-market", "gtm", "acquisition", "merger",
+        "ipo", "fundraising", "competitive strategy", "pricing", "business model",
+        "expansion", "strategic planning", "portfolio", "moat", "positioning",
+    ]
+    intelligence_kws = [
+        "market research", "competitor analysis", "due diligence", "research",
+        "customer insight", "user research", "discovery", "analysis", "monitoring",
+        "trend", "surveillance", "intelligence", "benchmark",
+    ]
+    ops_kws = [
+        "supply chain", "manufacturing", "logistics", "operations", "process",
+        "efficiency", "automation", "cost reduction", "procurement", "vendor",
+        "workflow", "deployment", "infrastructure",
+    ]
+
+    all_text = f"{industry} {context} {name}"
+    s_score = _keyword_score(all_text, strategy_kws)
+    i_score = _keyword_score(all_text, intelligence_kws)
+    o_score = _keyword_score(all_text, ops_kws)
+
+    diamond_map = {"D1": s_score, "D2": i_score, "D3": o_score}
+    top_diamond = max(diamond_map, key=lambda k: diamond_map[k]) if any(diamond_map.values()) else "D1"
+
+    # ── Altitude: size + complexity → L1-L7 ────────────────────────────────
+    size_lower = size.lower()
+    ctx_lower = context.lower()
+
+    # Size scoring
+    size_score = 0
+    if any(kw in size_lower for kw in ["enterprise", "fortune", "large", "large-cap", "major"]):
+        size_score += 3
+    elif any(kw in size_lower for kw in ["mid-market", "midmarket", "growth", "smes", "smb"]):
+        size_score += 1
+    elif any(kw in size_lower for kw in ["startup", "seed", "early-stage", "pre-series"]):
+        size_score -= 2
+    elif any(kw in size_lower for kw in ["micro", "solo", "individual", "freelance"]):
+        size_score -= 4
+
+    # Complexity scoring
+    ctx_score = 0
+    if any(kw in ctx_lower for kw in ["agentic", "multi-agent", "autonomous", "llm", "ai-native"]):
+        ctx_score += 4
+    if any(kw in ctx_lower for kw in ["cross-border", "multi-jurisdiction", "regulatory", "complex"]):
+        ctx_score += 3
+    if any(kw in ctx_lower for kw in ["workflow", "pipeline", "automated", "integration"]):
+        ctx_score += 1
+    if any(kw in ctx_lower for kw in ["one-time", "simple", "straightforward", "basic"]):
+        ctx_score -= 2
+
+    # Combined → Altitude
+    combined = size_score + ctx_score
+    if combined <= -3:
+        altitude_val = 1
+    elif combined <= -1:
+        altitude_val = 2
+    elif combined <= 1:
+        altitude_val = 3
+    elif combined <= 3:
+        altitude_val = 4
+    elif combined <= 5:
+        altitude_val = 5
+    elif combined <= 7:
+        altitude_val = 6
+    else:
+        altitude_val = 7
+
+    altitude = Altitude(altitude_val)
+
+    # ── BMS: Altitude → BuildMode ──────────────────────────────────────────
+    bms = compute_bms(altitude=altitude)
+    mode = bms.select_mode()
+    mode_str = mode.value
+
+    # ── Cell IDs: 7 IQRSQPI steps for this altitude/diamond ─────────────────
+    cell_ids = [f"L{altitude_val}-{top_diamond}-{step.value}" for step in IQRSQPIStep]
+
+    # ── Rationale ────────────────────────────────────────────────────────────
+    rationale_parts = [
+        f"Industry '{industry}' → {top_diamond} (score: {diamond_map[top_diamond]})",
+        f"Size '{size}' + context → L{altitude_val}",
+        f"BMS score {bms.final:.3f} → {mode_str}",
+    ]
+    rationale = "; ".join(rationale_parts)
+
+    return RouteResult(
+        company_name=name,
+        industry=industry,
+        size_class=size,
+        altitude=altitude_val,
+        diamond=top_diamond,
+        cell_ids=cell_ids,
+        bms_score=round(bms.final, 4),
+        bms_mode=mode_str,
+        rationale=rationale,
+        evidence_keywords=[k for k in strategy_kws + intelligence_kws + ops_kws if k.lower() in all_text.lower()],
+    )

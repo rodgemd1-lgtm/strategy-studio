@@ -46,11 +46,9 @@ from strategy_studio.lattice_wire import (
     compute_bms,
     lattice_summary,
 )
-# NOTE: Old prediction_studio functions replaced by new v2 module
-# from strategy_studio.studios.prediction_studio import (
-#     build_scenarios, cross_impact_analysis, predict_variable,
-#     run_monte_carlo, run_wargame, sensitivity_analysis,
-# )
+from strategy_studio.studios.prediction_studio_legacy import (
+    predict_variable,
+)
 from strategy_studio.studios.decision_room import (
     build_decision_matrix,
     generate_recommendation,

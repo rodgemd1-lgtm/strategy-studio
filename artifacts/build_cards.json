@@ -1,0 +1,3613 @@
+{
+  "generated_at": "2026-05-27T13:38:24.666152",
+  "total_cards": 147,
+  "by_mode": {
+    "A1": 42,
+    "A2": 42,
+    "A3": 42,
+    "A4": 21
+  },
+  "by_altitude": {
+    "L1": 21,
+    "L2": 21,
+    "L3": 21,
+    "L4": 21,
+    "L5": 21,
+    "L6": 21,
+    "L7": 21
+  },
+  "archetypes": 28,
+  "cards": [
+    {
+      "cell_id": "L1-D1-I1",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A1",
+      "archetype_id": "A1.1",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D1-Q1",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A1",
+      "archetype_id": "A1.2",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D1-R",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A1",
+      "archetype_id": "A1.3",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D1-S",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A1",
+      "archetype_id": "A1.4",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D1-Q2",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A1",
+      "archetype_id": "A1.5",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D1-P",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A1",
+      "archetype_id": "A1.6",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D1-I2",
+      "altitude": 1,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A1",
+      "archetype_id": "A1.7",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-I1",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A1",
+      "archetype_id": "A1.1",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-Q1",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A1",
+      "archetype_id": "A1.2",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-R",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A1",
+      "archetype_id": "A1.3",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-S",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A1",
+      "archetype_id": "A1.4",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-Q2",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A1",
+      "archetype_id": "A1.5",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-P",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A1",
+      "archetype_id": "A1.6",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D2-I2",
+      "altitude": 1,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A1",
+      "archetype_id": "A1.7",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-I1",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A1",
+      "archetype_id": "A1.1",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-Q1",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A1",
+      "archetype_id": "A1.2",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-R",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A1",
+      "archetype_id": "A1.3",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-S",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A1",
+      "archetype_id": "A1.4",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-Q2",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A1",
+      "archetype_id": "A1.5",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-P",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A1",
+      "archetype_id": "A1.6",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L1-D3-I2",
+      "altitude": 1,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A1",
+      "archetype_id": "A1.7",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.85
+    },
+    {
+      "cell_id": "L2-D1-I1",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A1",
+      "archetype_id": "A1.1",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D1-Q1",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A1",
+      "archetype_id": "A1.2",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D1-R",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A1",
+      "archetype_id": "A1.3",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D1-S",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A1",
+      "archetype_id": "A1.4",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D1-Q2",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A1",
+      "archetype_id": "A1.5",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D1-P",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A1",
+      "archetype_id": "A1.6",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D1-I2",
+      "altitude": 2,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A1",
+      "archetype_id": "A1.7",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-I1",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A1",
+      "archetype_id": "A1.1",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-Q1",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A1",
+      "archetype_id": "A1.2",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-R",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A1",
+      "archetype_id": "A1.3",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-S",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A1",
+      "archetype_id": "A1.4",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-Q2",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A1",
+      "archetype_id": "A1.5",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-P",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A1",
+      "archetype_id": "A1.6",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D2-I2",
+      "altitude": 2,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A1",
+      "archetype_id": "A1.7",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-I1",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A1",
+      "archetype_id": "A1.1",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-Q1",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A1",
+      "archetype_id": "A1.2",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-R",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A1",
+      "archetype_id": "A1.3",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-S",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A1",
+      "archetype_id": "A1.4",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-Q2",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A1",
+      "archetype_id": "A1.5",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-P",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A1",
+      "archetype_id": "A1.6",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L2-D3-I2",
+      "altitude": 2,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A1",
+      "archetype_id": "A1.7",
+      "cost_band": "<=$0.001",
+      "doctrine": "No model in decision path. Pydantic + Jinja + regex.",
+      "tools": [
+        "regex",
+        "jinja2",
+        "pydantic",
+        "httpx"
+      ],
+      "validation_criteria": [
+        "rule_gates",
+        "pydantic_validation",
+        "sha256_audit"
+      ],
+      "escalation_target": "A2.1",
+      "bms_score": 0.78
+    },
+    {
+      "cell_id": "L3-D1-I1",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A2",
+      "archetype_id": "A2.1",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D1-Q1",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A2",
+      "archetype_id": "A2.2",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D1-R",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A2",
+      "archetype_id": "A2.3",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D1-S",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A2",
+      "archetype_id": "A2.4",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D1-Q2",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A2",
+      "archetype_id": "A2.5",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D1-P",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A2",
+      "archetype_id": "A2.6",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D1-I2",
+      "altitude": 3,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A2",
+      "archetype_id": "A2.7",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-I1",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A2",
+      "archetype_id": "A2.1",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-Q1",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A2",
+      "archetype_id": "A2.2",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-R",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A2",
+      "archetype_id": "A2.3",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-S",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A2",
+      "archetype_id": "A2.4",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-Q2",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A2",
+      "archetype_id": "A2.5",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-P",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A2",
+      "archetype_id": "A2.6",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D2-I2",
+      "altitude": 3,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A2",
+      "archetype_id": "A2.7",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-I1",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A2",
+      "archetype_id": "A2.1",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-Q1",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A2",
+      "archetype_id": "A2.2",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-R",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A2",
+      "archetype_id": "A2.3",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-S",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A2",
+      "archetype_id": "A2.4",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-Q2",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A2",
+      "archetype_id": "A2.5",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-P",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A2",
+      "archetype_id": "A2.6",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L3-D3-I2",
+      "altitude": 3,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A2",
+      "archetype_id": "A2.7",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.62
+    },
+    {
+      "cell_id": "L4-D1-I1",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A2",
+      "archetype_id": "A2.1",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D1-Q1",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A2",
+      "archetype_id": "A2.2",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D1-R",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A2",
+      "archetype_id": "A2.3",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D1-S",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A2",
+      "archetype_id": "A2.4",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D1-Q2",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A2",
+      "archetype_id": "A2.5",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D1-P",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A2",
+      "archetype_id": "A2.6",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D1-I2",
+      "altitude": 4,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A2",
+      "archetype_id": "A2.7",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-I1",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A2",
+      "archetype_id": "A2.1",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-Q1",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A2",
+      "archetype_id": "A2.2",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-R",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A2",
+      "archetype_id": "A2.3",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-S",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A2",
+      "archetype_id": "A2.4",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-Q2",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A2",
+      "archetype_id": "A2.5",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-P",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A2",
+      "archetype_id": "A2.6",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D2-I2",
+      "altitude": 4,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A2",
+      "archetype_id": "A2.7",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-I1",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A2",
+      "archetype_id": "A2.1",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-Q1",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A2",
+      "archetype_id": "A2.2",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-R",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A2",
+      "archetype_id": "A2.3",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-S",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A2",
+      "archetype_id": "A2.4",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-Q2",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A2",
+      "archetype_id": "A2.5",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-P",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A2",
+      "archetype_id": "A2.6",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L4-D3-I2",
+      "altitude": 4,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A2",
+      "archetype_id": "A2.7",
+      "cost_band": "<=$0.05",
+      "doctrine": "Python gates + small LLM shims (Haiku/Sonnet).",
+      "tools": [
+        "regex",
+        "haiku_classifier",
+        "sonnet_drafter",
+        "pydantic"
+      ],
+      "validation_criteria": [
+        "rubric_combo",
+        "signed_packet",
+        "source_trace"
+      ],
+      "escalation_target": "A3.1",
+      "bms_score": 0.5
+    },
+    {
+      "cell_id": "L5-D1-I1",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A3",
+      "archetype_id": "A3.1",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D1-Q1",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A3",
+      "archetype_id": "A3.2",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D1-R",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A3",
+      "archetype_id": "A3.3",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D1-S",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A3",
+      "archetype_id": "A3.4",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D1-Q2",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A3",
+      "archetype_id": "A3.5",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D1-P",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A3",
+      "archetype_id": "A3.6",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D1-I2",
+      "altitude": 5,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A3",
+      "archetype_id": "A3.7",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-I1",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A3",
+      "archetype_id": "A3.1",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-Q1",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A3",
+      "archetype_id": "A3.2",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-R",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A3",
+      "archetype_id": "A3.3",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-S",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A3",
+      "archetype_id": "A3.4",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-Q2",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A3",
+      "archetype_id": "A3.5",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-P",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A3",
+      "archetype_id": "A3.6",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D2-I2",
+      "altitude": 5,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A3",
+      "archetype_id": "A3.7",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-I1",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A3",
+      "archetype_id": "A3.1",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-Q1",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A3",
+      "archetype_id": "A3.2",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-R",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A3",
+      "archetype_id": "A3.3",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-S",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A3",
+      "archetype_id": "A3.4",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-Q2",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A3",
+      "archetype_id": "A3.5",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-P",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A3",
+      "archetype_id": "A3.6",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L5-D3-I2",
+      "altitude": 5,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A3",
+      "archetype_id": "A3.7",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.42
+    },
+    {
+      "cell_id": "L6-D1-I1",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A3",
+      "archetype_id": "A3.1",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D1-Q1",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A3",
+      "archetype_id": "A3.2",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D1-R",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A3",
+      "archetype_id": "A3.3",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D1-S",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A3",
+      "archetype_id": "A3.4",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D1-Q2",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A3",
+      "archetype_id": "A3.5",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D1-P",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A3",
+      "archetype_id": "A3.6",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D1-I2",
+      "altitude": 6,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A3",
+      "archetype_id": "A3.7",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-I1",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A3",
+      "archetype_id": "A3.1",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-Q1",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A3",
+      "archetype_id": "A3.2",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-R",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A3",
+      "archetype_id": "A3.3",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-S",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A3",
+      "archetype_id": "A3.4",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-Q2",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A3",
+      "archetype_id": "A3.5",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-P",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A3",
+      "archetype_id": "A3.6",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D2-I2",
+      "altitude": 6,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A3",
+      "archetype_id": "A3.7",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-I1",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A3",
+      "archetype_id": "A3.1",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-Q1",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A3",
+      "archetype_id": "A3.2",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-R",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A3",
+      "archetype_id": "A3.3",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-S",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A3",
+      "archetype_id": "A3.4",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-Q2",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A3",
+      "archetype_id": "A3.5",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-P",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A3",
+      "archetype_id": "A3.6",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L6-D3-I2",
+      "altitude": 6,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A3",
+      "archetype_id": "A3.7",
+      "cost_band": "<=$1",
+      "doctrine": "LangGraph/CrewAI with hard tool + cost budgets.",
+      "tools": [
+        "langgraph",
+        "crewai",
+        "nemo_guardrails",
+        "tool_budget"
+      ],
+      "validation_criteria": [
+        "mechanism_map",
+        "proof_check",
+        "mandatory_approval",
+        "audit_trail"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.3
+    },
+    {
+      "cell_id": "L7-D1-I1",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A4",
+      "archetype_id": "A4.1",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D1-Q1",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A4",
+      "archetype_id": "A4.2",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D1-R",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A4",
+      "archetype_id": "A4.3",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D1-S",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A4",
+      "archetype_id": "A4.4",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D1-Q2",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A4",
+      "archetype_id": "A4.5",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D1-P",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A4",
+      "archetype_id": "A4.6",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D1-I2",
+      "altitude": 7,
+      "diamond": "D1",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A4",
+      "archetype_id": "A4.7",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-I1",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A4",
+      "archetype_id": "A4.1",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-Q1",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A4",
+      "archetype_id": "A4.2",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-R",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A4",
+      "archetype_id": "A4.3",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-S",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A4",
+      "archetype_id": "A4.4",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-Q2",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A4",
+      "archetype_id": "A4.5",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-P",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A4",
+      "archetype_id": "A4.6",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D2-I2",
+      "altitude": 7,
+      "diamond": "D2",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A4",
+      "archetype_id": "A4.7",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-I1",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "I1",
+      "step_name": "intent",
+      "mode": "A4",
+      "archetype_id": "A4.1",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-Q1",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "Q1",
+      "step_name": "question",
+      "mode": "A4",
+      "archetype_id": "A4.2",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-R",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "R",
+      "step_name": "research",
+      "mode": "A4",
+      "archetype_id": "A4.3",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-S",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "S",
+      "step_name": "solution",
+      "mode": "A4",
+      "archetype_id": "A4.4",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-Q2",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "Q2",
+      "step_name": "question2",
+      "mode": "A4",
+      "archetype_id": "A4.5",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-P",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "P",
+      "step_name": "proof",
+      "mode": "A4",
+      "archetype_id": "A4.6",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    },
+    {
+      "cell_id": "L7-D3-I2",
+      "altitude": 7,
+      "diamond": "D3",
+      "step": "I2",
+      "step_name": "integrate",
+      "mode": "A4",
+      "archetype_id": "A4.7",
+      "cost_band": "<=$50+4h",
+      "doctrine": "Opus + hierarchical crews, NeMo Guardrails, falsification.",
+      "tools": [
+        "opus_crew",
+        "hierarchical_crew",
+        "falsifier",
+        "brier_eval"
+      ],
+      "validation_criteria": [
+        "10_rubrics",
+        "20_adversarial",
+        "brier_score",
+        "falsification_charter"
+      ],
+      "escalation_target": "A4.1",
+      "bms_score": 0.15
+    }
+  ]
+}

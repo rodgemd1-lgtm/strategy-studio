@@ -25,6 +25,10 @@ from strategy_studio.engines import (
     plan_timeline,
     allocate_budget,
     assess_impact,
+    generate_wedge,
+    score_prospect,
+    analyze_competitor,
+    assess_threat_level,
 )
 from strategy_studio.lattice_wire import (
     LatticeOrchestrator,
@@ -350,6 +354,78 @@ def impact_assessment(output_format: str):
                 r["impact_category"],
             )
         console.print(table)
+
+
+# ── B41: Client Intelligence ────────────────────────────────────────────────
+
+@cli.command("client")
+@click.option("--name", default="Prospect Co", help="Prospect company name.")
+@click.option("--title", default="", help="Contact title.")
+@click.option("--department", default="", help="Department.")
+@click.option("--company-size", default="", help="Company size.")
+@click.option("--industry", default="", help="Industry.")
+@click.option("--employees", default=None, type=int, help="Number of employees.")
+@click.option("--pain-point", default="", help="Known pain point.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def client_intel(name: str, title: str, department: str, company_size: str,
+                 industry: str, employees: int | None, pain_point: str, output_format: str):
+    """Generate client intelligence / wedge (B41)."""
+    prospect = {
+        "name": name, "title": title, "department": department,
+        "company_size": company_size, "industry": industry,
+        "employees": employees, "pain_point": pain_point,
+    }
+    segment = generate_wedge(prospect)
+    score = score_prospect(prospect)
+    data = {
+        "segment": segment.model_dump(),
+        "score": score,
+    }
+    if output_format == "json":
+        console.print(json.dumps(data, indent=2, default=str))
+    else:
+        console.print(Panel(
+            f"**{segment.name}**\n\n"
+            f"**ICP:** {segment.icp}\n"
+            f"**Entry Wedge:** {segment.entry_wedge}\n"
+            f"**Sizing:** {segment.sizing}\n\n"
+            f"**Score:** {score['score']:.2f} ({score['priority']} priority)\n"
+            f"**Wedge Type:** {score['wedge_type']}\n"
+            f"**Size Class:** {score.get('size_class', 'unknown')}",
+            title="B41 Client Intel",
+        ))
+
+
+# ── B42: Competitor Intelligence ────────────────────────────────────────────
+
+@cli.command("competitor")
+@click.option("--name", required=True, help="Competitor name.")
+@click.option("--changes", required=True, help="Comma-separated list of changes.")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def competitor_intel(name: str, changes: str, output_format: str):
+    """Analyze competitor changes and generate response actions (B42)."""
+    change_list = [c.strip() for c in changes.split(",") if c.strip()]
+    actions = analyze_competitor(name, change_list)
+    threat = assess_threat_level(name, change_list)
+    data = {
+        "competitor": name,
+        "threat": threat,
+        "actions": [a.model_dump() for a in actions],
+    }
+    if output_format == "json":
+        console.print(json.dumps(data, indent=2, default=str))
+    else:
+        console.print(Panel(
+            f"**{name}**\n\n"
+            f"**Threat Level:** {threat['level'].upper()} (score: {threat['score']})\n"
+            f"**Changes Analyzed:** {threat['changes_analyzed']}\n"
+            f"**High Urgency:** {threat['high_urgency']}\n\n"
+            + "\n".join(
+                f"- **{a.payload['category']}:** {a.payload['description']} ({a.payload['priority']})"
+                for a in actions[:5]
+            ),
+            title="B42 Competitor Intel",
+        ))
 
 
 # ── Audit ───────────────────────────────────────────────────────────────────

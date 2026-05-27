@@ -7,6 +7,17 @@ from strategy_studio.engines.b36_wargame import run_wargame
 from strategy_studio.engines.b31_consensus_delta import calculate_consensus_delta
 from strategy_studio.engines.b37_risk_assessment import assess_risks, compare_risk_profiles, generate_risk_matrix
 from strategy_studio.engines.b40_market_sizing import size_market, estimate_som, market_attractiveness
+from strategy_studio.engines.b41_client_intel import (
+    generate_wedge,
+    score_prospect,
+    batch_score_prospects,
+)
+from strategy_studio.engines.b42_competitor_intel import (
+    analyze_competitor,
+    assess_threat_level,
+    compare_competitors,
+    generate_counter_strategy,
+)
 from strategy_studio.engines.b43_competitive_positioning import (
     position_competitively,
     compute_competitive_advantage_score,

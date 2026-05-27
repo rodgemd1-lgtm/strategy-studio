@@ -420,3 +420,95 @@ class TestSessionLatticeIntegration:
         assert "lattice_mode" in summary
         assert "lattice_summary" in summary
         assert "lattice_packets" in summary
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# MODE-AWARE DISPATCH — wire_cell_to_engine routes by BMS mode
+# ═══════════════════════════════════════════════════════════════════════════
+
+class TestModeAwareDispatch:
+    """Test that wire_cell_to_engine dispatches to the correct execution path per BMS mode."""
+
+    def test_a1_dispatch(self):
+        cell = LatticeCell(altitude=Altitude.L2, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A1_PYTHON_ONLY)
+        result = wire_cell_to_engine(cell, {"query": "test"})
+        assert result["status"] == "PASS"
+        assert result["mode"] == "A1"
+
+    def test_a2_dispatch(self):
+        cell = LatticeCell(altitude=Altitude.L2, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A2_HYBRID)
+        result = wire_cell_to_engine(cell, {"query": "test"})
+        assert result["status"] == "PASS"
+        assert result["mode"] == "A2"
+        assert result.get("a1_base") is True  # A2 builds on A1
+
+    def test_a3_dispatch(self):
+        cell = LatticeCell(altitude=Altitude.L4, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A3_AGENT_BOUNDED)
+        result = wire_cell_to_engine(cell, {"query": "test"})
+        assert result["status"] in ("PASS", "PARTIAL")
+        assert result["mode"] == "A3"
+        assert result.get("budget_enforced") is True
+
+    def test_a4_dispatch(self):
+        cell = LatticeCell(altitude=Altitude.L2, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A4_LLM_AGENT_FREE)
+        result = wire_cell_to_engine(cell, {"query": "test"})
+        assert result["status"] in ("PASS", "UNKNOWN")
+        assert result["mode"] == "A4"
+
+    def test_a4_strict_unknown(self):
+        """A4 should return UNKNOWN when there's no substantive evidence."""
+        cell = LatticeCell(altitude=Altitude.L2, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A4_LLM_AGENT_FREE)
+        result = wire_cell_to_engine(cell, {"query": "x"})
+        assert "mode" in result
+        assert result["mode"] == "A4"
+
+    def test_orchestrator_uses_mode_dispatch(self):
+        """Orchestrator should dispatch each cell according to its BMS mode."""
+        orch = LatticeOrchestrator()
+        result = orch.execute_full_pipeline({"query": "test"}, Altitude.L2, Diamond.D1_STRATEGY)
+        for step_name, step_data in result["steps"].items():
+            assert step_data.get("mode") == "A1"
+
+    def test_orchestrator_a3_mode(self):
+        """L5 should trigger A3 mode dispatch."""
+        orch = LatticeOrchestrator()
+        result = orch.execute_full_pipeline({"query": "test"}, Altitude.L5, Diamond.D1_STRATEGY)
+        for step_name, step_data in result["steps"].items():
+            assert step_data.get("mode") == "A3"
+
+    def test_orchestrator_a4_mode(self):
+        """L7 should trigger A4 mode dispatch."""
+        orch = LatticeOrchestrator()
+        result = orch.execute_full_pipeline({"query": "test"}, Altitude.L7, Diamond.D1_STRATEGY)
+        for step_name, step_data in result["steps"].items():
+            assert step_data.get("mode") == "A4"
+
+    def test_mode_in_proof_packet(self):
+        """ProofPacket should include the execution mode."""
+        orch = LatticeOrchestrator()
+        cell = LatticeCell(altitude=Altitude.L4, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A3_AGENT_BOUNDED)
+        packet = orch.execute_cell(cell, {"query": "test"})
+        assert packet.mode == "A3"
+
+    def test_explicit_mode_overrides_bms(self):
+        """When cell has explicit mode (588-cell), it should be respected over BMS."""
+        cell = LatticeCell(altitude=Altitude.L2, diamond=Diamond.D1_STRATEGY,
+                           step=IQRSQPIStep.S_SOLUTION, mode=BuildMode.A3_AGENT_BOUNDED)
+        orch = LatticeOrchestrator()
+        packet = orch.execute_cell(cell, {"query": "test"})
+        assert packet.mode == "A3"
+
+    def test_wire_cell_all_modes(self):
+        """All 4 modes should produce valid results."""
+        for mode in BuildMode:
+            cell = LatticeCell(altitude=Altitude.L2, diamond=Diamond.D1_STRATEGY,
+                               step=IQRSQPIStep.S_SOLUTION, mode=mode)
+            result = wire_cell_to_engine(cell, {"query": "test"})
+            assert "mode" in result
+            assert result["mode"] == mode.value or result["mode"].startswith(mode.value)

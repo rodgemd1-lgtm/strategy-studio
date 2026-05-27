@@ -347,44 +347,181 @@ STEP_FUNCTION_MAP: dict[str, str] = {
 
 
 def wire_cell_to_engine(cell: LatticeCell, input_data: dict[str, Any]) -> dict[str, Any]:
-    """Wire a lattice cell to its corresponding B-engine function."""
+    """Wire a lattice cell to its corresponding execution path based on BMS mode.
+
+    A1 (Python Only): Direct B-engine call — deterministic, no LLM.
+    A2 (Hybrid): B-engine + LLM shim for drafting/transformation.
+    A3 (Agent Bounded): LangGraph state machine with tool budgets.
+    A4 (LLM Agent Free): Deterministic-only, strictest. Returns UNKNOWN if can't complete.
+    """
     step_name = cell.step.step_name
-    func_name = STEP_FUNCTION_MAP.get(step_name, "synthesize_evidence")
+    mode = cell.mode
 
     try:
-        from strategy_studio.engines import synthesize_evidence, falsify_claim
-        func_map = {"synthesize_evidence": synthesize_evidence, "falsify_claim": falsify_claim}
-        func = func_map.get(func_name)
-        if func is None:
-            return {"status": "ERROR", "error": f"Engine function {func_name} not found"}
+        # ── A4: LLM-Free (strictest deterministic) ──────────────────────────
+        if mode == BuildMode.A4_LLM_AGENT_FREE:
+            return _execute_a4(step_name, cell, input_data)
 
-        if func_name == "synthesize_evidence":
-            from strategy_studio.core.types import Evidence
-            evidence = [
-                Evidence(
-                    source_uri=f"lattice:{cell.cell_id}",
-                    content_hash=hashlib.md5(str(input_data).encode()).hexdigest()[:16],
-                    confidence="H",
-                    citations=[str(input_data.get("query", ""))[:100]],
-                )
-            ]
-            result = func(evidence, title=input_data.get("query", cell.cell_id)[:60])
-            return {
-                "status": "PASS", "rationale": result.rationale,
-                "recommendation": result.recommendation.title if result.recommendation else "",
-                "options_count": len(result.options),
-                "options": [{"id": o.id, "title": o.title, "score": o.score} for o in result.options],
-            }
-        elif func_name == "falsify_claim":
-            claim = input_data.get("query", input_data.get("claim", ""))
-            result = func(claim, [])
-            return {
-                "status": "PASS", "belief": result.belief,
-                "disproof_test": result.disproof_test, "falsification_status": result.status,
-            }
-        return {"status": "PASS", "note": f"Executed {func_name}"}
+        # ── A3: Agent Bounded (LangGraph + tool budgets) ────────────────────
+        if mode == BuildMode.A3_AGENT_BOUNDED:
+            return _execute_a3(step_name, cell, input_data)
+
+        # ── A2: Hybrid (B-engine + LLM shim) ────────────────────────────────
+        if mode == BuildMode.A2_HYBRID:
+            return _execute_a2(step_name, cell, input_data)
+
+        # ── A1: Python Only (default, deterministic) ────────────────────────
+        return _execute_a1(step_name, cell, input_data)
+
     except Exception as e:
         return {"status": "ERROR", "error": str(e)}
+
+
+def _execute_a1(step_name: str, cell: LatticeCell, input_data: dict[str, Any]) -> dict[str, Any]:
+    """A1: Python Only — direct B-engine call, no LLM in decision path."""
+    func_name = STEP_FUNCTION_MAP.get(step_name, "synthesize_evidence")
+    from strategy_studio.engines import synthesize_evidence, falsify_claim
+    func_map = {"synthesize_evidence": synthesize_evidence, "falsify_claim": falsify_claim}
+    func = func_map.get(func_name)
+    if func is None:
+        return {"status": "ERROR", "error": f"Engine function {func_name} not found"}
+
+    if func_name == "synthesize_evidence":
+        from strategy_studio.core.types import Evidence
+        evidence = [
+            Evidence(
+                source_uri=f"lattice:{cell.cell_id}",
+                content_hash=hashlib.md5(str(input_data).encode()).hexdigest()[:16],
+                confidence="H",
+                citations=[str(input_data.get("query", ""))[:100]],
+            )
+        ]
+        result = func(evidence, title=input_data.get("query", cell.cell_id)[:60])
+        return {
+            "status": "PASS", "rationale": result.rationale,
+            "recommendation": result.recommendation.title if result.recommendation else "",
+            "options_count": len(result.options),
+            "options": [{"id": o.id, "title": o.title, "score": o.score} for o in result.options],
+            "mode": "A1",
+        }
+    elif func_name == "falsify_claim":
+        claim = input_data.get("query", input_data.get("claim", ""))
+        result = func(claim, [])
+        return {
+            "status": "PASS", "belief": result.belief,
+            "disproof_test": result.disproof_test, "falsification_status": result.status,
+            "mode": "A1",
+        }
+    return {"status": "PASS", "note": f"A1 executed {func_name}", "mode": "A1"}
+
+
+def _execute_a2(step_name: str, cell: LatticeCell, input_data: dict[str, Any]) -> dict[str, Any]:
+    """A2: Hybrid — B-engine result + LLM shim for enhancement.
+
+    A2 runs the deterministic A1 path first, then applies an LLM shim
+    for drafting/transformation if confidence is sufficient.
+    Falls back to A1 result if LLM shim fails.
+    """
+    # Run A1 deterministic path first
+    a1_result = _execute_a1(step_name, cell, input_data)
+    a1_result["mode"] = "A2"
+    a1_result["a1_base"] = True
+
+    # LLM shim: enhance the rationale/recommendation if A1 succeeded
+    if a1_result.get("status") == "PASS":
+        try:
+            enhanced = _a2_llm_shim(step_name, cell, input_data, a1_result)
+            if enhanced:
+                a1_result["llm_enhanced"] = True
+                a1_result["enhanced_rationale"] = enhanced.get("rationale", "")
+        except Exception:
+            pass  # A2 falls back to A1 result — never fails
+
+    return a1_result
+
+
+def _a2_llm_shim(step_name: str, cell: LatticeCell, input_data: dict[str, Any], a1_result: dict) -> dict | None:
+    """A2 LLM shim: enhance A1 output with LLM assistance.
+
+    In production, this calls a small LLM (Haiku/Sonnet) with:
+    - Temperature 0
+    - Forced JSON output
+    - Pydantic validation
+    - Deterministic fallback to A1 result
+
+    Stub implementation returns None (A1 result stands).
+    """
+    # TODO: Integrate LLM call here when model provider is configured
+    # For now, return None to indicate no enhancement (A1 result stands)
+    return None
+
+
+def _execute_a3(step_name: str, cell: LatticeCell, input_data: dict[str, Any]) -> dict[str, Any]:
+    """A3: Agent Bounded — LangGraph state machine with tool budgets.
+
+    A3 runs the step through a LangGraph StateGraph with:
+    - Explicit state object
+    - Tool allowlist and cost/runtime budgets
+    - Mandatory checkpoints
+    - Audit row per transition
+    """
+    try:
+        from strategy_studio.langgraph_executor import LangGraphExecutor
+        from strategy_studio.rig_lattice import IQRSQPIStep as StepEnum
+
+        step_map = {
+            "intent": StepEnum.I1_INTENT, "question": StepEnum.Q1_QUESTION,
+            "research": StepEnum.R_RESEARCH, "solution": StepEnum.S_SOLUTION,
+            "quality": StepEnum.Q2_QUALITY, "proof": StepEnum.P_PROOF,
+            "integrate": StepEnum.I2_INTEGRATE,
+        }
+        step_enum = step_map.get(step_name)
+        if step_enum is None:
+            return {"status": "UNKNOWN", "error": f"Unknown step: {step_name}", "mode": "A3"}
+
+        ex = LangGraphExecutor()
+        result = ex.execute_a3(step_enum, input_data)
+        output = result.output
+        output["mode"] = "A3"
+        output["archetype_id"] = result.archetype_id
+        output["budget_enforced"] = True
+        # Normalize status from LangGraph result
+        if "status" not in output:
+            output["status"] = "PASS" if result.status == "PASS" else "PARTIAL"
+        return output
+    except ImportError:
+        # Fallback to A1 if LangGraph not available
+        result = _execute_a1(step_name, cell, input_data)
+        result["mode"] = "A3_fallback"
+        result["fallback_reason"] = "LangGraph not available"
+        return result
+    except Exception as e:
+        return {"status": "ERROR", "error": str(e), "mode": "A3"}
+
+
+def _execute_a4(step_name: str, cell: LatticeCell, input_data: dict[str, Any]) -> dict[str, Any]:
+    """A4: LLM-Free — strictest deterministic. Returns UNKNOWN if can't complete.
+
+    A4 uses only the A1 deterministic path but with stricter validation:
+    - Any step that can't complete deterministically returns UNKNOWN
+    - No guessing, no LLM fallback
+    - UNKNOWN triggers escalation per doctrine
+    """
+    result = _execute_a1(step_name, cell, input_data)
+    result["mode"] = "A4"
+
+    # A4 strict: if the result has no substantive content, return UNKNOWN
+    has_content = bool(
+        result.get("rationale") or
+        result.get("recommendation") or
+        result.get("options") or
+        result.get("disproof_test")
+    )
+    if not has_content:
+        result["status"] = "UNKNOWN"
+        result["reason"] = "A4: insufficient deterministic evidence"
+
+    return result
 
 
 # ═══════════════════════════════════════════════════════════════════════════

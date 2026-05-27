@@ -1,0 +1,38 @@
+slug: levy_flight
+codename: ALBATROSS
+layer: nature
+axis: Heavy-tail leaps. Import at least one analogy from a non-adjacent domain.
+questions:
+- id: al1_far_domain_analogy
+  question: 'REQUIRED: at least 2 cross-domain analogies (Bloomberg, iOS, Stripe, Tesla, Spotify)?'
+  required: true
+  mode: count_min
+  pattern: \b(Bloomberg|iOS|App Store|Stripe|Tesla|Spotify|Netflix|Snowflake|Databricks|AWS|GitHub|Salesforce)\b
+  threshold: 2
+- id: al2_explicit_metaphor_extended
+  question: "REQUIRED: one analogy extended for \u226580 chars?"
+  required: true
+  mode: regex
+  pattern: (Bloomberg of|iOS of|App Store of|Stripe of|Tesla of|Netflix of)[\s\S]{0,200}
+- id: al3_two_industries_collided
+  question: 'REQUIRED: at least 2 distinct industries referenced?'
+  required: true
+  mode: count_min
+  pattern: \b(automotive|industrial|ag|agriculture|defense|fintech|SaaS|robotics|aviation|maritime|rail|healthcare)\b
+  threshold: 2
+- id: al4_no_obvious_only
+  question: 'REQUIRED: no analogy is just ''like in our industry''?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(similar to other (manufacturers|companies) in our space|like the rest of our industry|much like our peers)\b
+- id: al5_specific_mechanism_imported
+  question: 'REQUIRED: specific mechanism (not just brand) imported?'
+  required: true
+  mode: regex
+  pattern: (network effect|platform flywheel|SDK economics|two-sided market|long tail|aggregation theory|data network effect)
+- id: al6_no_repetition
+  question: 'REQUIRED: analogies don''t all come from one category (tech only / industrial only)?'
+  required: true
+  mode: regex
+  pattern: (\b(?:Bloomberg|iOS).+(Topcon|Wabtec|Helios|Allison|Cummins)|\b(Topcon|Helios).+(Bloomberg|iOS|Stripe))

@@ -1,0 +1,51 @@
+# Cognitive Diamond Intent Map (D2)
+# Deterministic intent classification for analytical/cognitive tasks.
+
+patterns:
+  cognitive.analyze:
+    - '\b(analyze|analysis|examine|inspect|audit|review)\b'
+    - '\b(break\s*down|dissect|diagnose)\b'
+  cognitive.synthesize:
+    - '\b(synthesize|combine|merge|integrate|consolidate)\b'
+    - '\b(aggregate|compile|compose|unify)\b'
+  cognitive.evaluate:
+    - '\b(evaluate|assess|judge|rate|score|measure)\b'
+    - '\b(benchmark|grade|rank)\b'
+  cognitive.compare:
+    - '\b(compare|contrast|diff|versus|vs\.?)\b'
+    - '\b(benchmark\s+against|relative\s+to)\b'
+  cognitive.classify:
+    - '\b(classify|categorize|group|cluster|sort|tag|label)\b'
+    - '\b(segment|organize|filter)\b'
+
+keywords:
+  cognitive.analyze:
+    - analyze
+    - examine
+    - inspect
+    - audit
+    - review
+  cognitive.synthesize:
+    - synthesize
+    - combine
+    - merge
+    - integrate
+    - consolidate
+  cognitive.evaluate:
+    - evaluate
+    - assess
+    - judge
+    - score
+    - measure
+  cognitive.compare:
+    - compare
+    - contrast
+    - benchmark
+  cognitive.classify:
+    - classify
+    - categorize
+    - cluster
+    - group
+    - sort
+    - tag
+    - label

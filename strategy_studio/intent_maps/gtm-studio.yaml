@@ -1,0 +1,88 @@
+# RIG Lattice — Intent Maps
+# One YAML per studio/product line
+# Maps inbound payload patterns to lattice cell coordinates
+
+# ═══════════════════════════════════════════════════════════
+# GTM Studio Intent Map
+# Routes client intake requests to lattice cells
+# ═══════════════════════════════════════════════════════════
+
+studio: gtm
+version: "2.1"
+description: Maps GTM Studio client classifications to RIG Lattice cells
+
+# Vertical → Cell mapping
+verticals:
+  Law:
+    primary_cell: L2-D1-S
+    archetype: A2.4
+    wound_channel: "intake_billing_leakage"
+    mechanism: "Intake Memory Loop"
+    entry_offer: "AI Opportunity Report ($2,500)"
+    
+  Dental:
+    primary_cell: L2-D1-S
+    archetype: A2.4
+    wound_channel: "hygiene_recall_leakage"
+    mechanism: "Dental Memory System"
+    entry_offer: "Process Automation Audit ($3,500)"
+    
+  Medspa:
+    primary_cell: L2-D1-S
+    archetype: A2.4
+    wound_channel: "booking_recall_leakage"
+    mechanism: "Recall Engine"
+    entry_offer: "Process Automation Audit ($3,500)"
+    
+  Construction:
+    primary_cell: L2-D1-S
+    archetype: A2.4
+    wound_channel: "estimating_scheduling_chaos"
+    mechanism: "Job Memory"
+    entry_offer: "Process Automation Audit ($3,500)"
+    
+  CPA:
+    primary_cell: L2-D1-S
+    archetype: A2.4
+    wound_channel: "tax_season_crunch"
+    mechanism: "Compliance Engine"
+    entry_offer: "AI Opportunity Report ($2,500)"
+    
+  PE:
+    primary_cell: L4-D2-S
+    archetype: A3.4
+    wound_channel: "portfolio_ai_fragmentation"
+    mechanism: "Portfolio AI Layer"
+    entry_offer: "Portfolio AI Partner diagnostic"
+    
+  Manufacturing:
+    primary_cell: L3-D1-S
+    archetype: A2.4
+    wound_channel: "job_costing_opacity"
+    mechanism: "Supply Chain Visibility"
+    entry_offer: "One Workflow Automated ($10,000)"
+
+# Revenue band → BMS mode override
+revenue_bands:
+  Micro:
+    max_bms: 0.74  # Cap at HYBRID
+    mode_cap: A2
+  Small:
+    max_bms: 0.74
+    mode_cap: A2
+  Mid:
+    max_bms: 1.0  # No cap
+  Large:
+    min_bms: 0.25  # Floor at AGENT_BOUNDED
+    mode_floor: A3
+  Enterprise:
+    min_bms: 0.0  # Allow LLM_AGENT_FREE
+    mode_floor: A4
+
+# IQRSQPI step focus by band
+step_focus:
+  Micro: [I1, Q1, R]  # Understand the problem
+  Small: [I1, Q1, R, S]  # Understand + propose
+  Mid: [Q1, R, S, Q2, I2]  # Full cycle minus proof
+  Large: [R, S, Q2, P, I2]  # Research-heavy + proof + integrate
+  Enterprise: [S, Q2, P, I2]  # Solution + quality + proof + integrate

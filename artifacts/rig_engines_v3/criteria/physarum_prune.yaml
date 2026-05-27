@@ -1,0 +1,38 @@
+slug: physarum_prune
+codename: SLIME
+layer: nature
+axis: Reinforce winning paths. Prune losing ones explicitly.
+questions:
+- id: sl1_explicit_kills
+  question: 'REQUIRED: at least 2 paths/ideas explicitly killed?'
+  required: true
+  mode: count_min
+  pattern: (we (will not|won.t) pursue|kill (idea|path|option)|abandon|drop|deprecate|prune)
+  threshold: 2
+- id: sl2_kill_with_reason
+  question: 'REQUIRED: each kill has explicit reason?'
+  required: true
+  mode: regex
+  pattern: (killed because|abandoned because|dropped because|deprecated because|pruned because|rejected because)
+- id: sl3_winning_paths_reinforced
+  question: 'REQUIRED: winning path gets disproportionate investment language?'
+  required: true
+  mode: regex
+  pattern: (double down|invest more in|concentrate on|focus on|all-in on|primary bet|core bet)
+- id: sl4_no_everything_equal
+  question: 'REQUIRED: doc doesn''t treat all options equally (must prefer one)?'
+  required: true
+  mode: regex
+  pattern: (primary|core|leading|preferred) (bet|path|option|strategy)
+- id: sl5_resource_allocation_named
+  question: 'REQUIRED: explicit resource allocation across paths (FTE, $)?'
+  required: true
+  mode: count_min
+  pattern: \b(0\.[1-9]\s*FTE|0\.\d+\s*headcount|\d+%\s+(of\s+)?(budget|resources|engineering)|\$\d+K\s+for)\b
+  threshold: 2
+- id: sl6_no_hedging_on_focus
+  question: 'REQUIRED: no ''we''ll do both'' on mutually exclusive options?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(we.ll do both|pursue both|cover all bases|cast a wide net|spread efforts)\b

@@ -1,0 +1,89 @@
+# RIG LinkedIn Studio — Intent Map
+# Maps user intent_key → lattice coordinate + archetype + tools + cost band
+studio: linkedin
+version: "1.0"
+description: "LinkedIn content, engagement, prospecting, and analytics"
+
+intents:
+  post:
+    level: L1
+    diamond: D1
+    archetype: A1.1
+    tools:
+      - read_file
+      - web_search
+      - bash
+    cost_band: "$0.001"
+    description: "Generate a LinkedIn post from a topic or hook. Deterministic Jinja + optional haiku shim."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest topic / hook / persona
+      - Q1: Score against ICP relevance (0-1)
+      - R: Research 2-3 supporting facts
+      - S: Structure post (hook, body, CTA)
+      - Q2: Quality gate (mechanism clarity, no slop)
+      - P: Proof check (source-per-claim)
+      - I2: Emit post + metadata
+
+  engage:
+    level: L2
+    diamond: D2
+    archetype: A1.2
+    tools:
+      - read_file
+      - web_search
+      - bash
+    cost_band: "$0.005"
+    description: "Engagement protocol — comments, DMs, and golden-hour replies."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest engagement target (post URL, author persona)
+      - Q1: Score relevance to Mike's brand (0-1)
+      - R: Research author's recent content / company
+      - S: Structure reply (agree, add value, question)
+      - Q2: Quality gate (tone match, no generic praise)
+      - P: Proof check (no hallucinated facts)
+      - I2: Emit reply + engagement log
+
+  prospect:
+    level: L3
+    diamond: D2
+    archetype: A2.3
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - airtable
+    cost_band: "$0.05"
+    description: "ICP scoring, company discovery, and outreach sequencing."
+    bms_mode: HYBRID
+    steps:
+      - I1: Ingest company name or domain
+      - Q1: Score against ICP v2.1 (firmographic + signal)
+      - R: Research company, leadership, tech stack
+      - S: Structure prospect card (wound, mechanism, offer)
+      - Q2: Quality gate (evidence density ≥ 0.33)
+      - P: Proof check (source-per-claim)
+      - I2: Emit prospect card + sequence step
+
+  analyze:
+    level: L4
+    diamond: D3
+    archetype: A3.4
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - airtable
+      - notion
+    cost_band: "$0.50"
+    description: "LinkedIn analytics deep-dive: KPI tracking, cohort analysis, growth forecasting."
+    bms_mode: AGENT_BOUNDED
+    steps:
+      - I1: Ingest analytics export (CSV/Postiz)
+      - Q1: Score data quality (completeness, recency)
+      - R: Research benchmark cohorts / competitor growth
+      - S: Structure analysis report (trends, outliers, forecast)
+      - Q2: Quality gate (mechanism map, falsifiable claims)
+      - P: Proof check (source-per-claim + cross-validation)
+      - I2: Emit report + recommended actions

@@ -1,0 +1,60 @@
+slug: rupture
+codename: BREAKER
+layer: cognitive
+axis: "Demolish at least one industry orthodoxy. Rebuild from first principles. The doc commits to a refusal."
+
+questions:
+  - id: b1_explicit_refusal
+    question: "Does the doc explicitly refuse, reject, or abandon a standard industry move?"
+    mode: count_min
+    pattern: '(we (do not|don.t|will not|won.t|refuse|reject|abandon)|not (a |an )?(chatbot|pilot|Copilot|demo|CoE|Center of Excellence|consulting)|stop using|never deploy)'
+    threshold: 2
+
+  - id: b2_orthodoxies_named
+    question: "Are at least 2 industry orthodoxies named (AI CoE, pilot, Copilot bolt-on, AI literacy, transformation roadmap)?"
+    mode: count_min
+    pattern: '(AI Center of Excellence|AI CoE|Copilot bolt|pilot program|AI literacy program|transformation roadmap|innovation lab|AI consulting practice|big-4 advisory)'
+    threshold: 1
+
+  - id: b3_first_principles_rebuild
+    question: "Is there explicit first-principles language ('what if X didn''t exist', 'rebuild from')?"
+    mode: regex
+    pattern: '(first principles?|from scratch|what if .+ didn.?t exist|rebuild from|fresh sheet|tabula rasa|reset assumption)'
+
+  - id: b4_category_reframe
+    question: "Is the category being reframed (not just better execution of existing category)?"
+    mode: regex
+    pattern: '(category-creating|category creation|new category|name the category|claim.+category|operating system.+not just|platform.+not just|the real category|reframe)'
+
+  - id: b5_explicit_anti_orthodoxy_section
+    question: "Is there a section explicitly contrasting RIG approach against consulting status-quo?"
+    mode: regex
+    pattern: '(unlike (typical|conventional|standard|most) (consult|firms)|most (firms|engagements|companies).+(but|however|whereas)|tier-?\d firms? deliver.+but)'
+
+  - id: b6_radical_pricing_or_structure
+    question: "Does the proposal include a non-standard commercial structure (production-or-nothing, equity, success fee)?"
+    mode: regex
+    pattern: '(production-or-nothing|outcome guarantee|extend at no additional fee|refund pro-rata|success fee|equity stake|carrying value|hand-off in stages|retainer rolls off)'
+
+  - id: b7_demolition_explicit_target
+    question: "Is the specific orthodoxy being demolished named explicitly?"
+    mode: count_min
+    pattern: '(orthodox|industry assumes|conventional wisdom|the (standard|usual|typical) (approach|playbook|move))'
+    threshold: 1
+
+  - id: b8_commitment_to_refusal
+    question: "Is there a commitment phrase signaling no retreat ('we will not sprint', 'we do not deliver decks')?"
+    mode: regex
+    pattern: '(we (will not|won.t|don.t) (sprint|hand|leave|deliver|run)|we embed|we don.t (do|run|sell))'
+
+  - id: b9_no_safe_words
+    question: "Zero use of safe-word language ('explore', 'collaborate', 'co-create')?"
+    mode: absent
+    patterns:
+      - '\b(explore opportunities|collaborate to|co-create|partnership ecosystem|innovation journey|digital transformation journey)\b'
+
+  - id: b10_concrete_bet_against_status_quo
+    question: "Is there a specific concrete bet that contradicts status quo (e.g., 'monetize fleet data instead of attach', 'firmware not silicon')?"
+    mode: count_min
+    pattern: '(monetize.+(data|fleet)|firmware.+not.+silicon|software.+attach|virtual appliance|equity in Forge|Bloomberg of|iOS of|own the data)'
+    threshold: 1

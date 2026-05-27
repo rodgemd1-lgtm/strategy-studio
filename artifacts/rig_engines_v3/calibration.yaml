@@ -1,0 +1,36 @@
+# RIG Deviator™ v3 STRICT — extended ±25σ ladder, gate-like semantics for all
+#
+# Rules of strict mode (no exceptions):
+# 1. Every engine has ≥6 required questions. ANY required-fail → HARD_BLOCK.
+# 2. Ratios are punishing — 1.00 → +25σ, 0.90 → +20σ. Generic LLM output sits at
+#    ~0.40 ratio (~0σ). Doctrine-grade requires ≥0.85.
+# 3. Physics gates: every required is hard-stop. Optional passes add fractional σ.
+# 4. RIG-L composite = top-6 |σ| pulls × (1 − 0.3·hard_blocks). One HARD_BLOCK
+#    collapses RIG-L by 30%; two by 60%; three+ by 90% (floor).
+
+default:
+  direction: right
+  ladder:
+    # Stricter — harder to hit high σ. Ship-bar is now ratio ≥ 0.80.
+    - {min: 1.00, sigma:  25.0, label: "civilization-grade (perfect)"}
+    - {min: 0.95, sigma:  22.0, label: "civilization-grade"}
+    - {min: 0.90, sigma:  20.0, label: "doctrine-grade"}
+    - {min: 0.85, sigma:  17.0, label: "doctrine-grade (lower)"}
+    - {min: 0.80, sigma:  14.0, label: "ship-grade"}
+    - {min: 0.75, sigma:  11.0, label: "client-grade"}
+    - {min: 0.70, sigma:   8.0, label: "client-grade (lower)"}
+    - {min: 0.60, sigma:   4.0, label: "publishable"}
+    - {min: 0.50, sigma:   0.0, label: "internal-OK / median"}
+    - {min: 0.40, sigma:  -4.0, label: "below median"}
+    - {min: 0.30, sigma:  -8.0, label: "BLOCK"}
+    - {min: 0.20, sigma: -14.0, label: "doctrine violation"}
+    - {min: 0.10, sigma: -20.0, label: "deep violation"}
+    - {min: 0.00, sigma: -25.0, label: "HARD_BLOCK (deepest)"}
+
+gate:
+  direction: gate
+  # Physics gates and any engine with direction=gate
+  hard_block_sigma: -30.0   # required-fail dropdown
+  pass_sigma: 15.0          # baseline when all required pass
+  per_optional_bonus: 2.5   # each optional pass adds σ
+  max_sigma: 25.0           # cap

@@ -1,0 +1,50 @@
+slug: pheromone_swarm
+codename: SWARM
+layer: nature
+# genre tags: sw2 requires downside/base/upside revenue scenarios (sales format);
+# sw7 requires HED hardware/software/defense/commercial revenue stream framing.
+# Tagged genres:[sales] so they are skipped when --genre internal is active.
+axis: Path diversity. Don't collapse to one path before evidence justifies.
+questions:
+- id: sw1_multiple_paths
+  question: "REQUIRED: \u22653 distinct strategic paths surfaced?"
+  required: true
+  mode: count_min
+  pattern: (path [A-Z\d]|option [A-Z\d]|alternative \d|scenario \d|wedge \d)
+  threshold: 3
+- id: sw2_evidence_per_path
+  question: 'REQUIRED: each path has its own evidence/scenario number?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (downside.+\$|base.+\$|upside.+\$|scenario.+\$)
+  threshold: 3
+- id: sw3_no_premature_collapse
+  question: 'REQUIRED: no ''the only path'' / ''the one strategy'' framing?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(the only path|the one strategy|the sole option|the (single|one) way to|no other (way|option))\b
+- id: sw4_explicit_path_comparison
+  question: 'REQUIRED: paths compared on at least 2 dimensions?'
+  required: true
+  mode: regex
+  pattern: (faster but|cheaper but|safer but|higher risk but|lower upside but|trades? off)
+- id: sw5_kill_per_path
+  question: 'REQUIRED: each path has its own kill criterion?'
+  required: true
+  mode: count_min
+  pattern: (if .+ (fails|misses).+(rescope|pivot|kill|abandon)|kill criteria|terminate if|switch path if)
+  threshold: 2
+- id: sw6_explicit_uncertainty
+  question: At least one explicit uncertainty acknowledged?
+  mode: regex
+  pattern: (uncertain|unclear|TBD|to be determined|depends on|conditional on)
+- id: sw7_diverse_revenue_paths
+  question: 'REQUIRED: at least 2 revenue path types (hardware vs software, defense vs commercial)?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (hardware revenue|software (revenue|ARR)|defense.+revenue|commercial.+revenue|attach revenue|fleet (platform|net)
+    revenue)
+  threshold: 3

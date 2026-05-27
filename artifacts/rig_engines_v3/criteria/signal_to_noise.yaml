@@ -1,0 +1,53 @@
+slug: signal_to_noise
+codename: PRISM
+layer: cognitive
+axis: d-prime above 1.8. Zero filler. Every word carries weight.
+questions:
+- id: ps1_no_essentially_basically
+  question: 'REQUIRED: zero use of ''essentially'', ''basically'', ''actually'', ''really'' as fillers?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(essentially,|basically,|actually,|really, |quite|rather|somewhat|fairly|relatively)\b
+- id: ps2_no_very
+  question: 'REQUIRED: zero use of ''very'' as intensifier?'
+  required: true
+  mode: absent
+  patterns:
+  - \bvery\s+(important|significant|critical|good|bad|large|small|robust)\b
+- id: ps3_no_clearly_obviously
+  question: 'REQUIRED: zero ''clearly'', ''obviously'', ''as everyone knows''?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(clearly,|obviously,|as (everyone|we all) (know|knows)|needless to say)\b
+- id: ps4_short_sentence_density
+  question: "REQUIRED: average sentence length \u2264 22 words (terseness)?"
+  required: true
+  mode: ratio_min
+  pattern: '[.!?]+'
+  threshold: 25.0
+- id: ps5_no_throat_clearing
+  question: 'REQUIRED: zero throat-clearing openers (''It should be noted'', ''It is worth mentioning'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(It should be noted|It is worth (mentioning|noting)|It is important to (note|emphasize|recognize))\b
+- id: ps6_no_hedge_overload
+  question: "REQUIRED: \u22643 hedging words ('perhaps', 'may', 'might', 'could possibly')?"
+  required: true
+  mode: count_min
+  pattern: \b(perhaps|may possibly|could possibly|might potentially|maybe|presumably)\b
+  threshold: 0
+- id: ps7_concrete_verbs
+  question: 'REQUIRED: at least 8 action verbs (ship, deliver, audit, build, deploy, sign)?'
+  required: true
+  mode: count_min
+  pattern: \b(ship|deliver|audit|build|deploy|sign|run|operate|train|launch|monetize|claim|own|control)\b
+  threshold: 5
+- id: ps8_no_redundant_pairings
+  question: 'REQUIRED: zero redundant pairings (''plans and strategies'', ''goals and objectives'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(plans? and strateg|goals? and objective|aims? and ambition|hopes? and aspiration|methods? and approach)\b

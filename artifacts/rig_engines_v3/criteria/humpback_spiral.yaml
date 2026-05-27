@@ -1,0 +1,39 @@
+slug: humpback_spiral
+codename: HUMPBACK
+layer: nature
+# genre tags: hu1/hu3/hu4/hu5 require HED's specific Foundation\u2192Activation\u2192Scale engagement
+# arc and retainer step-down structure \u2014 sales-proposal-only conventions.
+# Tagged genres:[sales] so they are skipped when --genre internal is active.
+axis: "Spiral tightens around best path. Anneal exploration \u2192 exploitation."
+questions:
+- id: hu1_three_phase_arc
+  question: "REQUIRED: Foundation \u2192 Activation \u2192 Scale phases present?"
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (?s)Foundation.{20,2000}Activation.{20,2000}Scale
+- id: hu2_decreasing_exploration
+  question: 'REQUIRED: later phases narrow vs broaden?'
+  required: true
+  mode: regex
+  pattern: (narrow.+to|focus.+from|consolidate|exploitation|productize|monetize)
+- id: hu3_milestones_per_phase
+  question: "REQUIRED: each phase has \u22652 specific milestones?"
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (Foundation|Activation|Scale).{0,800}(Month \d|deliver|launch|ship|sign|complete)
+  threshold: 6
+- id: hu4_phase_review_gate
+  question: 'REQUIRED: explicit phase review / go-no-go decision points?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (phase \d (review|gate)|board[- ]ready|go/no[- ]go|Month-?9 review|day[- ]?90 review)
+  threshold: 2
+- id: hu5_resource_intensity_curve
+  question: 'REQUIRED: retainer steps down across phases (intensity curve)?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (\$\d+K/mo.+\$\d+K/mo.+\$\d+K/mo|m1-?\d.+m\d-?\d.+m\d|retainer rolls off|step[s]? down|advisory tier)

@@ -1,0 +1,40 @@
+slug: chemotaxis_gradient
+codename: COLI
+layer: nature
+axis: Gradient-climb. Concrete next-action steps. Tumble when flat.
+questions:
+- id: ch1_step_density
+  question: 'REQUIRED: at least 8 named action steps?'
+  required: true
+  mode: count_min
+  pattern: (Month \d.+(audit|launch|ship|train|deploy|sign|negotiate)|Step \d|Phase \d|stakeholder interviews|capacity audit)
+  threshold: 6
+- id: ch2_named_deliverables
+  question: 'REQUIRED: at least 5 named deliverables (board-ready ROI report, etc.)?'
+  required: true
+  mode: count_min
+  pattern: (deliverable:|board-?ready|spec generator|CMMC accelerator|engineering knowledge graph|configurator|Forge (Edge|Solo|Team|Vault|Sight))
+  threshold: 5
+- id: ch3_no_explore_filler
+  question: 'REQUIRED: zero ''we will explore'' / ''consider'' as primary action?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(we will explore|we plan to consider|we aim to investigate|we hope to understand)\b
+- id: ch4_quarterly_cadence
+  question: 'REQUIRED: at least 2 quarterly or monthly cadence markers?'
+  required: true
+  mode: count_min
+  pattern: (weekly|monthly|quarterly|biweekly|every \d days?|month-end|quarter-end)
+  threshold: 2
+- id: ch5_decision_per_step
+  question: 'REQUIRED: each phase has a decision/checkpoint?'
+  required: true
+  mode: count_min
+  pattern: (go/no-go|decision point|checkpoint|review gate|phase review|board-ready review)
+  threshold: 2
+- id: ch6_pivot_when_flat
+  question: 'REQUIRED: at least one ''if signal weak, pivot'' instruction?'
+  required: true
+  mode: regex
+  pattern: (if.+ (weak|absent|missing|fails).+(pivot|rescope|switch|abandon|terminate)|no signal by.+(pivot|switch|rescope))

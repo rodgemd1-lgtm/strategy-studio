@@ -1,0 +1,31 @@
+slug: coral_reef_synthesis
+codename: REEF
+layer: nature
+axis: 5-mode reproduction. Synthesis combines broadcast + brood + bud + fragment + deprecate.
+questions:
+- id: re1_synthesis_evident
+  question: 'REQUIRED: doc shows synthesis (combines elements from multiple ideas)?'
+  required: true
+  mode: regex
+  pattern: (combines?|synthes(is|ize)|integrates?|merges?|brings together|unifies?|composite)
+- id: re2_explicit_modes
+  question: 'REQUIRED: at least 2 different combination modes named?'
+  required: true
+  mode: count_min
+  pattern: (broadcast|brood|bud|fragment|deprecate|hybrid|integrate|peel off|spin out)
+  threshold: 2
+- id: re3_internal_external_split
+  question: 'REQUIRED: distinguishes internal (RIG) vs external (HED) deployment?'
+  required: true
+  mode: regex
+  pattern: (internal.+external|HED-specific.+industry-wide|RIG.+HED|in-?house.+market)
+- id: re4_spawn_offsets
+  question: At least one spin-off / second product line named?
+  mode: regex
+  pattern: (spin-?off|second line|second product line|sibling product|adjacent product|Forge.+spin|new (line|product) (in|by)
+    Y\d)
+- id: re5_kill_weak
+  question: 'REQUIRED: weak elements pruned explicitly?'
+  required: true
+  mode: regex
+  pattern: (prune|kill|deprecate|drop|abandon).+(weak|low signal|underperform|stale)

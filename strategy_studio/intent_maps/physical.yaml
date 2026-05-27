@@ -1,0 +1,46 @@
+# Physical Diamond Intent Map (D1)
+# Deterministic intent classification for physical/operational tasks.
+
+patterns:
+  physical.execute:
+    - '\b(execute|run|deploy|launch|start|stop|restart)\b'
+    - '\b(apply|execute|perform)\b'
+  physical.fetch:
+    - '\b(fetch|get|retrieve|load|read|query|select)\b'
+    - '\b(pull|download|import)\b'
+  physical.write:
+    - '\b(write|save|create|insert|update|delete|put)\b'
+    - '\b(store|persist|commit)\b'
+  physical.send:
+    - '\b(send|post|push|notify|email|sms|message)\b'
+    - '\b(submit|publish|broadcast)\b'
+  physical.schedule:
+    - '\b(schedule|cron|timer|delay|queue|batch)\b'
+    - '\b(at\s+\d{1,2}:\d{2}|every\s+\d+)\b'
+
+keywords:
+  physical.execute:
+    - execute
+    - deploy
+    - run
+    - launch
+  physical.fetch:
+    - fetch
+    - get
+    - retrieve
+    - load
+  physical.write:
+    - write
+    - save
+    - create
+    - store
+  physical.send:
+    - send
+    - post
+    - push
+    - notify
+  physical.schedule:
+    - schedule
+    - cron
+    - timer
+    - queue

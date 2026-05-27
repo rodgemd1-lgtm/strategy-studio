@@ -193,3 +193,48 @@ class InboundPayload(BaseModel):
     raw_text: str
     source: str = Field(default="unknown")
     metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+# ── Source ─────────────────────────────────────────────────────────────────
+
+class Source(BaseModel):
+    """A cited source with provenance."""
+
+    uri: str
+    title: str = ""
+    credibility: Literal["H", "M", "L"] = "M"
+    retrieved_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+
+# ── Draft ──────────────────────────────────────────────────────────────────
+
+class Draft(BaseModel):
+    """An intermediate draft document."""
+
+    content: str
+    version: int = Field(default=1, ge=1)
+    status: str = "draft"
+    review_notes: list[str] = Field(default_factory=list)
+
+
+# ── QualityGateResult ──────────────────────────────────────────────────────
+
+class QualityGateResult(BaseModel):
+    """Result of a quality gate check."""
+
+    gate_name: str
+    passed: bool
+    score: float = Field(default=0.0, ge=0.0, le=1.0)
+    details: str = ""
+    violations: list[str] = Field(default_factory=list)
+
+
+# ── ActionResult ────────────────────────────────────────────────────────────
+
+class ActionResult(BaseModel):
+    """Result of executing an action."""
+
+    action: Action
+    success: bool
+    output: dict[str, Any] = Field(default_factory=dict)
+    duration_ms: int = Field(default=0, ge=0)

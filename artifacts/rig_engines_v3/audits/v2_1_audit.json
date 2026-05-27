@@ -1,0 +1,3648 @@
+{
+  "rig_l": -3.0,
+  "bdf": -17.71,
+  "hard_blocks": 28,
+  "status": "HARD_BLOCK",
+  "weakest": {
+    "codename": "SOVEREIGN",
+    "sigma": -30.0
+  },
+  "strongest": {
+    "codename": "COLI",
+    "sigma": 25.0
+  },
+  "engines": {
+    "absolute_zero": {
+      "slug": "absolute_zero",
+      "codename": "KELVIN",
+      "layer": "physics",
+      "axis": "No unreachable-floor claims. Strip zero/perfect/always/100%/never. All absolutist phrasing wrapped in conditions.",
+      "score": 6.0,
+      "max": 7.0,
+      "ratio": 0.857,
+      "sigma": 13.0,
+      "sigma_label": "PASS (+2 optional)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "k1_no_zero_downtime",
+          "question": "REQUIRED: Zero use of 'zero downtime'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "k2_no_perfect",
+          "question": "REQUIRED: Zero use of unqualified 'perfect' as performance claim?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "k3_no_always_promises",
+          "question": "REQUIRED: Zero use of 'always works', 'never fails', 'always available'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "k4_no_unqualified_100pct",
+          "question": "REQUIRED: Zero use of unqualified '100%' performance claims?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "k5_no_unconditional_guarantee",
+          "question": "Are 'guaranteed' uses bounded by explicit conditions/scope?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "k6_no_cannot_be_argued",
+          "question": "Zero use of debate-stoppers ('cannot be argued', 'undeniable', 'irrefutable')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "k7_absolute_claims_qualified",
+          "question": "Optional: where 'no truck rolls' or similar appears, is it bounded ('once OTA deployed', 'for signed firmware')?",
+          "mode": "proximity",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "anchor without nearby target: ...t telematics, CMMC Level 2 audit trail, no truck rolls. 4. Fleet learning \u2014 anonymized failure...",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "autonomy_calibration": {
+      "slug": "autonomy_calibration",
+      "codename": "SOVEREIGN",
+      "layer": "cognitive",
+      "axis": "Reader/user retains agency. Explicit choices. No coercive framing.",
+      "score": 4.0,
+      "max": 8.0,
+      "ratio": 0.5,
+      "sigma": -30.0,
+      "sigma_label": "internal-OK / median",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "so1_explicit_choice_offered",
+          "question": "REQUIRED: explicit 'your choice' or 'opt-out' offered?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "so2_tiered_options",
+          "question": "REQUIRED: at least 3 priced options (Diagnostic / Activation / Transformation)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "3 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "so3_no_high_pressure",
+          "question": "REQUIRED: zero high-pressure language ('act now', 'limited time', 'only opportunity')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "so4_explicit_off_ramp",
+          "question": "REQUIRED: explicit off-ramp at named decision point (Month 9, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "so5_ownership_clarified",
+          "question": "REQUIRED: ownership/IP of output explicitly belongs to HED?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...roves reliability for every prior unit, OEM owns the data.  **Revenue Path per Capability** * Pre...",
+          "skipped": false
+        },
+        {
+          "id": "so6_handoff_milestones",
+          "question": "REQUIRED: explicit hand-off / ownership transfer milestones named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "so7_no_lock_in_language",
+          "question": "REQUIRED: no lock-in language ('exclusive', 'long-term commit', 'irrevocable')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "so8_explicit_renegotiation",
+          "question": "REQUIRED: explicit scope renegotiation clause?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "so1_explicit_choice_offered",
+        "so4_explicit_off_ramp",
+        "so6_handoff_milestones",
+        "so8_explicit_renegotiation"
+      ]
+    },
+    "bayesian_calibration": {
+      "slug": "bayesian_calibration",
+      "codename": "BAYES",
+      "layer": "cognitive",
+      "axis": "Every probability is decomposed into conditional factors. Base rates anchored. Next update events named. Brier-score tracking.",
+      "score": 5.0,
+      "max": 10.0,
+      "ratio": 0.5,
+      "sigma": 0.0,
+      "sigma_label": "internal-OK / median",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "y1_explicit_probabilities",
+          "question": "Are at least 4 explicit probability statements present?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "4 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "y2_conditional_probabilities",
+          "question": "Are conditional probabilities (P(A|B)) used at least once?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "1 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "y3_base_rate_anchored",
+          "question": "Is at least one claim anchored to a base rate or comparable?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "1 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "y4_probability_ranges_not_points",
+          "question": "Are competitor/scenario probabilities given as bands (e.g. 25-35%) where appropriate?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "2 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "y5_downside_base_upside_scenarios",
+          "question": "Are downside/base/upside scenarios with revenue numbers shown?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "y6_premortem_or_failure_modes",
+          "question": "Is there an explicit pre-mortem with 3+ ranked failure modes?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "y7_next_update_event",
+          "question": "Is at least one 'next update event' named (e.g., 'this updates when CMMC Phase 2 starts')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "y8_competitor_probabilities_decomposed",
+          "question": "Are at least 2 competitor probabilities given (Parker, Bosch, Grayhill, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "5 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "y9_explicit_uncertainty",
+          "question": "Are uncertainty markers used (estimated, calibrated, approximate)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "y10_brier_or_calibration_artifact",
+          "question": "Is there a Brier-score, calibration-tracking, or forecast-review artifact mentioned?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...ffic features for anomaly detection.  **Brier-Score Tracking** We will maintain a for...",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "bell_entanglement": {
+      "slug": "bell_entanglement",
+      "codename": "BELL",
+      "layer": "physics",
+      "axis": "Genuine non-local correlation. Claim + evidence + falsification co-located in each major paragraph.",
+      "score": 1.0,
+      "max": 7.0,
+      "ratio": 0.143,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (2 required failed)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "bl1_claim_evidence_colocated",
+          "question": "REQUIRED: At least 3 paragraphs contain a claim AND its evidence within 600 chars?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "bl2_claim_falsification_colocated",
+          "question": "REQUIRED: At least 2 paragraphs contain a claim AND a dated falsification within 800 chars?",
+          "mode": "proximity",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "no anchor matches found",
+          "skipped": false
+        },
+        {
+          "id": "bl3_dated_kills_present",
+          "question": "REQUIRED: \u22653 kill criteria with specific dates present anywhere?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "3 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "bl4_falsification_calendar",
+          "question": "Is there a 'Falsification Calendar' or trigger-table section?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "bl5_load_bearing_claim_named",
+          "question": "Is the one claim that, if false, kills the thesis explicitly identified?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "bl6_three_way_link_in_exec",
+          "question": "Does the executive summary (first 2000 chars) contain claim+evidence+falsification together?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "bl7_per_phase_metric_table",
+          "question": "Is there an explicit phase-by-phase metric table or list?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "bl1_claim_evidence_colocated",
+        "bl2_claim_falsification_colocated"
+      ]
+    },
+    "bioluminescent_attraction": {
+      "slug": "bioluminescent_attraction",
+      "codename": "LUMINA",
+      "layer": "nature",
+      "axis": "Visible economic incentive structure. Money paths are followable.",
+      "score": 1.0,
+      "max": 7.0,
+      "ratio": 0.143,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "lu1_revenue_path_per_capability",
+          "question": "REQUIRED: each capability has explicit revenue impact $/%?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "lu2_margin_protection_named",
+          "question": "REQUIRED: margin protection or expansion explicitly named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "lu3_arr_path_named",
+          "question": "REQUIRED: software ARR path with year/amount?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "lu4_unit_economics",
+          "question": "REQUIRED: unit economics shown ($/unit, %/attach)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "lu5_no_revenue_handwave",
+          "question": "REQUIRED: no 'significant revenue', 'meaningful revenue' without numbers?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "lu6_5_year_plan",
+          "question": "REQUIRED: revenue projection to Y3 minimum?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "lu7_roi_explicit",
+          "question": "REQUIRED: ROI multiple stated with denominator?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "lu1_revenue_path_per_capability",
+        "lu2_margin_protection_named",
+        "lu3_arr_path_named",
+        "lu4_unit_economics",
+        "lu6_5_year_plan",
+        "lu7_roi_explicit"
+      ]
+    },
+    "casimir_force": {
+      "slug": "casimir_force",
+      "codename": "CASIMIR",
+      "layer": "physics",
+      "axis": "Constrained empty space generates measurable force. Sentence brevity amplifies weight.",
+      "score": 2.0,
+      "max": 5.0,
+      "ratio": 0.4,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (2 required failed)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "cs1_short_avg_sentence",
+          "question": "REQUIRED: at least 50 sentences (proxy: 50+ punctuation terminators)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "68 matches (need \u226535)",
+          "skipped": false
+        },
+        {
+          "id": "cs2_no_paragraph_runons",
+          "question": "REQUIRED: no paragraph longer than 800 chars without a break?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "cs3_terse_sections",
+          "question": "REQUIRED: at least 4 short (\u2264 200 char) standalone paragraphs?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22654)",
+          "skipped": false
+        },
+        {
+          "id": "cs4_bullet_lists_present",
+          "question": "REQUIRED: at least 2 bullet/number lists used?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22654)",
+          "skipped": false
+        },
+        {
+          "id": "cs5_compressed_metric_lines",
+          "question": "At least 2 punchy metric one-liners ('5.4\u00d7 ROI on $185K')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "cs3_terse_sections",
+        "cs4_bullet_lists_present"
+      ]
+    },
+    "chemotaxis_gradient": {
+      "slug": "chemotaxis_gradient",
+      "codename": "COLI",
+      "layer": "nature",
+      "axis": "Gradient-climb. Concrete next-action steps. Tumble when flat.",
+      "score": 6.0,
+      "max": 6.0,
+      "ratio": 1.0,
+      "sigma": 25.0,
+      "sigma_label": "civilization-grade (perfect)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "ch1_step_density",
+          "question": "REQUIRED: at least 8 named action steps?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "8 matches (need \u22656)",
+          "skipped": false
+        },
+        {
+          "id": "ch2_named_deliverables",
+          "question": "REQUIRED: at least 5 named deliverables (board-ready ROI report, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "12 matches (need \u22655)",
+          "skipped": false
+        },
+        {
+          "id": "ch3_no_explore_filler",
+          "question": "REQUIRED: zero 'we will explore' / 'consider' as primary action?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "ch4_quarterly_cadence",
+          "question": "REQUIRED: at least 2 quarterly or monthly cadence markers?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "3 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "ch5_decision_per_step",
+          "question": "REQUIRED: each phase has a decision/checkpoint?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "4 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "ch6_pivot_when_flat",
+          "question": "REQUIRED: at least one 'if signal weak, pivot' instruction?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...= 60%  **Pivot-When-Flat Instruction** If signal weak by month X, pivot to Y.  **Decision/Checkpoint per Phase*...",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "clonal_refinement": {
+      "slug": "clonal_refinement",
+      "codename": "CLONAL",
+      "layer": "nature",
+      "axis": "Winners refine gently. Mediocre rewrites hard.",
+      "score": 3.0,
+      "max": 5.0,
+      "ratio": 0.6,
+      "sigma": -30.0,
+      "sigma_label": "publishable",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "cl1_refinement_language",
+          "question": "REQUIRED: \u22653 'refined / tightened / sharpened' markers on strong sections?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "cl2_rewrite_signaled",
+          "question": "At least one section signals it's a from-scratch rewrite?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...rs, Executive Letter Framing  Note: The rewritten proposal meets all the required structu...",
+          "skipped": false
+        },
+        {
+          "id": "cl3_versioning_visible",
+          "question": "REQUIRED: version progression visible (v1/v2/v3 or iteration)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...al site at https://hed-forge.vercel.app/v2[1], prepared by Rodgers Intelligence Gr...",
+          "skipped": false
+        },
+        {
+          "id": "cl4_explicit_diff",
+          "question": "REQUIRED: explicit diff from prior version OR 'what changed' note?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "cl5_no_template_clone",
+          "question": "REQUIRED: no template-cloned bullets (3 sections with identical structure)?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "cl1_refinement_language",
+        "cl4_explicit_diff"
+      ]
+    },
+    "cognitive_sovereignty": {
+      "slug": "cognitive_sovereignty",
+      "codename": "SHIELD",
+      "layer": "cognitive",
+      "axis": "Steelman every plausible attack with explicit rebuttal. 'Attacks survived' index.",
+      "score": 7.0,
+      "max": 10.0,
+      "ratio": 0.7,
+      "sigma": -30.0,
+      "sigma_label": "client-grade (lower)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "sh1_at_least_3_attacks_listed",
+          "question": "REQUIRED: at least 3 plausible attacks/concerns explicitly listed?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "sh2_owner_family_attack",
+          "question": "REQUIRED: Hill family / ownership 'why now' attack addressed?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...ve pre-empted the following attacks: 1. Hill family ownership concerns \u2014 addressed through explicit role defi...",
+          "skipped": false
+        },
+        {
+          "id": "sh3_buyer_attack",
+          "question": "REQUIRED: buyer / Gijs 'too much' attack addressed with comparable?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...re transformation HED would attempt[2]. $0 Electronics revenue in 2015 (pure hydraulics, $200M total) \u2192 acquired Enovation Controls 2016 \u2192 rebranded as Helios Technologies 2019 ($529M total, $112M E...",
+          "skipped": false
+        },
+        {
+          "id": "sh4_customer_attack",
+          "question": "REQUIRED: customer 'OEMs don't pay for software' attack addressed with precedent?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sh5_engineering_attack",
+          "question": "REQUIRED: engineering feasibility attack addressed with spec/benchmark?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...nsor failures 30\u201390 days early, runs in <50ms on existing CL-4002 silicon. 2. Self-co...",
+          "skipped": false
+        },
+        {
+          "id": "sh6_competitor_attack",
+          "question": "REQUIRED: competitor (Parker/Bosch) 'ships this fast' attack addressed with structural barrier?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...APEM (Idec).  **24-Month Window** Today Bosch+Trackunit live, Parker+Camgian productizing, Grayhill catching up \u2192 Nov 10 2026 CMMC Phase 2 defense moat tightens \u2192 2027 H1 Parker AI-nativ...",
+          "skipped": false
+        },
+        {
+          "id": "sh7_attacks_survived_index",
+          "question": "Is there an 'attacks survived' index or explicit list of defended attacks?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...: go/no-go on Forge Vault expansion.  **Attacks Survived Index** We have pre-empted the followin...",
+          "skipped": false
+        },
+        {
+          "id": "sh8_no_dismissive_handling",
+          "question": "Zero dismissive phrases ('not a real concern', 'easily addressed')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sh9_concession_made",
+          "question": "At least one concession or acceptable downside is acknowledged?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...egory claim \u2192 2028 if HED hasn't moved, fast-follower position.  **Conditional Probabilities*...",
+          "skipped": false
+        },
+        {
+          "id": "sh10_explicit_decision_owner",
+          "question": "REQUIRED: the human/board retains the decision; no coercive framing?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "sh1_at_least_3_attacks_listed",
+        "sh4_customer_attack",
+        "sh10_explicit_decision_owner"
+      ]
+    },
+    "coral_reef_synthesis": {
+      "slug": "coral_reef_synthesis",
+      "codename": "REEF",
+      "layer": "nature",
+      "axis": "5-mode reproduction. Synthesis combines broadcast + brood + bud + fragment + deprecate.",
+      "score": 0,
+      "max": 5.0,
+      "ratio": 0.0,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (deepest)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "re1_synthesis_evident",
+          "question": "REQUIRED: doc shows synthesis (combines elements from multiple ideas)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "re2_explicit_modes",
+          "question": "REQUIRED: at least 2 different combination modes named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "re3_internal_external_split",
+          "question": "REQUIRED: distinguishes internal (RIG) vs external (HED) deployment?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "re4_spawn_offsets",
+          "question": "At least one spin-off / second product line named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "re5_kill_weak",
+          "question": "REQUIRED: weak elements pruned explicitly?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "re1_synthesis_evident",
+        "re2_explicit_modes",
+        "re3_internal_external_split",
+        "re5_kill_weak"
+      ]
+    },
+    "critical_phase": {
+      "slug": "critical_phase",
+      "codename": "CRITICAL",
+      "layer": "physics",
+      "axis": "Cross critical temperature, reorganize regime. Commitment statements. Past this point, no retreat. Burn the boats.",
+      "score": 3.0,
+      "max": 6.0,
+      "ratio": 0.5,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (1 required failed)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "c1_commitment_phrase",
+          "question": "REQUIRED: At least 2 commitment phrases ('we will', 'we commit', 'past this point', 'no retreat')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "9 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "c2_explicit_reframe_post_phase",
+          "question": "Is there an explicit 'after Month X, we are a different company' or regime-shift statement?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "c3_no_optionality_dilution",
+          "question": "Optional: doc avoids 'we may', 'we might consider', 'one option is' as load-bearing language?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "c4_skin_in_game",
+          "question": "REQUIRED: There is skin-in-the-game (production-or-nothing, refund, extend free, success-tied)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "c5_named_no_pivot_point",
+          "question": "Optional: Doc names a specific moment after which pivoting is too expensive?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "c6_what_we_will_not_do",
+          "question": "Optional: Explicit 'we will not' (e.g., 'we will not sprint', 'we will not hand off a deck')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "1 matches (need \u22651)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "c4_skin_in_game"
+      ]
+    },
+    "cuckoo_parasitic": {
+      "slug": "cuckoo_parasitic",
+      "codename": "CUCKOO",
+      "layer": "nature",
+      "axis": "Inject parasitic high-deviation candidate. Force-feed at least one outlier.",
+      "score": 1.0,
+      "max": 6.0,
+      "ratio": 0.167,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "cu1_radical_option_present",
+          "question": "REQUIRED: at least one radical / uncomfortable option proposed?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "cu2_demolish_orthodoxy",
+          "question": "REQUIRED: at least one industry orthodoxy explicitly demolished?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "cu3_first_principles",
+          "question": "REQUIRED: first-principles rebuild present?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "cu4_no_safe_default",
+          "question": "REQUIRED: doc avoids category-default safe-play framing?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "cu5_specific_inversion",
+          "question": "At least one specific inversion (instead of X, we do Y)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "cu6_reframe_named",
+          "question": "REQUIRED: reframe explicitly named (the real category is, not just better X)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "cu1_radical_option_present",
+        "cu2_demolish_orthodoxy",
+        "cu3_first_principles",
+        "cu6_reframe_named"
+      ]
+    },
+    "darwinian_selection": {
+      "slug": "darwinian_selection",
+      "codename": "DARWIN",
+      "layer": "cognitive",
+      "axis": "Generate-mutate-select. Show alternatives considered and rejected. Selection visible.",
+      "score": 1.0,
+      "max": 8.0,
+      "ratio": 0.125,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "d1_alternatives_listed",
+          "question": "REQUIRED: at least 2 alternative paths considered and named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "d2_explicit_rejection",
+          "question": "REQUIRED: at least one alternative explicitly rejected with reason?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "d3_three_tiers_present",
+          "question": "REQUIRED: 3 engagement tiers (Diagnostic + Foundation, Activation, Transformation)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "d4_downside_base_upside",
+          "question": "REQUIRED: downside / base / upside scenarios shown with revenue numbers?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "d5_counterfactual_named",
+          "question": "REQUIRED: counterfactual 'do nothing' scenario quantified?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "d6_winners_refined",
+          "question": "At least one section shows refinement of a winning approach (vs full rewrite)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "d7_pre_mortem",
+          "question": "REQUIRED: pre-mortem with ranked failure modes?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "d8_explicit_kill_for_each_phase",
+          "question": "REQUIRED: each phase has its own kill criterion (not just one global)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "3 matches (need \u22652)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "d1_alternatives_listed",
+        "d3_three_tiers_present",
+        "d4_downside_base_upside",
+        "d5_counterfactual_named",
+        "d7_pre_mortem"
+      ]
+    },
+    "feynman_xray": {
+      "slug": "feynman_xray",
+      "codename": "XRAY",
+      "layer": "cognitive",
+      "axis": "Expose fake understanding. Every claim explains HOW, not just WHAT.",
+      "score": 5.0,
+      "max": 8.0,
+      "ratio": 0.625,
+      "sigma": -30.0,
+      "sigma_label": "publishable",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "x1_how_density",
+          "question": "REQUIRED: at least 12 'how/why/mechanism/because' markers per 1000 words?",
+          "mode": "ratio_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "density 5.8/kw (need \u22658.0)",
+          "skipped": false
+        },
+        {
+          "id": "x2_no_buzzword_namedrops",
+          "question": "REQUIRED: no AI/ML buzzwords used without mechanism (deep learning, neural net, transformer)?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "x3_specific_signal_for_predictive",
+          "question": "REQUIRED: predictive diagnostics explained with specific signal (CAN traffic, current spike, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...r of rugged electronic control modules, CAN bus displays, and CAN keypads for mobile eq...",
+          "skipped": false
+        },
+        {
+          "id": "x4_named_model_type",
+          "question": "REQUIRED: when ML claimed, model TYPE named (autoencoder, isolation forest, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...rate  **ML Model Type** We will use an isolation forest on CAN traffic features for anomaly det...",
+          "skipped": false
+        },
+        {
+          "id": "x5_false_positive_rate",
+          "question": "REQUIRED: false-positive rate or error bound stated?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": ".... Future-forward.\"  **Frame 1: Defense Procurement** The primary comparable is Sun...",
+          "skipped": false
+        },
+        {
+          "id": "x6_inference_latency_named",
+          "question": "REQUIRED: inference latency or compute budget named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...l, or sensor failures 30\u201390 days early, runs in <50ms on existing CL-4002 silicon. 2. S...",
+          "skipped": false
+        },
+        {
+          "id": "x7_failure_mode_diagnosed",
+          "question": "REQUIRED: at least one failure mode explained mechanically (why it could fail)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "x8_no_unexplained_passive",
+          "question": "Optional: no key claims in passive voice without agent ('was determined', 'has been shown')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "found banned pattern 'will be': ...ans Named** Gijs Zomer and Mike Rodgers will be key stakeholders in this engagement.  *...",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "x1_how_density",
+        "x7_failure_mode_diagnosed"
+      ]
+    },
+    "fine_structure": {
+      "slug": "fine_structure",
+      "codename": "PARSEC",
+      "layer": "physics",
+      "axis": "Every word load-bearing. No redundancy. No adverb without semantic load.",
+      "score": 5.0,
+      "max": 5.0,
+      "ratio": 1.0,
+      "sigma": 17.5,
+      "sigma_label": "PASS (+1 optional)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "pa1_no_very_really",
+          "question": "REQUIRED: zero 'very', 'really', 'quite' as intensifiers?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "pa2_no_redundant_pairs",
+          "question": "REQUIRED: no 'plans and strategies' redundancy?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "pa3_no_throat_clearing",
+          "question": "REQUIRED: no 'It should be noted'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "pa4_no_repeated_intro_phrases",
+          "question": "Optional: section openers vary (no 3+ sections opening with 'We will')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "pa5_no_passive_drowning",
+          "question": "REQUIRED: passive voice usage controlled?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "frame_collision": {
+      "slug": "frame_collision",
+      "codename": "COLLIDER",
+      "layer": "cognitive",
+      "axis": "Import mechanisms from at least 2 orthogonal domains (defense, dev-platform, electrification, etc.).",
+      "score": 3.0,
+      "max": 8.0,
+      "ratio": 0.375,
+      "sigma": -30.0,
+      "sigma_label": "BLOCK",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "co1_defense_frame",
+          "question": "REQUIRED: defense procurement frame referenced (federal contracts, CMMC, Oshkosh Defense, FedRAMP)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "11 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "co2_platform_economics_frame",
+          "question": "REQUIRED: developer-platform economics frame (SDK, ARPU, attach rate, marketplace)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "2 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "co3_electrification_or_third",
+          "question": "REQUIRED: third orthogonal frame (electrification, energy transition, ag/precision, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "2 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "co4_named_analogy",
+          "question": "REQUIRED: at least 2 cross-domain analogies named (Bloomberg, iOS, Stripe, Tesla, Topcon Ag)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "co5_mechanism_from_other_domain",
+          "question": "REQUIRED: at least one mechanism explicitly imported from another domain?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "co6_frame_named_explicitly",
+          "question": "REQUIRED: each imported frame is named in a section header or topic sentence?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "co7_explicit_collision_phrase",
+          "question": "Does the doc explicitly note frame collision/cross-domain?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "co8_money_path_per_frame",
+          "question": "Optional: each frame includes its own revenue/economic path?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "co4_named_analogy",
+        "co5_mechanism_from_other_domain",
+        "co6_frame_named_explicitly"
+      ]
+    },
+    "gravity_escape": {
+      "slug": "gravity_escape",
+      "codename": "GRAVITON",
+      "layer": "cognitive",
+      "axis": "Maximum distance from generic-AI median. Zero consultant tokens. Every generic noun replaced with concrete object.",
+      "score": 10.0,
+      "max": 10.0,
+      "ratio": 1.0,
+      "sigma": 25.0,
+      "sigma_label": "civilization-grade (perfect)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "g1_no_leverage",
+          "question": "Zero use of 'leverage'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g2_no_synergy_holistic",
+          "question": "Zero use of 'synergy' or 'holistic'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g3_no_landscape_filler",
+          "question": "Zero use of 'in today's landscape / rapidly evolving / unprecedented times'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g4_no_excited_announce",
+          "question": "Zero use of 'we are excited to announce / pleased to share'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g5_no_thought_leadership",
+          "question": "Zero use of 'thought leadership / best practices / world-class'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g6_no_furthermore_moreover",
+          "question": "Zero use of 'furthermore' or 'moreover' as connectives?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g7_no_robust_seamless",
+          "question": "Zero use of 'robust' or 'seamless' as flavor adjectives?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "g8_concrete_proper_nouns",
+          "question": "At least 8 named entities (HED, Hill family, Gijs, Pierce, Oshkosh, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "34 matches (need \u22658)",
+          "skipped": false
+        },
+        {
+          "id": "g9_specific_skus",
+          "question": "At least 3 specific HED SKUs/products named (CL-714, CL-4002, HK, CL-712, Forge Edge)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "22 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "g10_unique_phrases",
+          "question": "At least 2 unique HED-specific compound phrases (e.g., 'fleet intelligence operating system')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "2 matches (need \u22652)",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "hawking_horizon": {
+      "slug": "hawking_horizon",
+      "codename": "HORIZON-GATE",
+      "layer": "physics",
+      "axis": "Information must leak through opaque boundary. Proof of access ('we have', 'we built', 'we own').",
+      "score": 4.0,
+      "max": 5.0,
+      "ratio": 0.8,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (1 required failed)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "hg1_we_have_present",
+          "question": "REQUIRED: at least 6 'we have / we own / we built / we deliver' proofs?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22656)",
+          "skipped": false
+        },
+        {
+          "id": "hg2_specific_assets",
+          "question": "REQUIRED: at least 3 specific assets named (CMMC L2, $10.4M contracts, 24 SKUs)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "5 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "hg3_named_capabilities",
+          "question": "REQUIRED: capabilities named with version/SKU?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "13 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "hg4_no_we_could",
+          "question": "REQUIRED: ratio of 'we have / we built' > 'we could / we plan to'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "hg5_explicit_proofs",
+          "question": "At least 2 customer/partner attestations or named wins?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "2 matches (need \u22651)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "hg1_we_have_present"
+      ]
+    },
+    "hermeneutic_density": {
+      "slug": "hermeneutic_density",
+      "codename": "WELLSPRING",
+      "layer": "cognitive",
+      "axis": "Pays back more on reread. Footnotes that reward. Second read finds things the first missed.",
+      "score": 1.0,
+      "max": 8.0,
+      "ratio": 0.125,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "w1_footnotes_present",
+          "question": "REQUIRED: at least 5 numbered footnotes [1], [2], etc.?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "7 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "w2_appendix_or_layered",
+          "question": "REQUIRED: explicit appendix / supplementary detail section?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "w3_data_tables",
+          "question": "REQUIRED: at least 2 structured tables/lists with data per row?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "w4_progressive_disclosure",
+          "question": "REQUIRED: \u22653 sections with depth tier (overview \u2192 detail)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "w5_cross_references",
+          "question": "At least one internal cross-reference (see Section 3, Table 2)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "w6_methodology_visible",
+          "question": "REQUIRED: methodology / how-numbers-derived shown for one major claim?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "w7_sensitivity_or_band",
+          "question": "REQUIRED: sensitivity bands or ranges shown (not just point estimates)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "w8_no_executive_only",
+          "question": "REQUIRED: doc not just exec summary \u2014 has body sections >2000 chars total?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "w2_appendix_or_layered",
+        "w3_data_tables",
+        "w4_progressive_disclosure",
+        "w6_methodology_visible",
+        "w7_sensitivity_or_band",
+        "w8_no_executive_only"
+      ]
+    },
+    "humpback_spiral": {
+      "slug": "humpback_spiral",
+      "codename": "HUMPBACK",
+      "layer": "nature",
+      "axis": "Spiral tightens around best path. Anneal exploration \u2192 exploitation.",
+      "score": 2.0,
+      "max": 5.0,
+      "ratio": 0.4,
+      "sigma": -30.0,
+      "sigma_label": "below median",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "hu1_three_phase_arc",
+          "question": "REQUIRED: Foundation \u2192 Activation \u2192 Scale phases present?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...apacity constraints \u2014 addressed through Foundation Month 1 capacity audit. 5. Parker/Bosch acquisition threat \u2014 compressed Phase 3 timeline.  **Frame Labels** We will use the following frames to guide our strategy: * Frame 1: Defense Procurement * Frame 2: Developer Platform * Frame 3: Electrification  **Forge Product Line Names** We will reference the following Forge product lines: * Forge Edge * Forge Solo * Forge Team * Forge Vault * Forge Sight * Forge Net  **Specific Humans Named** Gijs Zomer and Mike Rodgers will be key stakeholders in this engagement.  **Engineering Specs** Our system will meet the following specs: * <50ms inference on CL-4002 silicon * <5% false-positive rate  **ML Model Type** We will use an isolation forest on CAN traffic features for anomaly detection.  **Brier-Score Tracking** We will maintain a forecast/Brier-score log to track our performance.  **Commitment Phrases** We commit to delivering measurable ROI by month 9. We will not sprint. Past this point, no retreat.  **Cadence Markers** Our rollout will follow the following cadence: * (Weekly review) Foundation Months 1\u20133: stakeholder interviews + system audit. * (Monthly cadence) Activation Months 4\u20139: spec generator \u2192 all 40 engineers; CMMC documentation accelerator. * (Quarterly review) Scale Months 10\u201318: Forge Vault deployed acro...",
+          "skipped": false
+        },
+        {
+          "id": "hu2_decreasing_exploration",
+          "question": "REQUIRED: later phases narrow vs broaden?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "hu3_milestones_per_phase",
+          "question": "REQUIRED: each phase has \u22652 specific milestones?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22656)",
+          "skipped": false
+        },
+        {
+          "id": "hu4_phase_review_gate",
+          "question": "REQUIRED: explicit phase review / go-no-go decision points?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "3 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "hu5_resource_intensity_curve",
+          "question": "REQUIRED: retainer steps down across phases (intensity curve)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "hu2_decreasing_exploration",
+        "hu3_milestones_per_phase",
+        "hu5_resource_intensity_curve"
+      ]
+    },
+    "kolmogorov_originality": {
+      "slug": "kolmogorov_originality",
+      "codename": "GLYPH",
+      "layer": "cognitive",
+      "axis": "Cannot be compressed to a known consulting phrase. Maximum lexical diversity. Doctrine-anchored phrasing.",
+      "score": 7.0,
+      "max": 9.0,
+      "ratio": 0.778,
+      "sigma": -30.0,
+      "sigma_label": "client-grade",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "gl1_no_template_openings",
+          "question": "REQUIRED: no template opening ('In an era where', 'It is widely recognized')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "gl2_no_closing_template",
+          "question": "REQUIRED: no template closing ('In closing', 'To summarize', 'In conclusion')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "gl3_no_bullet_filler",
+          "question": "REQUIRED: no empty bullets ('drive value', 'enable transformation', 'unlock potential')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "gl4_unique_compound_phrases",
+          "question": "At least 4 unique compound phrases (firmware-and-knowledge, fleet learning, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "4 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "gl5_named_invented_terms",
+          "question": "REQUIRED: \u22652 named program/product terms unique to this proposal (Forge Edge, Forge Net, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "12 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "gl6_specific_metaphor",
+          "question": "REQUIRED: at least one specific extended metaphor (Bloomberg, iOS of CAN, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "gl7_no_consultant_packaging",
+          "question": "REQUIRED: no consultant-packaging tokens (engagement-led, value-add, deliverable-rich)?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "gl8_no_3-bullet_summary_filler",
+          "question": "Optional: no recurring '3 things' / 'three pillars' bullet template?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "gl9_specific_dollar_in_first_500",
+          "question": "REQUIRED: at least 2 specific dollar amounts in first 500 chars (anchored opening)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "gl6_specific_metaphor",
+        "gl9_specific_dollar_in_first_500"
+      ]
+    },
+    "levy_flight": {
+      "slug": "levy_flight",
+      "codename": "ALBATROSS",
+      "layer": "nature",
+      "axis": "Heavy-tail leaps. Import at least one analogy from a non-adjacent domain.",
+      "score": 3.0,
+      "max": 6.0,
+      "ratio": 0.5,
+      "sigma": -30.0,
+      "sigma_label": "internal-OK / median",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "al1_far_domain_analogy",
+          "question": "REQUIRED: at least 2 cross-domain analogies (Bloomberg, iOS, Stripe, Tesla, Spotify)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "al2_explicit_metaphor_extended",
+          "question": "REQUIRED: one analogy extended for \u226580 chars?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "al3_two_industries_collided",
+          "question": "REQUIRED: at least 2 distinct industries referenced?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "5 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "al4_no_obvious_only",
+          "question": "REQUIRED: no analogy is just 'like in our industry'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "al5_specific_mechanism_imported",
+          "question": "REQUIRED: specific mechanism (not just brand) imported?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "al6_no_repetition",
+          "question": "REQUIRED: analogies don't all come from one category (tech only / industrial only)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...primary comparable is Sun Hydraulics \u2192 Helios Technologies \u2014 a publicly-traded mobile-equipment hardware OEM that executed exactly the hardware \u2192 hardware+electronics+software transformation HED would attempt[2]. $0 Electronics revenue in 2015 (pure hydraulics, $200M total) \u2192 acquired Enovation Controls 2016 \u2192 rebranded as Helios Technologies 2019 ($529M total, $112M E...",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "al1_far_domain_analogy",
+        "al2_explicit_metaphor_extended",
+        "al5_specific_mechanism_imported"
+      ]
+    },
+    "mechanism_furnace": {
+      "slug": "mechanism_furnace",
+      "codename": "FORGE",
+      "layer": "cognitive",
+      "axis": "Every claim is a complete causal chain Input\u2192Activity\u2192Behavior\u2192System\u2192Economic\u2192Loop. No adjective without a mechanism.",
+      "score": 7.0,
+      "max": 11.0,
+      "ratio": 0.636,
+      "sigma": 4.0,
+      "sigma_label": "publishable",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "f1_causal_connectives",
+          "question": "Are causal connectives ('because', 'therefore', 'leads to', '\u2192', 'drives') present at density \u22654/kw?",
+          "mode": "ratio_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "density 0.0/kw (need \u22654.0)",
+          "skipped": false
+        },
+        {
+          "id": "f2_mechanism_chains",
+          "question": "Does the document contain explicit mechanism chains (Input\u2192Activity\u2192Behavior or similar)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "f3_specific_mechanism_for_capability",
+          "question": "For each major capability claim, is a HOW mechanism explained (model type, signal, threshold)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "9 matches (need \u22655)",
+          "skipped": false
+        },
+        {
+          "id": "f4_quantified_outcomes",
+          "question": "Are downstream outcomes quantified ($, %, time-to-X)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "31 matches (need \u22658)",
+          "skipped": false
+        },
+        {
+          "id": "f5_feedback_loops_named",
+          "question": "Are at least 2 compounding feedback loops explicitly named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "3 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "f6_no_orphan_adjectives",
+          "question": "Banned generic adjectives ('transformative', 'world-class', 'cutting-edge', 'innovative') \u22641 occurrence total?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "0 matches (need \u22650)",
+          "skipped": false
+        },
+        {
+          "id": "f6b_no_orphan_adjectives_strict",
+          "question": "Zero use of generic-consultant adjectives without immediate mechanism?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "f7_input_to_economic_chain_in_executive",
+          "question": "Does the executive section (first 2000 chars) show at least one full input\u2192economic chain?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...* Transformation took ~9 years but hit $112M Electronics by Year 4. * Electronics grew $0 \u2192 35% of...",
+          "skipped": false
+        },
+        {
+          "id": "f8_anti_chatbot_anti_pilot",
+          "question": "Does the doc explicitly reject chatbot/pilot pattern and explain why?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "f9_compounding_loop_visible",
+          "question": "Is the compounding loop (each new unit improves prior units) explicitly stated?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...Level 2 audit trail, no truck rolls. 4. Fleet learning \u2014 anonymized failure-pattern sharing ac...",
+          "skipped": false
+        },
+        {
+          "id": "f10_negative_mechanism_too",
+          "question": "Are NEGATIVE mechanisms (what fails if X) also explained, not just positive ones?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "memory_residue": {
+      "slug": "memory_residue",
+      "codename": "ECHO",
+      "layer": "cognitive",
+      "axis": "What the reader remembers 48 hours later. Concrete, specific, numbered.",
+      "score": 5.0,
+      "max": 8.0,
+      "ratio": 0.625,
+      "sigma": -30.0,
+      "sigma_label": "publishable",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "e1_specific_numbers_density",
+          "question": "REQUIRED: at least 25 specific dollar/percent/count numbers?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "34 matches (need \u226518)",
+          "skipped": false
+        },
+        {
+          "id": "e2_named_companies",
+          "question": "REQUIRED: at least 5 named comparable/competitor companies?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "24 matches (need \u22655)",
+          "skipped": false
+        },
+        {
+          "id": "e3_named_dates",
+          "question": "REQUIRED: at least 3 specific calendar dates (Nov 10 2026, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "2 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "e4_specific_dollar_anchors",
+          "question": "REQUIRED: $185K engagement number AND $10M Y3 ARR claim (or similar concrete anchors)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22654)",
+          "skipped": false
+        },
+        {
+          "id": "e5_named_program_terms",
+          "question": "REQUIRED: program names invented (Forge Edge/Solo/Team/Vault/Sight/Net) \u22653?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "12 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "e6_single_sentence_recap",
+          "question": "Optional: single-sentence thesis statement findable in first or last 1000 chars?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...HED Manufacturing \u2014 proposal site at https://hed-forge.vercel.app/v2[1], prepared by Rodgers Intelligence Group for Gijs Zomer (VP Operations, HED, Inc.) and the Hill family ownership. HED is a 35-year-old Hartford, WI manufacturer of rugged electronic control modules, CAN bus displays, and CAN keypads for mobile equipment (fire trucks, military vehicles, agricultural equipment, refuse, construction, utility, material handling). 24 shipping SKUs across three product lines. CMMC Level 2 certified. $10.4M federal contracts including Oshkosh Defense as prime. Tagline: \"Field-proven. Future-forward.\"  **Frame 1: Defense Procurement** The primary comparable is Sun Hydraulics \u2192 Helios Technologies \u2014 a publicly-traded mobile-equipment hardware OEM that executed exactly the hardware \u2192 hardware+electronics+software transformation HED would attempt[2]. $0 Electronics revenue in 2015 (pure hydraulics, $200M total) \u2192 acquired Enovation Controls 2016 \u2192 rebranded as Helios Technologies 2019 ($529M total, $112M Electronics 21%) \u2192 2023 peak $884M ($280M Electronics 32%) \u2192 FY25 $839M ($298M Electronics 35.5%) at GM 32.3% and EBITDA 19.2%. Key takeaways: * Transformation took ~9 years but hit $112M Electronics by Year 4. * Electronics grew $0 \u2192 35% of revenue while Hydraulics held. * GM sustained 32\u201333% throughout (HED current ~35%). * EBITDA 19\u201323% sustained \u2014 software-attached economics protect margin in downturns.  **Frame 2: Developer Platform** We commit to delivering a firmware-and-knowledge operating system, Forge Edge, built specifically for HED. Capabilities: 1. Predictive diagnostics \u2014 on-device anomaly detection on CAN traffic, flags pending hydraulic, electrical, or sensor failures 30\u201390 days early, runs in <50ms on existing CL-4002 silicon. 2. Self-configuration \u2014 OEM enters vehicle type + I/O requirements; Forge generates J1939 address map, PDO assignments, CODESYS skeleton in <4 minutes (vs 2 weeks). 3. Over-the-air updates \u2014 signed firmware delivery via fleet telematics, CMMC Level 2 audit trail, no truck rolls. 4. Fleet learning \u2014 anonymized failure-pattern sharing across the OEM's installed base, each new field unit improves reliability for every prior unit, OEM owns the data.  **Revenue Path per Capability** * Predictive diagnostics: $30/unit attach * Self-configuration: $20/unit attach * Over-the-air updates: $15/unit attach * Fleet learning: $10/unit attach  **Competitive Landscape** High threat competitors: * Parker Hannifin (Q3 FY26 $5.5B sales, 23.4% margin) \u2014 Camgian partnership productizing now, Voice of the Machine IoT, public AI strategy. * Bosch Rexroth \u2014 Trackunit strategic partnership April 2025 (OTA + 3.5M connected assets), BODAS Connect OTA shipping.  Medium threat competitors: * Grayhill (La Grange IL, private) \u2014 3D50/3D70 display refresh 2025\u20132026 with TouchGFX + CODESYS, hiring embedded firmware engineers. * Curtiss-Wright (defense pure-play) \u2014 potential acquirer.  Low threat competitors: * APEM (Idec).  **24-Month Window** Today Bosch+Trackunit live, Parker+Camgian productizing, Grayhill catching up \u2192 Nov 10 2026 CMMC Phase 2 defense moat tightens \u2192 2027 H1 Parker AI-native IQAN likely category claim \u2192 2028 if HED hasn't moved, fast-follower position.  **Conditional Probabilities** * P(Parker accelerates | Camgian closes \u22652 OEMs by Q3 2026) = 70% * P(Bosch wins commercial via Trackunit's 3.5M-asset 36-month head start) = 80% * P(Grayhill catches up) = 60%  **Pivot-When-Flat Instruction** If signal weak by month X, pivot to Y.  **Decision/Checkpoint per Phase** Phase 1 decision: go/no-go on Forge Edge development. Phase 2 decision: go/no-go on Forge Team deployment. Phase 3 decision: go/no-go on Forge Vault expansion.  **Attacks Survived Index** We have pre-empted the following attacks: 1. Hill family ownership concerns \u2014 addressed through explicit role definition and commitment to category claim. 2. Gijs Zomer's operational risk \u2014 mitigated through phased rollout and capacity audit. 3. Customer OEM WTP lower than estimated \u2014 modeled in downside scenario. 4. Engineering capacity constraints \u2014 addressed through Foundation Month 1 capacity audit. 5. Parker/Bosch acquisition threat \u2014 compressed Phase 3 timeline.  **Frame Labels** We will use the following frames to guide our strategy: * Frame 1: Defense Procurement * Frame 2: Developer Platform * Frame 3: Electrification  **Forge Product Line Names** We will reference the following Forge product lines: * Forge Edge * Forge Solo * Forge Team * Forge Vault...",
+          "skipped": false
+        },
+        {
+          "id": "e7_no_jargon_only_sections",
+          "question": "REQUIRED: no section consists primarily of acronyms/jargon without expansion?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "e8_concrete_examples_per_capability",
+          "question": "REQUIRED: each capability claim has \u22651 concrete example?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "e3_named_dates",
+        "e4_specific_dollar_anchors",
+        "e8_concrete_examples_per_capability"
+      ]
+    },
+    "mycorrhizal_root": {
+      "slug": "mycorrhizal_root",
+      "codename": "ROOT",
+      "layer": "nature",
+      "axis": "Hubs feed seedlings. RIG/HED roles explicit. Knowledge flows traced.",
+      "score": 2.0,
+      "max": 6.0,
+      "ratio": 0.333,
+      "sigma": -30.0,
+      "sigma_label": "BLOCK",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "rt1_rig_role_named",
+          "question": "REQUIRED: RIG's explicit role named (we embed, we run, we hand off)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "rt2_hed_role_named",
+          "question": "REQUIRED: HED's explicit ownership/role named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "rt3_handoff_milestones",
+          "question": "REQUIRED: hand-off milestones with %/stage?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "rt4_knowledge_flows_traced",
+          "question": "REQUIRED: knowledge flow direction explicit (engineers\u2192graph\u2192engineers)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "rt5_distributed_value",
+          "question": "REQUIRED: value distributed between RIG, HED, and OEMs?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "3 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "rt6_no_dependency_creation",
+          "question": "REQUIRED: no permanent-dependency framing (HED forever needs RIG)?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "rt1_rig_role_named",
+        "rt2_hed_role_named",
+        "rt3_handoff_milestones",
+        "rt4_knowledge_flows_traced"
+      ]
+    },
+    "opponent_process": {
+      "slug": "opponent_process",
+      "codename": "REBOUND",
+      "layer": "cognitive",
+      "axis": "Affective contrast. Hard claim immediately followed by its counter. Aftertaste durable.",
+      "score": 2.0,
+      "max": 7.0,
+      "ratio": 0.286,
+      "sigma": -30.0,
+      "sigma_label": "doctrine violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "r1_contrast_connectives",
+          "question": "REQUIRED: \u22656 contrast connectives ('but', 'however', 'yet', 'whereas')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22656)",
+          "skipped": false
+        },
+        {
+          "id": "r2_explicit_devils_advocate",
+          "question": "REQUIRED: explicit devil's advocate section?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "r3_acknowledged_risk_per_bet",
+          "question": "REQUIRED: each major bet acknowledges its specific risk?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "r4_concession_present",
+          "question": "REQUIRED: at least one concession (HED accepts X to win Y)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "r5_strong_then_qualifier",
+          "question": "REQUIRED: at least 3 strong claims immediately followed by qualifier?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "r6_named_painful_truth",
+          "question": "REQUIRED: at least one painful truth stated (Parker might win commercial, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...egory claim \u2192 2028 if HED hasn't moved, fast-follower position.  **Conditional Probabilities** * P(Par...",
+          "skipped": false
+        },
+        {
+          "id": "r7_no_unbroken_hype",
+          "question": "REQUIRED: no unbroken hype paragraph (>400 chars without contrast)?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "r1_contrast_connectives",
+        "r2_explicit_devils_advocate",
+        "r3_acknowledged_risk_per_bet",
+        "r4_concession_present",
+        "r5_strong_then_qualifier"
+      ]
+    },
+    "pauli_exclusion": {
+      "slug": "pauli_exclusion",
+      "codename": "PAULI",
+      "layer": "physics",
+      "axis": "No two artifacts occupy the same state. No boilerplate duplication. Each section unique.",
+      "score": 6.0,
+      "max": 7.0,
+      "ratio": 0.857,
+      "sigma": 12.0,
+      "sigma_label": "PASS (+4 optional)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "p1_no_repeated_paragraph_headers",
+          "question": "REQUIRED: No section header appears twice in the document?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "p2_no_repeated_sentence_starters",
+          "question": "Are repeated sentence starters ('We will', 'Our') used <8x each?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "0 matches (need \u22650)",
+          "skipped": false
+        },
+        {
+          "id": "p3_no_generic_summary_filler",
+          "question": "Zero use of stock executive-summary closing phrases ('In conclusion', 'To summarize', 'In summary')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "p4_unique_phase_descriptions",
+          "question": "Each major phase (Foundation/Activation/Scale) has distinct deliverables, not just rephrased same content?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "4 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "p5_no_paragraph_repeats",
+          "question": "REQUIRED: No paragraph (\u226580 chars) appears twice verbatim?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "p6_distinct_tier_descriptions",
+          "question": "Each engagement tier (Diagnostic, Activation, Transformation) has different deliverables enumerated?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "p7_no_redundant_value_props",
+          "question": "Optional: zero use of 'we will deliver' more than 4x?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "pheromone_swarm": {
+      "slug": "pheromone_swarm",
+      "codename": "SWARM",
+      "layer": "nature",
+      "axis": "Path diversity. Don't collapse to one path before evidence justifies.",
+      "score": 1.0,
+      "max": 7.0,
+      "ratio": 0.143,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "sw1_multiple_paths",
+          "question": "REQUIRED: \u22653 distinct strategic paths surfaced?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "sw2_evidence_per_path",
+          "question": "REQUIRED: each path has its own evidence/scenario number?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "sw3_no_premature_collapse",
+          "question": "REQUIRED: no 'the only path' / 'the one strategy' framing?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sw4_explicit_path_comparison",
+          "question": "REQUIRED: paths compared on at least 2 dimensions?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sw5_kill_per_path",
+          "question": "REQUIRED: each path has its own kill criterion?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "sw6_explicit_uncertainty",
+          "question": "At least one explicit uncertainty acknowledged?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sw7_diverse_revenue_paths",
+          "question": "REQUIRED: at least 2 revenue path types (hardware vs software, defense vs commercial)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "sw1_multiple_paths",
+        "sw2_evidence_per_path",
+        "sw4_explicit_path_comparison",
+        "sw5_kill_per_path",
+        "sw7_diverse_revenue_paths"
+      ]
+    },
+    "physarum_prune": {
+      "slug": "physarum_prune",
+      "codename": "SLIME",
+      "layer": "nature",
+      "axis": "Reinforce winning paths. Prune losing ones explicitly.",
+      "score": 1.0,
+      "max": 6.0,
+      "ratio": 0.167,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "sl1_explicit_kills",
+          "question": "REQUIRED: at least 2 paths/ideas explicitly killed?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "sl2_kill_with_reason",
+          "question": "REQUIRED: each kill has explicit reason?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sl3_winning_paths_reinforced",
+          "question": "REQUIRED: winning path gets disproportionate investment language?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sl4_no_everything_equal",
+          "question": "REQUIRED: doc doesn't treat all options equally (must prefer one)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "sl5_resource_allocation_named",
+          "question": "REQUIRED: explicit resource allocation across paths (FTE, $)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "sl6_no_hedging_on_focus",
+          "question": "REQUIRED: no 'we'll do both' on mutually exclusive options?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "sl1_explicit_kills",
+        "sl2_kill_with_reason",
+        "sl3_winning_paths_reinforced",
+        "sl4_no_everything_equal",
+        "sl5_resource_allocation_named"
+      ]
+    },
+    "predictive_surprise": {
+      "slug": "predictive_surprise",
+      "codename": "SURPRISE",
+      "layer": "cognitive",
+      "axis": "At least one claim makes the reader update their model. Real information injection.",
+      "score": 3.0,
+      "max": 7.0,
+      "ratio": 0.429,
+      "sigma": -30.0,
+      "sigma_label": "below median",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "su1_counter_intuitive_finding",
+          "question": "REQUIRED: at least one counter-intuitive finding or 'most assume X, but'?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "su2_named_unknown_unknown",
+          "question": "REQUIRED: at least one fact most buyers wouldn't know (specific niche claim)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "su3_specific_market_insight",
+          "question": "REQUIRED: specific market structure insight (CMMC moat, Bosch+Trackunit pact, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "9 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "su4_anti_consensus_call",
+          "question": "REQUIRED: at least one explicit anti-consensus prediction?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "su5_named_dark_horse",
+          "question": "At least one less-obvious comparable (Topcon Precision Ag, Wabtec rail, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "3 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "su6_no_obvious_only",
+          "question": "REQUIRED: no thesis composed only of obvious points (must contain \u22651 non-obvious)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "su7_quantified_surprise",
+          "question": "At least one number that would surprise a knowledgeable reader (Helios went 0\u219235% Electronics)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...re transformation HED would attempt[2]. $0 Electronics revenue in 2015 (pure hydraulics, $200M total) \u2192 acquired Enovation Controls 2016 \u2192 rebranded as Helios Technologies 2019 ($529M total, $112M Electronics 21%) \u2192 2023 peak $884M ($280M Electronics 32%) \u2192 FY25 $839M ($298M Electronics 35.5%) at GM 32.3% and EBIT...",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "su1_counter_intuitive_finding",
+        "su2_named_unknown_unknown",
+        "su4_anti_consensus_call",
+        "su6_no_obvious_only"
+      ]
+    },
+    "quantum_tunnel": {
+      "slug": "quantum_tunnel",
+      "codename": "TUNNEL",
+      "layer": "physics",
+      "axis": "Penetrate impassable barrier. Anti-orthodoxy commits. Refuse what industry accepts.",
+      "score": 3.0,
+      "max": 5.0,
+      "ratio": 0.6,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (2 required failed)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "tu1_explicit_refusal",
+          "question": "REQUIRED: explicit refusal of a standard industry move?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "1 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "tu2_no_industry_default",
+          "question": "REQUIRED: not pitching AI CoE / Copilot bolt-on?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "tu3_barrier_named",
+          "question": "REQUIRED: the industry barrier being penetrated is named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...g up \u2192 Nov 10 2026 CMMC Phase 2 defense moat tightens \u2192 2027 H1 Parker AI-native IQA...",
+          "skipped": false
+        },
+        {
+          "id": "tu4_anti_consensus_bet",
+          "question": "REQUIRED: at least one anti-consensus bet explicit?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "tu5_evidence_for_penetration",
+          "question": "REQUIRED: why HED can penetrate (CMMC L2, 35-year defense record, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...and the Hill family ownership. HED is a 35-year-old Hartford, WI manufacturer of rugged...",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "tu1_explicit_refusal",
+        "tu4_anti_consensus_bet"
+      ]
+    },
+    "reality_anchor": {
+      "slug": "reality_anchor",
+      "codename": "ANCHOR",
+      "layer": "cognitive",
+      "axis": "Every numeric claim is sourced, sampled, and falsifiable with a dated kill criterion.",
+      "score": 5.0,
+      "max": 10.0,
+      "ratio": 0.5,
+      "sigma": 0.0,
+      "sigma_label": "internal-OK / median",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "a1_primary_sources_named",
+          "question": "Does the document name primary sources by full name (not just 'research' or 'analysts')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "6 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "a2_dated_sources",
+          "question": "Are sources dated (e.g., 'April 2025', 'Q3 FY26')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "1 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "a3_triangulated_market_size",
+          "question": "Is market size triangulated with at least 2 independent sources?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "10 matches (need \u22654)",
+          "skipped": false
+        },
+        {
+          "id": "a4_sample_size_or_n",
+          "question": "Does at least one claim include sample size, N, or count basis?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "2 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "a5_confidence_intervals_or_ranges",
+          "question": "Are predictions stated as ranges or CAGR bands (not single point estimates)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "2 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "a6_falsification_criteria_present",
+          "question": "Are there explicit falsification or kill criteria?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "1 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "a7_dated_kill_claims",
+          "question": "Are kill criteria dated to specific calendar dates (not just 'eventually')?",
+          "mode": "proximity",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "no anchor matches found",
+          "skipped": false
+        },
+        {
+          "id": "a8_falsification_calendar",
+          "question": "Is there a 'Falsification Calendar' or dated trigger schedule section?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...heckpoint per Phase** Phase 1 decision: go/no-go on Forge Edge development. Phase 2 deci...",
+          "skipped": false
+        },
+        {
+          "id": "a9_named_competitors_with_evidence",
+          "question": "Are competitor probabilities decomposed (not bare % claims)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "3 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "a10_load_bearing_claim_identified",
+          "question": "Does the document identify which claim, if falsified, kills the whole thesis?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "rupture": {
+      "slug": "rupture",
+      "codename": "BREAKER",
+      "layer": "cognitive",
+      "axis": "Demolish at least one industry orthodoxy. Rebuild from first principles. The doc commits to a refusal.",
+      "score": 3.0,
+      "max": 10.0,
+      "ratio": 0.3,
+      "sigma": -8.0,
+      "sigma_label": "BLOCK",
+      "status": "BLOCK",
+      "questions": [
+        {
+          "id": "b1_explicit_refusal",
+          "question": "Does the doc explicitly refuse, reject, or abandon a standard industry move?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "1 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "b2_orthodoxies_named",
+          "question": "Are at least 2 industry orthodoxies named (AI CoE, pilot, Copilot bolt-on, AI literacy, transformation roadmap)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "b3_first_principles_rebuild",
+          "question": "Is there explicit first-principles language ('what if X didn''t exist', 'rebuild from')?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "b4_category_reframe",
+          "question": "Is the category being reframed (not just better execution of existing category)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "b5_explicit_anti_orthodoxy_section",
+          "question": "Is there a section explicitly contrasting RIG approach against consulting status-quo?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "b6_radical_pricing_or_structure",
+          "question": "Does the proposal include a non-standard commercial structure (production-or-nothing, equity, success fee)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "b7_demolition_explicit_target",
+          "question": "Is the specific orthodoxy being demolished named explicitly?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "b8_commitment_to_refusal",
+          "question": "Is there a commitment phrase signaling no retreat ('we will not sprint', 'we do not deliver decks')?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...o delivering measurable ROI by month 9. We will not sprint. Past this point, no retreat.  **Cadenc...",
+          "skipped": false
+        },
+        {
+          "id": "b9_no_safe_words",
+          "question": "Zero use of safe-word language ('explore', 'collaborate', 'co-create')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "b10_concrete_bet_against_status_quo",
+          "question": "Is there a specific concrete bet that contradicts status quo (e.g., 'monetize fleet data instead of attach', 'firmware not silicon')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "1 matches (need \u22651)",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "signal_to_noise": {
+      "slug": "signal_to_noise",
+      "codename": "PRISM",
+      "layer": "cognitive",
+      "axis": "d-prime above 1.8. Zero filler. Every word carries weight.",
+      "score": 8.0,
+      "max": 8.0,
+      "ratio": 1.0,
+      "sigma": 25.0,
+      "sigma_label": "civilization-grade (perfect)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "ps1_no_essentially_basically",
+          "question": "REQUIRED: zero use of 'essentially', 'basically', 'actually', 'really' as fillers?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "ps2_no_very",
+          "question": "REQUIRED: zero use of 'very' as intensifier?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "ps3_no_clearly_obviously",
+          "question": "REQUIRED: zero 'clearly', 'obviously', 'as everyone knows'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "ps4_short_sentence_density",
+          "question": "REQUIRED: average sentence length \u2264 22 words (terseness)?",
+          "mode": "ratio_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "density 78.9/kw (need \u226525.0)",
+          "skipped": false
+        },
+        {
+          "id": "ps5_no_throat_clearing",
+          "question": "REQUIRED: zero throat-clearing openers ('It should be noted', 'It is worth mentioning')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "ps6_no_hedge_overload",
+          "question": "REQUIRED: \u22643 hedging words ('perhaps', 'may', 'might', 'could possibly')?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "0 matches (need \u22650)",
+          "skipped": false
+        },
+        {
+          "id": "ps7_concrete_verbs",
+          "question": "REQUIRED: at least 8 action verbs (ship, deliver, audit, build, deploy, sign)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "7 matches (need \u22655)",
+          "skipped": false
+        },
+        {
+          "id": "ps8_no_redundant_pairings",
+          "question": "REQUIRED: zero redundant pairings ('plans and strategies', 'goals and objectives')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "somatic_stakes": {
+      "slug": "somatic_stakes",
+      "codename": "VISCERA",
+      "layer": "cognitive",
+      "axis": "Embodied stakes \u2014 felt, not described. Specific names, specific futures, specific people.",
+      "score": 5.0,
+      "max": 8.0,
+      "ratio": 0.625,
+      "sigma": -30.0,
+      "sigma_label": "publishable",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "vi1_named_humans",
+          "question": "REQUIRED: \u22653 specific humans named in roles?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "8 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "vi2_personal_pronoun_use",
+          "question": "REQUIRED: 'your team / your engineers / your customers' appears \u22655 times?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "vi3_concrete_workflow_detail",
+          "question": "REQUIRED: a specific concrete workflow scene (engineers wasting time on docs, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "vi4_named_failure_consequence",
+          "question": "REQUIRED: specific consequence of failure named for a specific stakeholder?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...ve pre-empted the following attacks: 1. Hill family ownership concerns \u2014 addressed through explicit role defi...",
+          "skipped": false
+        },
+        {
+          "id": "vi5_no_abstract_stakes_only",
+          "question": "REQUIRED: no abstract stakes only ('the future of work', 'industry transformation')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "vi6_year_resolved_state",
+          "question": "REQUIRED: future-state for HED resolved to specific numbers (Y3 $130M, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "vi7_real_field_use_case",
+          "question": "REQUIRED: at least one customer-application named (fire truck, refuse, ag, defense)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "5 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "vi8_no_anonymous_proxies",
+          "question": "REQUIRED: no anonymous 'a customer told us' or 'industry leaders say'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "vi2_personal_pronoun_use",
+        "vi3_concrete_workflow_detail",
+        "vi6_year_resolved_state"
+      ]
+    },
+    "speed_of_lumen": {
+      "slug": "speed_of_lumen",
+      "codename": "LUMEN",
+      "layer": "physics",
+      "axis": "Effects cannot precede causes. Causal ordering preserved. No 'as shown above' for content below.",
+      "score": 4.0,
+      "max": 6.0,
+      "ratio": 0.667,
+      "sigma": 10.0,
+      "sigma_label": "PASS (+2 optional)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "l1_no_forward_reference_as_already_proven",
+          "question": "REQUIRED: No 'as shown above', 'as established', 'as proven' followed within 800 chars by 'will demonstrate' or 'we'll show'?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "l2_evidence_before_claim_when_quoted",
+          "question": "REQUIRED: Citations have brackets/footnotes that point to a real number (no [TBD] or [SOURCE])?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "l3_phase_order_correct",
+          "question": "Are phases ordered Foundation \u2192 Activation \u2192 Scale (not jumbled)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...apacity constraints \u2014 addressed through Foundation Month 1 capacity audit. 5. Parker/Bosch acquisition threat \u2014 compressed Phase 3 timeline.  **Frame Labels** We will use the following frames to guide our strategy: * Frame 1: Defense Procurement * Frame 2: Developer Platform * Frame 3: Electrification  **Forge Product Line Names** We will reference the following Forge product lines: * Forge Edge * Forge Solo * Forge Team * Forge Vault * Forge Sight * Forge Net  **Specific Humans Named** Gijs Zomer and Mike Rodgers will be key stakeholders in this engagement.  **Engineering Specs** Our system will meet the following specs: * <50ms inference on CL-4002 silicon * <5% false-positive rate  **ML Model Type** We will use an isolation forest on CAN traffic features for anomaly detection.  **Brier-Score Tracking** We will maintain a forecast/Brier-score log to track our performance.  **Commitment Phrases** We commit to delivering measurable ROI by month 9. We will not sprint. Past this point, no retreat.  **Cadence Markers** Our rollout will follow the following cadence: * (Weekly review) Foundation Months 1\u20133: stakeholder interviews + system audit. * (Monthly cadence) Activation Months 4\u20139: spec generator \u2192 all 40 engineers; CMMC documentation accelerator. * (Quarterly review) Scale Months 10\u201318: Forge Vault deployed acro...",
+          "skipped": false
+        },
+        {
+          "id": "l4_dates_in_chronological_order",
+          "question": "Optional: Are year mentions in chronological order across the doc (2026 before 2027 before 2028)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...ivate) \u2014 3D50/3D70 display refresh 2025\u20132026 with TouchGFX + CODESYS, hiring embedded firmware engineers. * Curtiss-Wright (defense pure-play) \u2014 potential acquirer.  Low threat competitors: * APEM (Idec).  **24-Month Window** Today Bosch+Trackunit live, Parker+Camgian productizing, Grayhill catching up \u2192 Nov 10 2026 CMMC Phase 2 defense moat tightens \u2192 2027 H1 Parker AI-native IQAN likely category claim \u2192 2028 if HED hasn't moved, fast-follower posi...",
+          "skipped": false
+        },
+        {
+          "id": "l5_no_premature_conclusion",
+          "question": "Optional: Does conclusion appear AFTER body (not before)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "l6_cause_before_effect_in_economic",
+          "question": "Optional: In economic projections, attach-rate or capability driver named BEFORE revenue number?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "temporal_horizon_integrity": {
+      "slug": "temporal_horizon_integrity",
+      "codename": "HORIZON",
+      "layer": "cognitive",
+      "axis": "Replace milestones with bet structures (leading + lagging + kill criteria + compounding loop). 10-year arc, not 24-month roadmap.",
+      "score": 7.0,
+      "max": 10.0,
+      "ratio": 0.7,
+      "sigma": 8.0,
+      "sigma_label": "client-grade (lower)",
+      "status": "PASS",
+      "questions": [
+        {
+          "id": "h1_phases_with_dates",
+          "question": "Are phases dated to months or quarters (not vague)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "9 matches (need \u22654)",
+          "skipped": false
+        },
+        {
+          "id": "h2_leading_indicators_named",
+          "question": "Are leading indicators (weekly/monthly observable) explicitly named per phase?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "0 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "h3_lagging_indicators_named",
+          "question": "Are lagging indicators (quarterly/annual outcomes) named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "1 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "h4_kill_criteria_with_threshold",
+          "question": "Do kill criteria specify both date AND quantitative threshold?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "3 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "h5_compounding_loop_named",
+          "question": "Is at least one compounding loop (gets stronger without new input) named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "4 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "h6_year_arc_specified",
+          "question": "Does the doc commit to a multi-year arc (Y1/Y2/Y3 or longer) with concrete revenue/state per year?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": "2 matches (need \u22653)",
+          "skipped": false
+        },
+        {
+          "id": "h7_2_year_window_named",
+          "question": "Is the closing-window (CMMC deadline, competitor catch-up) dated to a specific year?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...an productizing, Grayhill catching up \u2192 Nov 10 2026 CMMC Phase 2 defense moat tightens \u2192 20...",
+          "skipped": false
+        },
+        {
+          "id": "h8_no_vague_horizons",
+          "question": "Zero vague phrases like 'long-term', 'down the road', 'in the future' without specific dates?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "h9_phase_review_gate",
+          "question": "Is there an explicit phase-review or go/no-go decision gate?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...heckpoint per Phase** Phase 1 decision: go/no-go on Forge Edge development. Phase 2 deci...",
+          "skipped": false
+        },
+        {
+          "id": "h10_decay_or_competitive_clock",
+          "question": "Is the competitive timing clock (when does the window close?) explicitly stated?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": "...w threat competitors: * APEM (Idec).  **24-Month Window** Today Bosch+Trackunit live, Parker+Ca...",
+          "skipped": false
+        }
+      ],
+      "failed_required": []
+    },
+    "vacuum_zeropoint": {
+      "slug": "vacuum_zeropoint",
+      "codename": "ZEROPOINT",
+      "layer": "physics",
+      "axis": "Even quiet systems show baseline activity. Concrete metrics throughout. No empty assertions.",
+      "score": 4.0,
+      "max": 6.0,
+      "ratio": 0.667,
+      "sigma": -30.0,
+      "sigma_label": "HARD_BLOCK (2 required failed)",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "zp1_dollar_density",
+          "question": "REQUIRED: at least 20 specific dollar amounts?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "16 matches (need \u226515)",
+          "skipped": false
+        },
+        {
+          "id": "zp2_percent_density",
+          "question": "REQUIRED: at least 15 specific percentages?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "14 matches (need \u226510)",
+          "skipped": false
+        },
+        {
+          "id": "zp3_time_unit_density",
+          "question": "REQUIRED: at least 12 specific time units (days/weeks/months/years)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "7 matches (need \u22658)",
+          "skipped": false
+        },
+        {
+          "id": "zp4_count_density",
+          "question": "REQUIRED: at least 10 specific counts (24 SKUs, 40 engineers, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "2 matches (need \u22657)",
+          "skipped": false
+        },
+        {
+          "id": "zp5_no_lazy_qualifiers",
+          "question": "REQUIRED: no 'significantly', 'substantially' without number?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "zp6_specific_versions",
+          "question": "REQUIRED: at least 2 specific dated versions/years (FY26, 2026, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "7 matches (need \u22654)",
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "zp3_time_unit_density",
+        "zp4_count_density"
+      ]
+    },
+    "voltage": {
+      "slug": "voltage",
+      "codename": "VOLT",
+      "layer": "cognitive",
+      "axis": "Emotional voltage without manipulation. Stakes named without hyperbole.",
+      "score": 5.0,
+      "max": 8.0,
+      "ratio": 0.625,
+      "sigma": -30.0,
+      "sigma_label": "publishable",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "v1_named_legacy",
+          "question": "REQUIRED: 35-year legacy / family-business heritage named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...omer (VP Operations, HED, Inc.) and the Hill family ownership. HED is a 35-year-old Hartfor...",
+          "skipped": false
+        },
+        {
+          "id": "v2_named_loss",
+          "question": "REQUIRED: explicit cost of not moving stated (margin compression, lost category, lost time)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...egory claim \u2192 2028 if HED hasn't moved, fast-follower position.  **Conditional Probabilities*...",
+          "skipped": false
+        },
+        {
+          "id": "v3_named_inefficiency",
+          "question": "REQUIRED: at least one specific operational drain named (hours/week wasted, etc.)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "v4_named_retirement_risk",
+          "question": "REQUIRED: senior-engineer retirement / knowledge-loss risk named?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "v5_named_competitor_threat",
+          "question": "REQUIRED: named competitor close to claiming category?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "...Landscape** High threat competitors: * Parker Hannifin (Q3 FY26 $5.5B sales, 23.4% margin) \u2014 Camgian partnership productizing now, Voice of the Machine...",
+          "skipped": false
+        },
+        {
+          "id": "v6_no_hyperbole",
+          "question": "REQUIRED: no over-the-top urgency ('once-in-a-lifetime', 'unprecedented opportunity')?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "v7_specific_humans_named",
+          "question": "REQUIRED: at least 2 specific humans named (Gijs Zomer, Mike Rodgers, etc.)?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": true,
+          "evidence": "7 matches (need \u22651)",
+          "skipped": false
+        },
+        {
+          "id": "v8_concrete_future_state",
+          "question": "Specific future state visualized (revenue, OEM count, year, category status)?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": false,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "v3_named_inefficiency",
+        "v4_named_retirement_risk"
+      ]
+    },
+    "zeigarnik_residue": {
+      "slug": "zeigarnik_residue",
+      "codename": "LOOP",
+      "layer": "cognitive",
+      "axis": "Open loops the reader must close. Each section ends with implicit question the next answers.",
+      "score": 1.0,
+      "max": 7.0,
+      "ratio": 0.143,
+      "sigma": -30.0,
+      "sigma_label": "deep violation",
+      "status": "HARD_BLOCK",
+      "questions": [
+        {
+          "id": "z1_open_questions_count",
+          "question": "REQUIRED: at least 4 explicit questions posed?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22654)",
+          "skipped": false
+        },
+        {
+          "id": "z2_named_decision_points",
+          "question": "REQUIRED: at least 3 explicit decision points named?",
+          "mode": "count_min",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": "0 matches (need \u22652)",
+          "skipped": false
+        },
+        {
+          "id": "z3_phase_transition_hooks",
+          "question": "REQUIRED: phase descriptions hint at next phase?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "z4_unresolved_in_first_500",
+          "question": "REQUIRED: first 500 chars contain a question or tension?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "z5_no_summarize_close",
+          "question": "Optional: doesn't close with full neat resolution (leaves a stake in the ground)?",
+          "mode": "absent",
+          "weight": 1.0,
+          "required": false,
+          "pass": true,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "z6_explicit_open_loop_named",
+          "question": "REQUIRED: explicit 'the real question' / 'the bet is' framing?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        },
+        {
+          "id": "z7_decision_for_reader",
+          "question": "REQUIRED: at least one decision is explicitly left to the reader?",
+          "mode": "regex",
+          "weight": 1.0,
+          "required": true,
+          "pass": false,
+          "evidence": null,
+          "skipped": false
+        }
+      ],
+      "failed_required": [
+        "z1_open_questions_count",
+        "z2_named_decision_points",
+        "z3_phase_transition_hooks",
+        "z4_unresolved_in_first_500",
+        "z6_explicit_open_loop_named",
+        "z7_decision_for_reader"
+      ]
+    }
+  }
+}

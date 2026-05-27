@@ -1,0 +1,40 @@
+slug: hawking_horizon
+codename: HORIZON-GATE
+layer: physics
+axis: Information must leak through opaque boundary. Proof of access ('we have', 'we built', 'we own').
+calibration:
+  direction: gate
+  pass_sigma: 15.0
+  per_optional_bonus: 2.5
+  hard_block_sigma: -30.0
+  max_sigma: 25.0
+questions:
+- id: hg1_we_have_present
+  question: 'REQUIRED: at least 6 ''we have / we own / we built / we deliver'' proofs?'
+  required: true
+  mode: count_min
+  pattern: \bwe (have|own|built|deliver|ship|operate|run|control|hold)\b
+  threshold: 6
+- id: hg2_specific_assets
+  question: 'REQUIRED: at least 3 specific assets named (CMMC L2, $10.4M contracts, 24 SKUs)?'
+  required: true
+  mode: count_min
+  pattern: (CMMC Level 2|\$10\.4M.+contracts|24 SKUs|24 (shipping )?products|35[- ]year|Oshkosh Defense)
+  threshold: 3
+- id: hg3_named_capabilities
+  question: 'REQUIRED: capabilities named with version/SKU?'
+  required: true
+  mode: count_min
+  pattern: \b(CL-?\d{3,4}|HK\s*\w+|Forge (Edge|Solo|Team|Vault|Sight))\b
+  threshold: 3
+- id: hg4_no_we_could
+  question: 'REQUIRED: ratio of ''we have / we built'' > ''we could / we plan to''?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(we plan to (eventually|someday|some day)|we hope to|we aim to (one day|eventually))\b
+- id: hg5_explicit_proofs
+  question: At least 2 customer/partner attestations or named wins?
+  mode: count_min
+  pattern: \b(Oshkosh|Pierce|Manitowoc|Deere|CAT|Caterpillar|Camgian|Trackunit).+(deployed|adopted|signed|contract|partnership)\b
+  threshold: 1

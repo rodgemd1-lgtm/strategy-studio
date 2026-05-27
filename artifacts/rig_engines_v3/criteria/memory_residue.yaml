@@ -1,0 +1,51 @@
+slug: memory_residue
+codename: ECHO
+layer: cognitive
+axis: What the reader remembers 48 hours later. Concrete, specific, numbered.
+questions:
+- id: e1_specific_numbers_density
+  question: 'REQUIRED: at least 25 specific dollar/percent/count numbers?'
+  required: true
+  mode: count_min
+  pattern: (\$\d+|\d+%|\d+\s*(OEMs?|customers?|engineers?|units?|controllers?|months?|days?))
+  threshold: 18
+- id: e2_named_companies
+  question: 'REQUIRED: at least 5 named comparable/competitor companies?'
+  required: true
+  mode: count_min
+  pattern: \b(Helios|Topcon|Wabtec|Allison|Cummins|Trimble|Parker|Bosch|Grayhill|Pierce|Oshkosh|CAT|Manitowoc|Deere|Camgian|Trackunit)\b
+  threshold: 5
+- id: e3_named_dates
+  question: 'REQUIRED: at least 3 specific calendar dates (Nov 10 2026, etc.)?'
+  required: true
+  mode: count_min
+  pattern: (\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w*\s+\d{1,2}[, ]+\d{4}|Q[1-4]\s+FY?\s?\d|\d{1,2}/\d{1,2}/\d{2,4})
+  threshold: 3
+- id: e4_specific_dollar_anchors
+  question: 'REQUIRED: $185K engagement number AND $10M Y3 ARR claim (or similar concrete anchors)?'
+  required: true
+  mode: count_min
+  pattern: (\$185(,?000|K)|\$485(,?000|K)|\$10M ARR|\$3-?4M ARR|\$8-?10M ARR|\$60M|\$130M|\$2\.0-2\.5B|9-13%)
+  threshold: 4
+- id: e5_named_program_terms
+  question: "REQUIRED: program names invented (Forge Edge/Solo/Team/Vault/Sight/Net) \u22653?"
+  required: true
+  mode: count_min
+  pattern: \bForge\s+(Edge|Solo|Team|Vault|Sight|Net)\b
+  threshold: 3
+- id: e6_single_sentence_recap
+  question: 'Optional: single-sentence thesis statement findable in first or last 1000 chars?'
+  mode: regex
+  pattern: (?s)^.{0,1000}\$\d.+(category|operating system|firmware|Forge Edge)
+- id: e7_no_jargon_only_sections
+  question: 'REQUIRED: no section consists primarily of acronyms/jargon without expansion?'
+  required: true
+  mode: absent
+  patterns:
+  - (CMMC.+J1939.+CODESYS.+CAN-bus.+OTA){2,}
+- id: e8_concrete_examples_per_capability
+  question: "REQUIRED: each capability claim has \u22651 concrete example?"
+  required: true
+  mode: count_min
+  pattern: (for example|e\.g\.,?|for instance|such as.+CL-?\d|like the CL-?\d|the CL-?\d+ shows)
+  threshold: 3

@@ -1,0 +1,55 @@
+slug: feynman_xray
+codename: XRAY
+layer: cognitive
+# genre tags: x3 requires HED-specific hardware signals (CAN, J1939); x6 requires embedded
+# inference latency targets. Both are sales/hardware-proposal specific.
+# Tagged genres:[sales] so they are skipped when --genre internal is active.
+axis: Expose fake understanding. Every claim explains HOW, not just WHAT.
+questions:
+- id: x1_how_density
+  question: 'REQUIRED: at least 12 ''how/why/mechanism/because'' markers per 1000 words?'
+  required: true
+  mode: ratio_min
+  pattern: \b(how|why|because|via|through|using|mechanism|method|approach|by means of)\b
+  threshold: 8.0
+- id: x2_no_buzzword_namedrops
+  question: 'REQUIRED: no AI/ML buzzwords used without mechanism (deep learning, neural net, transformer)?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(deep learning|neural network|transformer model|large language model|LLM)\b(?![^.]{0,200}(model|inference|fine-?tune|RAG|context
+    window|tokens))
+- id: x3_specific_signal_for_predictive
+  question: 'REQUIRED: predictive diagnostics explained with specific signal (CAN traffic, current spike, etc.)?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (CAN (traffic|message|frame|bus)|hydraulic pressure|sensor (drift|threshold)|current spike|temperature gradient|J1939
+    signal|controller area network)
+- id: x4_named_model_type
+  question: 'REQUIRED: when ML claimed, model TYPE named (autoencoder, isolation forest, etc.)?'
+  required: false
+  mode: regex
+  pattern: (autoencoder|isolation forest|gradient boost|random forest|XGBoost|LightGBM|LSTM|conv neural|kalman filter|statistical
+    anomaly|threshold model|rule-based)
+- id: x5_false_positive_rate
+  question: 'REQUIRED: false-positive rate or error bound stated?'
+  required: false
+  mode: regex
+  pattern: (false[- ]positive|FPR|precision|recall|accuracy|ROC|AUC|<\s*\d+\s*%\s*error|<\s*\d+\s*%\s*FP)
+- id: x6_inference_latency_named
+  question: 'REQUIRED: inference latency or compute budget named?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (<\s*\d+\s*ms|latency|inference time|runs in|fits in|memory budget|RAM footprint|MCU|microcontroller)
+- id: x7_failure_mode_diagnosed
+  question: 'REQUIRED: at least one failure mode explained mechanically (why it could fail)?'
+  required: true
+  mode: regex
+  pattern: (could fail (if|when|because)|fails (if|when|because)|failure mode:|fail open|fail closed|graceful degradation|fallback)
+- id: x8_no_unexplained_passive
+  question: 'Optional: no key claims in passive voice without agent (''was determined'', ''has been shown'')?'
+  mode: absent
+  patterns:
+  - \b(was determined|has been shown|is believed|is understood|are considered|will be)\b

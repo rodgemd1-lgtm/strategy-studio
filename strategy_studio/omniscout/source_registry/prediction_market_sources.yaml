@@ -1,0 +1,25 @@
+activation_policy: manual_review_required
+aggregators:
+- MetaForecast
+- Prediction Market Dashboard
+platforms:
+- api_available: true
+  automation_allowed: false
+  name: Kalshi
+  type: regulated_exchange
+- api_available: true
+  automation_allowed: false
+  name: Polymarket
+  type: crypto_prediction
+- api_available: true
+  automation_allowed: false
+  name: Metaculus
+  type: forecasting_platform
+- api_available: true
+  automation_allowed: false
+  name: Manifold
+  type: play_money
+- api_available: true
+  automation_allowed: false
+  name: Good Judgment Open
+  type: expert_forecasting

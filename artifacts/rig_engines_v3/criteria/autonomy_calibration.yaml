@@ -1,0 +1,50 @@
+slug: autonomy_calibration
+codename: SOVEREIGN
+layer: cognitive
+axis: Reader/user retains agency. Explicit choices. No coercive framing.
+questions:
+- id: so1_explicit_choice_offered
+  question: 'REQUIRED: explicit ''your choice'' or ''opt-out'' offered?'
+  required: true
+  mode: count_min
+  pattern: (your choice|opt-out|your call|you decide|either .+ or|optional|opt in)
+  threshold: 2
+- id: so2_tiered_options
+  question: 'REQUIRED: at least 3 priced options (Diagnostic / Activation / Transformation)?'
+  required: true
+  mode: count_min
+  pattern: (Diagnostic.+\$|Activation.+\$|Transformation.+\$|\$\d+,?\d+\s*(/mo|month|engagement|tier))
+  threshold: 3
+- id: so3_no_high_pressure
+  question: 'REQUIRED: zero high-pressure language (''act now'', ''limited time'', ''only opportunity'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(act now|limited[- ]time|only opportunity|don.t wait|now or never|window will close in days)\b
+- id: so4_explicit_off_ramp
+  question: 'REQUIRED: explicit off-ramp at named decision point (Month 9, etc.)?'
+  required: true
+  mode: regex
+  pattern: (Month\s+\d.+(review|go/no-go|decision|approve|abort)|exit (criterion|criteria)|off[- ]ramp|hand-?off)
+- id: so5_ownership_clarified
+  question: 'REQUIRED: ownership/IP of output explicitly belongs to HED?'
+  required: true
+  mode: regex
+  pattern: (your (system|platform|stack|knowledge graph|data)|HED owns|OEM owns the data|system stays yours|knowledge stays|you
+    own)
+- id: so6_handoff_milestones
+  question: 'REQUIRED: explicit hand-off / ownership transfer milestones named?'
+  required: true
+  mode: regex
+  pattern: (hand-?off|System owner|Build .* Hand-?off|advisory.+optional|roll[- ]off|stage[d]? hand[- ]off)
+- id: so7_no_lock_in_language
+  question: 'REQUIRED: no lock-in language (''exclusive'', ''long-term commit'', ''irrevocable'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(exclusive (right|partnership)|irrevocable|locked in for|multi-?year commit|cannot leave)\b
+- id: so8_explicit_renegotiation
+  question: 'REQUIRED: explicit scope renegotiation clause?'
+  required: true
+  mode: regex
+  pattern: (renegotiate|rescope|adjust scope|extend at no additional fee|refund pro-rata|amend)

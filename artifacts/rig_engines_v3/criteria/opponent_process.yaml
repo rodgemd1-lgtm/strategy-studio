@@ -1,0 +1,49 @@
+slug: opponent_process
+codename: REBOUND
+layer: cognitive
+# genre tags: r6 requires HED-specific painful truth (Parker/commercial framing).
+# Tagged genres:[sales] so it is skipped when --genre internal is active.
+axis: Affective contrast. Hard claim immediately followed by its counter. Aftertaste durable.
+questions:
+- id: r1_contrast_connectives
+  question: "REQUIRED: \u22656 contrast connectives ('but', 'however', 'yet', 'whereas')?"
+  required: true
+  mode: count_min
+  pattern: \b(but|however|on the other hand|yet|whereas|despite|although|even though)\b
+  threshold: 6
+- id: r2_explicit_devils_advocate
+  question: 'REQUIRED: explicit devil''s advocate section?'
+  required: true
+  mode: regex
+  pattern: (devil.?s advocate|the counter[- ]argument|the rebuttal|opposing view|steel[- ]man)
+- id: r3_acknowledged_risk_per_bet
+  question: 'REQUIRED: each major bet acknowledges its specific risk?'
+  required: true
+  mode: count_min
+  pattern: (risk:|risk is|the risk|risks include|downside risk|known risk|unknown risk)
+  threshold: 3
+- id: r4_concession_present
+  question: 'REQUIRED: at least one concession (HED accepts X to win Y)?'
+  required: true
+  mode: regex
+  pattern: (we (accept|concede|acknowledge|admit)|HED accepts|acceptable tradeoff|we give up|we lose .+ but gain)
+- id: r5_strong_then_qualifier
+  question: 'REQUIRED: at least 3 strong claims immediately followed by qualifier?'
+  required: true
+  mode: count_min
+  pattern: (\$\d|\d+%|guaranteed|category-creating|will|must).{0,80}(but|however|provided|if|unless|under condition|conditional
+    on)
+  threshold: 3
+- id: r6_named_painful_truth
+  question: 'REQUIRED: at least one painful truth stated (Parker might win commercial, etc.)?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (Parker (takes|wins|leads) commercial|Bosch (wins|leads).+commercial|HED holds (only |just )defense|fast[- ]follower
+    position|second place)
+- id: r7_no_unbroken_hype
+  question: 'REQUIRED: no unbroken hype paragraph (>400 chars without contrast)?'
+  required: true
+  mode: absent
+  patterns:
+  - ([^.!?\n]*\.){5,}(?![\s\S]*\b(but|however|yet|whereas|risk|however))

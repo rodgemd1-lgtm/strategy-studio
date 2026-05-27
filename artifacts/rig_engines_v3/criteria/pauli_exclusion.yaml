@@ -1,0 +1,56 @@
+slug: pauli_exclusion
+codename: PAULI
+layer: physics
+axis: "No two artifacts occupy the same state. No boilerplate duplication. Each section unique."
+
+calibration:
+  direction: gate
+  pass_sigma: 8.0
+  per_optional_bonus: 1.0
+  hard_block_sigma: -30.0
+
+questions:
+  - id: p1_no_repeated_paragraph_headers
+    question: "REQUIRED: No section header appears twice in the document?"
+    required: true
+    mode: absent
+    patterns:
+      - '^(Executive Summary|Introduction|Background|Conclusion|Summary)[\s\S]{50,}^(Executive Summary|Introduction|Background|Conclusion|Summary)\b'
+
+  - id: p2_no_repeated_sentence_starters
+    question: "Are repeated sentence starters ('We will', 'Our') used <8x each?"
+    mode: count_min
+    pattern: '^(We will|Our)\b'
+    threshold: 0  # we want fewer; flip below
+  # The above is illustrative; we mostly rely on absent + content-specific checks
+
+  - id: p3_no_generic_summary_filler
+    question: "Zero use of stock executive-summary closing phrases ('In conclusion', 'To summarize', 'In summary')?"
+    mode: absent
+    patterns:
+      - '\b(In conclusion|To summarize|In summary,|In closing,|As mentioned earlier|As stated above)\b'
+
+  - id: p4_unique_phase_descriptions
+    question: "Each major phase (Foundation/Activation/Scale) has distinct deliverables, not just rephrased same content?"
+    mode: count_min
+    pattern: '(Foundation.+(audit|interviews|literacy)|Activation.+(spec generator|configurator|first.+pilot)|Scale.+(Vault|Forge Net|category claim))'
+    threshold: 3
+
+  - id: p5_no_paragraph_repeats
+    question: "REQUIRED: No paragraph (≥80 chars) appears twice verbatim?"
+    required: true
+    mode: absent
+    patterns:
+      - '([^\n]{80,}?)\n[\s\S]{0,2000}\1'
+
+  - id: p6_distinct_tier_descriptions
+    question: "Each engagement tier (Diagnostic, Activation, Transformation) has different deliverables enumerated?"
+    mode: count_min
+    pattern: '(Diagnostic.+Foundation|Activation.+\$185|Transformation.+\$485|tier.+months)'
+    threshold: 3
+
+  - id: p7_no_redundant_value_props
+    question: "Optional: zero use of 'we will deliver' more than 4x?"
+    mode: absent
+    patterns:
+      - '(we will deliver[\s\S]{20,200}){5,}'

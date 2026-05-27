@@ -1,0 +1,61 @@
+slug: kolmogorov_originality
+codename: GLYPH
+layer: cognitive
+# genre tags: gl5 requires HED Forge product names; gl6 requires HED-specific analogies;
+# gl9 requires dollar anchors in opening (sales doc convention). Tagged genres:[sales].
+axis: Cannot be compressed to a known consulting phrase. Maximum lexical diversity. Doctrine-anchored phrasing.
+questions:
+- id: gl1_no_template_openings
+  question: 'REQUIRED: no template opening (''In an era where'', ''It is widely recognized'')?'
+  required: true
+  mode: absent
+  patterns:
+  - ^.{0,200}(In an era where|It is widely (recognized|acknowledged)|In today.s (rapidly|fast-paced)|As we (look to|move into))
+- id: gl2_no_closing_template
+  question: 'REQUIRED: no template closing (''In closing'', ''To summarize'', ''In conclusion'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(In closing|To summarize,|In summary,|In conclusion,|As we conclude|As mentioned earlier)\b
+- id: gl3_no_bullet_filler
+  question: 'REQUIRED: no empty bullets (''drive value'', ''enable transformation'', ''unlock potential'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(drive value|enable (transformation|growth)|unlock (potential|value)|maximize ROI|right-size|future-proof)\b
+- id: gl4_unique_compound_phrases
+  question: At least 4 unique compound phrases (firmware-and-knowledge, fleet learning, etc.)?
+  mode: count_min
+  pattern: (firmware-and-knowledge|fleet learning|fleet intelligence|knowledge graph|edge inference|production-or-nothing|category-creating|operating
+    system|virtual appliance)
+  threshold: 3
+- id: gl5_named_invented_terms
+  question: "REQUIRED: \u22652 named program/product terms unique to this proposal (Forge Edge, Forge Net, etc.)?"
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: \bForge\s+(Edge|Solo|Team|Vault|Sight|Net)\b
+  threshold: 1
+- id: gl6_specific_metaphor
+  question: 'REQUIRED: at least one specific extended metaphor (Bloomberg, iOS of CAN, etc.)?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (Bloomberg of|iOS of|App Store of|Stripe of|Tesla of|Linux of|GitHub of)
+- id: gl7_no_consultant_packaging
+  question: 'REQUIRED: no consultant-packaging tokens (engagement-led, value-add, deliverable-rich)?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(value-add|deliverable-rich|engagement-led|outcome-driven|client-centric|customer-centric|user-centric)\b
+- id: gl8_no_3-bullet_summary_filler
+  question: 'Optional: no recurring ''3 things'' / ''three pillars'' bullet template?'
+  mode: absent
+  patterns:
+  - \b(three pillars|three core|3 ways|three reasons|three things)\b
+- id: gl9_specific_dollar_in_first_500
+  question: 'REQUIRED: at least 2 specific dollar amounts in first 500 chars (anchored opening)?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (?s)^.{0,500}\$\d.{0,400}\$\d

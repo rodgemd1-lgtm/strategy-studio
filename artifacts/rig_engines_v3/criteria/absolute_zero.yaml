@@ -1,0 +1,58 @@
+slug: absolute_zero
+codename: KELVIN
+layer: physics
+axis: "No unreachable-floor claims. Strip zero/perfect/always/100%/never. All absolutist phrasing wrapped in conditions."
+
+calibration:
+  direction: gate
+  pass_sigma: 10.0
+  per_optional_bonus: 1.5
+  hard_block_sigma: -30.0
+
+questions:
+  - id: k1_no_zero_downtime
+    question: "REQUIRED: Zero use of 'zero downtime'?"
+    required: true
+    mode: absent
+    patterns:
+      - '\bzero downtime\b'
+
+  - id: k2_no_perfect
+    question: "REQUIRED: Zero use of unqualified 'perfect' as performance claim?"
+    required: true
+    mode: absent
+    patterns:
+      - '\b(perfect (uptime|reliability|delivery|results|accuracy)|perfectly reliable)\b'
+
+  - id: k3_no_always_promises
+    question: "REQUIRED: Zero use of 'always works', 'never fails', 'always available'?"
+    required: true
+    mode: absent
+    patterns:
+      - '\b(always works|never fails|never break|always available|always on)\b'
+
+  - id: k4_no_unqualified_100pct
+    question: "REQUIRED: Zero use of unqualified '100%' performance claims?"
+    required: true
+    mode: absent
+    patterns:
+      - '100% (reliable|accurate|guaranteed|effective|complete|secure)\b'
+
+  - id: k5_no_unconditional_guarantee
+    question: "Are 'guaranteed' uses bounded by explicit conditions/scope?"
+    mode: absent
+    patterns:
+      - '\bguaranteed\b(?![^.]{0,100}(if|unless|condition|scope|month|terminate|refund))'
+
+  - id: k6_no_cannot_be_argued
+    question: "Zero use of debate-stoppers ('cannot be argued', 'undeniable', 'irrefutable')?"
+    mode: absent
+    patterns:
+      - '\b(cannot be argued|undeniable|irrefutable|self-evident|obviously the (best|only))\b'
+
+  - id: k7_absolute_claims_qualified
+    question: "Optional: where 'no truck rolls' or similar appears, is it bounded ('once OTA deployed', 'for signed firmware')?"
+    mode: proximity
+    anchor: '\bno truck rolls\b'
+    target: '(once|when|after|with|under|provided|via)'
+    window_chars: 200

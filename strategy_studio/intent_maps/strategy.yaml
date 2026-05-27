@@ -1,0 +1,89 @@
+# RIG Strategy Studio — Intent Map
+studio: strategy
+version: "1.0"
+description: "Strategic intelligence: research, forecast, decide, execute"
+
+intents:
+  research:
+    level: L3
+    diamond: D2
+    archetype: A2.3
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - notion
+    cost_band: "$0.05"
+    description: "Deep research on market, competitor, or technology with source capture."
+    bms_mode: HYBRID
+    steps:
+      - I1: Ingest research question + scope + time budget
+      - Q1: Score question specificity (0-1)
+      - R: Research primary + secondary sources, arXiv, web, CRM
+      - S: Structure ResearchPack (claims, sources, contradictions)
+      - Q2: Quality gate (evidence density ≥ 0.33, no fake authority)
+      - P: Proof check (every claim → source, contradiction flag)
+      - I2: Emit ResearchPack + source manifest
+
+  forecast:
+    level: L5
+    diamond: D3
+    archetype: A4.5
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - notion
+      - airtable
+    cost_band: "$5.00"
+    description: "Scenario forecasting with probability councils and Brier scoring."
+    bms_mode: LLM_AGENT_FREE
+    steps:
+      - I1: Ingest forecast question + resolution criteria + time horizon
+      - Q1: Score question falsifiability (0-1)
+      - R: Research base rates, historical analogues, expert views
+      - S: Structure forecast (scenarios, probabilities, confidence intervals)
+      - Q2: Quality gate (strategic depth, falsification tests)
+      - P: Proof check (Brier calibration, base-rate documentation)
+      - I2: Emit forecast pack + probability council brief
+
+  decide:
+    level: L4
+    diamond: D3
+    archetype: A3.4
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - notion
+    cost_band: "$0.50"
+    description: "Decision-room brief: options, tradeoffs, recommendation, risk map."
+    bms_mode: AGENT_BOUNDED
+    steps:
+      - I1: Ingest decision context + constraints + stakeholder map
+      - Q1: Score decision clarity + option diversity (0-1)
+      - R: Research analogous decisions, outcome data, expert takes
+      - S: Structure decision brief (options, tradeoffs, rec, risk map)
+      - Q2: Quality gate (mechanism map, no unreachable floors)
+      - P: Proof check (cross-validation, contradiction flag)
+      - I2: Emit decision brief + approval-ready summary
+
+  execute:
+    level: L2
+    diamond: D1
+    archetype: A1.2
+    tools:
+      - read_file
+      - bash
+      - notion
+    cost_band: "$0.005"
+    description: "Execution task: create artifacts, update systems, schedule actions."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest execution task + output spec + deadline
+      - Q1: Score task clarity + spec completeness (0-1)
+      - R: Research templates, prior art, system APIs
+      - S: Structure artifact (file, page, calendar event)
+      - Q2: Quality gate (deterministic output, no slop)
+      - P: Proof check (version control, checksum)
+      - I2: Emit artifact + execution log

@@ -1,0 +1,6 @@
+{
+  "module": "rig.archetypes.a1_python_only._types",
+  "sha256": "d8cca432a94cb16a123381dad7ea14a0381970e929ee8719c3df9d1989caf279",
+  "timestamp": "2026-05-17T21:52:29.282620+00:00",
+  "doctrine": "A1 owns the frozen shared contract surface. Any drift breaks the lattice."
+}

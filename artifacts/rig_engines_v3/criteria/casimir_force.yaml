@@ -1,0 +1,40 @@
+slug: casimir_force
+codename: CASIMIR
+layer: physics
+axis: Constrained empty space generates measurable force. Sentence brevity amplifies weight.
+calibration:
+  direction: gate
+  pass_sigma: 12.0
+  per_optional_bonus: 2.0
+  hard_block_sigma: -30.0
+  max_sigma: 25.0
+questions:
+- id: cs1_short_avg_sentence
+  question: 'REQUIRED: at least 50 sentences (proxy: 50+ punctuation terminators)?'
+  required: true
+  mode: count_min
+  pattern: '[.!?]+'
+  threshold: 35
+- id: cs2_no_paragraph_runons
+  question: 'REQUIRED: no paragraph longer than 800 chars without a break?'
+  required: true
+  mode: absent
+  patterns:
+  - \n\s*\n([^\n]{800,})\n\s*\n
+- id: cs3_terse_sections
+  question: "REQUIRED: at least 4 short (\u2264 200 char) standalone paragraphs?"
+  required: true
+  mode: count_min
+  pattern: \n\n[^\n]{40,200}\n\n
+  threshold: 4
+- id: cs4_bullet_lists_present
+  question: 'REQUIRED: at least 2 bullet/number lists used?'
+  required: true
+  mode: count_min
+  pattern: "^\\s*[-*\u2022]\\s+\\w|^\\s*\\d+\\.\\s+\\w"
+  threshold: 4
+- id: cs5_compressed_metric_lines
+  question: "At least 2 punchy metric one-liners ('5.4\xD7 ROI on $185K')?"
+  mode: count_min
+  pattern: "\\d+(\\.\\d+)?\\s*[x\xD7]\\s+ROI\\s+on\\s+\\$\\d"
+  threshold: 1

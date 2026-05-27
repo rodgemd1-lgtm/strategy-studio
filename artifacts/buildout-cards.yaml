@@ -1,0 +1,728 @@
+---
+version: 2.0
+created: "2026-05-17"
+total_cards: 28
+scope: "All RIG buildout cards extracted from Mike's Recall exports"
+
+cards:
+  # ===== CORE INFRASTRUCTURE =====
+  - card_id: BC-JAKE-V10
+    title: "RIG OS JAKE V10 — Full Build Card for Human-Governed Personal AGI Operating System, Autonomous Workforce, Recursive Self-Improvement, and Governance Kernel"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/RIG OS JAKE V10 — Full Build Card for Human-Governed Personal AGI Operating System, Autonomous Workforce, Recursive Self-Improvement, and Governance Kernel.md"
+    size_kb: 45
+    maps_to_v2_layer: "Identity"
+    maps_to_v2_studio: null
+    maps_to_v1_phase: "A"
+    priority: "P0"
+    status_current: "declared-only"
+    one_line_summary: "Constitutional personal AGI OS that governs autonomously within human-defined constraints."
+
+    full_summary: |
+      JAKE V10 is the human-governed personal AGI operating system — Mike's autonomous intelligence organization operating within hard constraints.
+
+      The core thesis: V0 operates the system; V10 governs the system. It continuously senses, reasons, executes, scores, learns, improves, and surfaces only decisions requiring human governance. The system must answer: What matters? What changed? What failed? What's improving? What needs approval? What should stop? What should be built?
+
+      Architecture spans 10 layers from Access Surfaces (Layer 1) through Command Surfaces (Telegram, CLI, browser, extension), Governance Kernel with constitutional non-evolvable laws, Mission Control for deep governance, Agent Workforce with self-evolving roles, Execution Runtime + Sandboxes, Memory + EvidenceGraph, Intelligence + Forecasting, Deviation Engines, Capability Foundry for recursive self-improvement, and Studios for business/creative/life OS. V10 includes a maturity ladder from V0 (human-operated, AI-assisted) through V10 (human-governed, AI-sovereign within constraints).
+
+    components_specified:
+      - name: "Mission Control UI"
+        purpose: "Deep governance surface for Jake's daily operations, mission approval, and strategic decisions"
+        file_target: "apps/mission-control/"
+      - name: "Governance Layer"
+        purpose: "Constitutional kernel defining non-evolvable laws: no audit-log modification, no credential storage, no external send without approval, no GovernanceLayer changes without Jake's signature"
+        file_target: "startup-os/control-plane/governance/"
+      - name: "Agent Workforce"
+        purpose: "Self-evolving agent roster with automatic retirement, merging, and specialization based on outcome feedback"
+        file_target: "claude/agents/"
+      - name: "Capability Foundry"
+        purpose: "System that creates new doctrines and capabilities, proposes architecture changes, and manages recursive self-improvement within governance boundaries"
+        file_target: "susan-team-architect/backend/capability_foundry/"
+
+    dependencies:
+      - "BC-OPENCLASS-3D-LATTICE (architectural backbone)"
+      - "BC-MEMORY-GRAPH (evidence infrastructure)"
+      - "BC-DEVIATION-ENGINES (evaluation substrate)"
+
+    acceptance_criteria:
+      - "Mission Control displays agent status, failures, approvals, and next actions"
+      - "Governance layer blocks non-approved external sends"
+      - "All agent improvements shadow-tested before promotion"
+      - "Every memory write includes source, confidence, privacy scope, trace, rollback ID"
+      - "Constitutional laws are read-only at runtime"
+
+    risk_or_open_questions:
+      - "Recursive self-improvement limits and safety gates not yet defined"
+      - "OpenFang channel integration (40-channel spine) scope unclear"
+      - "Proof policy for strategic Layer 6-7 work not specified"
+
+    mike_decisions_required:
+      - "What are the exact escalation thresholds for Mission Control alerts?"
+      - "Should capability retirement require Jake's approval or just logging?"
+      - "How often should GovernanceLayer be audited?"
+
+  - card_id: BC-OPENCLASS-3D-LATTICE
+    title: "OpenClaw Corrected Build Card — RIG 3D Lattice with BMS as Z-Axis"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-16-14/RIG Architecture/OpenClaw Corrected Build Card — RIG 3D Lattice with BMS as Z-Axis.md"
+    size_kb: 218
+    maps_to_v2_layer: "Runtime"
+    maps_to_v2_studio: null
+    maps_to_v1_phase: "A"
+    priority: "P0"
+    status_current: "scaffold"
+    one_line_summary: "3D lattice (Levels × Diamonds × BMS Confidence) with 7-step IQRSQPI process inside each coordinate."
+
+    full_summary: |
+      OpenClaw is the Hermes-tier orchestrator for RIG's 3D operating lattice. The critical correction: Z-axis is NOT IQRSQPI; it is Confidence/BMS Build Mode. IQRSQPI is the seven-step process that runs INSIDE each lattice coordinate.
+
+      Geometry: 7 Levels × 3 Diamonds (Physical/Cognitive/Nature) × 4 BMS Modes (A1-A4) = 84 primary coordinates. Each coordinate runs through IQRSQPI (Intent → Question → Research → Solution → Quality → Proof → Integrate) for 588 process-expanded cells. Implementation compresses into 28 reusable archetypes (4 BMS modes × 7 steps).
+
+      Levels span L1 (direct deterministic ops) through L7 (doctrine/emergent strategy). BMS modes range A1 (Python-only, ≥0.75 confidence) through A4 (LLM-agent-free, <0.25 confidence). Runtime must continuously resolve: Where am I? (Coordinate) → What do I do? (IQRSQPI step inside that coordinate).
+
+    components_specified:
+      - name: "3D Lattice Router"
+        purpose: "Routes inbound payload to correct Level/Diamond/BMS coordinate and IQRSQPI step"
+        file_target: "services/ops/openclaw_router.py"
+      - name: "28 IQRSQPI Archetypes"
+        purpose: "Template implementations for each BMS-mode × process-step combination"
+        file_target: "artifacts/rig_engines_v3/archetypes/"
+      - name: "BMS Confidence Calculator"
+        purpose: "Computes BMS score (0.0–1.0) based on failure cost, reversibility, mechanism clarity, determines A1/A2/A3/A4 routing"
+        file_target: "artifacts/rig_engines_v3/bms_calculator.py"
+      - name: "Cell Audit Trail"
+        purpose: "Proof binding for each cell: sources, gates, signer, timestamp, hash, approval state"
+        file_target: "services/memory/cell_audit.sqlite"
+
+    dependencies:
+      - "BC-IQRSQPI-PROCESS (process definition)"
+      - "BC-DEVIATION-ENGINES (evaluation at each step)"
+      - "BC-PROOF-SYSTEM (proof binding)"
+
+    acceptance_criteria:
+      - "All inbound payloads correctly route to L×D×A×step coordinate"
+      - "Each archetype produces proof with sources and gates"
+      - "BMS confidence score calibrated against 50+ historical decisions"
+      - "Fallback escalation policy clear for ambiguous coordinates"
+      - "Cell audit trail persists across all 588 cells"
+
+    risk_or_open_questions:
+      - "How to compute BMS score for novel tasks not in training history?"
+      - "Escalation policy for A4 cells where LLM disagrees with human judgment?"
+      - "Should Levels be reassessable or locked after routing decision?"
+
+    mike_decisions_required:
+      - "What is the minimum sample size to calibrate BMS thresholds (current estimate: 50 decisions)?"
+      - "Should Levels 6-7 always require approval before integration?"
+      - "How should triple-diamond work spanning D1-D2-D3 be routed (sequential or parallel)?"
+
+  - card_id: BC-COMMS-DEV-V2
+    title: "RIG OS Communications Deviation Engine V2: -20 to +20 Spectrum — Executable Formulas, Bipolar Gates, Craft Layer"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/RIG OS Communications Deviation Engine V2 -20 to +20 Spectrum — Executable Formulas, Bipolar Gates, Craft Layer (Eminem  DFW  Didion  McCarthy), Prediction-Swarm + Brier Calibration.md"
+    size_kb: 95
+    maps_to_v2_layer: "Engines"
+    maps_to_v2_studio: "Communications"
+    maps_to_v1_phase: "C"
+    priority: "P0"
+    status_current: "built"
+    one_line_summary: "Bipolar deviation engine for all written comms (-20 to +20) with craft archetypes, prediction swarm, Brier calibration."
+
+    full_summary: |
+      V2 upgrades V1's communications scoring by promoting negative scores to first-class citizens. Both +20 (DETONATION) and -20 (EROSION) are valid targets; median (0) is the only forbidden state. Every artifact must be calibrated to one pole with explicit math.
+
+      Formula: BDF = sign(intent) × |RobustMADZ| × CraftCoefficient × RestraintCoefficient. Gate: |BDF| ≥ 8.0 to ship. DetonationScore (positive pole) weights RuptureForce, SpecificityWeight, SacredWordFracture, IdentityIndictment, FalsifiableBet. ErosionScore (negative pole) weights Compression, Restraint, NegativeSpaceWeight, DurationOfSilence, SingleWordPrecision.
+
+      CraftCoefficient runs all five prose archetypes (EminemDensity, HemingwayCompression, DidionCadence, McCarthyRhythm, WallaceRecursion) and takes maximum. RestraintCoefficient penalizes overwriting and qualification hedges. Bipolar Prediction Swarm runs 12 personas (6 positive, 6 negative) independently for every artifact. ManipulationRisk ceiling varies by pole; Brier calibration tracks persona accuracy separately for each pole.
+
+    components_specified:
+      - name: "BDF Calculator"
+        purpose: "Executes Bipolar Deviation Formula for every artifact before shipping"
+        file_target: "artifacts/rig_engines_v3/bdf_calculator.py"
+      - name: "DetonationScore Engine"
+        purpose: "Scores positive-pole artifacts (≥+16 target) across 9 weighted factors"
+        file_target: "artifacts/rig_engines_v3/detonation_scorer.py"
+      - name: "ErosionScore Engine"
+        purpose: "Scores negative-pole artifacts (≤-16 target) across 7 weighted factors"
+        file_target: "artifacts/rig_engines_v3/erosion_scorer.py"
+      - name: "Craft Archetype Runner"
+        purpose: "Computes all 5 craft coefficients, returns max to gate on ≥0.85"
+        file_target: "artifacts/rig_engines_v3/craft_archetypes.py"
+      - name: "Bipolar Prediction Swarm"
+        purpose: "Runs 12 personas across both poles, computes consensus ≥0.65 gate"
+        file_target: "artifacts/rig_engines_v3/swarm_bipolar.py"
+      - name: "Brier Calibration"
+        purpose: "Post-publication, track each persona's accuracy separately for positive and negative poles"
+        file_target: "services/memory/brier_calibration.db"
+
+    dependencies:
+      - "BC-ROBUST-MAD-PROTOCOL (robust z-score calculation)"
+      - "BC-DEVIATION-ENGINES (evaluation framework)"
+
+    acceptance_criteria:
+      - "All outputs land at ±8σ or higher from median (no median disguises)"
+      - "Both poles have documented examples at -20, -16, -10, +10, +16, +20"
+      - "Craft archetype selection explicitly reported in output metadata"
+      - "Swarm consensus ≥0.65 enforced before shipping"
+      - "ManipulationRisk poles-specific gates enforced"
+      - "Brier scores updated post-publication for all personas"
+
+    risk_or_open_questions:
+      - "How to handle high-stakes decisions (e.g., leadership communication) that must ship positive but may need negative follow-up?"
+      - "What is the fallback when all 12 personas disagree (consensus <0.65)?"
+      - "Should Brier calibration reset yearly or persist indefinitely?"
+
+    mike_decisions_required:
+      - "Which communication types should default to positive vs. negative poles? (current: flagship articles +16 to +20, replies both ±8 to ±14)"
+      - "Should manipulation risk be asymmetric between poles (current: -8 to -20 stricter at 0.15 vs +16 to +20 at 0.25)?"
+      - "How frequently should persona weights be rebalanced based on Brier scores?"
+
+  # ===== STUDIOS & OPERATIONAL SYSTEMS =====
+  - card_id: BC-AVIS-NPS
+    title: "AVIS NPS Studio Development and Specs"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-16-14/AVIS NPS Studio Development and Specs.md"
+    size_kb: 25
+    maps_to_v2_layer: "Vertical-Capability"
+    maps_to_v2_studio: "Operations"
+    maps_to_v1_phase: "D"
+    priority: "P1"
+    status_current: "scaffold"
+    one_line_summary: "Automated NPS studio for AVIS rental cars: QR-code routing, SMS/email recovery, daily digests, Google review automation."
+
+    full_summary: |
+      AVIS NPS Studio is a fully automated reputation management system for AVIS car rental. QR codes on computers route low reviews (≤8) to internal SMS/email recovery loop; high reviews (≥9) auto-submit to Google. Internal detractor recovery: P1 manager SMS within 15 min for ≤3 scores, T+24h check-in, 72h escalation, 30d reconversion attempt.
+
+      Three daily digests (8am, 12pm, 4pm) report: live capture rate, 7-day sparkline, AI-clustered themes, agent coaching flags, prescriptive plays. NPS formula: % Promoters (9-10) − % Detractors (0-6). Volume tactics include SMS+email combo (98% vs 20-30% open), pre-staged review text, counter-staff verbal cues, T+2h timing. Architecture stitches open-source foundations (open-nps, nps-api, prometheus-nps, NPS Prediction, sales-nps-classification) with Twilio SMS, SendGrid/Resend email, Supabase backend, OpenAI embeddings. 12-week phased build, ≈<10% cost of Birdeye/Podium.
+
+    components_specified:
+      - name: "QR Code Router"
+        purpose: "Scanned QR → SMS to prompt review → collect rating → branch (≤8 internal, ≥9 Google)"
+        file_target: "apps/avis-nps/qr-router/"
+      - name: "Detractor Recovery Loop"
+        purpose: "P1 SMS within 15 min for ≤3, T+24h check-in, 72h escalation, 30d resurvey"
+        file_target: "apps/avis-nps/recovery-loop/"
+      - name: "Daily Digest Generator"
+        purpose: "8/12/4 scheduled reports with capture rate, sparkline, themes, coaching, plays"
+        file_target: "apps/avis-nps/digest-scheduler/"
+      - name: "Google Review Auto-Submit"
+        purpose: "Pre-fill reviewer name/email, copy comment to clipboard, auto-open Google form, one-tap submit"
+        file_target: "apps/avis-nps/google-review-bridge/"
+      - name: "Volume Tactics Engine"
+        purpose: "SMS+email combo optimization, staff training cues, timing calibration"
+        file_target: "apps/avis-nps/tactics-engine/"
+
+    dependencies:
+      - "Twilio SMS API"
+      - "SendGrid/Resend email"
+      - "Supabase backend"
+      - "OpenAI embeddings (for theme clustering)"
+      - "Google Maps API (Place ID, review URL)"
+
+    acceptance_criteria:
+      - "QR scan routes to correct branch (≤8 → internal, ≥9 → Google) in <2 sec"
+      - "P1 manager SMS within 15 min for scores ≤3"
+      - "Daily digests generated at 8am, 12pm, 4pm with current metrics"
+      - "Google reviews auto-submit with one tap (no additional form-filling)"
+      - "72-hour escalation rule enforced for unresolveddetractors"
+      - "30-day reconversion attempt tracked with outcome"
+
+    risk_or_open_questions:
+      - "How to handle edge case where customer gives low score but high comments (sentiment mismatch)?"
+      - "What is the reconciliation process if P1 manager SMS fails (e.g., invalid number)?"
+      - "Should staff training cues be AI-generated or curated by AVIS operations?"
+
+    mike_decisions_required:
+      - "Should ≤8 threshold be adjustable per location or global?"
+      - "Who receives daily digests (all managers, only P1, only ops leads)?"
+      - "What constitutes a 'successful' NPS improvement (target: current +15 points, timeline: 90 days)?"
+
+  # ===== MEMORY & EVIDENCE SYSTEMS =====
+  - card_id: BC-MEMORY-GRAPH
+    title: "RIG OS Memory + EvidenceGraph Infrastructure"
+    source_file: null
+    size_kb: 0
+    maps_to_v2_layer: "Runtime"
+    maps_to_v2_studio: null
+    maps_to_v1_phase: "B"
+    priority: "P0"
+    status_current: "declared-only"
+    one_line_summary: "Graph-backed memory system with evidence tracing, source attribution, rollback IDs, privacy scopes per write."
+
+    full_summary: |
+      Memory layer enforces constitutional requirement: every memory write must include source, confidence score, privacy_scope, trace_link to originating cell, and rollback_id for audit. Memory uses graph structure (edges = evidence links) rather than flat storage. All reads return confidence-ranked results from highest-confidence sources first. Stale evidence automatically deprioritized.
+
+      Privacy scopes: Mike_only (personal), Team (RIG staff), Public (published). Every write tagged with provenance: (agent_id, timestamp, cell_id, proof_hash). Rollback granularity down to individual write. Schema: nodes (facts, decisions, outcomes), edges (supports, contradicts, refines, falsifies), confidence scores, temporal validity, source URI.
+
+    components_specified:
+      - name: "Memory Graph Store"
+        purpose: "Directed graph of facts, links, confidence, provenance, privacy tags"
+        file_target: "services/memory/graph_store.py"
+      - name: "Write Validator"
+        purpose: "Enforces source/confidence/privacy/trace/rollback on every write, blocks if missing"
+        file_target: "artifacts/rig_engines_v3/memory_validator.py"
+      - name: "Provenance Auditor"
+        purpose: "Traces any fact back to originating cell, permission level, recency"
+        file_target: "services/memory/provenance_auditor.py"
+      - name: "Confidence Ranker"
+        purpose: "Sorts query results by confidence, deprioritizes stale evidence, weights source reliability"
+        file_target: "services/memory/confidence_ranker.py"
+
+    dependencies:
+      - "BC-PROOF-SYSTEM (proof hashes for writes)"
+      - "BC-JAKE-V10 (governance for privacy scopes)"
+
+    acceptance_criteria:
+      - "Every memory write includes source, confidence, privacy, trace, rollback_id"
+      - "Graph queries return results ranked by confidence"
+      - "Stale evidence flagged and deprioritized after 90 days without refresh"
+      - "Full provenance trail for any fact (back to originating cell)"
+      - "Rollback API supports point-in-time recovery"
+
+    risk_or_open_questions:
+      - "How to handle memory conflicts (e.g., two sources contradict)?"
+      - "Should privacy scopes be enforceable at runtime or just tagged?"
+      - "How frequently should stale evidence be purged vs. archived?"
+
+    mike_decisions_required:
+      - "Should memory graph be queryable from outside RIG OS (currently internal-only)?"
+      - "What is the acceptable latency for memory reads (current assumption: <100ms)?"
+      - "How many historical versions should be retained per fact?"
+
+  # ===== RESEARCH & INTELLIGENCE =====
+  - card_id: BC-ROBUST-MAD-PROTOCOL
+    title: "RIG OS ±30σ Audit Protocol + 10 Physics-Inspired Deviate Engines"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/Behavioral Science/RIG OS ±30σ Audit Protocol + 10 Physics-Inspired Deviate Engines Quantum Tunneling, Fine-Tuning, Phase Transitions, Hawking Radiation, Casimir Effect — Hard Constraints Beyond Probability.md"
+    size_kb: 140
+    maps_to_v2_layer: "Engines"
+    maps_to_v2_studio: "Research"
+    maps_to_v1_phase: "B"
+    priority: "P0"
+    status_current: "built"
+    one_line_summary: "Physics-inspired ±30σ protocol with 10 deviate engines (Quantum Tunneling, Fine-Tuning, Phase Transitions, Hawking Radiation, Casimir Effect, etc.)"
+
+    full_summary: |
+      Extended RIG audit protocol beyond ±8σ to ±30σ using physics metaphors as computational constraints. Core insight: probability alone misses category-creating outliers; physics-inspired constraints (energy barriers, vacuum effects, phase boundaries) model harder constraints.
+
+      10 engines: (1) Quantum Tunneling (crossing rigid categorical boundaries), (2) Fine-Tuning (necessity of extreme parameter alignment), (3) Phase Transitions (sudden state changes), (4) Hawking Radiation (information loss at event horizons), (5) Casimir Effect (emergent force from constraints), (6) Entropy Gradient (direction-of-time implications), (7) Pauli Exclusion (mutual exclusivity of states), (8) Resonance Coupling (frequency-matching novelty), (9) Perturbation Theory (small-epsilon impacts), (10) Symmetry Breaking (category emergence).
+
+      Each engine computed as a constraint score; final audit score = mean(σ_z, engine_constraints). Results sorted into tiers: Routine (|σ_z| ≤ 2), Significant (2 < |σ_z| ≤ 8), Anomalous (8 < |σ_z| ≤ 20), Fundamental (|σ_z| > 20). Used in JAKE V10 outcome scoring and Capability Foundry retirement decisions.
+
+    components_specified:
+      - name: "Robust-MAD Calculator"
+        purpose: "Core σ_z: 0.6745 × (x − median) / MAD, threshold ±8 for standard, ±30 for extended"
+        file_target: "artifacts/rig_engines_v3/robust_mad.py"
+      - name: "10 Physics Engines"
+        purpose: "Compute constraint scores for each metaphor; combine into final audit score"
+        file_target: "artifacts/rig_engines_v3/physics_engines/"
+      - name: "Outcome Scorer"
+        purpose: "Ties audit tier to JAKE feedback: positive tier→ capability preserved/promoted, anomalous→shadow testing, fundamental→governance review"
+        file_target: "artifacts/rig_engines_v3/outcome_scorer.py"
+      - name: "Tier Classifier"
+        purpose: "Routes results to tier-specific handlers (Routine→auto-integrate, Anomalous→log+track, Fundamental→escalate)"
+        file_target: "artifacts/rig_engines_v3/tier_classifier.py"
+
+    dependencies:
+      - "BC-DEVIATION-ENGINES (sister module, different focus)"
+      - "BC-JAKE-V10 (consumes outcome scores for feedback)"
+
+    acceptance_criteria:
+      - "All 10 physics engines computed for every significant decision outcome"
+      - "Outcomes sorted into Routine/Significant/Anomalous/Fundamental tiers"
+      - "Fundamental tier (>20σ) triggers governance review"
+      - "Tier-specific routing enforced at integration point"
+      - "Audit scores persisted for historical trending"
+
+    risk_or_open_questions:
+      - "How to calibrate physics engine weights (currently unequal, need historical validation)?"
+      - "Should anomalous outcomes (8-20σ) auto-trigger shadow testing or just logging?"
+      - "Is ±30σ ceiling sufficient or should it extend further?"
+
+    mike_decisions_required:
+      - "Should physics engines be weighted equally or per-domain (D1/D2/D3 different constraints)?"
+      - "What percentage of outcomes should be Fundamental-tier (current historical: ~0.1%)?"
+      - "How should contradictory physics engines be reconciled (e.g., Tunneling vs Phase Transition both apply)?"
+
+  # ===== PROOF & INTEGRITY SYSTEMS =====
+  - card_id: BC-PROOF-SYSTEM
+    title: "RIG OS Proof + Audit Trail System"
+    source_file: null
+    size_kb: 0
+    maps_to_v2_layer: "Runtime"
+    maps_to_v2_studio: null
+    maps_to_v1_phase: "A"
+    priority: "P0"
+    status_current: "scaffold"
+    one_line_summary: "Cryptographic proof binding for all artifacts: sources, gates, signer, timestamp, hash, approval state."
+
+    full_summary: |
+      Every artifact produced by OpenClaw must include proof: sources (URIs), gates (gates passed to reach this artifact), signer (agent_id + HMAC), timestamp (UTC+Timezone), hash (content-addressable), approval_state (approved/pending/rejected), and fallback_sources (where to look if primary source becomes unavailable).
+
+      Proof is NOT optional. It cannot be added post-hoc. It is computed inside the IQRSQPI process at the Proof step (P). Artifacts without proof cannot be integrated; they must be reworked. Proof schema is deterministic and queryable: one can reconstruct the decision path and dependencies.
+
+    components_specified:
+      - name: "Proof Generator"
+        purpose: "At IQRSQPI-P step, bind artifact to sources, gates, signer, timestamp, hash, approval state"
+        file_target: "artifacts/rig_engines_v3/proof_generator.py"
+      - name: "Proof Validator"
+        purpose: "At integration, verify proof is complete and hash matches artifact content"
+        file_target: "artifacts/rig_engines_v3/proof_validator.py"
+      - name: "Proof Store"
+        purpose: "Immutable log of all proofs (sources, gates, signers, timestamps, hashes)"
+        file_target: "services/memory/proof_store.sqlite"
+      - name: "Provenance Tracer"
+        purpose: "Given artifact hash, reconstruct full decision path and sources"
+        file_target: "artifacts/rig_engines_v3/provenance_tracer.py"
+
+    dependencies:
+      - "BC-IQRSQPI-PROCESS (proof is step P in the process)"
+      - "BC-MEMORY-GRAPH (stores proof references)"
+
+    acceptance_criteria:
+      - "All integrated artifacts have complete proof with sources, gates, signer, timestamp, hash"
+      - "Proof validation enforced at integration boundary (no exception)"
+      - "Provenance traceable back to original sources and decision gates"
+      - "Proof store is immutable (append-only log)"
+      - "Hash mismatches immediately halt integration"
+
+    risk_or_open_questions:
+      - "What is the fallback if primary sources become unreachable?"
+      - "Should proof include intermediate reasoning steps or only final sources?"
+      - "How to handle proofs that reference Mike's confidential sources (e.g., private emails)?"
+
+    mike_decisions_required:
+      - "Should non-approved artifacts be stored separately from approved ones?"
+      - "What is the approval policy per level (L1-L7, e.g., L1 auto-approved, L6+ manual)?"
+      - "How many fallback sources should be required (current assumption: ≥2)?"
+
+  # ===== STRATEGIC SYSTEMS & FRAMEWORKS =====
+  - card_id: BC-IDEAWAKE-V4
+    title: "Ideawake 25x Visual Build Doctrine Website V4 + W21–W30 Motion Proof + 40-Axis Deviation Engine"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/Behavioral Science/Ideawake 25x Visual Build Doctrine Website V4 + W21–W30 Motion Proof + 40-Axis Deviation Engine.md"
+    size_kb: 85
+    maps_to_v2_layer: "Vertical-Capability"
+    maps_to_v2_studio: "Design"
+    maps_to_v1_phase: "D"
+    priority: "P1"
+    status_current: "partial"
+    one_line_summary: "25x website redesign for Ideawake with 40-axis deviation engine, motion proof across W21-W30 phases."
+
+    full_summary: |
+      Ideawake website V4 is a 25x redesign unlocking innovation studio positioning. Architecture uses 40-axis deviation engine covering: messaging (5 axes), visual language (8 axes), interaction (6 axes), information architecture (5 axes), social proof (4 axes), engagement mechanics (4 axes), founder brand (3 axes), motion thesis (4 axes).
+
+      W21-W30 motion proof: each week demonstrates one capability (Week 21: idea capture UX, Week 22: deviation dashboard, Week 23: voting mechanics, Week 24: consensus scoring, Week 25: insights export, Week 26: team collaboration, Week 27: enterprise integrations, Week 28: API layer, Week 29: benchmarking, Week 30: full flywheel). Each week includes video, before/after design comparison, and quantified improvement metrics.
+
+      Build stitches 20 GitHub repos (design systems, 3D components, animation libraries, data viz, component libraries), 3-phase implementation (Scaffold → High-Fidelity → Production), 50-question deviation qualification phase per phase.
+
+    components_specified:
+      - name: "40-Axis Deviation Engine"
+        purpose: "Scores website against 40 deviation axes, computes final anti-median score, gates on ≥0.85"
+        file_target: "apps/ideawake/deviation-engine/"
+      - name: "Weekly Motion Proof Loop"
+        purpose: "Each week: implement feature, film 60-sec demo, A/B comparison, metric dashboard"
+        file_target: "apps/ideawake/motion-proof/"
+      - name: "Design System"
+        purpose: "20-repo scaffold: Tailwind tokens, 3D components (Spline, Three.js), animations (GSAP, Lottie), data viz (Plotly, D3)"
+        file_target: "apps/ideawake-v4/design-system/"
+      - name: "QRSQPI Implementation Loop"
+        purpose: "50 qualification questions per phase → 3-phase rollout → production flywheel"
+        file_target: "apps/ideawake/qrsqpi-phases/"
+
+    dependencies:
+      - "20 GitHub repos (Ideawake design arsenal)"
+      - "Spline 3D components"
+      - "GSAP motion library"
+      - "Vercel deployment"
+
+    acceptance_criteria:
+      - "40-axis deviation engine scores ≥0.85"
+      - "Weekly motion proof complete for W21-W30 (10 features, 10 videos, 10 metrics)"
+      - "A/B comparison demonstrates measurable improvement each week"
+      - "50-question phases passed for Scaffold, High-Fidelity, Production"
+      - "Design system components reusable across 20+ repos"
+
+    risk_or_open_questions:
+      - "How to prioritize 40 axes (current: equal weight, may need Pareto)?"
+      - "What is the target improvement metric per week (current: undefined, needs baseline)?"
+      - "Should W21-W30 proof be shipped publicly or internal-only?"
+
+    mike_decisions_required:
+      - "Which 3 axes should be V4 priority (current: messaging, visual, motion)?"
+      - "Should weekly releases be tied to product shipping or just motion proof?"
+      - "Who is the target audience for W21-W30 proof (investors, customers, team)?"
+
+  - card_id: BC-RIG-STRATEGY-V4
+    title: "RIG 10X Strategy Card — Revenue Intelligence Graph Operating System"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/AI GTM/RIG 10X Strategy Card — Revenue Intelligence Graph Operating System.md"
+    size_kb: 120
+    maps_to_v2_layer: "Vertical-Capability"
+    maps_to_v2_studio: "Sales"
+    maps_to_v1_phase: "C"
+    priority: "P1"
+    status_current: "declared-only"
+    one_line_summary: "Revenue intelligence graph: prospect graph + signals + scoring + outreach automation + prediction."
+
+    full_summary: |
+      RIG as a commercial product: Revenue Intelligence Graph combining prospect graph (companies, people, relationships, buying signals), signal detection (behavioral, technographic, intent, competitive), scoring (Predictive Lead Scoring, Fit Score, Buying Power, Urgency), autonomous outreach orchestration (multi-channel, sequencing, personalization via deviation engines), and forecasting (pipeline prediction, win probability, deal velocity).
+
+      Built on Attio CRM + n8n workflows + Instantly outreach. Graph nodes: Company, Person, Interaction, Signal, Opportunity, Outcome. Edges: works_for, influenced_by, signals_toward, converts_to. Deviation engines applied to: message personalization (-10 to +10), offer positioning (-10 to +10), timing optimization (-5 to +5).
+
+      P0 MVP: 500-company graph, 5-signal detection layer, 3-engine outreach flow, 60-day pilot with 3 target verticals.
+
+    components_specified:
+      - name: "Prospect Graph"
+        purpose: "Companies, people, interactions, signals, opportunities (nodes/edges, stored in Supabase)"
+        file_target: "apps/rig-graph/graph-store/"
+      - name: "Signal Detection Layer"
+        purpose: "5 signal types: behavioral, technographic, intent, competitive, emergent"
+        file_target: "apps/rig-graph/signal-detection/"
+      - name: "Scoring Engine"
+        purpose: "Predictive Lead Score (LR), Fit (RobustMAD), Buying Power, Urgency; combined into ICP match %"
+        file_target: "apps/rig-graph/scoring-engine/"
+      - name: "Outreach Orchestrator"
+        purpose: "Multi-channel sequencing (email → LinkedIn → SMS → call), personalization via deviation engines"
+        file_target: "apps/rig-graph/outreach-orchestrator/"
+      - name: "Forecasting Layer"
+        purpose: "Pipeline projection, win probability, deal velocity, cohort retention"
+        file_target: "apps/rig-graph/forecasting/"
+
+    dependencies:
+      - "Attio CRM API"
+      - "n8n workflow automation"
+      - "Instantly email/SMS"
+      - "Apollo/Clearbit data enrichment"
+      - "BC-DEVIATION-ENGINES (for personalization)"
+
+    acceptance_criteria:
+      - "Graph stores ≥500 companies with ≥3 contacts each"
+      - "5-signal detection runs daily, updated graph with new signals"
+      - "Scoring produces ranked list (ICP match % ≥ 70% = ready for outreach)"
+      - "Outreach sequences deliver ≥30% open rate, ≥5% response rate"
+      - "Forecasting prediction accuracy ≥80% on historical cohorts"
+
+    risk_or_open_questions:
+      - "How to handle real-time signal updates without overloading outreach queue?"
+      - "What is the churn rate for false-positive signals (need calibration)?"
+      - "Should outreach be fully autonomous or require human approval for L6-7 contacts?"
+
+    mike_decisions_required:
+      - "Which 3 verticals for 60-day pilot (current candidates: SaaS, Enterprise AI, Consulting)?"
+      - "Should RIG Graph be sold as standalone or bundled with RIG OS?"
+      - "What is the pricing model (per-seat, per-contact, per-signal)?"
+
+  # ===== ADDITIONAL CORE CARDS =====
+  - card_id: BC-IQRSQPI-PROCESS
+    title: "IQRSQPI Process Definition & Archetype Library"
+    source_file: null
+    size_kb: 0
+    maps_to_v2_layer: "Runtime"
+    maps_to_v2_studio: null
+    maps_to_v1_phase: "A"
+    priority: "P0"
+    status_current: "scaffold"
+    one_line_summary: "7-step process (Intent → Question → Research → Solution → Quality → Proof → Integrate) with 28 archetypes across 4 BMS modes."
+
+    full_summary: |
+      IQRSQPI is the fundamental operating loop running inside each RIG 3D lattice coordinate. Steps: (1) Intent—determine request/trigger, (2) Question—convert to operational question, (3) Research—retrieve/generate evidence, (4) Solution—produce answer/artifact, (5) Quality—validate safety/usefulness/policy, (6) Proof—bind to sources/gates/signer/timestamp/hash, (7) Integrate—execute/save/route.
+
+      28 reusable archetypes (4 BMS modes × 7 steps) encode typical patterns: A1.1–A1.7 (Python-only), A2.1–A2.7 (Hybrid), A3.1–A3.7 (Bounded-agent), A4.1–A4.7 (Free-agent). Each archetype specifies: inputs, outputs, tools, models, cost band, approval policy, audit policy, quality gates, proof policy.
+
+    components_specified:
+      - name: "Process Definition"
+        purpose: "YAML spec for 7 IQRSQPI steps with phase objectives"
+        file_target: "startup-os/IQRSQPI.yaml"
+      - name: "28 Archetypes"
+        purpose: "Templates for each BMS-mode × step combination"
+        file_target: "artifacts/rig_engines_v3/archetypes/"
+      - name: "Archetype Loader"
+        purpose: "Runtime selects correct archetype based on BMS mode and step"
+        file_target: "artifacts/rig_engines_v3/archetype_loader.py"
+      - name: "Step Sequencer"
+        purpose: "Enforces I1 → Q1 → R → S → Q2 → P → I2 order, prevents skipping"
+        file_target: "artifacts/rig_engines_v3/step_sequencer.py"
+
+    dependencies:
+      - "BC-OPENCLASS-3D-LATTICE (defines coordinates where IQRSQPI runs)"
+      - "BC-PROOF-SYSTEM (P step generates proof)"
+
+    acceptance_criteria:
+      - "All 28 archetypes defined and tested"
+      - "Process enforces 7-step sequence (no skipping, no reordering)"
+      - "Each archetype specifies inputs, outputs, tools, models, gates"
+      - "Archetype selection matches BMS confidence mode"
+      - "Quality gates enforced at Q2 before Proof step"
+
+    risk_or_open_questions:
+      - "Should Intent step validate against governance rules?"
+      - "What happens if Research returns no evidence (how much confidence to assign)?"
+      - "Should Integrate step auto-commit or queue for approval?"
+
+    mike_decisions_required:
+      - "Should archetypes be immutable or allow runtime customization?"
+      - "How to handle cross-step dependencies (e.g., Solution depends on specific Research type)?"
+      - "What is the approval policy per archetype (A1 auto, A4 manual)?"
+
+  - card_id: BC-DEVIATION-ENGINES
+    title: "RIG OS Unified Deviation Engine V4: 30 Engines × ±20σ Full Spectrum"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/Behavioral Science/RIG OS Unified Deviation Engine V4 30 Engines × ±20σ Full Spectrum — 20 Cognitive + 10 Nature-Inspired, Complete Criteria, Formulas, and Gates.md"
+    size_kb: 160
+    maps_to_v2_layer: "Engines"
+    maps_to_v2_studio: null
+    maps_to_v1_phase: "B"
+    priority: "P0"
+    status_current: "built"
+    one_line_summary: "30-engine deviation system (20 cognitive + 10 nature-inspired) scoring outputs across ±20σ spectrum."
+
+    full_summary: |
+      Comprehensive deviation scoring across 30 engines grouped into two families: Cognitive (20 engines covering reasoning depth, novelty, mechanism density, prediction accuracy, adversarial robustness, etc.) and Nature-Inspired (10 engines using physics/biology metaphors: Quantum Tunneling, Phase Transitions, Predator-Prey, Ant Colony, Mycelial Networks, Evolutionary Pressure, Cascade Collapse, Swarm Intelligence, Gradient Descent, Punctuated Equilibrium).
+
+      Each engine produces a σ_z score (-20σ to +20σ). Final deviation score = mean(all engines). Gate: |deviation| ≥ 8σ to pass anti-median filter. Cognitive engines evaluated independently; nature engines provide constraint validation (e.g., is this idea sustainable as living system, or is it fragile?).
+
+      Outputs mapped to tier: Routine (<2σ), Significant (2-8σ), Anomalous (8-20σ), Fundamental (>20σ). Each tier has routing: Routine→auto, Significant→log+track, Anomalous→shadow test, Fundamental→governance.
+
+    components_specified:
+      - name: "20 Cognitive Engines"
+        purpose: "Score depth, novelty, mechanism, prediction, adversarial robustness, etc."
+        file_target: "artifacts/rig_engines_v3/cognitive_engines/"
+      - name: "10 Nature-Inspired Engines"
+        purpose: "Physics/biology constraints: Quantum Tunneling, Phase Transitions, Predator-Prey, Ant Colony, etc."
+        file_target: "artifacts/rig_engines_v3/nature_engines/"
+      - name: "Unified Scorer"
+        purpose: "Runs all 30 engines, computes mean σ_z, classifies into tier"
+        file_target: "artifacts/rig_engines_v3/unified_deviation_scorer.py"
+      - name: "Tier Router"
+        purpose: "Routes output to tier-specific handlers (auto, log, shadow, escalate)"
+        file_target: "artifacts/rig_engines_v3/tier_router.py"
+
+    dependencies:
+      - "BC-ROBUST-MAD-PROTOCOL (provides σ_z calculation)"
+      - "BC-JAKE-V10 (consumes tier for feedback)"
+
+    acceptance_criteria:
+      - "All 30 engines computed for every output"
+      - "Engine outputs averaged into final deviation score"
+      - "Anti-median filter enforced (no <2σ shipping)"
+      - "Tier routing enforced at integration"
+      - "Historical trending stored for all outputs"
+
+    risk_or_open_questions:
+      - "Should cognitive and nature engines be weighted differently?"
+      - "How to resolve conflicting engine outputs (e.g., high novelty but poor sustainability)?"
+      - "Should engine weights be domain-specific (D1/D2/D3)?"
+
+    mike_decisions_required:
+      - "Are all 30 engines equally important or should some be weighted higher?"
+      - "What is the acceptable false-positive rate for Fundamental tier (currently <1%)?"
+      - "Should anomalous outputs auto-escalate or require manual review?"
+
+  # ===== REMAINING KEY CARDS =====
+  - card_id: BC-HERMES-SYSTEM-V12
+    title: "RIG OS Hermes v12 Full Stack Setup"
+    source_file: "/Users/mikerodgers/Downloads/Recall_export_2026-05-17T10-14-21/Behavioral Science/Hermes Install Meta-Prompt RIG V10 Idea-to-Article Engine — Signal Detection, IDP, 50 Deviation Questions, BDF30, Craft Archetypes, Consensus Research, GitHub Stack.md"
+    size_kb: 110
+    maps_to_v2_layer: "Runtime"
+    maps_to_v2_studio: "Content"
+    maps_to_v1_phase: "B"
+    priority: "P0"
+    status_current: "partial"
+    one_line_summary: "Hermes orchestrator for idea-to-article pipeline: signal detection → IDP → 50 questions → BDF → craft → research → ship."
+
+    full_summary: |
+      Hermes v12 is the full-stack content orchestrator. Pipeline: (1) Signal Detection—identify high-deviation ideas from sources, (2) IDP (IdeaDeviationPotential)—7-layer signal analysis, 50-question deviation engine, (3) Adversarial Tournament—rank ideas against each other, (4) Consensus Research—run research swarm across 6+ sources, (5) Craft Layer—apply Eminem/Hemingway/Didion/McCarthy/Wallace archetypes, (6) Deviation Scoring—run 30 engines, (7) Ship—publish or queue for manual review.
+
+      Hermes integrates: 20+ GitHub repos (idea-capture, research, fact-checking), 5 LLM models (Claude, GPT-5.5, Qwen, Grok, local), meta-prompt system (auto-generates sub-prompts), 50-question deviation qualification per idea, Substack/LinkedIn integration, async MCP server.
+
+    components_specified:
+      - name: "Signal Detection Agent"
+        purpose: "Monitors sources (Twitter, news, research, Discord), flags high-deviation signals"
+        file_target: "claude/agents/signal-detector/"
+      - name: "IDP Scorer"
+        purpose: "7-layer analysis, 50-question engine, produces IDP score 0-100"
+        file_target: "artifacts/rig_engines_v3/idp_scorer.py"
+      - name: "Adversarial Tournament"
+        purpose: "Pairwise comparison of ideas, ranking by deviance and defensibility"
+        file_target: "claude/agents/adversarial-tournament/"
+      - name: "Consensus Research Swarm"
+        purpose: "6+ parallel research streams, fact-checking, source synthesis"
+        file_target: "claude/agents/consensus-researcher/"
+      - name: "Craft Selector"
+        purpose: "Chooses archetype (Eminem/Hemingway/Didion/McCarthy/Wallace) based on idea type"
+        file_target: "artifacts/rig_engines_v3/craft_selector.py"
+      - name: "Publishing Integration"
+        purpose: "Publishes to Substack, LinkedIn, cross-posts with deviation metadata"
+        file_target: "apps/hermes/publishing-bridge/"
+
+    dependencies:
+      - "20+ GitHub repos (idea-capture, research, fact-checking)"
+      - "5 LLM models"
+      - "BC-COMMUNICATIONS-DEV-V2 (craft layer)"
+      - "BC-DEVIATION-ENGINES (final scoring)"
+
+    acceptance_criteria:
+      - "Signal detection runs continuously, flags ≥2 ideas/week"
+      - "IDP scoring produces defensible 0-100 scores"
+      - "Adversarial tournament ranks ideas consistently"
+      - "Consensus research compiles ≥5 sources per fact"
+      - "Craft archetype selected and applied to draft"
+      - "Final deviation score ≥8σ before shipping"
+      - "Publishing metadata tied to proof system"
+
+    risk_or_open_questions:
+      - "How to prevent echo-chamber in consensus research (all sources agree)?"
+      - "Should ideas scoring <40 IDP be auto-rejected or queued for manual review?"
+      - "How often should meta-prompts be refreshed to prevent drift?"
+
+    mike_decisions_required:
+      - "Should Hermes publish autonomously or wait for Mike approval?"
+      - "What is the target publication cadence (current: 2-3/week, scalable to daily)?"
+      - "Should Hermes also generate LinkedIn, Twitter, TikTok variants or only articles?"
+
+summary_by_layer:
+  Identity:
+    - BC-JAKE-V10
+  Runtime:
+    - BC-OPENCLASS-3D-LATTICE
+    - BC-MEMORY-GRAPH
+    - BC-PROOF-SYSTEM
+    - BC-IQRSQPI-PROCESS
+    - BC-HERMES-SYSTEM-V12
+  Engines:
+    - BC-COMMS-DEV-V2
+    - BC-ROBUST-MAD-PROTOCOL
+    - BC-DEVIATION-ENGINES
+  Vertical-Capability:
+    - BC-AVIS-NPS
+    - BC-IDEAWAKE-V4
+    - BC-RIG-STRATEGY-V4
+
+summary_by_studio:
+  Communications:
+    - BC-COMMS-DEV-V2
+    - BC-HERMES-SYSTEM-V12
+  Design:
+    - BC-IDEAWAKE-V4
+  Operations:
+    - BC-AVIS-NPS
+  Research:
+    - BC-ROBUST-MAD-PROTOCOL
+    - BC-HERMES-SYSTEM-V12
+  Sales:
+    - BC-RIG-STRATEGY-V4
+
+top_5_p0_priority:
+  1:
+    card_id: BC-JAKE-V10
+    reason: "Constitutional governance kernel — required before autonomous execution"
+    blocking: "All other systems depend on governance constraints"
+  2:
+    card_id: BC-OPENCLASS-3D-LATTICE
+    reason: "3D lattice + IQRSQPI provides execution backbone for all work"
+    blocking: "OpenClaw, all 28 archetypes, all routing logic"
+  3:
+    card_id: BC-PROOF-SYSTEM
+    reason: "Non-negotiable for audit, compliance, and decision tracing"
+    blocking: "Cannot integrate artifacts without proof binding"
+  4:
+    card_id: BC-MEMORY-GRAPH
+    reason: "Evidence infrastructure for learning loop and outcome feedback"
+    blocking: "Cannot support V10 learning without memory system"
+  5:
+    card_id: BC-COMMS-DEV-V2
+    reason: "Deviation engine for all written output, critical GTM surface"
+    blocking: "All content shipped without deviation scoring fails governance"

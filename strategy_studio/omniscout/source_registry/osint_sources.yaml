@@ -1,0 +1,17 @@
+activation_policy: manual_review_required
+allowed_initial_categories:
+- public web search
+- public GitHub
+- public research metadata
+- public news/RSS
+blocked_initial_categories:
+- breach data
+- dark web
+- private people search
+- credential search
+- invasive identity lookup
+tool_repos:
+- AI-Resources
+- awesome-osint
+- OSINT_AI_Agent
+- OSINT

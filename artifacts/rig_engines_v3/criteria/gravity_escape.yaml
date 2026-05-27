@@ -1,0 +1,67 @@
+slug: gravity_escape
+codename: GRAVITON
+layer: cognitive
+# genre tags: g8/g9/g10 require HED-specific named entities, SKUs, and compound phrases.
+# Tagged genres:[sales] so they are skipped when --genre internal is active.
+axis: Maximum distance from generic-AI median. Zero consultant tokens. Every generic noun replaced with concrete object.
+questions:
+- id: g1_no_leverage
+  question: Zero use of 'leverage'?
+  required: true
+  mode: absent
+  patterns:
+  - \bleverage\b
+- id: g2_no_synergy_holistic
+  question: Zero use of 'synergy' or 'holistic'?
+  required: true
+  mode: absent
+  patterns:
+  - \b(synergy|holistic|synergies)\b
+- id: g3_no_landscape_filler
+  question: Zero use of 'in today's landscape / rapidly evolving / unprecedented times'?
+  required: true
+  mode: absent
+  patterns:
+  - \b(in today.s (landscape|world|environment|market)|rapidly evolving|unprecedented times|fast-paced world)\b
+- id: g4_no_excited_announce
+  question: Zero use of 'we are excited to announce / pleased to share'?
+  required: true
+  mode: absent
+  patterns:
+  - \bwe are (excited|pleased|thrilled) to (announce|share|introduce)\b
+- id: g5_no_thought_leadership
+  question: Zero use of 'thought leadership / best practices / world-class'?
+  required: true
+  mode: absent
+  patterns:
+  - \b(thought leadership|best practices|world-class|cutting-edge|state-of-the-art)\b
+- id: g6_no_furthermore_moreover
+  question: Zero use of 'furthermore' or 'moreover' as connectives?
+  required: true
+  mode: absent
+  patterns:
+  - \b(furthermore|moreover|in addition,|additionally,)\b
+- id: g7_no_robust_seamless
+  question: Zero use of 'robust' or 'seamless' as flavor adjectives?
+  required: true
+  mode: absent
+  patterns:
+  - \b(robust solution|seamlessly|seamless integration|robust framework)\b
+- id: g8_concrete_proper_nouns
+  question: At least 8 named entities (HED, Hill family, Gijs, Pierce, Oshkosh, etc.)?
+  genres: [sales]
+  mode: count_min
+  pattern: \b(HED|Hill family|Gijs|Pierce|Oshkosh|CAT|Manitowoc|Deere|Helios|Topcon|Bosch|Parker|Grayhill|RIG|Rodgers)\b
+  threshold: 8
+- id: g9_specific_skus
+  question: At least 3 specific HED SKUs/products named (CL-714, CL-4002, HK, CL-712, Forge Edge)?
+  genres: [sales]
+  mode: count_min
+  pattern: \b(CL-?\d+|HK series|Forge (Edge|Solo|Team|Vault|Sight|Net)|J1939|CODESYS|NVIS|CMMC)\b
+  threshold: 3
+- id: g10_unique_phrases
+  question: At least 2 unique HED-specific compound phrases (e.g., 'fleet intelligence operating system')?
+  genres: [sales]
+  mode: count_min
+  pattern: (operating system|knowledge graph|fleet intelligence|CAN-bus|edge inference|firmware-and-knowledge)
+  threshold: 2

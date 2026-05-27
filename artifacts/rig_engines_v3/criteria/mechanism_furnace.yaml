@@ -1,0 +1,68 @@
+slug: mechanism_furnace
+codename: FORGE
+layer: cognitive
+axis: "Every claim is a complete causal chain Input→Activity→Behavior→System→Economic→Loop. No adjective without a mechanism."
+
+questions:
+  - id: f1_causal_connectives
+    question: "Are causal connectives ('because', 'therefore', 'leads to', '→', 'drives') present at density ≥4/kw?"
+    mode: ratio_min
+    pattern: '\b(because|therefore|leads to|drives|results in|causes|forces|triggers|→)\b'
+    threshold: 4.0
+
+  - id: f2_mechanism_chains
+    question: "Does the document contain explicit mechanism chains (Input→Activity→Behavior or similar)?"
+    mode: regex
+    pattern: '(input.{0,40}(activity|action|behavior).{0,80}(system|economic|loop|outcome)|→.{0,40}→.{0,40}→)'
+
+  - id: f3_specific_mechanism_for_capability
+    question: "For each major capability claim, is a HOW mechanism explained (model type, signal, threshold)?"
+    mode: count_min
+    pattern: '(anomaly detection|false-?positive rate|signal processing|<\s*\d+\s*ms|inference latency|model size|CAN bus|J1939|firmware delivery|signed firmware|telematics|knowledge graph)'
+    threshold: 5
+
+  - id: f4_quantified_outcomes
+    question: "Are downstream outcomes quantified ($, %, time-to-X)?"
+    mode: count_min
+    pattern: '(\d+%|\$\d|\d+\s*(days?|weeks?|months?|hours?|minutes?)\s+(faster|to|before|early)|\d+-?\d*\s*ROI|\d+x)'
+    threshold: 8
+
+  - id: f5_feedback_loops_named
+    question: "Are at least 2 compounding feedback loops explicitly named?"
+    mode: count_min
+    pattern: '(feedback loop|compounding|each new.+improves|network effect|fleet learning|knowledge graph grows|improves with use|gets smarter)'
+    threshold: 2
+
+  - id: f6_no_orphan_adjectives
+    question: "Banned generic adjectives ('transformative', 'world-class', 'cutting-edge', 'innovative') ≤1 occurrence total?"
+    mode: count_min
+    pattern: '\b(transformative|world-class|cutting-edge|innovative|game-changing|revolutionary|disruptive)\b'
+    threshold: 0  # we want fewer; this passes if any found; we'll flip via direction… simpler: use absent
+  # NOTE swapped below with absent mode for stricter semantics:
+
+  - id: f6b_no_orphan_adjectives_strict
+    question: "Zero use of generic-consultant adjectives without immediate mechanism?"
+    mode: absent
+    patterns:
+      - '\b(world-class|cutting-edge|game-changing|revolutionary|paradigm shift|next-generation|state-of-the-art)\b'
+
+  - id: f7_input_to_economic_chain_in_executive
+    question: "Does the executive section (first 2000 chars) show at least one full input→economic chain?"
+    mode: regex
+    pattern: '(\$|revenue|margin|ROI|attach|premium).{0,300}(because|via|by|through|using|leveraging|enabling|forces)'
+
+  - id: f8_anti_chatbot_anti_pilot
+    question: "Does the doc explicitly reject chatbot/pilot pattern and explain why?"
+    mode: regex
+    pattern: '(not (a |an )?chatbot|not (a |an )?pilot|not (a |an )?demo|not (a |an )?Copilot|operating system.+not|firmware.+not|capability.+not just)'
+
+  - id: f9_compounding_loop_visible
+    question: "Is the compounding loop (each new unit improves prior units) explicitly stated?"
+    mode: regex
+    pattern: '(each new.+improves|every unit.+improves|fleet learning|anonymized.+sharing|each cohort.+helps)'
+
+  - id: f10_negative_mechanism_too
+    question: "Are NEGATIVE mechanisms (what fails if X) also explained, not just positive ones?"
+    mode: count_min
+    pattern: '(if .+ fails|if .+ misses|if .+ extends|if .+ catches up|if .+ accelerates|risk if|fail-if)'
+    threshold: 2

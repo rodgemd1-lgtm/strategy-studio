@@ -1,0 +1,43 @@
+slug: zeigarnik_residue
+codename: LOOP
+layer: cognitive
+axis: Open loops the reader must close. Each section ends with implicit question the next answers.
+questions:
+- id: z1_open_questions_count
+  question: 'REQUIRED: at least 4 explicit questions posed?'
+  required: true
+  mode: count_min
+  pattern: \?
+  threshold: 4
+- id: z2_named_decision_points
+  question: 'REQUIRED: at least 3 explicit decision points named?'
+  required: true
+  mode: count_min
+  pattern: (the (question|ask|choice|bet|decision) is|the real question|the open question|the missing piece)
+  threshold: 2
+- id: z3_phase_transition_hooks
+  question: 'REQUIRED: phase descriptions hint at next phase?'
+  required: true
+  mode: regex
+  pattern: (in (the next|month |Phase \d) we will|sets up|enables (the next|Phase \d)|opens the door|unlocks Phase)
+- id: z4_unresolved_in_first_500
+  question: 'REQUIRED: first 500 chars contain a question or tension?'
+  required: true
+  mode: regex
+  pattern: (?s)^.{0,500}(\?|will it|can it|why|how|the question)
+- id: z5_no_summarize_close
+  question: 'Optional: doesn''t close with full neat resolution (leaves a stake in the ground)?'
+  mode: absent
+  patterns:
+  - (\bin (closing|conclusion|summary)[\s\S]{0,400}(complete|wraps up|fully addresses|all questions answered)\b)
+- id: z6_explicit_open_loop_named
+  question: 'REQUIRED: explicit ''the real question'' / ''the bet is'' framing?'
+  required: true
+  mode: regex
+  pattern: (the real question|the question (isn.t|is whether|is not)|the bet (is|hinges on)|the wager|the choice (is|comes
+    down to))
+- id: z7_decision_for_reader
+  question: 'REQUIRED: at least one decision is explicitly left to the reader?'
+  required: true
+  mode: regex
+  pattern: (your (call|choice|decision)|the choice is yours|HED decides|board (decides|approves)|you (choose|decide))

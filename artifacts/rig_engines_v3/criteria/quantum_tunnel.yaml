@@ -1,0 +1,38 @@
+slug: quantum_tunnel
+codename: TUNNEL
+layer: physics
+axis: Penetrate impassable barrier. Anti-orthodoxy commits. Refuse what industry accepts.
+calibration:
+  direction: gate
+  pass_sigma: 15.0
+  per_optional_bonus: 2.5
+  hard_block_sigma: -30.0
+  max_sigma: 25.0
+questions:
+- id: tu1_explicit_refusal
+  question: 'REQUIRED: explicit refusal of a standard industry move?'
+  required: true
+  mode: count_min
+  pattern: (we (do not|don.t|will not|won.t|refuse|reject)|not (a|an) (chatbot|Copilot|pilot|CoE|consulting deck))
+  threshold: 2
+- id: tu2_no_industry_default
+  question: 'REQUIRED: not pitching AI CoE / Copilot bolt-on?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(AI Center of Excellence|AI CoE|Copilot bolt-on|Copilot rollout)\b
+- id: tu3_barrier_named
+  question: 'REQUIRED: the industry barrier being penetrated is named?'
+  required: true
+  mode: regex
+  pattern: (barrier|moat|orthodoxy|defense.{0,40}requires|impassable|locked out|gatekeep)
+- id: tu4_anti_consensus_bet
+  question: 'REQUIRED: at least one anti-consensus bet explicit?'
+  required: true
+  mode: regex
+  pattern: (contrary to|disagree with consensus|industry is wrong|conventional wisdom is|most firms (assume|think))
+- id: tu5_evidence_for_penetration
+  question: 'REQUIRED: why HED can penetrate (CMMC L2, 35-year defense record, etc.)?'
+  required: true
+  mode: regex
+  pattern: (CMMC Level 2|35[- ]year|defense delivery|federal contract|prime contractor|certified)

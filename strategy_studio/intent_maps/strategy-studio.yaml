@@ -1,0 +1,37 @@
+# RIG Lattice — Intent Map
+# Strategy Studio
+
+studio: strategy
+version: "2.0"
+description: Routes strategy analysis requests to RIG Lattice cells
+
+analysis_types:
+  company_research:
+    primary_cell: L3-D2-R
+    archetype: A2.3
+    data_sources: [yahoo_finance, wikipedia, sec_edgar, github]
+    output: "Strategy brief with evidence graph"
+    
+  competitive_intel:
+    primary_cell: L4-D2-R
+    archetype: A3.3
+    data_sources: [web_scrape, news, academic, prediction_markets]
+    output: "Competitive landscape with mechanism maps"
+    
+  forecast:
+    primary_cell: L5-D2-S
+    archetype: A3.4
+    data_sources: [prediction_markets, historical_data, expert_consensus]
+    output: "Probabilistic forecast with Brier scoring"
+    
+  decision_room:
+    primary_cell: L6-D2-Q2
+    archetype: A4.5
+    data_sources: [all_available]
+    output: "Decision matrix with falsification charter"
+    
+  client_proposal:
+    primary_cell: L4-D1-S
+    archetype: A3.4
+    data_sources: [crm_data, vertical_research, case_studies]
+    output: "Personalized strategy website (not PDF)"

@@ -1,0 +1,31 @@
+slug: clonal_refinement
+codename: CLONAL
+layer: nature
+axis: Winners refine gently. Mediocre rewrites hard.
+questions:
+- id: cl1_refinement_language
+  question: "REQUIRED: \u22653 'refined / tightened / sharpened' markers on strong sections?"
+  required: true
+  mode: count_min
+  pattern: (refined|tightened|sharpened|narrowed|specified|hardened|iterated)
+  threshold: 2
+- id: cl2_rewrite_signaled
+  question: At least one section signals it's a from-scratch rewrite?
+  mode: regex
+  pattern: (from scratch|rewritten|first principles|fresh sheet|start over|reset|reframed)
+- id: cl3_versioning_visible
+  question: 'REQUIRED: version progression visible (v1/v2/v3 or iteration)?'
+  required: true
+  mode: regex
+  pattern: \b(v[1-9]|version \d|iteration \d|cycle \d|wave \d)\b
+- id: cl4_explicit_diff
+  question: 'REQUIRED: explicit diff from prior version OR ''what changed'' note?'
+  required: true
+  mode: regex
+  pattern: (what changed|since v\d|since (last|prior)|diff from|update from|v\d+ \(.+\))
+- id: cl5_no_template_clone
+  question: 'REQUIRED: no template-cloned bullets (3 sections with identical structure)?'
+  required: true
+  mode: absent
+  patterns:
+  - (- \w+:.+\n- \w+:.+\n- \w+:.+\n- \w+:.+\n- \w+:.+\n- \w+:.+){2,}

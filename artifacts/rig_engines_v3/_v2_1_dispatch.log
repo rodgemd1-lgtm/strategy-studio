@@ -1,0 +1,12 @@
+Dispatching v2.1 rewrite via llama3.3:70b on rig-256gb...
+  elapsed: 162s · 5966 chars · 862 words
+  wrote: artifacts/rig_engines_v3/hed_seed_v2_1.md
+
+Auditing v2.1...
+  RIG-L: -3.00  BDF: -17.71  status: HARD_BLOCK  hard_blocks: 28
+
+  seed: RIG-L -3.00 · hard_blocks 26
+  v2.1: RIG-L -3.00 · hard_blocks 28
+  delta: RIG-L +0.00 · hard_blocks +2
+
+  audit saved: artifacts/rig_engines_v3/audits/v2_1_audit.json

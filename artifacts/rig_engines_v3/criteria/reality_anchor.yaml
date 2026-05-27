@@ -1,0 +1,65 @@
+slug: reality_anchor
+codename: ANCHOR
+layer: cognitive
+axis: "Every numeric claim is sourced, sampled, and falsifiable with a dated kill criterion."
+
+# 10 strict criteria. Each yes/no. Weight defaults to 1.0.
+questions:
+  - id: a1_primary_sources_named
+    question: "Does the document name primary sources by full name (not just 'research' or 'analysts')?"
+    mode: count_min
+    pattern: '\b(Research and Markets|Mordor Intelligence|Grand View Research|McKinsey|Gartner|Forrester|Helios Technologies|10-K|10-Q|S-1|earnings release|press release dated)\b'
+    threshold: 3
+
+  - id: a2_dated_sources
+    question: "Are sources dated (e.g., 'April 2025', 'Q3 FY26')?"
+    mode: count_min
+    pattern: '\b(Q[1-4]\s+FY?\s?\d{2,4}|January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\b'
+    threshold: 3
+
+  - id: a3_triangulated_market_size
+    question: "Is market size triangulated with at least 2 independent sources?"
+    mode: count_min
+    pattern: '\$\d+(\.\d+)?\s*(B|billion|M|million)'
+    threshold: 4
+
+  - id: a4_sample_size_or_n
+    question: "Does at least one claim include sample size, N, or count basis?"
+    mode: count_min
+    pattern: '\b(n\s*=\s*\d+|N\s*=\s*\d+|sample of \d+|\d+\s+(customers|OEMs|engineers|interviews|units|controllers))\b'
+    threshold: 2
+
+  - id: a5_confidence_intervals_or_ranges
+    question: "Are predictions stated as ranges or CAGR bands (not single point estimates)?"
+    mode: count_min
+    pattern: '(\d+(\.\d+)?\s*[-–to]\s*\d+(\.\d+)?\s*(%|CAGR)|\bCAGR\b|±\s*\d+|downside.*base.*upside)'
+    threshold: 3
+
+  - id: a6_falsification_criteria_present
+    question: "Are there explicit falsification or kill criteria?"
+    mode: count_min
+    pattern: '(kill criteria|terminate|rescope|pause.{0,30}revisit|wrong if|falsif|if this proves false|extend at no additional fee|refund pro-rata)'
+    threshold: 3
+
+  - id: a7_dated_kill_claims
+    question: "Are kill criteria dated to specific calendar dates (not just 'eventually')?"
+    mode: proximity
+    anchor: '(kill criteria|terminate if|pause.{0,30}revisit|rescope)'
+    target: '(by month \d|Q[1-4]\s+\d{4}|\d{4}|\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w*\s+\d+)'
+    window_chars: 600
+
+  - id: a8_falsification_calendar
+    question: "Is there a 'Falsification Calendar' or dated trigger schedule section?"
+    mode: regex
+    pattern: '(falsification calendar|trigger date|review checkpoint|phase \d.*review|day-?90 review|month-?9 review|go/no-go)'
+
+  - id: a9_named_competitors_with_evidence
+    question: "Are competitor probabilities decomposed (not bare % claims)?"
+    mode: count_min
+    pattern: '(P\(.+\)|probability.+(=|of)\s*\d+%|\d+%\s*(probability|likelihood|conditional))'
+    threshold: 2
+
+  - id: a10_load_bearing_claim_identified
+    question: "Does the document identify which claim, if falsified, kills the whole thesis?"
+    mode: regex
+    pattern: '(if.+(fails|misses|extends).+(reassess|recalibrate|rescope|pause)|the bet (depends on|hinges on)|load-bearing assumption)'

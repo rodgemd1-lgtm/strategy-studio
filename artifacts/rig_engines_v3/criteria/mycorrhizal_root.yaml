@@ -1,0 +1,40 @@
+slug: mycorrhizal_root
+codename: ROOT
+layer: nature
+axis: Hubs feed seedlings. RIG/HED roles explicit. Knowledge flows traced.
+questions:
+- id: rt1_rig_role_named
+  question: 'REQUIRED: RIG''s explicit role named (we embed, we run, we hand off)?'
+  required: true
+  mode: count_min
+  pattern: (we embed|we run with|RIG embeds|RIG runs|RIG owns|RIG operates|we build it with you)
+  threshold: 2
+- id: rt2_hed_role_named
+  question: 'REQUIRED: HED''s explicit ownership/role named?'
+  required: true
+  mode: count_min
+  pattern: (HED owns|the system stays|your (system|stack|platform|knowledge)|you own|HED operates)
+  threshold: 2
+- id: rt3_handoff_milestones
+  question: 'REQUIRED: hand-off milestones with %/stage?'
+  required: true
+  mode: regex
+  pattern: (Build 100% .+ Hand-?off|Build .+ \d+% .+ Advisory|System owner optional|stage[d]? hand-?off)
+- id: rt4_knowledge_flows_traced
+  question: "REQUIRED: knowledge flow direction explicit (engineers\u2192graph\u2192engineers)?"
+  required: true
+  mode: regex
+  pattern: (knowledge graph|engineering knowledge|tribal knowledge.+(captured|encoded|persisted)|ingested.+(design decisions|test
+    reports))
+- id: rt5_distributed_value
+  question: 'REQUIRED: value distributed between RIG, HED, and OEMs?'
+  required: true
+  mode: count_min
+  pattern: (RIG|HED|OEM).+(owns|gets|receives|retains|controls)
+  threshold: 3
+- id: rt6_no_dependency_creation
+  question: 'REQUIRED: no permanent-dependency framing (HED forever needs RIG)?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(ongoing dependency|permanent retainer|always need|cannot operate without|locked into RIG)\b

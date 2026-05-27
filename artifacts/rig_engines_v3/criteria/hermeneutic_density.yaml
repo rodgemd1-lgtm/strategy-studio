@@ -1,0 +1,55 @@
+slug: hermeneutic_density
+codename: WELLSPRING
+layer: cognitive
+# genre tags: w3 requires Year 1/2/3 revenue table or downside/base/upside format (sales);
+# w8 requires HED Rollout + Foundation/Activation/Scale section structure (sales).
+# Tagged genres:[sales] so they are skipped when --genre internal is active.
+axis: Pays back more on reread. Footnotes that reward. Second read finds things the first missed.
+questions:
+- id: w1_footnotes_present
+  question: 'REQUIRED: at least 5 numbered footnotes [1], [2], etc.?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: \[\d+\]|footnote\s+\d+
+  threshold: 3
+- id: w2_appendix_or_layered
+  question: 'REQUIRED: explicit appendix / supplementary detail section?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (appendix|supplementary|see also|further reading|in detail|sensitivity (analysis|table)|driver tree|reference table)
+- id: w3_data_tables
+  question: 'REQUIRED: at least 2 structured tables/lists with data per row?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (:\s*\$\d+M\s*/\s*\$\d+M\s*/\s*\$\d+M|Year 1.+Year 2.+Year 3|\d+%\s*/\s*\d+%\s*/\s*\d+%)
+  threshold: 2
+- id: w4_progressive_disclosure
+  question: "REQUIRED: \u22653 sections with depth tier (overview \u2192 detail)?"
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (at a glance|overview|detail|deep dive|by the numbers|drilldown|underneath|specifically)
+  threshold: 3
+- id: w5_cross_references
+  question: At least one internal cross-reference (see Section 3, Table 2)?
+  mode: regex
+  pattern: (see (Section|Table|Figure|Appendix|item)\s*\d|cf\.|as outlined in)
+- id: w6_methodology_visible
+  question: 'REQUIRED: methodology / how-numbers-derived shown for one major claim?'
+  required: true
+  mode: regex
+  pattern: (triangulat|bottom-up|top-down|sourced from|computed as|derived from|methodology)
+- id: w7_sensitivity_or_band
+  question: 'REQUIRED: sensitivity bands or ranges shown (not just point estimates)?'
+  required: true
+  mode: regex
+  pattern: (sensitivity (band|table|analysis)|downside.+base.+upside|low/mid/high|range:|\d+\s*to\s*\d+\s*%)
+- id: w8_no_executive_only
+  question: "REQUIRED: doc not just exec summary \u2014 has body sections >2000 chars total?"
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (?s)Rollout.+(Foundation|Activation|Scale).{2000,}

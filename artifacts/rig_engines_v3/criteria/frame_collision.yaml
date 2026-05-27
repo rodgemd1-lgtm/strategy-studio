@@ -1,0 +1,50 @@
+slug: frame_collision
+codename: COLLIDER
+layer: cognitive
+axis: Import mechanisms from at least 2 orthogonal domains (defense, dev-platform, electrification, etc.).
+questions:
+- id: co1_defense_frame
+  question: 'REQUIRED: defense procurement frame referenced (federal contracts, CMMC, Oshkosh Defense, FedRAMP)?'
+  required: true
+  mode: count_min
+  pattern: (defense|federal contract|CMMC|Oshkosh Defense|FedRAMP|DoD|prime contractor)
+  threshold: 2
+- id: co2_platform_economics_frame
+  question: 'REQUIRED: developer-platform economics frame (SDK, ARPU, attach rate, marketplace)?'
+  required: true
+  mode: count_min
+  pattern: (SDK|API|developer platform|attach rate|ARPU|marketplace|platform economics|iOS of|Bloomberg of|App Store)
+  threshold: 2
+- id: co3_electrification_or_third
+  question: 'REQUIRED: third orthogonal frame (electrification, energy transition, ag/precision, etc.)?'
+  required: true
+  mode: count_min
+  pattern: (electrif|energy transition|powertrain|EV |electric vehicle|precision ag|telematics|connected vehicle|autonomous)
+  threshold: 1
+- id: co4_named_analogy
+  question: 'REQUIRED: at least 2 cross-domain analogies named (Bloomberg, iOS, Stripe, Tesla, Topcon Ag)?'
+  required: true
+  mode: count_min
+  pattern: \b(Bloomberg|iOS|App Store|Stripe|Tesla|Topcon|Wabtec|Allison|Cummins|Trimble|Salesforce|Snowflake|Databricks)\b
+  threshold: 1
+- id: co5_mechanism_from_other_domain
+  question: 'REQUIRED: at least one mechanism explicitly imported from another domain?'
+  required: true
+  mode: regex
+  pattern: (like (Bloomberg|iOS|Stripe|Tesla|Topcon|Wabtec|Allison|Cummins|Trimble)|the (Bloomberg|iOS|App Store) (model|playbook|approach)|borrowed
+    from|adapted from)
+- id: co6_frame_named_explicitly
+  question: 'REQUIRED: each imported frame is named in a section header or topic sentence?'
+  required: true
+  mode: count_min
+  pattern: (frame:|lens:|perspective:|frame collision|orthogonal frame|second frame|third frame)
+  threshold: 1
+- id: co7_explicit_collision_phrase
+  question: Does the doc explicitly note frame collision/cross-domain?
+  mode: regex
+  pattern: (collision|cross-domain|orthogonal|two industries|three industries|category-spanning)
+- id: co8_money_path_per_frame
+  question: 'Optional: each frame includes its own revenue/economic path?'
+  mode: count_min
+  pattern: (defense.+\$|platform.+\$|electrification.+\$|developer.+\$|SDK.+\$)
+  threshold: 2

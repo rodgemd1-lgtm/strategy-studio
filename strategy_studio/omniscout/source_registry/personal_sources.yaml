@@ -1,0 +1,15 @@
+activation_policy: explicit_approval_required
+privacy_level: private
+sources:
+- access: local
+  name: Calendar
+  type: apple_calendar
+- access: local
+  name: Email
+  type: apple_mail
+- access: local
+  name: Reminders
+  type: apple_reminders
+- access: local
+  name: Notes
+  type: apple_notes

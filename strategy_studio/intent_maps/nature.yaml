@@ -1,0 +1,52 @@
+# Nature Diamond Intent Map (D3)
+# Deterministic intent classification for creative/generative tasks.
+
+patterns:
+  nature.generate:
+    - '\b(generate|create|produce|build|make|write)\b'
+    - '\b(author|draft|compose|design)\b'
+  nature.transform:
+    - '\b(transform|convert|translate|adapt|refactor)\b'
+    - '\b(remap|reshape|reformat|migrate)\b'
+  nature.optimize:
+    - '\b(optimize|improve|enhance|refine|tune|boost)\b'
+    - '\b(accelerate|streamline|tighten)\b'
+  nature.simulate:
+    - '\b(simulate|model|emulate|mock|test|dry.run)\b'
+    - '\b(what.if|scenario|sandbox)\b'
+  nature.discover:
+    - '\b(discover|find|explore|search|detect|identify)\b'
+    - '\b(uncover|reveal|surface|mine)\b'
+
+keywords:
+  nature.generate:
+    - generate
+    - create
+    - produce
+    - build
+    - write
+    - draft
+  nature.transform:
+    - transform
+    - convert
+    - translate
+    - adapt
+    - refactor
+  nature.optimize:
+    - optimize
+    - improve
+    - enhance
+    - refine
+    - tune
+  nature.simulate:
+    - simulate
+    - model
+    - emulate
+    - mock
+  nature.discover:
+    - discover
+    - explore
+    - search
+    - detect
+    - identify
+    - uncover

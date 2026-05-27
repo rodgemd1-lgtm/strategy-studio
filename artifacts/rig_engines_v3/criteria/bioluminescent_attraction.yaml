@@ -1,0 +1,42 @@
+slug: bioluminescent_attraction
+codename: LUMINA
+layer: nature
+axis: Visible economic incentive structure. Money paths are followable.
+questions:
+- id: lu1_revenue_path_per_capability
+  question: 'REQUIRED: each capability has explicit revenue impact $/%?'
+  required: true
+  mode: count_min
+  pattern: (attach (rate|premium).+\$|\$\d+\s*per (unit|controller|seat)|ASP premium|seat price|\$\d+/mo)
+  threshold: 3
+- id: lu2_margin_protection_named
+  question: 'REQUIRED: margin protection or expansion explicitly named?'
+  required: true
+  mode: regex
+  pattern: (margin (expansion|protection|preservation)|GM\s+\d+%|gross margin|EBITDA\s+\d+%|software margin)
+- id: lu3_arr_path_named
+  question: 'REQUIRED: software ARR path with year/amount?'
+  required: true
+  mode: regex
+  pattern: (software ARR.+\$|\$\d+M ARR by Y\d|ARR (grows|reaches|hits) \$\d|recurring revenue)
+- id: lu4_unit_economics
+  question: 'REQUIRED: unit economics shown ($/unit, %/attach)?'
+  required: true
+  mode: regex
+  pattern: (\$\d+\s*per\s+(unit|controller|asset|seat)|per-unit (premium|economics)|unit margin)
+- id: lu5_no_revenue_handwave
+  question: 'REQUIRED: no ''significant revenue'', ''meaningful revenue'' without numbers?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(significant revenue|meaningful revenue|substantial revenue|considerable revenue|material revenue)(?!\s*[($\d])\b
+- id: lu6_5_year_plan
+  question: 'REQUIRED: revenue projection to Y3 minimum?'
+  required: true
+  mode: regex
+  pattern: (Year 3|Y3|2028).+\$\d+M
+- id: lu7_roi_explicit
+  question: 'REQUIRED: ROI multiple stated with denominator?'
+  required: true
+  mode: regex
+  pattern: "\\d+(\\.\\d+)?\\s*[x\xD7]\\s+ROI\\s+on\\s+\\$\\d"

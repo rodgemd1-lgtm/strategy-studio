@@ -1,0 +1,18 @@
+arxiv:
+  default_max_results: 100
+  enabled: true
+  feeds:
+  - name: DailyArxiv
+    scope: general_ai
+  - name: daily-arxiv-ai4cheme
+    scope: chemistry
+  - name: human-motion-arxiv-daily
+    scope: motion
+  - name: ai_agriculture_news
+    scope: agriculture
+  update_frequency: daily
+consensus:
+  enabled: manual_or_api_if_available
+  use_cases:
+  - forecast calibration research
+  - causal inference research

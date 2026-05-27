@@ -1,0 +1,41 @@
+# RIG Lattice — Intent Map
+# Personal brand / Meet Mike studio
+
+studio: personal-brand
+version: "1.0"
+description: Routes personal brand content requests to RIG Lattice cells
+
+content_types:
+  linkedin_post:
+    primary_cell: L3-D2-I1
+    archetype: A2.1
+    viral_hooks: [movie_reference, sports_reference, music_reference]
+    golden_hour: true
+    
+  keynote_deck:
+    primary_cell: L5-D2-S
+    archetype: A3.4
+    wound_channel: "audience_engagement"
+    mechanism: "Narrative Architecture"
+    price: "$15,000 flat"
+    
+  counseling_session:
+    primary_cell: L2-D2-Q1
+    archetype: A2.2
+    wound_channel: "executive_clarity"
+    mechanism: "Operator Mirror"
+    price: "$496/hr"
+    
+  license_inquiry:
+    primary_cell: L4-D1-S
+    archetype: A3.4
+    wound_channel: "ip_monetization"
+    mechanism: "Deviation Engine License"
+    price: "Custom"
+    
+  field_notes:
+    primary_cell: L3-D3-I1
+    archetype: A2.1
+    wound_channel: "operator_transparency"
+    mechanism: "Weekly Log"
+    price: "Free + paid tier"

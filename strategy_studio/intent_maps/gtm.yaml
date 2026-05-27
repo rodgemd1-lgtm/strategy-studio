@@ -1,0 +1,91 @@
+# RIG GTM Studio — Intent Map
+studio: gtm
+version: "1.0"
+description: "Go-to-market: outreach, proposal, contract, close"
+
+intents:
+  outreach:
+    level: L2
+    diamond: D2
+    archetype: A1.2
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - airtable
+    cost_band: "$0.005"
+    description: "Cold/warm outreach sequence generation for a prospect."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest prospect (company, contact, signal)
+      - Q1: Score ICP fit + personalization depth (0-1)
+      - R: Research prospect company, leadership, recent news
+      - S: Structure 3-touch sequence (email, LinkedIn, voicemail)
+      - Q2: Quality gate (no banned phrases, mechanism clarity)
+      - P: Proof check (source-per-claim, no hallucinated titles)
+      - I2: Emit sequence pack + CRM task list
+
+  proposal:
+    level: L3
+    diamond: D2
+    archetype: A2.3
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - airtable
+      - notion
+    cost_band: "$0.05"
+    description: "AI Transformation Proposal generation: wound, mechanism, offer, proof."
+    bms_mode: HYBRID
+    steps:
+      - I1: Ingest prospect data + discovery notes
+      - Q1: Score proposal completeness (0-1)
+      - R: Research vertical benchmarks, case studies, tech stack
+      - S: Structure proposal (wound, mechanism, offer, proof, filter)
+      - Q2: Quality gate (evidence density ≥ 0.33, no slop)
+      - P: Proof check (every claim → source, every source → claim)
+      - I2: Emit proposal artifact + proof packet
+
+  contract:
+    level: L4
+    diamond: D3
+    archetype: A3.4
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - notion
+    cost_band: "$0.50"
+    description: "Statement of Work / MSA draft with clause validation."
+    bms_mode: AGENT_BOUNDED
+    steps:
+      - I1: Ingest proposal terms, scope, pricing
+      - Q1: Score legal completeness (0-1)
+      - R: Research standard clauses, jurisdiction requirements
+      - S: Structure SOW (scope, timeline, deliverables, payment)
+      - Q2: Quality gate (NeMo guardrails, no ambiguous language)
+      - P: Proof check (clause cross-reference, version control)
+      - I2: Emit contract draft + redline notes
+
+  close:
+    level: L5
+    diamond: D3
+    archetype: A4.5
+    tools:
+      - read_file
+      - web_search
+      - bash
+      - notion
+      - airtable
+    cost_band: "$5.00"
+    description: "Deal-close strategy: objection handling, pricing negotiation, decision facilitation."
+    bms_mode: LLM_AGENT_FREE
+    steps:
+      - I1: Ingest deal state (proposals sent, objections, stakeholder map)
+      - Q1: Score close probability + risk factors (0-1)
+      - R: Research buyer psychology, competitor offers, urgency levers
+      - S: Structure close plan (objection responses, meeting agenda, next steps)
+      - Q2: Quality gate (strategic depth, human agency preserved)
+      - P: Proof check (falsification tests, Brier calibration)
+      - I2: Emit close strategy + decision-room brief

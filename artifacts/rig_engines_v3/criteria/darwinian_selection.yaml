@@ -1,0 +1,55 @@
+slug: darwinian_selection
+codename: DARWIN
+layer: cognitive
+# genre tags: d3/d4/d5/d7/d8 are HED-sales-specific (priced tiers, downside/base/upside,
+# do-nothing counterfactual, pre-mortem, per-phase kills). Tagged genres:[sales] so they
+# are skipped when --genre internal is active.
+axis: Generate-mutate-select. Show alternatives considered and rejected. Selection visible.
+questions:
+- id: d1_alternatives_listed
+  question: 'REQUIRED: at least 2 alternative paths considered and named?'
+  required: true
+  mode: count_min
+  pattern: (alternative \d?|option [A-Z]|path [A-Z]|approach \d|scenario \d)
+  threshold: 2
+- id: d2_explicit_rejection
+  question: 'REQUIRED: at least one alternative explicitly rejected with reason?'
+  required: false
+  mode: regex
+  pattern: (rejected because|not chosen|chose .+ over|preferred .+ to|over (alternative|option|path).+because)
+- id: d3_three_tiers_present
+  question: 'REQUIRED: 3 engagement tiers (Diagnostic + Foundation, Activation, Transformation)?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (Diagnostic.+Foundation|\$95,?000|Activation.+\$185|\$185,?000|Transformation.+\$485|\$485,?000)
+  threshold: 3
+- id: d4_downside_base_upside
+  question: 'REQUIRED: downside / base / upside scenarios shown with revenue numbers?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (downside.{0,80}base.{0,80}upside|DOWNSIDE.*BASE.*UPSIDE)
+- id: d5_counterfactual_named
+  question: 'REQUIRED: counterfactual ''do nothing'' scenario quantified?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (do nothing|status quo|counterfactual|if HED doesn.t|no[- ]move scenario)
+- id: d6_winners_refined
+  question: At least one section shows refinement of a winning approach (vs full rewrite)?
+  mode: regex
+  pattern: (refined|tightened|sharpened|narrowed|specified|iterated)
+- id: d7_pre_mortem
+  question: 'REQUIRED: pre-mortem with ranked failure modes?'
+  required: true
+  genres: [sales]
+  mode: regex
+  pattern: (pre-?mortem|failure modes?|composite probability|ranked risks?)
+- id: d8_explicit_kill_for_each_phase
+  question: 'REQUIRED: each phase has its own kill criterion (not just one global)?'
+  required: true
+  genres: [sales]
+  mode: count_min
+  pattern: (Month \d.+(kill|terminate|rescope|pause)|no.+by Month \d|terminate.+by month)
+  threshold: 2

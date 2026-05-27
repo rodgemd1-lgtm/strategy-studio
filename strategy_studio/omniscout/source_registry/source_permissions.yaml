@@ -1,0 +1,30 @@
+default_policy: deny_all
+rules:
+- action: read
+  allowed: true
+  requires_approval: false
+  source_type: github_public_repos
+- action: read
+  allowed: true
+  requires_approval: false
+  source_type: arxiv
+- action: read
+  allowed: true
+  requires_approval: true
+  source_type: prediction_markets
+- action: trade
+  allowed: false
+  requires_approval: true
+  source_type: prediction_markets
+- action: execute
+  allowed: false
+  requires_approval: true
+  source_type: osint_tools
+- action: read
+  allowed: false
+  requires_approval: true
+  source_type: personal_data
+- action: write
+  allowed: false
+  requires_approval: true
+  source_type: personal_data

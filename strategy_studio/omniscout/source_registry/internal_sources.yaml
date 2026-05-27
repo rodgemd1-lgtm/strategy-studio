@@ -1,0 +1,16 @@
+sources:
+- name: RIG OS Docs
+  path: ~/Desktop/Startup-Intelligence-OS/docs
+  type: documentation
+- endpoint: http://localhost:7842
+  name: Susan RAG
+  type: knowledge_base
+- name: Supabase
+  tables:
+  - heb_evidence
+  - adtb_signals
+  - benchmark_evidence
+  type: database
+- endpoint: http://localhost:8091
+  name: MirrorMind
+  type: cognitive_os

@@ -1,0 +1,65 @@
+slug: temporal_horizon_integrity
+codename: HORIZON
+layer: cognitive
+# genre tags: h7 requires CMMC-specific deadline language (HED sales context).
+# Tagged genres:[sales] so it is skipped when --genre internal is active.
+axis: "Replace milestones with bet structures (leading + lagging + kill criteria + compounding loop). 10-year arc, not 24-month roadmap."
+
+questions:
+  - id: h1_phases_with_dates
+    question: "Are phases dated to months or quarters (not vague)?"
+    mode: count_min
+    pattern: '(month [0-9]+|months? \d+[-–]\d+|Q[1-4]\s+\d{4}|phase \d.+(months?|quarter)|day-?90)'
+    threshold: 4
+
+  - id: h2_leading_indicators_named
+    question: "Are leading indicators (weekly/monthly observable) explicitly named per phase?"
+    mode: count_min
+    pattern: '(leading indicator|weekly.+(metric|signal)|monthly.+(metric|signal)|first signal|early indicator)'
+    threshold: 1
+
+  - id: h3_lagging_indicators_named
+    question: "Are lagging indicators (quarterly/annual outcomes) named?"
+    mode: count_min
+    pattern: '(lagging indicator|quarterly.+(metric|review)|annual.+(metric|review)|ARR|software ARR|attach rate)'
+    threshold: 2
+
+  - id: h4_kill_criteria_with_threshold
+    question: "Do kill criteria specify both date AND quantitative threshold?"
+    mode: count_min
+    pattern: '(by month \d.+(<|>|less than|more than|under|over|\d+%|\d+\s*(seats|users|customers|OEMs))|no.+by month|<\s*\d+%.+by)'
+    threshold: 3
+
+  - id: h5_compounding_loop_named
+    question: "Is at least one compounding loop (gets stronger without new input) named?"
+    mode: count_min
+    pattern: '(compounding|network effect|each new.+improves|fleet learning|knowledge graph compounds|knowledge engine grows|moat tightens)'
+    threshold: 1
+
+  - id: h6_year_arc_specified
+    question: "Does the doc commit to a multi-year arc (Y1/Y2/Y3 or longer) with concrete revenue/state per year?"
+    mode: count_min
+    pattern: '(Year 1.+\$|Year 2.+\$|Year 3.+\$|Y[1-5].+\$|2026.+\$|2027.+\$|2028.+\$|2030.+\$)'
+    threshold: 3
+
+  - id: h7_2_year_window_named
+    question: "Is the closing-window (CMMC deadline, competitor catch-up) dated to a specific year?"
+    genres: [sales]
+    mode: regex
+    pattern: '(Nov \d+,?\s*2026|November \d+,?\s*2026|CMMC.+(deadline|Phase 2|2026)|by 2027|by 2028)'
+
+  - id: h8_no_vague_horizons
+    question: "Zero vague phrases like 'long-term', 'down the road', 'in the future' without specific dates?"
+    mode: absent
+    patterns:
+      - '\b(in the future|down the road|long[- ]term horizon|over time|some day|eventually)\b'
+
+  - id: h9_phase_review_gate
+    question: "Is there an explicit phase-review or go/no-go decision gate?"
+    mode: regex
+    pattern: '(phase \d.+review|month-?9 review|go/no-go|board-ready ROI|review checkpoint)'
+
+  - id: h10_decay_or_competitive_clock
+    question: "Is the competitive timing clock (when does the window close?) explicitly stated?"
+    mode: regex
+    pattern: '(24-month window|window closes|moat erodes|window of opportunity|first-mover.+months|6 months ahead|24 months ahead)'

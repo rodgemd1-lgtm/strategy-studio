@@ -1,0 +1,48 @@
+slug: voltage
+codename: VOLT
+layer: cognitive
+axis: Emotional voltage without manipulation. Stakes named without hyperbole.
+questions:
+- id: v1_named_legacy
+  question: 'REQUIRED: 35-year legacy / family-business heritage named?'
+  required: true
+  mode: regex
+  pattern: (35[- ]year|three[- ]decade|family business|family-owned|legacy|Hill family|founded \d{4}|generation)
+- id: v2_named_loss
+  question: 'REQUIRED: explicit cost of not moving stated (margin compression, lost category, lost time)?'
+  required: true
+  mode: regex
+  pattern: (margin compression|moat erodes|window closes|catches up|lose the category|fast-follower|too late|missed window|locked
+    out)
+- id: v3_named_inefficiency
+  question: 'REQUIRED: at least one specific operational drain named (hours/week wasted, etc.)?'
+  required: true
+  mode: regex
+  pattern: (\d+\s*hours? (per|/) (week|month)|\d+\s*days?\s+(proposal|cycle)|14[- ]day proposal|600 hours|legacy architecture|tribal
+    knowledge)
+- id: v4_named_retirement_risk
+  question: 'REQUIRED: senior-engineer retirement / knowledge-loss risk named?'
+  required: true
+  mode: regex
+  pattern: (retire|retiring|knowledge loss|tribal knowledge|senior engineer.+retire|brain drain|institutional knowledge)
+- id: v5_named_competitor_threat
+  question: 'REQUIRED: named competitor close to claiming category?'
+  required: true
+  mode: regex
+  pattern: (Grayhill|Parker|Bosch).{0,100}(months?|category|claim|publish|ship)
+- id: v6_no_hyperbole
+  question: 'REQUIRED: no over-the-top urgency (''once-in-a-lifetime'', ''unprecedented opportunity'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(once[- ]in[- ]a[- ]lifetime|unprecedented opportunity|generational moment|historic|game-changing)\b
+- id: v7_specific_humans_named
+  question: 'REQUIRED: at least 2 specific humans named (Gijs Zomer, Mike Rodgers, etc.)?'
+  required: true
+  mode: count_min
+  pattern: \b(Gijs Zomer|Mike Rodgers|James Loehr|Hill family|the family|Joe Hill|William Hill)\b
+  threshold: 1
+- id: v8_concrete_future_state
+  question: Specific future state visualized (revenue, OEM count, year, category status)?
+  mode: regex
+  pattern: (Y3|Year 3|2028|2030|2033).{0,200}(\$\d+M|category|acquisition|OEMs|industry standard)

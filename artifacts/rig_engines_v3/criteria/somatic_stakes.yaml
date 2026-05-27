@@ -1,0 +1,51 @@
+slug: somatic_stakes
+codename: VISCERA
+layer: cognitive
+axis: "Embodied stakes \u2014 felt, not described. Specific names, specific futures, specific people."
+questions:
+- id: vi1_named_humans
+  question: "REQUIRED: \u22653 specific humans named in roles?"
+  required: true
+  mode: count_min
+  pattern: \b(Gijs Zomer|Mike Rodgers|James Loehr|Hill family|the family|Joe Hill|William Hill|senior engineer|VP Operations)\b
+  threshold: 3
+- id: vi2_personal_pronoun_use
+  question: "REQUIRED: 'your team / your engineers / your customers' appears \u22655 times?"
+  required: true
+  mode: count_min
+  pattern: \byour (team|engineers|customers|OEMs|product|company|business|family|legacy|moat|category)\b
+  threshold: 3
+- id: vi3_concrete_workflow_detail
+  question: 'REQUIRED: a specific concrete workflow scene (engineers wasting time on docs, etc.)?'
+  required: true
+  mode: regex
+  pattern: (\d+ hours? (a |per )(week|month)|engineers? (give|spend|waste) .+(hours?|time)|14[- ]day proposal cycle|600 hours|the
+    .+ that retires next year)
+- id: vi4_named_failure_consequence
+  question: 'REQUIRED: specific consequence of failure named for a specific stakeholder?'
+  required: true
+  mode: regex
+  pattern: (margin (compress|erodes)|the family business|the legacy|the moat closes|the retirement (cliff|wave)|Hill family.+(risk|concern|wealth))
+- id: vi5_no_abstract_stakes_only
+  question: 'REQUIRED: no abstract stakes only (''the future of work'', ''industry transformation'')?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(the future of work|industry transformation|paradigm shift|digital revolution|new normal)\b
+- id: vi6_year_resolved_state
+  question: 'REQUIRED: future-state for HED resolved to specific numbers (Y3 $130M, etc.)?'
+  required: true
+  mode: regex
+  pattern: (Y3|Year 3|2028).{0,200}\$\d+M
+- id: vi7_real_field_use_case
+  question: 'REQUIRED: at least one customer-application named (fire truck, refuse, ag, defense)?'
+  required: true
+  mode: count_min
+  pattern: (fire truck|refuse truck|agricultural|construction|defense vehicle|material handling|mobile equipment|off-highway)
+  threshold: 2
+- id: vi8_no_anonymous_proxies
+  question: 'REQUIRED: no anonymous ''a customer told us'' or ''industry leaders say''?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(a customer told us|industry leaders say|insiders report|sources say|on background)\b

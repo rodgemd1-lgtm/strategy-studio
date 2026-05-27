@@ -1,0 +1,42 @@
+slug: predictive_surprise
+codename: SURPRISE
+layer: cognitive
+axis: At least one claim makes the reader update their model. Real information injection.
+questions:
+- id: su1_counter_intuitive_finding
+  question: 'REQUIRED: at least one counter-intuitive finding or ''most assume X, but''?'
+  required: true
+  mode: regex
+  pattern: (most (people |firms |companies )?(assume|believe|think) .+ but|contrary to|surprisingly|unexpected|not what (you|most)
+    (expect|think))
+- id: su2_named_unknown_unknown
+  question: 'REQUIRED: at least one fact most buyers wouldn''t know (specific niche claim)?'
+  required: true
+  mode: regex
+  pattern: (few (know|realize)|less than .+ are aware|hidden|underappreciated|under[- ]?recognized|niche advantage)
+- id: su3_specific_market_insight
+  question: 'REQUIRED: specific market structure insight (CMMC moat, Bosch+Trackunit pact, etc.)?'
+  required: true
+  mode: count_min
+  pattern: (CMMC Phase 2|Bosch.+Trackunit|Trackunit.+Bosch|Camgian|24[- ]month window|Nov \d+,?\s*2026|Phase 2 begins)
+  threshold: 2
+- id: su4_anti_consensus_call
+  question: 'REQUIRED: at least one explicit anti-consensus prediction?'
+  required: true
+  mode: regex
+  pattern: (consensus is wrong|the (industry|market) is wrong|contrary to (industry|consensus|expert)|we disagree with|conventional
+    wisdom is wrong)
+- id: su5_named_dark_horse
+  question: At least one less-obvious comparable (Topcon Precision Ag, Wabtec rail, etc.)?
+  mode: count_min
+  pattern: \b(Topcon Precision|Wabtec|Allison Transmission|Cummins Connected|Trimble Connected|Helios Technologies|Roper)\b
+  threshold: 1
+- id: su6_no_obvious_only
+  question: "REQUIRED: no thesis composed only of obvious points (must contain \u22651 non-obvious)?"
+  required: true
+  mode: regex
+  pattern: (the non-obvious|the surprising|the underappreciated|few realize|the hidden|the structural)
+- id: su7_quantified_surprise
+  question: "At least one number that would surprise a knowledgeable reader (Helios went 0\u219235% Electronics)?"
+  mode: regex
+  pattern: (0[- ]to[- ]\d+%|\$0.+\$\d+M|went from \d.+to \d+|grew from \d.+to \d|hit \$\d+M by Year)

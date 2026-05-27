@@ -1,0 +1,45 @@
+slug: speed_of_lumen
+codename: LUMEN
+layer: physics
+axis: "Effects cannot precede causes. Causal ordering preserved. No 'as shown above' for content below."
+
+calibration:
+  direction: gate
+  pass_sigma: 8.0
+  per_optional_bonus: 1.0
+  hard_block_sigma: -30.0
+
+questions:
+  - id: l1_no_forward_reference_as_already_proven
+    question: "REQUIRED: No 'as shown above', 'as established', 'as proven' followed within 800 chars by 'will demonstrate' or 'we'll show'?"
+    required: true
+    mode: absent
+    patterns:
+      - '(as (shown|established|proven|demonstrated) above)[\s\S]{0,800}(will (show|demonstrate|prove)|we.ll (demonstrate|show))'
+
+  - id: l2_evidence_before_claim_when_quoted
+    question: "REQUIRED: Citations have brackets/footnotes that point to a real number (no [TBD] or [SOURCE])?"
+    required: true
+    mode: absent
+    patterns:
+      - '\[(TBD|SOURCE|CITATION|PLACEHOLDER|TODO)\]'
+
+  - id: l3_phase_order_correct
+    question: "Are phases ordered Foundation → Activation → Scale (not jumbled)?"
+    mode: regex
+    pattern: '(?s)Foundation[\s\S]{20,2000}Activation[\s\S]{20,2000}Scale'
+
+  - id: l4_dates_in_chronological_order
+    question: "Optional: Are year mentions in chronological order across the doc (2026 before 2027 before 2028)?"
+    mode: regex
+    pattern: '(?s)2026[\s\S]{20,3000}2027[\s\S]{20,3000}(2028|2030|2033)'
+
+  - id: l5_no_premature_conclusion
+    question: "Optional: Does conclusion appear AFTER body (not before)?"
+    mode: regex
+    pattern: '(?s)(rollout|phases|engagement tiers)[\s\S]+(future state|year 5|conclusion|the question)'
+
+  - id: l6_cause_before_effect_in_economic
+    question: "Optional: In economic projections, attach-rate or capability driver named BEFORE revenue number?"
+    mode: regex
+    pattern: '(attach rate|capability built|first.+ships).{0,400}(\$\d+M|\$\d+\.\d+M)'

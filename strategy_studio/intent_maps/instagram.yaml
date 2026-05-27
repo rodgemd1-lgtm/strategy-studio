@@ -1,0 +1,86 @@
+# RIG Instagram Studio — Intent Map
+studio: instagram
+version: "1.0"
+description: "Instagram post, story, reel, and engagement automation"
+
+intents:
+  post:
+    level: L1
+    diamond: D1
+    archetype: A1.1
+    tools:
+      - read_file
+      - image_generate
+      - bash
+    cost_band: "$0.001"
+    description: "Generate an Instagram carousel or single-image post from a topic."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest topic / hook / visual direction
+      - Q1: Score visual-brand alignment (0-1)
+      - R: Research 2-3 supporting visuals / references
+      - S: Structure caption + alt text + hashtag set
+      - Q2: Quality gate (no generic copy, visual fidelity)
+      - P: Proof check (brand consistency)
+      - I2: Emit post pack (caption, image prompt, hashtags)
+
+  story:
+    level: L2
+    diamond: D1
+    archetype: A1.2
+    tools:
+      - read_file
+      - image_generate
+      - bash
+    cost_band: "$0.005"
+    description: "Instagram story sequence with poll, quiz, or CTA frame."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest story objective (poll, quiz, swipe-up)
+      - Q1: Score engagement predictability (0-1)
+      - R: Research top-performing story formats for niche
+      - S: Structure 3-5 frame narrative
+      - Q2: Quality gate (frame pacing, CTA clarity)
+      - P: Proof check (link validity, brand colors)
+      - I2: Emit story pack (frames, copy, timing)
+
+  reel:
+    level: L3
+    diamond: D2
+    archetype: A2.3
+    tools:
+      - read_file
+      - image_generate
+      - bash
+      - web_search
+    cost_band: "$0.05"
+    description: "Reel script + visual direction + hook optimization."
+    bms_mode: HYBRID
+    steps:
+      - I1: Ingest reel topic / trend audio / duration
+      - Q1: Score trend relevance + hook strength (0-1)
+      - R: Research trending audio, competitor reels, hashtags
+      - S: Structure script (hook, body, CTA) + shot list
+      - Q2: Quality gate (hook ≤ 3 sec, mechanism clarity)
+      - P: Proof check (audio copyright, source attribution)
+      - I2: Emit reel pack (script, shot list, posting notes)
+
+  engage:
+    level: L2
+    diamond: D2
+    archetype: A1.2
+    tools:
+      - read_file
+      - bash
+      - web_search
+    cost_band: "$0.005"
+    description: "Instagram engagement — comments, DMs, and collaboration outreach."
+    bms_mode: PYTHON_ONLY
+    steps:
+      - I1: Ingest target account / post / collaboration ask
+      - Q1: Score brand alignment (0-1)
+      - R: Research target content, audience overlap
+      - S: Structure comment / DM (value-first, no spam)
+      - Q2: Quality gate (tone match, no automation markers)
+      - P: Proof check (no fake urgency, no misleading claims)
+      - I2: Emit engagement message + log

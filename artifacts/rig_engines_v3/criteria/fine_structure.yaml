@@ -1,0 +1,40 @@
+slug: fine_structure
+codename: PARSEC
+layer: physics
+axis: Every word load-bearing. No redundancy. No adverb without semantic load.
+calibration:
+  direction: gate
+  pass_sigma: 15.0
+  per_optional_bonus: 2.5
+  hard_block_sigma: -30.0
+  max_sigma: 25.0
+questions:
+- id: pa1_no_very_really
+  question: 'REQUIRED: zero ''very'', ''really'', ''quite'' as intensifiers?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(very (good|bad|important|significant|large|small|robust)|really (great|impressive|important)|quite (literally|significant))\b
+- id: pa2_no_redundant_pairs
+  question: 'REQUIRED: no ''plans and strategies'' redundancy?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(plans? and strateg|goals? and objective|aims? and ambition|hopes? and aspiration|tools? and (methods|techniques))\b
+- id: pa3_no_throat_clearing
+  question: 'REQUIRED: no ''It should be noted''?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(It should be noted|It is (worth|important) (noting|mentioning)|Needless to say|It goes without saying)\b
+- id: pa4_no_repeated_intro_phrases
+  question: 'Optional: section openers vary (no 3+ sections opening with ''We will'')?'
+  mode: absent
+  patterns:
+  - (\n## \w+[\s\S]{0,100}^We will\b[\s\S]{0,1500}\n## \w+[\s\S]{0,100}^We will\b)
+- id: pa5_no_passive_drowning
+  question: 'REQUIRED: passive voice usage controlled?'
+  required: true
+  mode: absent
+  patterns:
+  - \b(it (was|has been) (decided|determined|recognized|noted)|has been (shown|demonstrated|established|proven)){2,}

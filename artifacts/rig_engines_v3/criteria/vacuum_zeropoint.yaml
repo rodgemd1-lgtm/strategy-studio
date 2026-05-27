@@ -1,0 +1,47 @@
+slug: vacuum_zeropoint
+codename: ZEROPOINT
+layer: physics
+axis: Even quiet systems show baseline activity. Concrete metrics throughout. No empty assertions.
+calibration:
+  direction: gate
+  pass_sigma: 15.0
+  per_optional_bonus: 2.5
+  hard_block_sigma: -30.0
+  max_sigma: 25.0
+questions:
+- id: zp1_dollar_density
+  question: 'REQUIRED: at least 20 specific dollar amounts?'
+  required: true
+  mode: count_min
+  pattern: \$\d+(\.\d+)?(\s*[KMBT]|,\d{3})?
+  threshold: 15
+- id: zp2_percent_density
+  question: 'REQUIRED: at least 15 specific percentages?'
+  required: true
+  mode: count_min
+  pattern: \b\d+(\.\d+)?\s*%
+  threshold: 10
+- id: zp3_time_unit_density
+  question: 'REQUIRED: at least 12 specific time units (days/weeks/months/years)?'
+  required: true
+  mode: count_min
+  pattern: \b\d+(\.\d+)?\s*(days?|weeks?|months?|years?|hours?|minutes?|seconds?|ms)\b
+  threshold: 8
+- id: zp4_count_density
+  question: 'REQUIRED: at least 10 specific counts (24 SKUs, 40 engineers, etc.)?'
+  required: true
+  mode: count_min
+  pattern: \b\d+\s+(SKUs?|engineers?|customers?|OEMs?|units?|controllers?|displays?|keypads?|contracts?|interviews?|seats?)\b
+  threshold: 7
+- id: zp5_no_lazy_qualifiers
+  question: 'REQUIRED: no ''significantly'', ''substantially'' without number?'
+  required: false
+  mode: absent
+  patterns:
+  - \b(significantly|substantially|considerably|materially)\s+(better|larger|more|faster|smaller|less)\b(?!\s+\d)
+- id: zp6_specific_versions
+  question: 'REQUIRED: at least 2 specific dated versions/years (FY26, 2026, etc.)?'
+  required: true
+  mode: count_min
+  pattern: \b(FY\s*\d{2,4}|FY26|FY27|FY28|2026|2027|2028|2030|Q[1-4]\s+\d{4})\b
+  threshold: 4

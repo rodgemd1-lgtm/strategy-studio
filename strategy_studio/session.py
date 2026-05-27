@@ -36,6 +36,16 @@ from strategy_studio.core.types_extended import (
     WargameResult,
 )
 from strategy_studio.archetypes import run_a1, run_a2, run_a3, run_a4
+from strategy_studio.lattice_wire import (
+    LatticeOrchestrator,
+    LatticeCell,
+    Altitude,
+    Diamond,
+    IQRSQPIStep,
+    BuildMode,
+    compute_bms,
+    lattice_summary,
+)
 # NOTE: Old prediction_studio functions replaced by new v2 module
 # from strategy_studio.studios.prediction_studio import (
 #     build_scenarios, cross_impact_analysis, predict_variable,
@@ -80,6 +90,9 @@ class StrategySession:
         output_dir: Path | None = None,
         ticker: str = "",
         auto_enrich: bool = True,
+        lattice_mode: bool = True,
+        lattice_altitude: int = 2,
+        lattice_diamond: str = "D1",
     ):
         self.company_name = company_name
         self.industry = industry
@@ -90,7 +103,9 @@ class StrategySession:
         self.output_dir = Path(output_dir) if output_dir else Path(f"out/sessions/{company_name.lower().replace(' ', '_')}")
         self.ticker = ticker.upper()
         self.auto_enrich = auto_enrich
-        self.enriched_data: dict = {}
+        self.lattice_mode = lattice_mode
+        self.lattice_altitude = Altitude(lattice_altitude)
+        self.lattice_diamond = Diamond(lattice_diamond)
         self.session_id = hashlib.md5(f"{company_name}{time.time()}".encode()).hexdigest()[:12]
         self.timestamp = datetime.now(timezone.utc)
 
@@ -106,21 +121,35 @@ class StrategySession:
         self.scenarios: list[Scenario] = []
         self.report: StrategyReport | None = None
         self.exported_paths: dict[str, Path] = {}
+        self.enriched_data: dict = {}
+
+        # Lattice results
+        self.lattice_orchestrator: LatticeOrchestrator | None = None
+        self.lattice_packets: list = []
+        self.lattice_summary: dict = {}
+        self.bms_score: float = 0.5
+        self.bms_mode: str = "A1"
 
     def run(self, export_formats: list[str] | None = None) -> StrategyReport:
         """Run the complete strategy session pipeline."""
         export_formats = export_formats or ["md", "html", "json"]
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        # Step 0: Auto-enrich with real data
+        # Step 0: Lattice BMS classification
+        self._classify_lattice()
+
+        # Step 0.5: Auto-enrich with real data
         if self.auto_enrich:
             self._enrich_from_data_sources()
 
         # Step 1: Build evidence from sources
         evidence = self._build_evidence()
 
-        # Step 2: Run all 4 archetypes
-        self._run_archetypes(evidence)
+        # Step 2: Run lattice IQRSQPI pipeline (or fallback to direct archetypes)
+        if self.lattice_mode:
+            self._run_lattice_pipeline(evidence)
+        else:
+            self._run_archetypes(evidence)
 
         # Step 3: Build prediction models
         self._run_predictions()
@@ -147,6 +176,59 @@ class StrategySession:
         self._generate_report(export_formats)
 
         return self.report  # type: ignore[return-value]
+
+    def _classify_lattice(self) -> None:
+        """Classify the session into a BMS mode and lattice coordinate."""
+        # Score based on session characteristics
+        failure_cost = 0.7 if self.ticker else 0.5  # Public company = higher stakes
+        reversibility = 0.4  # Strategy decisions are hard to reverse
+        mechanism_clarity = 0.6 if self.industry else 0.3  # Known industry = clearer mechanism
+        data_volume = min(1.0, len(self.evidence_sources) / 10.0)
+
+        bms = compute_bms(
+            failure_cost=failure_cost,
+            reversibility=reversibility,
+            mechanism_clarity=mechanism_clarity,
+            data_volume=data_volume,
+            altitude=self.lattice_altitude,
+        )
+        self.bms_score = bms.final
+        self.bms_mode = bms.select_mode().value
+        self.lattice_summary = {
+            "bms_score": round(bms.final, 4),
+            "bms_mode": self.bms_mode,
+            "altitude": self.lattice_altitude.value,
+            "diamond": self.lattice_diamond.value,
+            "cell_id": f"L{self.lattice_altitude.value}-{self.lattice_diamond.value}",
+        }
+
+    def _run_lattice_pipeline(self, evidence: list[Evidence]) -> None:
+        """Run the IQRSQPI pipeline through the lattice orchestrator."""
+        self.lattice_orchestrator = LatticeOrchestrator()
+        input_data = {
+            "query": f"Strategy for {self.company_name} in {self.industry}. {self.context}",
+            "company": self.company_name,
+            "industry": self.industry,
+            "competitors": self.competitors,
+            "evidence_count": len(evidence),
+        }
+        result = self.lattice_orchestrator.execute_full_pipeline(
+            input_data=input_data,
+            altitude=self.lattice_altitude,
+            diamond=self.lattice_diamond,
+        )
+        self.lattice_packets = result.get("execution_log", [])
+        # Store lattice summary in archetype_results for report generation
+        for packet in self.lattice_orchestrator.execution_log:
+            if packet.status == "PASS":
+                self.archetype_results.append(AuditRow(
+                    archetype=packet.mode,
+                    mode=packet.mode,
+                    input_hash=packet.input_hash,
+                    output_hash=packet.output_hash,
+                    status=packet.status,
+                    duration_ms=packet.duration_ms,
+                ))
 
     def _enrich_from_data_sources(self) -> None:
         """Auto-enrich company data from multiple scrapers (Wikipedia, SEC, web, news, academic)."""
@@ -510,6 +592,9 @@ class StrategySession:
             "has_meta_analysis": self.meta_analysis is not None,
             "report_generated": self.report is not None,
             "exported_files": {k: str(v) for k, v in self.exported_paths.items()},
+            "lattice_mode": self.lattice_mode,
+            "lattice_summary": self.lattice_summary,
+            "lattice_packets": len(self.lattice_packets),
         }
 
 
@@ -524,6 +609,9 @@ def run_strategy_session(
     export_formats: list[str] | None = None,
     ticker: str = "",
     auto_enrich: bool = True,
+    lattice_mode: bool = True,
+    lattice_altitude: int = 2,
+    lattice_diamond: str = "D1",
 ) -> StrategySession:
     """Convenience function to run a complete strategy session."""
     session = StrategySession(
@@ -536,6 +624,9 @@ def run_strategy_session(
         output_dir=output_dir,
         ticker=ticker,
         auto_enrich=auto_enrich,
+        lattice_mode=lattice_mode,
+        lattice_altitude=lattice_altitude,
+        lattice_diamond=lattice_diamond,
     )
     session.run(export_formats=export_formats)
     return session

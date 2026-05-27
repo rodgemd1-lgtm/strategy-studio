@@ -151,8 +151,13 @@ class TestStrategySession:
             export_formats=["md", "json"],
         )
         summary = session.summary()
-        assert summary["archetypes_run"] == 4
+        # Lattice mode: 7 IQRSQPI steps (or 4 archetypes in fallback mode)
+        assert summary["archetypes_run"] >= 4
         assert summary["report_generated"] is True
+        # Lattice-specific checks
+        assert session.bms_mode in ("A1", "A2", "A3", "A4")
+        assert session.bms_score > 0
+        assert len(session.lattice_packets) > 0
 
     def test_session_summary(self):
         from strategy_studio.session import run_strategy_session

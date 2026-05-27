@@ -26,6 +26,19 @@ from strategy_studio.engines import (
     allocate_budget,
     assess_impact,
 )
+from strategy_studio.lattice_wire import (
+    LatticeOrchestrator,
+    LatticeCell,
+    Altitude,
+    Diamond,
+    IQRSQPIStep,
+    BuildMode,
+    compute_bms,
+    get_build_card,
+    get_all_build_cards,
+    lattice_summary,
+    generate_lattice_map,
+)
 
 console = Console()
 
@@ -426,6 +439,226 @@ def full_pipeline(company: str, competitors: str, budget: float, output_format: 
         console.print(f"  {i['option_id']}: {i['overall_impact_score']:.2f} ({i['impact_category']})")
 
     console.print(f"\n[bold green]═══ Pipeline complete ═══[/bold green]")
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LATTICE COMMANDS — RIG Lattice traversal
+# ═══════════════════════════════════════════════════════════════════════════
+
+@cli.group("lattice")
+def lattice_group():
+    """RIG Lattice — 147-cell orchestration system."""
+    pass
+
+
+@lattice_group.command("summary")
+def lattice_cmd_summary():
+    """Show lattice summary: 147 cells, BMS distribution."""
+    s = lattice_summary()
+    table = Table(title="RIG Lattice Summary (147 cells)")
+    table.add_column("Dimension", style="cyan")
+    table.add_column("Breakdown", style="green")
+    table.add_column("Count", justify="right")
+
+    for mode, count in s["by_mode"].items():
+        table.add_row("Build Mode", mode, str(count))
+    for alt, count in s["by_altitude"].items():
+        table.add_row("Altitude", alt, str(count))
+    for dia, count in s["by_diamond"].items():
+        table.add_row("Diamond", dia, str(count))
+    table.add_row("Total", "", str(s["total_cells"]))
+    console.print(table)
+
+
+@lattice_group.command("cell")
+@click.argument("cell_id")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def lattice_cmd_cell(cell_id: str, output_format: str):
+    """Show details for a lattice cell (e.g., L2-D1-I1)."""
+    try:
+        cell = LatticeCell.parse(cell_id)
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        return
+
+    bms = compute_bms(altitude=cell.altitude)
+    mode = bms.select_mode()
+    card = get_build_card(cell_id)
+
+    if output_format == "json":
+        console.print(json.dumps({
+            "cell_id": cell.cell_id,
+            "altitude": cell.altitude.value,
+            "altitude_desc": cell.altitude.description,
+            "diamond": cell.diamond.value,
+            "step": cell.step.value,
+            "step_name": cell.step.step_name,
+            "bms_score": round(bms.final, 4),
+            "build_mode": mode.value,
+            "cost_band": mode.cost_band,
+            "archetype_id": card.archetype_id,
+            "tools": card.tools,
+            "validation": card.validation_criteria,
+            "escalation_target": card.escalation_target,
+        }, indent=2))
+    else:
+        console.print(Panel(
+            f"**Cell:** {cell.cell_id}\n\n"
+            f"**Altitude:** L{cell.altitude.value} — {cell.altitude.description}\n"
+            f"**Diamond:** {cell.diamond.value}\n"
+            f"**Step:** {cell.step.value} ({cell.step.step_name}) — {cell.step.description}\n\n"
+            f"**BMS Score:** {round(bms.final, 4)}\n"
+            f"**Build Mode:** {mode.value} — {mode.description}\n"
+            f"**Cost Band:** {mode.cost_band}\n"
+            f"**Archetype:** {card.archetype_id}\n"
+            f"**Tools:** {', '.join(card.tools)}\n"
+            f"**Validation:** {', '.join(card.validation_criteria)}\n"
+            f"**Escalation:** {card.escalation_target or 'None (top level)'}",
+            title=f"Lattice Cell: {cell_id}",
+        ))
+
+
+@lattice_group.command("bms")
+@click.option("--failure-cost", default=0.5, help="C1: Cost of being wrong (0-1)")
+@click.option("--reversibility", default=0.5, help="C2: Can we undo this? (0-1)")
+@click.option("--mechanism-clarity", default=0.5, help="C10: Mechanism clarity (0-1)")
+@click.option("--altitude", default=2, type=int, help="Altitude level (1-7)")
+@click.option("--past-failure-rate", default=0.0, help="Past failure rate (0-1)")
+@click.option("--data-volume", default=0.5, help="Data volume (0-1)")
+def lattice_cmd_bms(failure_cost: float, reversibility: float, mechanism_clarity: float,
+                    altitude: int, past_failure_rate: float, data_volume: float):
+    """Compute BMS score and select build mode."""
+    alt = Altitude(altitude)
+    bms = compute_bms(failure_cost, reversibility, mechanism_clarity,
+                      past_failure_rate, data_volume, alt)
+    mode = bms.select_mode()
+
+    table = Table(title=f"BMS Score — {mode.value} ({mode.cost_band})")
+    table.add_column("Component", style="cyan")
+    table.add_column("Value", justify="right")
+    table.add_row("Raw Score (C1/C2/C10)", f"{bms.raw:.4f}")
+    table.add_row("Failure Rate Adj", f"{bms.adj_failure:+.4f}")
+    table.add_row("Data Volume Adj", f"{bms.adj_volume:+.4f}")
+    table.add_row("Altitude Adj (L{altitude})", f"{bms.adj_altitude:+.4f}")
+    table.add_row("**Final BMS**", f"**{bms.final:.4f}**")
+    table.add_row("**Build Mode**", f"**{mode.value}**")
+    table.add_row("Mode Description", mode.description)
+    console.print(table)
+
+
+@lattice_group.command("traverse")
+@click.argument("cell_id")
+@click.option("--query", default="Strategy analysis", help="Input query")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def lattice_cmd_traverse(cell_id: str, query: str, output_format: str):
+    """Traverse a single lattice cell (execute B-engine)."""
+    try:
+        cell = LatticeCell.parse(cell_id)
+    except ValueError as e:
+        console.print(f"[red]Error: {e}[/red]")
+        return
+
+    orch = LatticeOrchestrator()
+    packet = orch.execute_cell(cell, {"query": query})
+
+    if output_format == "json":
+        console.print(json.dumps(packet.model_dump(), indent=2, default=str))
+    else:
+        status_color = "green" if packet.status == "PASS" else "red"
+        console.print(Panel(
+            f"**Cell:** {packet.cell_id}\n"
+            f"**Archetype:** {packet.archetype_id}\n"
+            f"**Mode:** {packet.mode}\n"
+            f"**Step:** {packet.step}\n"
+            f"**Status:** [{status_color}]{packet.status}[/{status_color}]\n"
+            f"**Confidence:** {packet.confidence:.4f}\n"
+            f"**Duration:** {packet.duration_ms}ms\n"
+            f"**Escalation:** {packet.escalation_reason or 'None'}\n\n"
+            f"**Output:**\n{json.dumps(packet.output, indent=2, default=str)[:500]}",
+            title=f"Lattice Traverse: {cell_id}",
+        ))
+
+
+@lattice_group.command("pipeline")
+@click.option("--altitude", default=2, type=int, help="Altitude level (1-7)")
+@click.option("--diamond", default="D1", type=click.Choice(["D1", "D2", "D3"]))
+@click.option("--query", default="Strategy analysis", help="Input query")
+@click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]))
+def lattice_cmd_pipeline(altitude: int, diamond: str, query: str, output_format: str):
+    """Run full 7-step IQRSQPI pipeline through the lattice."""
+    alt = Altitude(altitude)
+    dia = Diamond(diamond)
+
+    orch = LatticeOrchestrator()
+    result = orch.execute_full_pipeline(
+        input_data={"query": query},
+        altitude=alt,
+        diamond=dia,
+    )
+
+    if output_format == "json":
+        console.print(json.dumps(result, indent=2, default=str))
+    else:
+        summary = result["summary"]
+        status_color = "green" if summary["overall_status"] == "PASS" else "yellow" if summary["overall_status"] == "PARTIAL" else "red"
+
+        console.print(f"\n[bold]═══ Lattice Pipeline: L{altitude}-{diamond} ═══[/bold]\n")
+        console.print(f"Status: [{status_color}]{summary['overall_status']}[/{status_color}]")
+        console.print(f"Steps: {summary['passed']}/{summary['total_steps']} passed")
+        console.print(f"Escalations: {summary['escalations']}")
+        console.print(f"Duration: {summary['total_duration_ms']}ms")
+
+        table = Table(title="Step Results")
+        table.add_column("Step", style="cyan")
+        table.add_column("Status", style="green")
+        table.add_column("Mode", style="magenta")
+        table.add_column("Duration", justify="right")
+        for step_name, step_data in result["steps"].items():
+            s = step_data if isinstance(step_data, dict) else {}
+            st = s.get("status", "?")
+            table.add_row(
+                step_name,
+                f"{'green' if st == 'PASS' else 'red'}",
+                s.get("mode", "?"),
+                f"{s.get('duration_ms', 0)}ms",
+            )
+        console.print(table)
+
+
+@lattice_group.command("map")
+@click.option("--output", default="out/lattice_map.excalidraw", help="Output path for .excalidraw file")
+def lattice_cmd_map(output: str):
+    """Generate Excalidraw visualization of the 147-cell lattice."""
+    diagram = generate_lattice_map(Path(output))
+    console.print(f"[green]✓ Lattice map generated: {output}[/green]")
+    console.print(f"  Cells: {len(diagram['elements'])} elements")
+    console.print(f"  Open in Excalidraw: https://excalidraw.com")
+
+
+@lattice_group.command("cards")
+@click.option("--output-dir", default="out/build_cards", help="Output directory for Build Card YAMLs")
+@click.option("--format", "output_format", default="summary", type=click.Choice(["summary", "json"]))
+def lattice_cmd_cards(output_dir: str, output_format: str):
+    """Generate all 147 Build Cards."""
+    cards = get_all_build_cards()
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    for card in cards:
+        filepath = out / f"{card.cell_id}.yaml"
+        import yaml
+        filepath.write_text(yaml.safe_dump(card.model_dump(mode="json"), sort_keys=False))
+
+    if output_format == "json":
+        console.print(json.dumps([c.model_dump() for c in cards], indent=2, default=str))
+    else:
+        console.print(f"[green]✓ {len(cards)} Build Cards generated in {output_dir}[/green]")
+        # Summary by mode
+        by_mode: dict[str, int] = {}
+        for c in cards:
+            by_mode[c.mode] = by_mode.get(c.mode, 0) + 1
+        for mode, count in sorted(by_mode.items()):
+            console.print(f"  {mode}: {count} cards")
 
 
 if __name__ == "__main__":

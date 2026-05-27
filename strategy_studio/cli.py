@@ -460,59 +460,53 @@ def audit(limit: int, output_format: str):
 @click.option("--budget", default=1000000.0, help="Total budget for allocation.")
 @click.option("--format", "output_format", default="md", type=click.Choice(["json", "yaml", "md"]), help="Output format.")
 def full_pipeline(company: str, competitors: str, budget: float, output_format: str):
-    """Run full B-engine pipeline: synthesize → wargame → risk → market → position → timeline → budget → impact."""
-    options = _make_sample_options()
+    """Run full strategy pipeline through the RIG Lattice."""
     comp_list = [c.strip() for c in competitors.split(",") if c.strip()] if competitors else ["Competitor A", "Competitor B"]
 
     console.print(f"\n[bold]═══ Strategy Studio: {company} ═══[/bold]\n")
 
-    # B29: Synthesize
-    evidence = _make_sample_evidence(company)
-    syn = synthesize_evidence(evidence, title=f"Strategy for {company}")
-    console.print(f"[bold]B29 Synthesis:[/bold] {syn.rationale}")
-    console.print(f"  Winner: {syn.recommendation.title if syn.recommendation else 'N/A'}")
+    from strategy_studio.session import run_strategy_session
+    session = run_strategy_session(
+        company_name=company,
+        industry="",
+        competitors=comp_list,
+        lattice_mode=True,
+        export_formats=["md"],
+    )
 
-    # B36: Wargame
-    wg = run_wargame(f"{company} market entry", comp_list)
-    console.print(f"\n[bold]B36 Wargame:[/bold] {len(wg)} scenarios")
-    for w in wg[:3]:
-        console.print(f"  {w.actor}: {w.move[:60]}...")
+    # Show lattice classification
+    ls = session.lattice_summary
+    console.print(f"[bold]Lattice:[/bold] BMS {ls.get('bms_mode', '?')} (score: {ls.get('bms_score', 0):.2f}) | Cell: {ls.get('cell_id', '?')}")
 
-    # B37: Risk
-    risks = assess_risks(options)
-    console.print(f"\n[bold]B37 Risk:[/bold]")
-    for r in risks:
-        console.print(f"  {r['option_id']}: {r['overall_risk_level']} ({r['overall_risk_score']})")
+    # Show lattice step results
+    if session.lattice_packets:
+        console.print(f"\n[bold]IQRSQPI Pipeline:[/bold]")
+        for pkt in session.lattice_packets:
+            status = pkt.get("status", "?") if isinstance(pkt, dict) else pkt.status
+            mode = pkt.get("mode", "?") if isinstance(pkt, dict) else pkt.mode
+            step = pkt.get("step", "?") if isinstance(pkt, dict) else pkt.step
+            esc = " →" if (pkt.get("escalation_required") if isinstance(pkt, dict) else pkt.escalation_required) else ""
+            status_color = "green" if status == "PASS" else "red" if status == "ERROR" else "yellow"
+            console.print(f"  {step}: [{status_color}]{status}[/{status_color}] ({mode}){esc}")
 
-    # B40: Market
-    markets = size_market(options)
-    console.print(f"\n[bold]B40 Market:[/bold]")
-    for m in markets:
-        console.print(f"  {m['option_id']}: TAM=${m['tam']:,.0f}, SAM=${m['sam']:,.0f} ({m['confidence']})")
+    # Show report summary
+    if session.report and session.report.executive_summary:
+        es = session.report.executive_summary
+        console.print(f"\n[bold]Recommendation:[/bold] {es.recommendation}")
+        console.print(f"[bold]Confidence:[/bold] {es.confidence}")
+        if es.key_findings:
+            console.print(f"\n[bold]Key Findings:[/bold]")
+            for f in es.key_findings[:5]:
+                console.print(f"  • {f}")
+        if es.next_steps:
+            console.print(f"\n[bold]Next Steps:[/bold]")
+            for step in es.next_steps[:3]:
+                console.print(f"  • {step}")
 
-    # B43: Position
-    positions = position_competitively(options, comp_list)
-    console.print(f"\n[bold]B43 Position:[/bold]")
-    for p in positions:
-        console.print(f"  {p['option_id']}: moat={p['moat_score']}, diff={p['differentiation_score']}")
-
-    # B44: Timeline
-    timelines = plan_timeline(options)
-    console.print(f"\n[bold]B44 Timeline:[/bold]")
-    for t in timelines:
-        console.print(f"  {t['option_id']}: {t['duration_weeks']}w ({t['complexity_level']})")
-
-    # B45: Budget
-    allocs = allocate_budget(options, budget)
-    console.print(f"\n[bold]B45 Budget (${budget:,.0f}):[/bold]")
-    for a in allocs:
-        console.print(f"  #{a['priority_rank']} {a['option_id']}: ${a['budget']:,.0f} ({a['allocation_percentage']:.1f}%)")
-
-    # B46: Impact
-    impacts = assess_impact(options)
-    console.print(f"\n[bold]B46 Impact:[/bold]")
-    for i in impacts:
-        console.print(f"  {i['option_id']}: {i['overall_impact_score']:.2f} ({i['impact_category']})")
+    if session.exported_paths:
+        console.print(f"\n[bold]Exported:[/bold]")
+        for fmt, path in session.exported_paths.items():
+            console.print(f"  {fmt}: {path}")
 
     console.print(f"\n[bold green]═══ Pipeline complete ═══[/bold green]")
 

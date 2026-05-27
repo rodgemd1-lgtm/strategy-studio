@@ -1,6 +1,8 @@
 """FastAPI server for Strategy Studio — with RIG Lattice API routes."""
+
 from __future__ import annotations
 
+import argparse
 from datetime import datetime
 
 from pydantic import BaseModel, Field
@@ -218,3 +220,22 @@ def post_lattice_pipeline(request: LatticePipelineRequest) -> dict:
 def get_lattice_map() -> dict:
     """Generate Excalidraw lattice map."""
     return generate_lattice_map()
+
+
+def main():
+    """Run the Strategy Studio API server."""
+    parser = argparse.ArgumentParser(description="Strategy Studio API Server")
+    parser.add_argument("--host", default="0.0.0.0", help="Bind host")
+    parser.add_argument("--port", type=int, default=8080, help="Bind port")
+    parser.add_argument("--reload", action="store_true", help="Auto-reload on changes")
+    args = parser.parse_args()
+
+    import uvicorn
+    print(f"Starting Strategy Studio API server on {args.host}:{args.port}")
+    print(f"Lattice endpoints: http://{args.host}:{args.port}/lattice/")
+    print(f"Health check: http://{args.host}:{args.port}/health")
+    uvicorn.run(app, host=args.host, port=args.port, reload=args.reload)
+
+
+if __name__ == "__main__":
+    main()

@@ -51,12 +51,15 @@ from strategy_studio.lattice_wire import (
     generate_build_card,
 )
 
-# Aliases for backward compatibility with old archon code
+# Aliases for backward compatibility with old archon/rig_studio_cli code
 Level = Altitude
 LatticeCoordinate = LatticeCell
 
+# Enum value aliases (old short names → new descriptive names)
+_A4 = BMSMode.A4_LLM_AGENT_FREE
+_L7 = Altitude.L7
 
-# ═══════════════════════════════════════════════════════════════════════════
+
 # ProcessType — extends lattice with process-level routing
 # ═══════════════════════════════════════════════════════════════════════════
 

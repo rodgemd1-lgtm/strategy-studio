@@ -46,12 +46,12 @@ def _run_with_harness(
     process: ProcessType,
     input_data: dict[str, Any],
     level: Level = Level.L2,
-    diamond: Diamond = Diamond.D1,
-    mode: BMSMode = BMSMode.A1,
-    step: IQRSQPIStep = IQRSQPIStep.S,
+    diamond: Diamond = Diamond.D1_STRATEGY,
+    mode: BMSMode = BMSMode.A1_PYTHON_ONLY,
+    step: IQRSQPIStep = IQRSQPIStep.S_SOLUTION,
 ) -> ProofPacket:
     """Run a process through the Archon harness and return the ProofPacket."""
-    coord = LatticeCoordinate(level=level, diamond=diamond, mode=mode, step=step)
+    coord = LatticeCoordinate(altitude=level, diamond=diamond, mode=mode, step=step)
     harness = ArchonHarness(coordinate=coord, process=process)
     packet = harness.execute(input_data)
     _registry.register(packet)
@@ -225,6 +225,21 @@ Examples:
 
 # ── Command Handlers ────────────────────────────────────────────────────────
 
+
+def _lattice_gate(process: ProcessType, input_data: dict[str, Any],
+                  level: Level = Level.L2, mode: BMSMode = BMSMode.A1_PYTHON_ONLY) -> tuple[ProofPacket, dict[str, Any]]:
+    """Run a process through the Archon harness lattice gate.
+
+    Returns (ProofPacket, result_dict).
+    If validation fails, ProofPacket.status will be VALIDATION_FAILED.
+    """
+    coord = LatticeCoordinate(altitude=level, diamond=Diamond.D1_STRATEGY, step=IQRSQPIStep.S_SOLUTION, mode=mode)
+    harness = ArchonHarness(coordinate=coord, process=process)
+    packet = harness.execute(input_data)
+    return packet, {"status": packet.status, "packet_id": packet.packet_id,
+                    "coordinate": str(packet.cell_id), "mode": packet.mode}
+
+
 def handle_analyze(args: argparse.Namespace) -> dict[str, Any]:
     """Handle the analyze command through Archon harness."""
     from strategy_studio.session import run_strategy_session
@@ -244,9 +259,9 @@ def handle_analyze(args: argparse.Namespace) -> dict[str, Any]:
         process=ProcessType.ANALYZE,
         input_data=harness_input,
         level=Level.L2,
-        diamond=Diamond.D1,
-        mode=BMSMode.A1,
-        step=IQRSQPIStep.S,
+        diamond=Diamond.D1_STRATEGY,
+        mode=BMSMode.A1_PYTHON_ONLY,
+        step=IQRSQPIStep.S_SOLUTION,
     )
 
     # Run actual analysis
@@ -268,12 +283,15 @@ def handle_analyze(args: argparse.Namespace) -> dict[str, Any]:
         "outputs": {k: str(v) for k, v in session.exported_paths.items()} if session.report else {},
         "archon": {
             "packet_id": packet.packet_id,
-            "coordinate": str(packet.coordinate),
+            "coordinate": packet.cell_id,
+            "full_coordinate": packet.full_cell_id,
+            "archetype_id": packet.archetype_id,
             "process": packet.process,
             "status": packet.status,
-            "gates_passed": packet.all_gates_passed,
-            "evidence_count": packet.evidence_count,
+            "mode": packet.mode,
+            "step": packet.step,
             "duration_ms": packet.duration_ms,
+            "evidence_count": len(packet.evidence_sources),
             "audit": packet.to_audit_log(),
         },
     }

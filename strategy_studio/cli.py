@@ -491,12 +491,30 @@ def full_pipeline(company: str, competitors: str, budget: float, output_format: 
 
     # Show B-engine results from session
     if session.report:
+        # Risk assessment
+        if session.archetype_results:
+            console.print(f"\n[bold]B37 Risk:[/bold]")
+            for ar in session.archetype_results:
+                if ar.archetype in ("A1", "A2", "A3", "A4"):
+                    status_color = "green" if ar.status == "PASS" else "red"
+                    console.print(f"  {ar.archetype}: [{status_color}]{ar.status}[/{status_color}] ({ar.duration_ms}ms)")
+
+        # Decision matrix
         if session.decision_room and session.decision_room.decision_matrix:
             dm = session.decision_room.decision_matrix
             console.print(f"\n[bold]Decision Matrix:[/bold]")
             for os in dm.options[:4]:
                 tier_color = "green" if os.tier == "A" else "blue" if os.tier == "B" else "yellow"
                 console.print(f"  #{os.rank} {os.option_title}: {os.total_score:.2f} [{tier_color}]{os.tier}[/{tier_color}]")
+
+        # Wargame summary
+        if session.wargame:
+            console.print(f"\n[bold]B36 Wargame:[/bold] {session.wargame.scenario_name} ({session.wargame.risk_level})")
+
+        # Evidence graph
+        if session.evidence_graph:
+            eg = session.evidence_graph
+            console.print(f"\n[bold]Evidence Graph:[/bold] {len(eg.nodes)} sources, {len(eg.contradictions)} contradictions, conf={eg.overall_confidence}")
 
     # Show report summary
     if session.report and session.report.executive_summary:

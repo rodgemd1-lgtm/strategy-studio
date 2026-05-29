@@ -51,6 +51,7 @@ from strategy_studio.lattice_wire import (
     generate_build_card,
 )
 
+
 class Level(int, Enum):
     """Backward-compatible altitude enum with L1..L7 members."""
     L1 = 1

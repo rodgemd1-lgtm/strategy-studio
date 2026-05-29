@@ -24,7 +24,7 @@ make verify
 This performs:
 
 - Python syntax compilation for maintained package surfaces.
-- Full pytest suite.
+- Local pytest suite, excluding the external-runtime e2e suite by default.
 - Local proof stub at `proof/local-verification-proof.json`.
 
 This repo requires Python 3.11 or newer.

@@ -1,0 +1,33 @@
+name: RIG Verify
+
+on:
+  push:
+    branches: [main, "codex/**"]
+  pull_request:
+
+jobs:
+  verify-local:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package + dev extras
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+
+      - name: RIG local verification
+        run: make verify PYTHON=python
+
+      - name: Upload local proof
+        uses: actions/upload-artifact@v4
+        with:
+          name: strategy-studio-local-verification-proof
+          path: proof/local-verification-proof.json

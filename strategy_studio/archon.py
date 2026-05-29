@@ -23,24 +23,24 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Re-export unified lattice types from lattice_wire
 # ═══════════════════════════════════════════════════════════════════════════
 from strategy_studio.lattice_wire import (
-    Altitude,
-    Diamond,
-    IQRSQPIStep,
-    BuildMode as BMSMode,
-    LatticeCell,
+    Altitude as WireAltitude,
+    Diamond as WireDiamond,
+    IQRSQPIStep as WireIQRSQPIStep,
+    BuildMode as WireBMSMode,
+    LatticeCell as WireLatticeCell,
     BuildMode,
     compute_bms,
     LatticeOrchestrator,
-    ProofPacket,
+    ProofPacket as WireProofPacket,
     GateStatus,
     QualityGate,
-    GateResult,
+    GateResult as WireGateResult,
     run_quality_gates,
     wire_cell_to_engine,
     get_all_588_cells,
@@ -51,13 +51,220 @@ from strategy_studio.lattice_wire import (
     generate_build_card,
 )
 
-# Aliases for backward compatibility with old archon/rig_studio_cli code
-Level = Altitude
-LatticeCoordinate = LatticeCell
+class Level(int, Enum):
+    """Backward-compatible altitude enum with L1..L7 members."""
+    L1 = 1
+    L2 = 2
+    L3 = 3
+    L4 = 4
+    L5 = 5
+    L6 = 6
+    L7 = 7
 
-# Enum value aliases (old short names → new descriptive names)
-_A4 = BMSMode.A4_LLM_AGENT_FREE
-_L7 = Altitude.L7
+    def to_wire(self) -> WireAltitude:
+        return WireAltitude(self.value)
+
+
+class Diamond(str, Enum):
+    """Backward-compatible diamond enum with short D1/D2/D3 members."""
+    D1 = "D1"
+    D2 = "D2"
+    D3 = "D3"
+
+    def to_wire(self) -> WireDiamond:
+        return WireDiamond(self.value)
+
+
+class BMSMode(str, Enum):
+    """Backward-compatible BMS enum with short A1/A2/A3/A4 members."""
+    A1 = "A1"
+    A2 = "A2"
+    A3 = "A3"
+    A4 = "A4"
+
+    def to_wire(self) -> WireBMSMode:
+        return WireBMSMode(self.value)
+
+
+class IQRSQPIStep(str, Enum):
+    """Backward-compatible IQRSQPI enum with short step members."""
+    I1 = "I1"
+    Q1 = "Q1"
+    R = "R"
+    S = "S"
+    Q2 = "Q2"
+    P = "P"
+    I2 = "I2"
+
+    @property
+    def step_name(self) -> str:
+        return {
+            "I1": "intent", "Q1": "question", "R": "research",
+            "S": "solution", "Q2": "quality", "P": "proof", "I2": "integrate",
+        }[self.value]
+
+    def to_wire(self) -> WireIQRSQPIStep:
+        return WireIQRSQPIStep(self.value)
+
+
+class LatticeCoordinate:
+    """Backward-compatible full lattice coordinate.
+
+    The newer `lattice_wire.LatticeCell` keeps 147-cell and 588-cell IDs
+    separate. Older Archon callers expect `cell_id` to be the full 588-cell ID.
+    This wrapper preserves that API and converts to the wire type at runtime.
+    """
+
+    def __init__(self, level: Level, diamond: Diamond, mode: BMSMode, step: IQRSQPIStep):
+        self.level = level
+        self.diamond = diamond
+        self.mode = mode
+        self.step = step
+
+    @property
+    def altitude(self) -> WireAltitude:
+        return self.level.to_wire()
+
+    @property
+    def cell_id(self) -> str:
+        return f"L{self.level.value}-{self.diamond.value}-{self.mode.value}-{self.step.value}"
+
+    @property
+    def full_cell_id(self) -> str:
+        return self.cell_id
+
+    @property
+    def archetype_id(self) -> str:
+        return f"{self.mode.value}.{list(IQRSQPIStep).index(self.step) + 1}"
+
+    @property
+    def altitude_penalty(self) -> float:
+        return {
+            Level.L1: 0.0,
+            Level.L2: 0.0,
+            Level.L3: 0.0,
+            Level.L4: -0.05,
+            Level.L5: -0.10,
+            Level.L6: -0.15,
+            Level.L7: -0.20,
+        }[self.level]
+
+    def to_wire(self) -> WireLatticeCell:
+        return WireLatticeCell(
+            altitude=self.level.to_wire(),
+            diamond=self.diamond.to_wire(),
+            mode=self.mode.to_wire(),
+            step=self.step.to_wire(),
+        )
+
+    def __str__(self) -> str:
+        return self.cell_id
+
+    def __eq__(self, other: object) -> bool:
+        return isinstance(other, LatticeCoordinate) and self.cell_id == other.cell_id
+
+    @classmethod
+    def parse(cls, cell_id: str) -> "LatticeCoordinate":
+        import re
+
+        match = re.match(r"^L([1-7])-D([1-3])-A([1-4])-(I[12]|Q[12]|[RSP])$", cell_id)
+        if not match:
+            raise ValueError(f"Invalid cell ID: {cell_id}")
+
+        return cls(
+            level=Level(int(match.group(1))),
+            diamond=Diamond(f"D{match.group(2)}"),
+            mode=BMSMode(f"A{match.group(3)}"),
+            step=IQRSQPIStep(match.group(4)),
+        )
+
+
+class GateResult(BaseModel):
+    cell_id: str = ""
+    step: str
+    mode: str
+    gates: list[QualityGate] = Field(default_factory=list)
+    overall: GateStatus = GateStatus.UNKNOWN
+    duration_ms: int = 0
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_coordinate(cls, values: Any) -> Any:
+        if isinstance(values, dict) and "coordinate" in values and "cell_id" not in values:
+            values = dict(values)
+            values["cell_id"] = values.pop("coordinate")
+        return values
+
+    @property
+    def passed(self) -> bool:
+        return self.overall in (GateStatus.PASS, GateStatus.SKIPPED)
+
+
+class ProofPacket(BaseModel):
+    packet_id: str = Field(
+        default_factory=lambda: hashlib.md5(
+            str(datetime.now(timezone.utc).timestamp()).encode()
+        ).hexdigest()[:12]
+    )
+    cell_id: str = ""
+    full_cell_id: str = ""
+    archetype_id: str = ""
+    mode: str = ""
+    step: str = ""
+    input_hash: str = ""
+    output_hash: str = ""
+    evidence_sources: list[str] = Field(default_factory=list)
+    output: dict[str, Any] = Field(default_factory=dict)
+    confidence: float = 0.5
+    duration_ms: int = 0
+    status: str = "unknown"
+    escalation_required: bool = False
+    escalation_reason: str = ""
+    escalation_from: str = ""
+    process: str = ""
+    gate_results: list[GateResult] = Field(default_factory=list)
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_coordinate(cls, values: Any) -> Any:
+        if isinstance(values, dict) and "coordinate" in values:
+            values = dict(values)
+            coordinate = values.pop("coordinate")
+            try:
+                parsed = LatticeCoordinate.parse(coordinate)
+                values.setdefault("cell_id", parsed.cell_id)
+                values.setdefault("full_cell_id", parsed.full_cell_id)
+                values.setdefault("archetype_id", parsed.archetype_id)
+                values.setdefault("mode", parsed.mode.value)
+                values.setdefault("step", parsed.step.step_name)
+            except ValueError:
+                values.setdefault("cell_id", coordinate)
+                values.setdefault("full_cell_id", coordinate)
+        return values
+
+    @property
+    def all_gates_passed(self) -> bool:
+        return all(g.passed for g in self.gate_results)
+
+    def to_audit_log(self) -> dict[str, Any]:
+        return {
+            "packet_id": self.packet_id,
+            "cell_id": self.cell_id,
+            "coordinate": self.full_cell_id or self.cell_id,
+            "full_cell_id": self.full_cell_id,
+            "archetype_id": self.archetype_id,
+            "mode": self.mode,
+            "step": self.step,
+            "status": self.status,
+            "process": self.process,
+            "confidence": self.confidence,
+            "duration_ms": self.duration_ms,
+            "escalation_required": self.escalation_required,
+            "escalation_reason": self.escalation_reason,
+            "evidence_count": len(self.evidence_sources),
+            "timestamp": self.timestamp.isoformat(),
+        }
 
 
 # ProcessType — extends lattice with process-level routing
@@ -91,7 +298,7 @@ class ArchonHarness:
     Delegates to LatticeOrchestrator for lattice-aware execution.
     """
 
-    def __init__(self, coordinate: LatticeCell, process: ProcessType):
+    def __init__(self, coordinate: LatticeCoordinate, process: ProcessType):
         self.coordinate = coordinate
         self.process = process
         self.gate_results: list[GateResult] = []
@@ -108,11 +315,12 @@ class ArchonHarness:
             return self._make_proof_packet(status="VALIDATION_FAILED", input_data=input_data)
 
         # Step 2: Execute through lattice orchestrator
+        wire_coordinate = self.coordinate.to_wire()
         orch = LatticeOrchestrator()
         result = orch.execute_full_pipeline(
             input_data=input_data,
-            altitude=self.coordinate.altitude,
-            diamond=self.coordinate.diamond,
+            altitude=wire_coordinate.altitude,
+            diamond=wire_coordinate.diamond,
         )
 
         # Step 3: Build ProofPacket from lattice result
@@ -236,13 +444,13 @@ class HarnessRegistry:
 def run_harness(
     process: ProcessType,
     input_data: dict[str, Any],
-    level: Altitude = Altitude.L2,
-    diamond: Diamond = Diamond.D1_STRATEGY,
-    mode: BMSMode = BMSMode.A1_PYTHON_ONLY,
-    step: IQRSQPIStep = IQRSQPIStep.S_SOLUTION,
+    level: Level = Level.L2,
+    diamond: Diamond = Diamond.D1,
+    mode: BMSMode = BMSMode.A1,
+    step: IQRSQPIStep = IQRSQPIStep.S,
 ) -> ProofPacket:
     """Run a process through an Archon harness."""
-    coord = LatticeCell(altitude=level, diamond=diamond, step=step, mode=mode)
+    coord = LatticeCoordinate(level=level, diamond=diamond, mode=mode, step=step)
     harness = ArchonHarness(coordinate=coord, process=process)
     return harness.execute(input_data)
 
@@ -255,7 +463,7 @@ def get_all_cell_ids() -> list[str]:
 def validate_cell_id(cell_id: str) -> bool:
     """Validate a cell ID string (supports both 147 and 588 formats)."""
     try:
-        LatticeCell.parse(cell_id)
+        LatticeCoordinate.parse(cell_id)
         return True
     except ValueError:
         return False

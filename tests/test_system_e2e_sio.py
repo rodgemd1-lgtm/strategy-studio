@@ -17,14 +17,20 @@ from pathlib import Path
 
 import pytest
 
-REPO = Path("/Users/mikerodgers/Desktop/strategy-studio")
+REPO = Path(os.environ.get("RIG_STRATEGY_STUDIO_REPO", Path(__file__).resolve().parents[1]))
 GATEWAY_URL = "http://127.0.0.1:18789"
+EXTERNAL_RUNTIME_APPROVED = os.environ.get("RIG_ALLOW_EXTERNAL_RUNTIME") == "YES"
+requires_external_runtime = pytest.mark.skipif(
+    not EXTERNAL_RUNTIME_APPROVED,
+    reason="Requires OpenClaw/fleet runtime proof and RIG_ALLOW_EXTERNAL_RUNTIME=YES.",
+)
 
 
 # ─────────────────────────────────────────────
 # 1. OpenClaw Gateway Tests
 # ─────────────────────────────────────────────
 
+@requires_external_runtime
 class TestOpenClawGateway:
     def test_gateway_process_running(self):
         """OpenClaw gateway should be running as a launchd service."""
@@ -59,6 +65,7 @@ class TestOpenClawGateway:
 # 2. Agent Bootstrap Tests
 # ─────────────────────────────────────────────
 
+@requires_external_runtime
 class TestAgentBootstraps:
     AGENTS = ["rig-auditor", "rig-builder", "rig-researcher", "rig-deployer", "rig-watcher"]
 
@@ -169,6 +176,7 @@ class TestBMSEngine:
 # 5. Fleet Node Tests
 # ─────────────────────────────────────────────
 
+@requires_external_runtime
 class TestFleetNodes:
     NODES = [
         ("rig-256gb", "100.91.39.12"),
@@ -191,6 +199,7 @@ class TestFleetNodes:
 # 6. Cron Job Tests
 # ─────────────────────────────────────────────
 
+@requires_external_runtime
 class TestCronJobs:
     def test_cron_scheduler_exists(self):
         """Cron scheduler script should exist."""

@@ -177,9 +177,12 @@ cd strategy-studio
 ## Verify
 
 ```bash
-# Run repo-specific tests, lint, typecheck, build, or smoke commands.
-# If no command exists yet, add one before promoting this README to final.
+python -m strategy_studio.cli lattice summary
+pytest -q tests/contracts/test_tool_registry.py
 ```
+
+V10 planning proof for this repo is tracked at:
+`proof/looper-v10-cockpit/2026-05-29-rig-v10-readiness-design.md`
 
 ## Release And Proof Protocol
 

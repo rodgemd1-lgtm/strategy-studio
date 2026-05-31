@@ -71,3 +71,26 @@ def test_available_path_accepts_proofbound_and_revises_generic() -> None:
     assert strong.proof_packet is not None
     assert generic.verdict in {"revise", "reject"}
     assert strong.creativity_score > generic.creativity_score
+
+
+def test_roadmap_fallback_when_booster_absent(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(cb, "_BOOSTER_AVAILABLE", False)
+    assert cb.build_strategy_roadmap("t", "c", "x") is None
+
+
+@pytest.mark.skipif(not cb.booster_available(), reason="rig-creative-booster not installed")
+def test_roadmap_is_future_back_and_leverage_ordered() -> None:
+    rm = cb.build_strategy_roadmap(
+        "Outcome-priced audit underwriting",
+        "Replace hourly billing with a fee indexed to verified savings, underwritten by a risk model.",
+        "Mid-market CPA firm wants to escape hourly billing.",
+        sources=["a", "b", "c"], claims=["x", "y", "z"],
+        mechanisms=["actuarial pricing", "risk transfer", "feature extraction", "risk pooling"],
+        top=5,
+    )
+    assert rm is not None
+    items = rm["items"]
+    assert len(items) == 5
+    prios = [it["priority"] for it in items]
+    assert prios == sorted(prios, reverse=True)
+    assert items[0]["horizon"] == "now (≤90d)"

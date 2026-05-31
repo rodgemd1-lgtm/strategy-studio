@@ -25,6 +25,7 @@ from strategy_studio.core.types import Option
 try:  # optional dependency — booster may not be installed
     from rig_creative_booster.formulas.master import score_idea
     from rig_creative_booster.gates.engine import final_verdict, run_gates
+    from rig_creative_booster.innovation.roadmap import build_roadmap
     from rig_creative_booster.innovation.vectors import (
         headline,
         innovation_index,
@@ -143,3 +144,32 @@ def evaluate_idea(
         next_tests=list(packet.next_tests),
         proof_packet=packet.model_dump(mode="json"),
     )
+
+
+def build_strategy_roadmap(
+    title: str,
+    content: str,
+    context: str = "",
+    *,
+    sources: list[str] | None = None,
+    claims: list[str] | None = None,
+    mechanisms: list[str] | None = None,
+    corpus: list[str] | None = None,
+    top: int | None = None,
+) -> dict | None:
+    """Future-back capability roadmap for a strategy (SS2).
+
+    Scores the idea, derives the 10 innovation vectors, and returns a roadmap
+    ranked by leverage × feasibility ÷ time-to-value, bucketed into horizons.
+    Returns None if the booster is not installed (graceful).
+    """
+    if not _BOOSTER_AVAILABLE:
+        return None
+    idea = CreativeIdeaPacket(
+        idea_id=_idea_id(title), title=title, content=content, context=context,
+        sources=sources or [], claims=claims or [], mechanisms=mechanisms or [],
+    )
+    sv = score_idea(idea, corpus or [])
+    vectors = score_innovation_vectors(idea, sv)
+    roadmap = build_roadmap(idea.idea_id, title, sv, vectors, top=top)
+    return roadmap.model_dump(mode="json")

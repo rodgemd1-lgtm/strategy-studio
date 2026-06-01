@@ -281,16 +281,7 @@ CLI contract:
 
 > These workflows live in the README and are editable here. Each is a `WorkflowDoc` (`name` · BMS mode · ordered steps) that round-trips losslessly with the visual designer and the agent IR.
 
-#### 1. AGENTS  `A4`
-
-_A4 · LLM-agent-free (crew)_
-
-1. Evidence required: min 2 cited sources per claim
-2. Falsification gate: strategy outputs must have falsification packet
-3. Proof packet: every external send needs a strategy proof packet
-4. UNKNOWN policy: if LakeOS has no cited result, return UNKNOWN + request indexing
-
-#### 2. AGENTS  `A1`
+#### 1. AGENTS  `A1`
 
 _A1 · Python-only (deterministic)_
 
@@ -299,7 +290,7 @@ _A1 · Python-only (deterministic)_
 3. Recall API: https://backend.getrecall.ai/api/v1
 4. QNAP Lake: /Users/mikerodgers/mnt/RIGQNAP-RIGLake-LAN/RIG/phronema/lake
 
-#### 3. AGENTS  `A1`
+#### 2. AGENTS  `A1`
 
 _A1 · Python-only (deterministic)_
 
@@ -308,20 +299,16 @@ _A1 · Python-only (deterministic)_
 3. After writing the .excalidraw file, run the render pipeline to produce a PNG,
 4. Brand colors live in .codex/skills/excalidraw-diagram/references/color-palette.md.
 
-#### 4. Strategy Process Domain  `A4`
+#### 3. AGENTS  `A4`
 
 _A4 · LLM-agent-free (crew)_
 
-1. Strategy Synthesis (B29) — evidence → ranked options
-2. Market Wargame (B36) — competitor moves → RIG responses
-3. Competitor Intelligence (B42) — competitor changes → response options
-4. Client Intelligence (B41) — prospect evidence → wedge offers
-5. Prediction Crux (B34) — questions → forecast variables
-6. Falsification (B33) — beliefs → disprove tests
-7. Consensus Delta (B31) — new research → belief updates
-8. GTM Planning — strategy → go-to-market plans
+1. Evidence required: min 2 cited sources per claim
+2. Falsification gate: strategy outputs must have falsification packet
+3. Proof packet: every external send needs a strategy proof packet
+4. UNKNOWN policy: if LakeOS has no cited result, return UNKNOWN + request indexing
 
-#### 5. Per-prospect Codex workflow  `A4`
+#### 4. Per-prospect Codex workflow  `A4`
 
 _A4 · LLM-agent-free (crew)_
 
@@ -336,27 +323,20 @@ _A4 · LLM-agent-free (crew)_
 9. Validate against TeaserInput schema
 10. Append to prospects2000.jsonl
 
-#### 6. teaser-runbook  `A1`
+#### 5. Strategy Process Domain  `A4`
 
-_A1 · Python-only (deterministic)_
+_A4 · LLM-agent-free (crew)_
 
-1. index.html — drops onto the prospect's cloned site as the homepage hero/wedge
-2. teaser.md — for cold email body, LinkedIn DM thread starter, or PDF render
-3. teaserinput.json — input snapshot (audit trail)
-4. proofpacket.json — ProofPacket + FalsificationPacket + quality result
+1. Strategy Synthesis (B29) — evidence → ranked options
+2. Market Wargame (B36) — competitor moves → RIG responses
+3. Competitor Intelligence (B42) — competitor changes → response options
+4. Client Intelligence (B41) — prospect evidence → wedge offers
+5. Prediction Crux (B34) — questions → forecast variables
+6. Falsification (B33) — beliefs → disprove tests
+7. Consensus Delta (B31) — new research → belief updates
+8. GTM Planning — strategy → go-to-market plans
 
-#### 7. teaser-runbook  `A3`
-
-_A3 · Agent-bounded (budget-capped)_
-
-1. Pydantic extra="forbid" rejects unknown fields → no silent typos
-2. minlength / maxlength enforces 3 advantages, 3 engines, 3 threats, 3 disqualifiers
-3. evidencesources requires at least 2 entries → RIG min-2-source rule
-4. confidence must be H/M/L → forces explicit downgrade when evidence is weak
-5. ProofPacket auto-generated → every external send has audit trail
-6. FalsificationPacket auto-generated per engine → "what would prove this wrong"
-
-#### 8. strategy  `A1`
+#### 6. strategy  `A1`
 
 _A1 · Python-only (deterministic)_
 
@@ -386,4 +366,959 @@ _A1 · Python-only (deterministic)_
 24. S23
 25. S24
 26. S25
+
+#### 7. teaser-runbook  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. Pydantic extra="forbid" rejects unknown fields → no silent typos
+2. minlength / maxlength enforces 3 advantages, 3 engines, 3 threats, 3 disqualifiers
+3. evidencesources requires at least 2 entries → RIG min-2-source rule
+4. confidence must be H/M/L → forces explicit downgrade when evidence is weak
+5. ProofPacket auto-generated → every external send has audit trail
+6. FalsificationPacket auto-generated per engine → "what would prove this wrong"
+
+#### 8. teaser-runbook  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. index.html — drops onto the prospect's cloned site as the homepage hero/wedge
+2. teaser.md — for cold email body, LinkedIn DM thread starter, or PDF render
+3. teaserinput.json — input snapshot (audit trail)
+4. proofpacket.json — ProofPacket + FalsificationPacket + quality result
+
+#### 9. lattice-cell-route  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. parse_question
+2. classify_altitude
+3. classify_diamond
+4. map_iqrsqpi_step
+5. resolve_cell_id
+6. emit_routing_record
+
+#### 10. bms-mode-select  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_cell
+2. read_cost_band
+3. estimate_complexity
+4. check_bms_threshold
+5. assign_mode
+6. record_decision
+
+#### 11. bms-escalation-ladder  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. run_current_mode
+2. check_done_contract
+3. on_fail_check_cost_cap
+4. escalate_one_band
+5. re_run
+6. seal_or_halt
+
+#### 12. iqrsqpi-pipeline-run  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. intent_capture
+2. question_frame
+3. research_gather
+4. solution_synthesize
+5. quality_gate
+6. proof_seal
+7. integrate_memory
+
+#### 13. archetype-dispatch  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_intent_map
+2. select_archetype
+3. bind_engines
+4. execute_archetype
+5. collect_outputs
+6. return_envelope
+
+#### 14. run-envelope-create  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_context
+2. init_run_id
+3. define_done_contract
+4. set_cost_cap
+5. attach_kill_criteria
+6. persist_envelope
+
+#### 15. intent-map-resolve  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. detect_domain
+2. load_intent_yaml
+3. map_intents_to_engines
+4. validate_coverage
+5. emit_plan
+
+#### 16. orchestrator-parallel-fanout  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. partition_cells
+2. spawn_workers
+3. run_parallel
+4. collect_results
+5. reconcile_conflicts
+6. merge_envelope
+
+#### 17. omniscout-daily-cycle  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_source_registry
+2. run_collectors
+3. dedupe_items
+4. score_freshness
+5. write_adtb
+6. emit_digest
+
+#### 18. arxiv-collect  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. query_arxiv
+2. fetch_metadata
+3. parse_abstracts
+4. tag_topics
+5. write_heb
+6. register_source
+
+#### 19. github-signal-collect  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. query_repos
+2. fetch_commits_releases
+3. extract_signals
+4. score_relevance
+5. write_adtb
+6. register_source
+
+#### 20. web-evidence-collect  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. resolve_urls
+2. fetch_pages
+3. extract_text
+4. cite_sources
+5. score_quality
+6. write_lake
+
+#### 21. prediction-market-collect  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. query_markets
+2. fetch_contracts
+3. normalize_probabilities
+4. map_to_questions
+5. write_priors
+6. register_source
+
+#### 22. internal-docs-ingest  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. enumerate_docs
+2. chunk_content
+3. embed_or_index
+4. tag_provenance
+5. write_lake
+6. update_registry
+
+#### 23. lakeos-retrieve  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. build_query
+2. call_lakeos
+3. check_results
+4. on_empty_return_unknown
+5. cite_sources
+6. return_evidence
+
+#### 24. recall-evidence-pull  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. auth_recall
+2. fetch_latest_or_ids
+3. filter_relevant
+4. normalize
+5. cite
+6. merge_evidence
+
+#### 25. source-registry-sync  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_registry
+2. diff_collected
+3. add_new_sources
+4. flag_stale
+5. write_registry
+6. emit_report
+
+#### 26. evidence-score  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_items
+2. score_authority
+3. score_recency
+4. score_independence
+5. rank_items
+6. emit_scores
+
+#### 27. contradiction-detect  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_evidence
+2. cluster_claims
+3. compare_pairs
+4. flag_contradictions
+5. rank_severity
+6. emit_report
+
+#### 28. evidence-graph-build  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. extract_claims
+2. link_evidence
+3. build_nodes_edges
+4. score_support
+5. render_graph
+6. persist
+
+#### 29. unknown-policy-enforce  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. check_claim_citations
+2. count_sources
+3. if_below_min_flag_unknown
+4. emit_indexing_request
+5. block_output
+
+#### 30. calibration-curve-build  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_resolved
+2. bucket_by_confidence
+3. compute_hit_rate
+4. fit_curve
+5. render_reliability
+6. persist
+
+#### 31. brier-monitor  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_scores
+2. compute_rolling_brier
+3. compare_baseline
+4. detect_drift
+5. emit_alert
+6. log_metric
+
+#### 32. bayesian-update  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_prior
+2. ingest_new_evidence
+3. compute_likelihood_ratio
+4. apply_bayes
+5. record_posterior
+6. log_delta
+
+#### 33. b29-strategy-synthesize  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. gather_evidence
+2. frame_objective
+3. generate_options
+4. score_options
+5. rank
+6. seal_synthesis
+
+#### 34. b31-consensus-delta  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. load_current_consensus
+2. ingest_new_research
+3. compute_delta
+4. flag_belief_shifts
+5. update_consensus
+6. log
+
+#### 35. b33-falsify  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. state_belief
+2. enumerate_disconfirmers
+3. design_tests
+4. run_or_simulate
+5. score_survival
+6. seal_falsification_packet
+
+#### 36. b37-risk-assess  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_strategy
+2. enumerate_risks
+3. score_likelihood
+4. score_impact
+5. rank_matrix
+6. emit_register
+
+#### 37. b40-market-sizing  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. gather_inputs
+2. select_method
+3. compute_tam_sam_som
+4. sensitivity_bands
+5. cite_sources
+6. emit_sizing
+
+#### 38. b43-competitive-positioning  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. load_competitors
+2. define_axes
+3. plot_positions
+4. find_whitespace
+5. recommend_position
+6. render_map
+
+#### 39. b44-timeline-plan  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_objectives
+2. decompose_milestones
+3. map_dependencies
+4. assign_durations
+5. critical_path
+6. emit_timeline
+
+#### 40. b45-budget-allocate  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_initiatives
+2. estimate_costs
+3. set_constraints
+4. optimize_allocation
+5. sensitivity
+6. emit_budget
+
+#### 41. b46-impact-assess  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. load_decision
+2. define_metrics
+3. model_impact
+4. range_scenarios
+5. score_confidence
+6. emit_assessment
+
+#### 42. forecast-lifecycle-run  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. capture_signals
+2. set_priors
+3. build_ensemble
+4. emit_forecast
+5. await_resolution
+6. score_record
+
+#### 43. prediction-crux  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. frame_question
+2. decompose_cruxes
+3. identify_drivers
+4. assign_variables
+5. rank_sensitivity
+6. emit_cruxes
+
+#### 44. market-prior-extract  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. map_question_to_markets
+2. fetch_market_probs
+3. blend_priors
+4. weight_by_liquidity
+5. emit_prior
+6. cite
+
+#### 45. ensemble-aggregate  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. collect_member_forecasts
+2. score_member_track_records
+3. weight_members
+4. aggregate
+5. compute_dispersion
+6. emit_ensemble
+
+#### 46. missing-info-score  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_question
+2. enumerate_unknowns
+3. score_info_value
+4. rank_gaps
+5. emit_indexing_requests
+6. block_if_critical
+
+#### 47. causal-thesis-tree  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. state_thesis
+2. build_causal_nodes
+3. add_inversion_tests
+4. add_friction_points
+5. score_fragility
+6. render_tree
+
+#### 48. forecast-resolution  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_open_forecast
+2. fetch_outcome
+3. mark_resolved
+4. compute_brier_log
+5. write_postmortem
+6. update_calibration
+
+#### 49. forecast-postmortem  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. load_resolved
+2. diff_prior_vs_outcome
+3. identify_errors
+4. extract_lessons
+5. update_priors
+6. log_lessons
+
+#### 50. b36-market-wargame  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. load_market_state
+2. enumerate_competitor_moves
+3. simulate_rounds
+4. generate_rig_responses
+5. score_outcomes
+6. seal_wargame
+
+#### 51. b42-competitor-intel  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. collect_competitor_signals
+2. detect_changes
+3. assess_threat
+4. generate_response_options
+5. rank
+6. emit_brief
+
+#### 52. b41-client-intel  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. gather_prospect_evidence
+2. identify_pain
+3. map_wedge
+4. draft_offer_angles
+5. score_fit
+6. emit_wedge_brief
+
+#### 53. competitor-move-watch  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_watchlist
+2. poll_signals
+3. diff_state
+4. flag_material_moves
+5. notify
+6. log
+
+#### 54. wargame-counter-move-tree  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. define_actors
+2. set_payoffs
+3. expand_move_tree
+4. prune_dominated
+5. find_equilibria
+6. render_tree
+
+#### 55. client-account-dossier  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. gather_firmographics
+2. pull_evidence
+3. map_stakeholders
+4. identify_triggers
+5. synthesize_dossier
+6. cite
+
+#### 56. mcda-decision-run  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_options
+2. define_criteria
+3. weight_criteria
+4. score_matrix
+5. rank_options
+6. emit_recommendation
+
+#### 57. sensitivity-tornado  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_decision_model
+2. vary_inputs
+3. measure_swing
+4. rank_drivers
+5. render_tornado
+6. emit_report
+
+#### 58. value-of-information  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_decision
+2. enumerate_info_items
+3. model_outcome_shift
+4. compute_voi
+5. rank_items
+6. recommend_gather
+
+#### 59. decision-record-seal  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_decision
+2. capture_rationale
+3. attach_evidence
+4. record_dissent
+5. seal_record
+6. persist
+
+#### 60. decision-room-session  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. frame_decision
+2. load_options
+3. run_mcda
+4. run_sensitivity
+5. run_voi
+6. seal_decision_record
+
+#### 61. board-deck-generate  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. load_analysis
+2. outline_narrative
+3. select_slide_types
+4. generate_charts
+5. assemble_deck
+6. export_html
+
+#### 62. exec-summary-generate  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_analysis
+2. extract_key_points
+3. draft_summary
+4. tighten_length
+5. cite_sources
+6. emit_doc
+
+#### 63. pptx-export  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_deck_spec
+2. map_to_slides
+3. build_pptx
+4. embed_charts
+5. validate_file
+6. write_output
+
+#### 64. excalidraw-strategy-map  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. map_concepts_to_shapes
+2. place_evidence_artifacts
+3. write_excalidraw
+4. render_png
+5. inspect_layout
+6. iterate_fix
+
+#### 65. hed-walkthrough-build  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_topic
+2. outline_hierarchy
+3. write_sections
+4. embed_diagrams
+5. cross_link
+6. emit_hed
+
+#### 66. visual-strategy-map-render  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. select_layout_archetype
+2. bind_data
+3. compute_positions
+4. render_svg
+5. export_png
+6. persist
+
+#### 67. output-studio-bundle  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. collect_artifacts
+2. validate_completeness
+3. bundle_manifest
+4. attach_proofpacket
+5. zip_bundle
+6. emit_path
+
+#### 68. teaser-generate  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_prospect
+2. pull_wedge_brief
+3. fill_templates
+4. render_assets
+5. validate
+6. emit_teaser
+
+#### 69. teaser-batch-run  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_prospect_jsonl
+2. partition_batches
+3. run_per_prospect
+4. collect_outputs
+5. write_failed_log
+6. emit_summary
+
+#### 70. gtm-pack-build  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. load_strategy
+2. segment_prospects
+3. generate_messaging
+4. assemble_pack
+5. attach_evidence
+6. emit_pack
+
+#### 71. regional-gtm-pack  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_region_inputs
+2. filter_prospects
+3. localize_messaging
+4. build_workbook
+5. validate
+6. emit_workbook
+
+#### 72. industry-playbook-apply  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. select_industry
+2. load_playbook_kpis
+3. benchmark_target
+4. select_strategic_options
+5. tailor
+6. emit_plan
+
+#### 73. gtm-campaign-generate  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. load_context
+2. create_run_envelope
+3. create_done_contract
+4. generate_campaign
+5. kill_criteria_check
+6. seal_proofpacket
+7. approval_gate
+8. memory_update
+
+#### 74. twenty-crm-sync  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_records
+2. map_to_twenty_schema
+3. diff_existing
+4. upsert_records
+5. verify_write
+6. log_sync
+
+#### 75. prospect-import-bulk  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_prospect_jsonl
+2. validate_rows
+3. dedupe_against_crm
+4. batch_upsert
+5. verify_counts
+6. emit_report
+
+#### 76. gtm-crm-launch  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. check_env
+2. start_service
+3. health_probe
+4. seed_data
+5. confirm_ready
+6. log_launch
+
+#### 77. artifact-serve  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. collect_artifacts
+2. build_index
+3. start_server
+4. expose_url
+5. log_access
+6. on_stop_teardown
+
+#### 78. external-send-gate  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. load_deliverable
+2. verify_proofpacket
+3. verify_falsification
+4. human_approval_gate
+5. send
+6. log_receipt
+
+#### 79. proofpacket-seal  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. collect_inputs
+2. hash_artifacts
+3. attach_citations
+4. record_costs
+5. sign_packet
+6. persist
+
+#### 80. falsification-packet-build  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. state_claim
+2. list_disconfirmers
+3. design_tests
+4. record_results
+5. score_survival
+6. seal_packet
+
+#### 81. kill-criteria-check  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_kill_criteria
+2. measure_signals
+3. compare_thresholds
+4. decide_continue_or_kill
+5. log_decision
+6. on_kill_halt
+
+#### 82. approval-gate  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. assemble_review_bundle
+2. present_to_human
+3. capture_decision
+4. on_approve_proceed
+5. on_reject_loopback
+6. log
+
+#### 83. drift-track  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_baseline
+2. load_current
+3. compute_drift
+4. flag_material_drift
+5. emit_drift_report
+6. update_baseline
+
+#### 84. memory-update  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. collect_decisions
+2. dedupe_against_memory
+3. write_records
+4. update_index
+5. confirm_persisted
+6. log
+
+#### 85. quality-gate-run  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_output
+2. check_evidence_min
+3. check_falsification
+4. check_proofpacket
+5. score_quality
+6. pass_or_block
+
+#### 86. config-manage  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_config
+2. validate_keys
+3. apply_change
+4. persist
+5. emit_effective_config
+
+#### 87. cli-command-dispatch  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. parse_args
+2. resolve_command
+3. bind_options
+4. invoke_handler
+5. format_output
+6. return_json
+
+#### 88. cli-wizard-session  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. greet
+2. collect_intent
+3. suggest_archetype
+4. confirm_options
+5. run_session
+6. present_results
+
+#### 89. session-lifecycle-run  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. init_session
+2. resolve_intent_map
+3. run_pipeline
+4. collect_deliverables
+5. seal_proofpacket
+6. close_session
+
+#### 90. eval-harness-run  `A2`
+
+_A2 · Hybrid (schema-constrained LLM)_
+
+1. load_eval_cases
+2. run_engines
+3. score_outputs
+4. compare_baseline
+5. emit_eval_report
+6. flag_regressions
+
+#### 91. build-card-generate  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_cells
+2. resolve_engine_bindings
+3. render_card_spec
+4. validate_schema
+5. write_cards
+6. emit_index
+
+#### 92. card-workflow-verify  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_cards
+2. load_workflows
+3. match_steps
+4. flag_mismatches
+5. emit_verification_report
+6. exit_code
+
+#### 93. contract-version-bump  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. load_current_contract
+2. diff_schema
+3. bump_version
+4. write_migration
+5. validate_back_compat
+6. publish
 <!-- AGENTFORGE:WORKFLOWS END -->

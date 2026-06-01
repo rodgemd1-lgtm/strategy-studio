@@ -1,0 +1,60 @@
+{
+  "domains": {
+    "autonomous_execution": 10.0,
+    "communication_quality": 10.0,
+    "learning_self_improvement": 7.0,
+    "memory_context": 10.0,
+    "multi_agent_orchestration": 10.0,
+    "multi_system_integration": 4.0,
+    "personal_context_depth": 10.0,
+    "proactive_intelligence": 10.0,
+    "reliability_error_recovery": 7.0
+  },
+  "evidence": {
+    "agents": 20,
+    "cognitive_kinds": 2,
+    "has_agents_runbook": true,
+    "has_business_pipeline": true,
+    "has_cognitive_scaffold": true,
+    "has_cost_controls": true,
+    "has_dashboard": true,
+    "has_docs": true,
+    "has_gates": true,
+    "has_governance": true,
+    "has_memory_store": true,
+    "has_proofs": false,
+    "has_security": false,
+    "has_self_evolution": false,
+    "has_skills": true,
+    "has_tests": true,
+    "processes": 8,
+    "proof_count": 0,
+    "repo": "strategy-studio",
+    "test_count": 28,
+    "workflows": 0
+  },
+  "layers": {
+    "ai_employees": 10.0,
+    "autonomous_pipeline": 8.0,
+    "business_pipeline": 10.0,
+    "cognitive_memory": 10.0,
+    "cost": 10.0,
+    "dashboard_ops": 10.0,
+    "identity": 10.0,
+    "security": 5.0,
+    "self_evolution": 4.0,
+    "skill_library": 9.0
+  },
+  "overall": 86.3158,
+  "repo": "strategy-studio",
+  "strategy_scores": {
+    "autonomy": 0.7,
+    "cognition": 1.0,
+    "determinism": 0.7,
+    "deviation": 0.7,
+    "evaluation": 1.0,
+    "governance": 0.6,
+    "memory": 1.0,
+    "observability": 1.0
+  }
+}

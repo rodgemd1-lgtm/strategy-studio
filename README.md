@@ -266,3 +266,124 @@ CLI contract:
 - Standard: [https://github.com/rodgemd1-lgtm/Startup-Intelligence-OS/blob/claude/rig-sovereign-audit-mesh/docs/repositories/repo-cli-standard.md](https://github.com/rodgemd1-lgtm/Startup-Intelligence-OS/blob/claude/rig-sovereign-audit-mesh/docs/repositories/repo-cli-standard.md)
 
 <!-- RIG-CLI:END -->
+
+<!-- AGENTFORGE:WORKFLOWS START -->
+## AgentForge Workflows
+
+**Repo maturity:** `86.32 / 100`
+
+### 10x Plan
+
+
+**Visual workflow designer:** [.agentforge/workflows.html](.agentforge/workflows.html)
+
+### Workflows (editable)
+
+> These workflows live in the README and are editable here. Each is a `WorkflowDoc` (`name` · BMS mode · ordered steps) that round-trips losslessly with the visual designer and the agent IR.
+
+#### 1. AGENTS  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. Evidence required: min 2 cited sources per claim
+2. Falsification gate: strategy outputs must have falsification packet
+3. Proof packet: every external send needs a strategy proof packet
+4. UNKNOWN policy: if LakeOS has no cited result, return UNKNOWN + request indexing
+
+#### 2. AGENTS  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. LakeOS CLI: /Users/mikerodgers/rig-lab/phronema/scripts/lakeoscli.py
+2. LakeOS REST: http://127.0.0.1:8788
+3. Recall API: https://backend.getrecall.ai/api/v1
+4. QNAP Lake: /Users/mikerodgers/mnt/RIGQNAP-RIGLake-LAN/RIG/phronema/lake
+
+#### 3. AGENTS  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. Map concepts to shape arrangements (fan-out, timeline, convergence, decision, feedback loops).
+2. Embed concrete evidence artifacts (code snippets, JSON payloads, event names, API shapes).
+3. After writing the .excalidraw file, run the render pipeline to produce a PNG,
+4. Brand colors live in .codex/skills/excalidraw-diagram/references/color-palette.md.
+
+#### 4. Strategy Process Domain  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. Strategy Synthesis (B29) — evidence → ranked options
+2. Market Wargame (B36) — competitor moves → RIG responses
+3. Competitor Intelligence (B42) — competitor changes → response options
+4. Client Intelligence (B41) — prospect evidence → wedge offers
+5. Prediction Crux (B34) — questions → forecast variables
+6. Falsification (B33) — beliefs → disprove tests
+7. Consensus Delta (B31) — new research → belief updates
+8. GTM Planning — strategy → go-to-market plans
+
+#### 5. Per-prospect Codex workflow  `A4`
+
+_A4 · LLM-agent-free (crew)_
+
+1. LakeOS query   → company facts (employees, revenue, HQ, industry, capabilities)
+2. recall.it search → industry analog + comparable transaction
+3. Web research    → CEO / strategy lead / functional buyer (contactname + role)
+4. Synthesis       → wound, mechanismname, mechanismdescription (NEVER generic)
+5. Three engines  → product line × flywheel type × revenue target (must cite source)
+6. Three threats  → Tier 1/2/3 with horizon + keyfact + SW score
+7. Three disqualifiers → reasons RIG would walk
+8. Three advantages → things they don't see in themselves
+9. Validate against TeaserInput schema
+10. Append to prospects2000.jsonl
+
+#### 6. teaser-runbook  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. index.html — drops onto the prospect's cloned site as the homepage hero/wedge
+2. teaser.md — for cold email body, LinkedIn DM thread starter, or PDF render
+3. teaserinput.json — input snapshot (audit trail)
+4. proofpacket.json — ProofPacket + FalsificationPacket + quality result
+
+#### 7. teaser-runbook  `A3`
+
+_A3 · Agent-bounded (budget-capped)_
+
+1. Pydantic extra="forbid" rejects unknown fields → no silent typos
+2. minlength / maxlength enforces 3 advantages, 3 engines, 3 threats, 3 disqualifiers
+3. evidencesources requires at least 2 entries → RIG min-2-source rule
+4. confidence must be H/M/L → forces explicit downgrade when evidence is weak
+5. ProofPacket auto-generated → every external send has audit trail
+6. FalsificationPacket auto-generated per engine → "what would prove this wrong"
+
+#### 8. strategy  `A1`
+
+_A1 · Python-only (deterministic)_
+
+1. S0
+2. S1
+3. S2
+4. S3
+5. S4
+6. S5
+7. S6
+8. S7
+9. S8
+10. S9
+11. S10
+12. S11
+13. S12
+14. S13
+15. S14
+16. S15
+17. S16
+18. S17
+19. S18
+20. S19
+21. S20
+22. S21
+23. S22
+24. S23
+25. S24
+26. S25
+<!-- AGENTFORGE:WORKFLOWS END -->
